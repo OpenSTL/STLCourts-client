@@ -461,7 +461,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'Production',
-            apiEndpoint: 'http://gh-web-services.herokuapp.com/inveo-api/'
+            apiEndpoint: 'https://gh-web-services.herokuapp.com/inveo-api/'
           }
         }
       }
