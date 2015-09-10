@@ -1,4 +1,3 @@
-// Generated on 2015-09-10 using generator-angular 0.12.1
 'use strict';
 
 // # Globbing
@@ -8,6 +7,9 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -81,14 +83,8 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect().use(
-                '/app/styles',
-                connect.static('./app/styles')
-              ),
+              connect().use('/bower_components', connect.static('./bower_components')),
+              connect().use('/app/styles', connect.static('./app/styles')),
               connect.static(appConfig.app)
             ];
           }
@@ -101,10 +97,7 @@ module.exports = function (grunt) {
             return [
               connect.static('.tmp'),
               connect.static('test'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
+              connect().use('/bower_components', connect.static('./bower_components')),
               connect.static(appConfig.app)
             ];
           }
@@ -160,7 +153,7 @@ module.exports = function (grunt) {
       },
       server: {
         options: {
-          map: true,
+          map: true
         },
         files: [{
           expand: true,
@@ -438,17 +431,84 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    ngconstant: {
+      // Options for all targets
+      options: {
+        space: '  ',
+        wrap: '\'use strict\';\n\n {%= __ngModule %}'
+      },
+      // Environment targets
+      envLocal:{
+        // This should point to the machine running debuggable services
+        options: {
+          name: 'envConfig',
+          dest: '<%= yeoman.app %>/scripts/envConfig.js'
+        },
+        constants: {
+          ENV: {
+            name: 'Local',
+            apiEndpoint: 'http://localhost:8080/inveo-api/'
+          }
+        }
+      },
+      envProduction: {
+        options: {
+          name: 'envConfig',
+          dest: '<%= yeoman.app %>/scripts/envConfig.js'
+        },
+        constants: {
+          ENV: {
+            name: 'Production',
+            apiEndpoint: 'http://gh-web-services.herokuapp.com/inveo-api/'
+          }
+        }
+      }
     }
   });
 
+  // Helper Functions
+  // Expects build options in the form grunt target:option-option
+  var processBuildOptions = function(arg1) {
 
-  grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+    grunt.log.writeln('Processing Build Options: ' + arg1);
+
+    if (arg1 === undefined || arg1 === null)
+    {
+      grunt.fail.warn('Some/All build options were not present. Aborting Build.');
+      return;
     }
+
+    var configurations = [];
+
+    var targetEnvironment = arg1;
+    if (targetEnvironment === 'Local' || targetEnvironment === 'local')
+    {
+      targetEnvironment = 'envLocal';
+    }
+    else if (targetEnvironment === 'Production' || targetEnvironment === 'production' ||
+      targetEnvironment === 'Prod'       || targetEnvironment === 'prod')
+    {
+      targetEnvironment = 'envProduction';
+    }
+    else
+    {
+      grunt.fail.warn('Unable to determine environment configuration to use.');
+      return;
+    }
+    configurations[0] = targetEnvironment;
+
+    return configurations;
+  };
+
+  grunt.registerTask('serve', 'Run the project from the app folder', function (arg1) {
+
+    var buildOptions = processBuildOptions(arg1);
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:' + buildOptions[0],
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -457,41 +517,64 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve:' + target]);
+  // User Build Targets [build, serve, test]
+  grunt.registerTask('build', 'Compile the project to the dist folder', function(arg1) {
+
+    var buildOptions = processBuildOptions(arg1);
+
+    grunt.task.run([
+      'clean:dist',
+      'ngconstant:' + buildOptions[0],
+      'wiredep',
+      'useminPrepare',
+      'copy:styles',
+      'concurrent:dist',
+      'autoprefixer',
+      'ngtemplates',
+      'concat',
+      'ngAnnotate',
+      'copy:dist',
+      'cdnify',
+      'cssmin',
+      'uglify',
+      'filerev',
+      'usemin',
+      'htmlmin'
+    ]);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'wiredep',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma'
-  ]);
+  grunt.registerTask('serveDist', 'Run the project from a built dist folder', function (arg1) {
 
-  grunt.registerTask('build', [
-    'clean:dist',
-    'wiredep',
-    'useminPrepare',
-    'concurrent:dist',
-    'autoprefixer',
-    'ngtemplates',
-    'concat',
-    'ngAnnotate',
-    'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'filerev',
-    'usemin',
-    'htmlmin'
-  ]);
+    grunt.task.run([
+      'build:' + arg1,
+      'connect:dist:keepalive'
+    ]);
+  });
 
-  grunt.registerTask('default', [
-    'newer:jshint',
-    'test',
-    'build'
-  ]);
+  grunt.registerTask('test', 'Run the project from a built dist folder', function (arg1) {
+
+    var buildOptions = processBuildOptions(arg1);
+
+    grunt.task.run([
+      'clean:server',
+      'wiredep',
+      'ngconstant:' + buildOptions[0],
+      'concurrent:test',
+      'concurrent:test',
+      'connect:test',
+      'karma'
+    ]);
+  });
+
+  grunt.registerTask('default', 'Display grunt options for this project', function () {
+    grunt.log.writeln('Display Sell-In Build Options:');
+    grunt.log.writeln(' - Build');
+    grunt.log.writeln(' - Serve');
+    grunt.log.writeln(' - ServeDist');
+    grunt.log.writeln(' - Test [No Arguments Needed]');
+    grunt.log.writeln('');
+    grunt.log.writeln('Required Arguments:');
+    grunt.log.writeln(' - Environment : [local/dev/qa/prod]');
+    grunt.log.writeln(' - Deployment : [corp/ind]');
+  });
 };

@@ -8,9 +8,5 @@
  *
  * Main module of the application.
  */
-angular
-  .module('ghAngularApp', [
-    'ngResource',
-    'ngSanitize',
-    'ngTouch'
-  ]);
+
+angular.module('ghAngularApp', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig']);

@@ -1,17 +1,10 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name ghAngularApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the ghAngularApp
- */
-angular.module('ghAngularApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+angular.module('ghAngularApp').controller('MainCtrl', function ($http, ENV) {
+  //TODO: This is just temp code to verify things work
+  $http.get(ENV.apiEndpoint + 'userData').then(function(){
+    console.log('SUCCESS');
+  }, function(){
+    console.error('FAIL');
   });
+});
