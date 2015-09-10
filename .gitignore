@@ -4,3 +4,5 @@
 /bower_components
 **/.idea/workspace.xml
 **/.idea/tasks.xml
+
+app/scripts/envConfig.js
