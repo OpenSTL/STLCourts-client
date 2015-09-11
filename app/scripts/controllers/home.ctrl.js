@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('MainCtrl', function ($http, ENV) {
+angular.module('ghAngularApp').controller('HomeCtrl', function (API) {
   //TODO: This is just temp code to verify things work
-  $http.get(ENV.apiEndpoint + 'userData').then(function(){
+  API.get('userData').then(function(){
     console.log('SUCCESS');
   }, function(){
     console.error('FAIL');
