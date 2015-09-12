@@ -11,6 +11,42 @@ angular.module('ghAngularApp').controller('HomeCtrl', function ($scope, esriRegi
     }
   };
 
+  ctrl.hasEverSelected = false;
+  var optionSelectedMap = {
+    TICKET_NUMBER : false,
+    DRIVER_INFO : false,
+    LOCATION : false
+  };
+
+  ctrl.isUnselected = function(option){
+    return !optionSelectedMap[option] && ctrl.hasEverSelected;
+  };
+
+  ctrl.isSelected = function(option ){
+    return optionSelectedMap[option];
+  };
+
+  ctrl.getTicketWithNumber = function(){
+    ctrl.hasEverSelected = true;
+    optionSelectedMap.TICKET_NUMBER = true;
+    optionSelectedMap.DRIVER_INFO = false;
+    optionSelectedMap.LOCATION = false;
+  };
+
+  ctrl.getTicketWithDriverInfo = function(){
+    ctrl.hasEverSelected = true;
+    optionSelectedMap.TICKET_NUMBER = false;
+    optionSelectedMap.DRIVER_INFO = true;
+    optionSelectedMap.LOCATION = false;
+  };
+
+  ctrl.getTicketWithLocation = function(){
+    ctrl.hasEverSelected = true;
+    optionSelectedMap.TICKET_NUMBER = false;
+    optionSelectedMap.DRIVER_INFO = false;
+    optionSelectedMap.LOCATION = true;
+  };
+
   function onMapClick(map, evt) {
     var selectionQuery = new esri.tasks.Query();
     console.log(selectionQuery);

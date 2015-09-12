@@ -1,3 +1,42 @@
-<esri-map id="map" map-options="ctrl.map.options" register-as="stlMap">
-  <esri-feature-layer url="//maps.stlouisco.com/arcgis/rest/services/OpenData/OpenData/FeatureServer/5"></esri-feature-layer>
-</esri-map>
+<div>
+  <div class="jumbotron accent">
+    <div class="container">
+      <h1>Get Ticket Info</h1>
+      <!--<h2><small>Use one of these options:</small></h2>-->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="thumbnail homepageTile centered" ng-hide="ctrl.isSelected('TICKET_NUMBER')" ng-class="{'unselected' : ctrl.isUnselected('TICKET_NUMBER')}" ng-click="ctrl.getTicketWithNumber()">
+            <h3>Do you have your ticket #?</h3>
+            <i class="fa fa-newspaper-o fa-5x"></i>
+          </div>
+          <div class="thumbnail homepageTile centered" ng-hide="!ctrl.isSelected('TICKET_NUMBER')">
+            Enter ticket info:
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="thumbnail homepageTile centered" ng-hide="ctrl.isSelected('DRIVER_INFO')" ng-class="{'unselected' : ctrl.isUnselected('DRIVER_INFO')}" ng-click="ctrl.getTicketWithDriverInfo()">
+            <h3>Do you have your driver's license info?</h3>
+            <i class="fa fa-car fa-5x"></i>
+          </div>
+          <div class="thumbnail homepageTile centered" ng-hide="!ctrl.isSelected('DRIVER_INFO')">
+            Enter driver info:
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="thumbnail homepageTile centered" ng-hide="ctrl.isSelected('LOCATION')" ng-class="{'unselected' : ctrl.isUnselected('LOCATION')}" ng-click="ctrl.getTicketWithLocation()">
+            <h3>Where did you get your ticket?</h3>
+            <i class="fa fa-map-marker fa-5x"></i>
+          </div>
+          <div class="thumbnail homepageTile centered" ng-hide="!ctrl.isSelected('LOCATION')">
+            Where did the cop touch you?
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <!--<esri-map id="map" map-options="ctrl.map.options" register-as="stlMap">-->
+      <!--<esri-feature-layer url="//maps.stlouisco.com/arcgis/rest/services/OpenData/OpenData/FeatureServer/5"></esri-feature-layer>-->
+    <!--</esri-map>-->
+  </div>
+</div>

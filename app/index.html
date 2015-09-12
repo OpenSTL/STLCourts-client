@@ -8,8 +8,10 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.14/esri/css/esri.css">
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -18,13 +20,11 @@
   <body ng-app="ghAngularApp">
     <div ng-include="'views/header.html'"></div>
 
-    <div class="container">
-      <div id="mainContent" ui-view></div>
-    </div>
+    <div id="mainContent" ui-view></div>
 
     <footer>
       <div class="container">
-        <p>Some footer info</p>
+        <p>&copy; Globalhack 5 Team Inveo</p>
       </div>
     </footer>
 

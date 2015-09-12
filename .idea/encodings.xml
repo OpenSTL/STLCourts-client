@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/app/scripts/services/API.svc.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/Citations.svc.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/Courts.svc.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/styles/_colors.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/styles/main.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/header.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/home.html" charset="UTF-8" />
