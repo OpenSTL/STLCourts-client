@@ -1,15 +1,6 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name ghAngularApp
- * @description
- * # ghAngularApp
- *
- * Main module of the application.
- */
-
-angular.module('ghAngularApp', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router']);
+angular.module('ghAngularApp', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'esri.map']);
 
 angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
