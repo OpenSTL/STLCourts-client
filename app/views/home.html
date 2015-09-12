@@ -1,42 +1,76 @@
 <div>
   <div class="jumbotron accent">
     <div class="container">
-      <h1>Get Ticket Info</h1>
+      <h2 style="margin: 20px 0px;">Get Ticket Info</h2>
       <!--<h2><small>Use one of these options:</small></h2>-->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="thumbnail homepageTile centered" ng-hide="ctrl.isSelected('TICKET_NUMBER')" ng-class="{'unselected' : ctrl.isUnselected('TICKET_NUMBER')}" ng-click="ctrl.getTicketWithNumber()">
-            <h3>Do you have your ticket #?</h3>
-            <i class="fa fa-newspaper-o fa-5x"></i>
+      <form name="citationCriteriaFrm" ng-submit="ctrl.findTicket(citationCriteriaFrm)" novalidate ng-submit-force="true">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="thumbnail homepageTile centered" ng-hide="ctrl.isSelected('TICKET_NUMBER')" ng-class="{'unselected' : ctrl.isUnselected('TICKET_NUMBER')}" ng-click="ctrl.getTicketWithNumber()">
+              <h3>Do you have your ticket #?</h3>
+              <div class="homePageTileIcon">
+                <i class="fa fa-newspaper-o fa-5x"></i>
+              </div>
+            </div>
+            <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected('TICKET_NUMBER')">
+              <span class="primary"><i class="fa fa-newspaper-o fa-lg"></i>&nbsp;Do you have your ticket #?</span><br/><br/>
+              <form-field label="Ticket #" required>
+                <input type="text" ng-model="ctrl.citationCriteria.citationNumber" required ng-maxlength="12" displayName="Ticket #" />
+              </form-field>
+            </div>
+            <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('TICKET_NUMBER')">
+              <div class="col-sm-12" style="text-align: center;">
+                <button class="btn btn-success btn-lg" ng-disabled="!ctrl.canSubmit(citationCriteriaFrm)" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+              </div>
+            </div>
           </div>
-          <div class="thumbnail homepageTile centered" ng-hide="!ctrl.isSelected('TICKET_NUMBER')">
-            Enter ticket info:
+          <div class="col-md-4">
+            <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected('DRIVER_INFO')" ng-class="{'unselected' : ctrl.isUnselected('DRIVER_INFO')}" ng-click="ctrl.getTicketWithDriverInfo()">
+              <h3>Do you have your driver's license info?</h3>
+              <div class="homePageTileIcon">
+                <i class="fa fa-car fa-5x"></i>
+              </div>
+            </div>
+            <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected('DRIVER_INFO')">
+              <span class="primary"><i class="fa fa-car fa-lg"></i>&nbsp;Do you have your driver's license info?</span><br/><br/>
+              <form-field label="License #" required>
+                <input type="text" ng-model="ctrl.citationCriteria.licenseNumber" ng-maxlength="12" displayName="License #" />
+              </form-field>
+              <form-field label="License State" required>
+                <ui-select id="selectedState" name="selectedState" register-custom-form-control displayName="License State" ng-model="ctrl.citationCriteria.licenseState" required>
+                  <ui-select-match placeholder="State">{{$select.selected}}</ui-select-match>
+                  <ui-select-choices repeat="state in ctrl.states | filter: $select.search">
+                    {{state}}
+                  </ui-select-choices>
+                </ui-select>
+              </form-field>
+            </div>
+            <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('DRIVER_INFO')">
+              <div class="col-sm-12" style="text-align: center;">
+                <button class="btn btn-success btn-lg" ng-disabled="!ctrl.canSubmit(citationCriteriaFrm)" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected('LOCATION')" ng-class="{'unselected' : ctrl.isUnselected('LOCATION')}" ng-click="ctrl.getTicketWithLocation()">
+              <h3>Where did you get your ticket?</h3>
+              <div class="homePageTileIcon">
+                <i class="fa fa-map-marker fa-5x"></i>
+              </div>
+            </div>
+            <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected('LOCATION')">
+              <!--<esri-map id="map" map-options="ctrl.map.options" register-as="stlMap">-->
+              <!--<esri-feature-layer url="//maps.stlouisco.com/arcgis/rest/services/OpenData/OpenData/FeatureServer/5"></esri-feature-layer>-->
+              <!--</esri-map>-->
+            </div>
+            <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('LOCATION')">
+              <div class="col-sm-12" style="text-align: center;">
+                <button class="btn btn-success btn-lg" ng-disabled="!ctrl.canSubmit(citationCriteriaFrm)" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="thumbnail homepageTile centered" ng-hide="ctrl.isSelected('DRIVER_INFO')" ng-class="{'unselected' : ctrl.isUnselected('DRIVER_INFO')}" ng-click="ctrl.getTicketWithDriverInfo()">
-            <h3>Do you have your driver's license info?</h3>
-            <i class="fa fa-car fa-5x"></i>
-          </div>
-          <div class="thumbnail homepageTile centered" ng-hide="!ctrl.isSelected('DRIVER_INFO')">
-            Enter driver info:
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="thumbnail homepageTile centered" ng-hide="ctrl.isSelected('LOCATION')" ng-class="{'unselected' : ctrl.isUnselected('LOCATION')}" ng-click="ctrl.getTicketWithLocation()">
-            <h3>Where did you get your ticket?</h3>
-            <i class="fa fa-map-marker fa-5x"></i>
-          </div>
-          <div class="thumbnail homepageTile centered" ng-hide="!ctrl.isSelected('LOCATION')">
-            Where did the cop touch you?
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
-  </div>
-  <div class="container">
-    <!--<esri-map id="map" map-options="ctrl.map.options" register-as="stlMap">-->
-      <!--<esri-feature-layer url="//maps.stlouisco.com/arcgis/rest/services/OpenData/OpenData/FeatureServer/5"></esri-feature-layer>-->
-    <!--</esri-map>-->
   </div>
 </div>

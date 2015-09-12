@@ -6,8 +6,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 @import "_colors";
 
-body {
+html, body {
   font-family: 'Roboto Condensed', sans-serif;
+  font-size: 94%;
 }
 
 #mainContent {
@@ -29,10 +30,14 @@ footer {
   height: 60px;
   line-height: 60px;
   text-align: center;
-  background-color: #f5f5f5;
+  background-color: $lightGrey;
 }
 
 h1 {
+  color: $blue;
+}
+
+h2 {
   color: $blue;
 }
 
@@ -60,8 +65,19 @@ h3 {
   text-align: center;
 }
 
+$homepageTileHeight : 250px;
+
 .homepageTile {
-  height: 200px;
+  height: $homepageTileHeight;
+  position: relative;
+}
+
+.homePageTileIcon {
+  position: absolute;
+  bottom: 50px;
+  text-align: center;
+  width: 100%;
+  font-size: 1.2em;
 }
 
 .homepageTile:hover {
@@ -71,4 +87,30 @@ h3 {
 
 .homepageTile.unselected {
   opacity: 0.5;
+}
+
+.homepageTileSelected {
+  padding: 10px;
+  height: $homepageTileHeight;
+}
+
+label {
+  color: $blue;
+  font-size: 1.2em;
+}
+
+.required {
+  display: inline-block;
+  color: #9D1C20;
+  text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
+  font-weight: bold;
+  vertical-align: top;
+}
+
+.ui-select-container {
+  padding: 0.32em !important;
+}
+
+.ui-select-bootstrap .ui-select-choices-row.active > a {
+  background-color: $lightBlue !important;
 }
