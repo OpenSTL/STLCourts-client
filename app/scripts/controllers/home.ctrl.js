@@ -1,6 +1,5 @@
 'use strict';
 
-/* global _ */
 angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toaster, States, municipalities, $modal, $state) {
   var ctrl = this;
   ctrl.states = States;

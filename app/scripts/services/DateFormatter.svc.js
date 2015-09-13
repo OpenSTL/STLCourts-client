@@ -1,5 +1,6 @@
 'use strict';
 
+/* jshint ignore:start */
 angular.module('ghAngularApp').factory('DateFormatter', function () {
   var dateFormat = {
     masks : {
@@ -110,3 +111,4 @@ angular.module('ghAngularApp').factory('DateFormatter', function () {
 
   return svc;
 });
+/* jshint ignore:end */

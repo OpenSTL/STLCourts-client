@@ -2,6 +2,7 @@
 
 angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInstance, DateFormatter) {
   var ctrl = this;
+
   ctrl.dob = null;
   ctrl.minDate = new Date(1900, 0, 1);
   ctrl.maxDate = new Date();

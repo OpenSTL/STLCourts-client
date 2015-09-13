@@ -4,7 +4,7 @@ angular.module('ghAngularApp').factory('Sponsor', function ($http) {
 
     function Login(credentials)
     {
-        $http;
+        $http.post(credentials);
     }
 
     return {
