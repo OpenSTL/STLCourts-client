@@ -15,6 +15,16 @@ angular.module('ghAngularApp').factory('Opportunities', function ($resource) {
     });
   }
 
+  function findNeeds(opportunityId) {
+    return $resource('opportunities/:id/needs').get({id : opportunityId}).$promise.then(function(response){
+      return response.needs;
+    });
+  }
+
+  function createNeed(opportunityId, need){
+    return $resource('opportunities/' + opportunityId + '/needs').save(need).$promise;
+  }
+
   function findById(opportunityId){
     return OpportunitiesResource.get({id: opportunityId}).$promise;
   }
@@ -27,7 +37,9 @@ angular.module('ghAngularApp').factory('Opportunities', function ($resource) {
     findById: findById,
     findByCourtId: findByCourtId,
     findBySponsorId: findBySponsorId,
-    create: create
+    create: create,
+    findNeeds: findNeeds,
+    createNeed: createNeed
   };
 
   return svc;
