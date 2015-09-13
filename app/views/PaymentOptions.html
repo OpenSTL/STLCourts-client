@@ -1,3 +1,14 @@
 <div class="container" style="margin-top: 10px">
-
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Payment Options</h3>
+            
+        </div>
+        <div class="col-sm-6">
+            <h3>Alternative Payment Opportunities</h3>
+            <div ng-repeat="opportunity in ctrl.opportunities">
+                {{opportunity.name}}
+            </div>
+        </div>
+    </div>
 </div>

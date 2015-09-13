@@ -1,7 +1,7 @@
 <div>
   <div class="accent">
     <div class="container">
-      <h2 class="secondaryAccent" style="margin-bottom: 20px;">Get Ticket Info</h2>
+      <h2 class="secondaryAccent" style="margin-bottom: 20px;">Pick an option to start finding your ticket:</h2>
       <!--<h2><small>Use one of these options:</small></h2>-->
       <form id="citationCriteriaFrm" name="citationCriteriaFrm" ng-submit="ctrl.getDOB(citationCriteriaFrm)" novalidate ng-submit-force="true">
         <div class="row">
@@ -20,7 +20,7 @@
             </div>
             <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('TICKET_NUMBER')">
               <div class="col-sm-12" style="text-align: center;">
-                <button class="btn btn-success btn-lg" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+                <button class="btn btn-success btn-lg" style="margin-bottom: 20px" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
               </div>
             </div>
           </div>
@@ -47,7 +47,7 @@
             </div>
             <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('DRIVER_INFO')">
               <div class="col-sm-12" style="text-align: center;">
-                <button class="btn btn-success btn-lg" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+                <button class="btn btn-success btn-lg" style="margin-bottom: 20px" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
               </div>
             </div>
           </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('LOCATION')">
               <div class="col-sm-12" style="text-align: center;">
-                <button class="btn btn-success btn-lg" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+                <button class="btn btn-success btn-lg" style="margin-bottom: 20px" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
               </div>
             </div>
           </div>
