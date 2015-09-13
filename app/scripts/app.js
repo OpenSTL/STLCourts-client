@@ -25,15 +25,20 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
         citations: { value : undefined }
       },
       resolve: {
-        citations: function($stateParams){
+        citations: function($stateParams) {
           return $stateParams.citations;
         }
       }
     })
     .state('paymentOptions', {
-      url: '/paymentOptions',
+      url: '/paymentOptions/:citationId',
       templateUrl: 'views/paymentOptions.html',
-      controller: 'PaymentOptionsCtrl as ctrl'
+      controller: 'PaymentOptionsCtrl as ctrl',
+      resolve: {
+        citation: function($stateParams, Citations) {
+          return Citations.getByCitationId($stateParams.citationId);
+        }
+      }
     })
     .state('opportunityDetails', {
       url: '/opportunityDetails',
