@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" ui-sref="home">
-        <img src="images/communisee.png" style="height: 75px;" />
+        <img src="images/communisee.png" style="max-height: 75px; max-width: 200px;" />
       </a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
@@ -17,7 +17,7 @@
         <li ng-if="!ctrl.isAuthenticated()"><a ui-sref="sponsorLogin">Sponsor Login</a></li>
         <li ng-if="ctrl.isAuthenticated()"><a ui-sref="sponsorMgmt">Manage Opportunities</a></li>
       </ul>
-      <div class="secondaryAccent" style="position: relative; float: right; font-size: 1.2em; padding-top: 10px;" ng-if="ctrl.isAuthenticated()">
+      <div class="primary" style="position: relative; float: right; font-size: 1.2em; padding-top: 10px;" ng-if="ctrl.isAuthenticated()">
         Logged in as: {{ctrl.getAuthenticatedSponsor().name}}&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm" ng-click="ctrl.logout()">Logout</button>
       </div>
     </div><!--/.nav-collapse -->
