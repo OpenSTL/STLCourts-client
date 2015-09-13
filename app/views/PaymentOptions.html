@@ -1,14 +1,40 @@
 <div class="container" style="margin-top: 10px">
-    <div class="row">
-        <div class="col-sm-6">
-            <h3>Payment Options</h3>
-            
-        </div>
-        <div class="col-sm-6">
-            <h3>Alternative Payment Opportunities</h3>
-            <div ng-repeat="opportunity in ctrl.opportunities">
-                {{opportunity.name}}
-            </div>
-        </div>
+  <div class="row">
+    <ol class="breadcrumb">
+      <li><a href="#" ng-click="ctrl.goBack()">Ticket Info</a></li>
+      <li class="active">Payment Options</li>
+    </ol>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Payment Options</h3>
+      <button class="btn btn-primary btn-lg"><i class="fa fa-paypal"></i>&nbsp;PayPal</button>&nbsp;
+      <button class="btn btn-primary btn-lg"><i class="fa fa-cc-stripe"></i>&nbsp;Stripe</button>&nbsp;
+      <button class="btn btn-primary btn-lg"><i class="fa fa-google-wallet"></i>&nbsp;Google Wallet</button>
+      <br/><br/>
+      - OR -<br/><br/>
+      Credit Card:<br/>
+      <button class="btn btn-default btn-lg" type="button"><i class="fa fa-cc-discover"></i></button>&nbsp;
+      <button class="btn btn-default btn-lg" type="button"><i class="fa fa-cc-visa"></i></button>&nbsp;
+      <button class="btn btn-default btn-lg" type="button"><i class="fa fa-cc-mastercard"></i></button>
     </div>
+    <div class="col-sm-6">
+      <h3>Alternative Payment Opportunities</h3>
+      <div class="italic" ng-if="ctrl.opportunities.length === 0">
+        There are no opportunities available for the municipality where this ticket was issued
+      </div>
+      <table class="table table-condensed table-bordered table-hover" ng-if="ctrl.opportunities.length > 0">
+        <thead>
+          <th>Name</th>
+          <th>Description</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="opportunity in ctrl.opportunities">
+            <td>{{opportunity.name}}</td>
+            <td>{{opportunity.shortDescription}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
