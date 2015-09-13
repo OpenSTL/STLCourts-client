@@ -20,18 +20,20 @@
     </div>
     <div class="col-sm-6">
       <h3>Alternative Payment Opportunities</h3>
-      <div class="italic" ng-if="ctrl.opportunities.length === 0">
+      <div class="italic" ng-if="ctrl.opportunity.length === 0">
         There are no opportunities available for the municipality where this ticket was issued
       </div>
       <table class="table table-condensed table-bordered table-hover" ng-if="ctrl.opportunities.length > 0">
         <thead>
           <th>Name</th>
           <th>Description</th>
+          <th></th>
         </thead>
         <tbody>
           <tr ng-repeat="opportunity in ctrl.opportunities">
             <td>{{opportunity.name}}</td>
             <td>{{opportunity.shortDescription}}</td>
+            <td style="text-align: right;"><button type="button" class="btn btn-success btn-sm" ng-click="ctrl.openNeeds(opportunity)">View Needs</button></td>
           </tr>
         </tbody>
       </table>

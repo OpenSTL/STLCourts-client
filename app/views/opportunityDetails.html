@@ -1,3 +1,32 @@
-<div class="container" style="margin-top: 10px">
-
+<div>
+  <div class="modal-header">
+    <h3 class="modal-title">Opportunity Needs</h3>
+  </div>
+  <div class="modal-body">
+    <label>Opportunity:&nbsp;&nbsp;</label>{{ctrl.opportunity.name}}<br/><br/>
+    <span class="italic" ng-if="ctrl.needs.length === 0">
+      There are no available positions for this opportunity
+    </span>
+    <table class="table table-condensed table-bordered table-hover" ng-if="ctrl.needs.length > 0">
+      <thead>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Violation Fine Limit</th>
+      <th># Positions</th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr ng-repeat="need in ctrl.needs">
+        <td>{{ctrl.getDate(need.startTime)}}</td>
+        <td>{{ctrl.getDate(need.endTime)}}</td>
+        <td>${{need.violationFineLimit}}</td>
+        <td>{{need.desiredCount}}</td>
+        <td><button type="button" class="btn btn-success btn-sm">Sign Up</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" type="button" ng-click="ctrl.cancel()">Close</button>
+  </div>
 </div>

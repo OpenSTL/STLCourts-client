@@ -50,6 +50,8 @@ angular.module('ghAngularApp').controller('SponsorMgmtCtrl', function ($state, S
         }
       }
     });
+
+    //TODO: Do we need to do anything here? (refresh)
   };
 
   ctrl.getCourtName = function(opportunity){

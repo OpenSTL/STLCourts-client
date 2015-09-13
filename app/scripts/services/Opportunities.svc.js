@@ -17,7 +17,7 @@ angular.module('ghAngularApp').factory('Opportunities', function ($resource) {
 
   function findNeeds(opportunityId) {
     return $resource('opportunities/:id/needs').get({id : opportunityId}).$promise.then(function(response){
-      return response.needs;
+      return response.opportunityNeeds;
     });
   }
 

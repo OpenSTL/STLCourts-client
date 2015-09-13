@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('PaymentOptionsCtrl', function (citation, Opportunities, $state) {
+angular.module('ghAngularApp').controller('PaymentOptionsCtrl', function (citation, Opportunities, $state, $modal) {
   var ctrl = this;
 
   ctrl.citation = citation;
@@ -8,6 +8,24 @@ angular.module('ghAngularApp').controller('PaymentOptionsCtrl', function (citati
   Opportunities.findByCourtId(citation.court_id).then(function (results) {
     ctrl.opportunities = results;
   });
+
+  ctrl.openNeeds = function(opportunity) {
+    var modalInstance = $modal.open({
+      templateUrl: 'views/opportunityDetails.html',
+      controller: 'OpportunityDetailsCtrl as ctrl',
+      size: 'md',
+      resolve: {
+        opportunity: function() {
+          return opportunity;
+        },
+        needs: function(Opportunities) {
+          return Opportunities.findNeeds(opportunity.id);
+        }
+      }
+    });
+
+    //TODO: Do something if necessary
+  };
 
   ctrl.goBack = function(){
     $state.go('citationInfo', {citations : [ctrl.citation]});
