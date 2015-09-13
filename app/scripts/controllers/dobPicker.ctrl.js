@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInstance, DateFormatter) {
+angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInstance, DateFormatter, toaster) {
   var ctrl = this;
 
   ctrl.dob = null;
@@ -14,8 +14,15 @@ angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInsta
     ctrl.status.opened = true;
   };
 
-  ctrl.save = function(){
-    $modalInstance.close(DateFormatter.format(ctrl.dob, 'mm/dd/yyyy'));
+  ctrl.save = function(form) {
+    if (form.$valid)
+    {
+      $modalInstance.close(DateFormatter.format(ctrl.dob, 'mm/dd/yyyy'));
+    }
+    else
+    {
+      toaster.pop('error', 'Invalid date of birth.');
+    }
   };
 
   ctrl.cancel = function() {
