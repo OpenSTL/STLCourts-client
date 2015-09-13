@@ -32,7 +32,7 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
     })
     .state('paymentOptions', {
       url: '/paymentOptions/:citationId',
-      templateUrl: 'views/paymentOptions.html',
+      templateUrl: 'views/PaymentOptions.html',
       controller: 'PaymentOptionsCtrl as ctrl',
       resolve: {
         citation: function($stateParams, Citations) {
