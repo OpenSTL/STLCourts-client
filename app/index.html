@@ -25,7 +25,9 @@
     <div id="wrapper">
       <div ng-include="'views/header.html'"></div>
 
-      <div id="mainContent" ui-view></div>
+      <div id="someOtherWrapper" layout>
+        <div id="mainContent" ui-view></div>
+      </div>
     </div>
 
     <footer>
@@ -81,6 +83,7 @@
 
     <script src="scripts/directives/formField.dir.js"></script>
     <script src="scripts/directives/ngTranscludeReplace.dir.js"></script>
+    <script src="scripts/directives/layout.dir.js"></script>
     <!-- endbuild -->
 </body>
 </html>

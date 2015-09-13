@@ -22,14 +22,23 @@ html, body {
   display: table;
 }
 
-#mainContent {
-  padding-top: 50px;
+#someOtherWrapper {
   min-height: 100%;
   height: auto;
   width: 100%;
+  background-color: $lightGrey;
   position: relative;
   display: table-cell;
+  padding-top: 85px;
+}
 
+#mainContent {
+  min-height: 100%;
+  height: auto;
+  width: 100%;
+}
+
+.background {
   background: url('/images/background.jpeg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -38,8 +47,8 @@ html, body {
 }
 
 .navbar {
-  background-color: $lightGrey !important;
-  height: 100px;
+  background-color: $grey !important;
+  height: 85px;
 }
 
 //.jumbotron {
@@ -52,7 +61,7 @@ footer {
   height: 60px;
   line-height: 60px;
   text-align: center;
-  background-color: $lightGrey;
+  background-color: $grey;
 }
 
 h1 {
@@ -165,4 +174,17 @@ label {
 
 .selectedRow {
   background-color: $grey;
+}
+
+.navbar-brand {
+  padding: 5px !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: $lightGrey;
+  font-size: 1.2em;
+}
+
+.navbar-header {
+  margin-right: 20px !important;
 }
