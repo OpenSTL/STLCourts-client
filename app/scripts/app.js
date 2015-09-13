@@ -10,7 +10,12 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
     .state('home', {
       url: '/',
       templateUrl: 'views/home.html',
-      controller: 'HomeCtrl as ctrl'
+      controller: 'HomeCtrl as ctrl',
+      resolve: {
+        municipalities: function(Courts){
+          return Courts.findAll();
+        }
+      }
     });
 
   $httpProvider.interceptors.push(function(){

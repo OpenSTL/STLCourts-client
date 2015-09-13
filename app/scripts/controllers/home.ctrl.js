@@ -1,27 +1,11 @@
 'use strict';
 
-/* global esri */
-angular.module('ghAngularApp').controller('HomeCtrl', function ($scope, esriRegistry, Citations, toaster, States) {
+angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toaster, States, municipalities, $modal) {
   var ctrl = this;
   ctrl.states = States;
-  ctrl.map = {
-    options: {
-      basemap: 'streets',
-      center: [-90.381801, 38.668909],
-      zoom: 10,
-      sliderStyle: 'small'
-    }
-  };
+  ctrl.municipalities = municipalities;
 
-  ctrl.citationCriteria = {
-    citationNumber: null,
-    licenseNumber: null,
-    licenseState: 'MO',
-    firstName: null,
-    lastName: null,
-    municipalityNames: [],
-    dob: null
-  };
+  ctrl.citationCriteria = {};
 
   ctrl.hasEverSelected = false;
   var optionSelectedMap = {
@@ -38,7 +22,20 @@ angular.module('ghAngularApp').controller('HomeCtrl', function ($scope, esriRegi
     return optionSelectedMap[option];
   };
 
+  function initializeCitationCriteria() {
+    ctrl.citationCriteria = {
+      citationNumber: null,
+      licenseNumber: null,
+      licenseState: 'MO',
+      firstName: null,
+      lastName: null,
+      municipalityNames: null,
+      dob: null
+    };
+  }
+
   ctrl.getTicketWithNumber = function(){
+    initializeCitationCriteria();
     ctrl.hasEverSelected = true;
     optionSelectedMap.TICKET_NUMBER = true;
     optionSelectedMap.DRIVER_INFO = false;
@@ -46,6 +43,7 @@ angular.module('ghAngularApp').controller('HomeCtrl', function ($scope, esriRegi
   };
 
   ctrl.getTicketWithDriverInfo = function(){
+    initializeCitationCriteria();
     ctrl.hasEverSelected = true;
     optionSelectedMap.TICKET_NUMBER = false;
     optionSelectedMap.DRIVER_INFO = true;
@@ -53,28 +51,25 @@ angular.module('ghAngularApp').controller('HomeCtrl', function ($scope, esriRegi
   };
 
   ctrl.getTicketWithLocation = function(){
+    initializeCitationCriteria();
     ctrl.hasEverSelected = true;
     optionSelectedMap.TICKET_NUMBER = false;
     optionSelectedMap.DRIVER_INFO = false;
     optionSelectedMap.LOCATION = true;
   };
 
-  ctrl.canSubmit = function(citationCriteriaFrm){
-    return citationCriteriaFrm.$valid;
-  };
-
   ctrl.findTicket = function(citationCriteriaFrm) {
-    if(ctrl.canSubmit(citationCriteriaFrm)) {
+    if(citationCriteriaFrm.$valid) {
       var params = {
-        dob: ctrl.citationCriteria
+        dob: ctrl.citationCriteria.dob
       };
 
-      if(optionSelectedMap.TICKET_NUMBER) {
+      if(optionSelectedMap['TICKET_NUMBER']) {
         params.citationNumber = ctrl.citationCriteria.citationNumber;
-      } else if(optionSelectedMap.DRIVER_INFO) {
+      } else if(optionSelectedMap['DRIVER_INFO']) {
         params.licenseNumber = ctrl.citationCriteria.licenseNumber;
         params.licenseState = ctrl.citationCriteria.licenseState;
-      } else if(optionSelectedMap.LOCATION) {
+      } else if(optionSelectedMap['LOCATION']) {
         params.municipalityNames = ctrl.citationCriteria.municipalityNames;
         params.firstName = ctrl.citationCriteria.firstName;
         params.lastName = ctrl.citationCriteria.lastName;
@@ -88,25 +83,24 @@ angular.module('ghAngularApp').controller('HomeCtrl', function ($scope, esriRegi
     }
   };
 
-  function onMapClick(map, evt) {
-    var selectionQuery = new esri.tasks.Query();
-    console.log(selectionQuery);
-    var tol = map.extent.getWidth()/map.width * 5;
-    var x = evt.mapPoint.x;
-    var y = evt.mapPoint.y;
-    var queryExtent = new esri.geometry.Extent(x - tol, y - tol, x + tol, y + tol, evt.mapPoint.spatialReference);
-    selectionQuery.geometry = queryExtent;
-    var layer = map.getLayer(map.graphicsLayerIds[0]);
-    layer.queryFeatures(selectionQuery, function(queryResult){
-      queryResult.features.forEach(function(feature){
-        console.log(feature.attributes.MUNICIPALITY); //TODO: USE this for realz
-      });
-    });
-  }
+  ctrl.openMap = function(){
+    ctrl.citationCriteria.municipalityNames = null;
 
-  esriRegistry.get('stlMap').then(function(map){
-    map.on('click', function(e) {
-      $scope.$apply(onMapClick.bind(null, map, e));
+    var modalInstance = $modal.open({
+      templateUrl: 'views/locationPickerMap.html',
+      controller: 'locationPickerMapCtrl as ctrl',
+      size: 'md',
+      resolve: {
+        municipalities: function() {
+          return ctrl.municipalities;
+        }
+      }
     });
-  });
+
+    modalInstance.result.then(function (selectedMunicipalities) {
+      ctrl.citationCriteria.municipalityNames = selectedMunicipalities;
+    });
+  };
+
+  initializeCitationCriteria();
 });

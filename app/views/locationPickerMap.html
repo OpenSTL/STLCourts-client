@@ -1,0 +1,21 @@
+<div>
+  <div class="modal-header">
+    <h3 class="modal-title">Select Ticketed Location</h3>
+  </div>
+  <div class="modal-body">
+    <esri-map id="map" map-options="ctrl.map.options" register-as="stlMap">
+      <esri-feature-layer url="//maps.stlouisco.com/arcgis/rest/services/OpenData/OpenData/FeatureServer/5"></esri-feature-layer>
+    </esri-map>
+
+    <div style="margin-top: 20px;" ng-if="ctrl.selectedMunicipalities.length > 0">
+      <label>Select Cities</label><br/>
+      <span ng-repeat="municip in ctrl.selectedMunicipalities">
+        {{municip.municipality}}<span ng-if="$index < ctrl.selectedMunicipalities.length - 1">, </span>
+      </span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ctrl.selectLocation()" ng-disabled="ctrl.selectedMunicipalities.length === 0">Save Selected</button>
+    <button class="btn btn-danger" type="button" ng-click="ctrl.cancel()">Cancel</button>
+  </div>
+</div>
