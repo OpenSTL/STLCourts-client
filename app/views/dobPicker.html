@@ -1,19 +1,21 @@
 <div>
-  <div class="modal-header">
-    <h3 class="modal-title">Date of Birth</h3>
-  </div>
-  <div class="modal-body">
-    <label>In order to protect privacy, please provide your date of birth</label>
+  <form id="dobFrm" name="dobFrm" novalidate ng-submit="ctrl.save()" ng-submit-force="true">
+    <div class="modal-header">
+      <h3 class="modal-title">Date of Birth</h3>
+    </div>
+    <div class="modal-body">
+      <label>In order to protect privacy, please provide your date of birth</label>
 
-    <p class="input-group">
-      <input type="date" class="form-control" datepicker-popup ng-model="ctrl.dob" is-open="ctrl.status.opened" min-date="ctrl.minDate" max-date="ctrl.maxDate" ng-required="true" close-text="Close" format="MM/dd/yyyy" />
+      <p class="input-group">
+        <input type="date" class="form-control" datepicker-popup ng-model="ctrl.dob" is-open="ctrl.status.opened" min-date="ctrl.minDate" max-date="ctrl.maxDate" ng-required="true" close-text="Close" format="MM/dd/yyyy" />
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="ctrl.open($event)"><i class="fa fa-calendar"></i></button>
       </span>
-    </p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ctrl.save()" ng-disabled="ctrl.dob === null || ctrl.dob === undefined">Find Ticket</button>
-    <button class="btn btn-danger" type="button" ng-click="ctrl.cancel()">Cancel</button>
-  </div>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="submit" ng-disabled="ctrl.dob === null || ctrl.dob === undefined">Find Ticket</button>
+      <button class="btn btn-danger" type="button" ng-click="ctrl.cancel()">Cancel</button>
+    </div>
+  </form>
 </div>
