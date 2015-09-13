@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, citations, Courts) {
+angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, $window, citations, Courts) {
   var ctrl = this;
 
   ctrl.selectCitation = function(citation){
@@ -80,5 +80,9 @@ angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, 
 
   ctrl.goToPaymentOptions = function() {
     $state.go('paymentOptions', { citationId: ctrl.selectedCitation.id });
+  };
+
+  ctrl.printTicket = function () {
+    $window.print();
   };
 });
