@@ -29,16 +29,23 @@ html, body {
   width: 100%;
   position: relative;
   display: table-cell;
+
+  background: url('/images/background.jpeg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .navbar {
-  background-color: $blue !important;
+  background-color: $lightGrey !important;
+  height: 100px;
 }
 
-.jumbotron {
-  padding-top: 0 !important;
-  background-color: $lightGrey !important;
-}
+//.jumbotron {
+//  padding-top: 0 !important;
+//  background-color: $lightGrey !important;
+//}
 
 footer {
   width: 100%;
