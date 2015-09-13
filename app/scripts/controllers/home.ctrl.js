@@ -95,7 +95,11 @@ angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toast
     }
 
     Citations.find(params).then(function(result){
-      $state.go('citationInfo', {citations: result.citations});
+      if(result.citations.length > 0) {
+        $state.go('citationInfo', {citations: result.citations});
+      } else {
+        toaster.pop('error', 'Oh no! There were no tickets matching your criteria');
+      }
     }, function(){
       toaster.pop('error', 'Oh no! We couldn\'t get your ticket information!');
     });

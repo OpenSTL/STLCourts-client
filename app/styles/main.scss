@@ -143,3 +143,19 @@ label {
     font-size: 1.2em;
   }
 }
+
+.noViolations {
+  font-style: italic;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.selectableRow {
+  cursor: pointer;
+}
+
+.selectedRow {
+  background-color: $grey;
+}
