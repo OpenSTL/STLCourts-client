@@ -46,8 +46,8 @@
           <div class="col-sm-6">
             <h3>I Want To...</h3>
             <button type="button" class="btn btn-success btn-lg" ng-click="ctrl.goToPaymentOptions()"><i class="fa fa-dollar"></i>&nbsp;PAY TICKET</button>
-            <button type="button" class="btn btn-success btn-lg"><i class="fa fa-envelope"></i>&nbsp;EMAIL TICKET INFO</button>
-            <button type="button" class="btn btn-success btn-lg"><i class="fa fa-print"></i>&nbsp;PRINT TICKET INFO</button>
+            <button type="button" class="btn btn-success btn-lg"><i class="fa fa-envelope"></i>&nbsp;EMAIL TICKET</button>
+            <button type="button" class="btn btn-success btn-lg"><i class="fa fa-print"></i>&nbsp;PRINT TICKET</button>
           </div>
         </div>
 
@@ -95,19 +95,17 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-12">
             <h3>Violations</h3>
             <ul ng-if="ctrl.hasViolations(ctrl.selectedCitation)">
               <li ng-repeat="violation in ctrl.selectedCitation.violations">
                 {{violation.violation_description}}
+                <span ng-if="violation.warrant_status" class="badge" style="background-color: red">WARRANT ISSUED: {{violation.warrant_number}}</span>
               </li>
             </ul>
             <span class="noViolations" ng-if="!ctrl.hasViolations(ctrl.selectedCitation)">
               Violation data unavailable. Please contact your court.
             </span>
-          </div>
-          <div class="col-sm-6">
-
           </div>
         </div>
       </div>
