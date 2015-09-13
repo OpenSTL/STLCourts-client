@@ -29,6 +29,11 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
           return $stateParams.citations;
         }
       }
+    })
+    .state('sponsorLogin', {
+      url: '/sponsorLogin',
+      templateUrl: 'views/sponsorLogin.html',
+      controller: 'SponsorLoginCtrl as ctrl'
     });
 
   $httpProvider.interceptors.push(function(){
