@@ -9,7 +9,7 @@ angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInsta
     opened : false
   };
 
-  ctrl.open = function($event) {
+  ctrl.open = function() {
     ctrl.status.opened = true;
   };
 
