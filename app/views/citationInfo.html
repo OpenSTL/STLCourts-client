@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Ticket Results</h2>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-condensed table-bordered table-hover">
+        <thead>
+          <th>Ticket #</th>
+          <th>Name</th>
+          <th>DOB</th>
+          <th>Court Date</th>
+          <th>Court Location</th>
+          <th>Violations</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="citation in ctrl.citations">
+          <td>{{citation.citation_number}}</td>
+          <td>{{citation.first_name}} {{citation.last_name}}</td>
+          <td>{{citation.date_of_birth}}</td>
+          <td>{{citation.court_date}}</td>
+          <td>{{citation.court_location}}</td>
+          <td>
+          <span ng="violation in citation.violations">
+            {{violation.violation_description}}<span ng-if="$index < citation.violations.length - 1">, </span>
+          </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 'use strict';
 
 /* global _ */
-angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toaster, States, municipalities, $modal) {
+angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toaster, States, municipalities, $modal, $state) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.municipalities = municipalities;
@@ -95,8 +95,8 @@ angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toast
       params.lastName = ctrl.citationCriteria.lastName;
     }
 
-    Citations.find(params).then(function(criteria){
-      console.log(criteria);
+    Citations.find(params).then(function(result){
+      $state.go('citationInfo', {citations: result.citations});
     }, function(){
       toaster.pop('error', 'Oh no! We couldn\'t get your ticket information!');
     });

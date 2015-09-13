@@ -16,6 +16,19 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
           return Courts.findAll();
         }
       }
+    })
+    .state('citationInfo', {
+      url: '/ticketInfo',
+      templateUrl: 'views/citationInfo.html',
+      controller: 'citationInfoCtrl as ctrl',
+      params: {
+        citations: { value : undefined }
+      },
+      resolve: {
+        citations: function($stateParams){
+          return $stateParams.citations;
+        }
+      }
     });
 
   $httpProvider.interceptors.push(function(){
