@@ -27,8 +27,53 @@
         </tbody>
       </table>
       <div id="selectedCitationInfo" ng-if="ctrl.selectedCitation">
-        <h3>{{ctrl.selectedCitation.first_name}} {{ctrl.selectedCitation.last_name}}</h3>
-        ...TODO
+        <div class="row">
+          <div class="col-sm-4">
+            <h3>
+              {{ctrl.selectedCitation.first_name}} {{ctrl.selectedCitation.last_name}}<br/>
+              <small>
+                {{ctrl.selectedCitation.defendant_address}}<br/>
+                {{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}
+              </small>
+            </h3>
+          </div>
+          <div class="col-sm-4">
+            <label>Ticket Date</label><br/>
+            {{ctrl.selectedCitation.court_date}}
+          </div>
+          <div class="col-sm-4">
+            <label>Driver's License #</label><br/>
+            {{ctrl.selectedCitation.drivers_license_number}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Court Date</label><br/>
+            {{ctrl.selectedCitation.court_date}}
+          </div>
+          <div class="col-sm-4">
+            <label>Court Name</label><br/>
+            {{ctrl.selectedCitation.court.municipality}}
+          </div>
+          <div class="col-sm-4">
+            <label>Court Location</label><br/>
+            {{ctrl.selectedCitation.court.address}}<br/>
+            {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip_code}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <h3>Violations</h3>
+            <ul>
+              <li ng-repeat="violation in ctrl.selectedCitation.violations">
+                {{violation.violation_description}}
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-6">
+            <h3>I Want To...</h3>
+          </div>
+        </div>
       </div>
     </div>
   </div>
