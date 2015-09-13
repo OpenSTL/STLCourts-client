@@ -36,8 +36,20 @@ angular.module('ghAngularApp').controller('SponsorMgmtCtrl', function ($state, S
     });
   };
 
-  ctrl.addNeed = function(opportunity){
-    //TODO - modal
+  ctrl.addNeed = function(opportunity) {
+    var modalInstance = $modal.open({
+      templateUrl: 'views/opportunityNeedCreate.html',
+      controller: 'OpportunityNeedCreateCtrl as ctrl',
+      size: 'md',
+      resolve: {
+        courts: function() {
+          return ctrl.courts;
+        },
+        opportunity: function() {
+          return opportunity;
+        }
+      }
+    });
   };
 
   ctrl.getCourtName = function(opportunity){

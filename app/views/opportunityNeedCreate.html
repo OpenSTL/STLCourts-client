@@ -1,0 +1,22 @@
+<div>
+  <form name="createOppNeedFrm" id="createOppNeedFrm" novalidate ng-submit="ctrl.save(createOppNeedFrm)" ng-submit-force="true">
+    <div class="modal-header">
+      <h3 class="modal-title">Create Opportunity Need</h3>
+    </div>
+    <div class="modal-body">
+      <form-field label="Name" required>
+        <input type="text" ng-model="ctrl.opportunity.name" displayName="Name" ng-maxlength="75" required />
+      </form-field>
+      <form-field label="Short Description" required>
+        <input type="text" ng-model="ctrl.opportunity.shortDescription" displayName="Short Description" ng-maxlength="255" required />
+      </form-field>
+      <form-field label="Full Description" required>
+        <textarea ng-model="ctrl.opportunity.fullDescription" displayName="Full Description" ng-maxlength="1000" required></textarea>
+      </form-field>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="submit">Create Need</button>
+      <button class="btn btn-danger" type="button" ng-click="ctrl.cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
