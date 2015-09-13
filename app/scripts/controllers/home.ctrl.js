@@ -1,5 +1,6 @@
 'use strict';
 
+/* global _ */
 angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toaster, States, municipalities, $modal) {
   var ctrl = this;
   ctrl.states = States;
@@ -58,29 +59,47 @@ angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toast
     optionSelectedMap.LOCATION = true;
   };
 
-  ctrl.findTicket = function(citationCriteriaFrm) {
+  ctrl.getDOB = function(citationCriteriaFrm){
     if(citationCriteriaFrm.$valid) {
-      var params = {
-        dob: ctrl.citationCriteria.dob
-      };
-
-      if(optionSelectedMap['TICKET_NUMBER']) {
-        params.citationNumber = ctrl.citationCriteria.citationNumber;
-      } else if(optionSelectedMap['DRIVER_INFO']) {
-        params.licenseNumber = ctrl.citationCriteria.licenseNumber;
-        params.licenseState = ctrl.citationCriteria.licenseState;
-      } else if(optionSelectedMap['LOCATION']) {
-        params.municipalityNames = ctrl.citationCriteria.municipalityNames;
-        params.firstName = ctrl.citationCriteria.firstName;
-        params.lastName = ctrl.citationCriteria.lastName;
-      }
-
-      Citations.find(params).then(function(criteria){
-        console.log(criteria);
-      }, function(){
-        toaster.pop('error', 'Oh no! We couldn\'t get your ticket information!');
+      var modalInstance = $modal.open({
+        templateUrl: 'views/dobPicker.html',
+        controller: 'dobPickerCtrl as ctrl',
+        size: 'sm'
       });
+
+      modalInstance.result.then(function (dob) {
+        ctrl.citationCriteria.dob = dob;
+        ctrl.findTicket();
+      });
+    } else {
+      toaster.pop('error', 'Please provide the required information');
     }
+  };
+
+  ctrl.findTicket = function() {
+    var params = {
+      dob: ctrl.citationCriteria.dob
+    };
+
+    if(optionSelectedMap['TICKET_NUMBER']) {
+      params.citationNumber = ctrl.citationCriteria.citationNumber;
+    } else if(optionSelectedMap['DRIVER_INFO']) {
+      params.licenseNumber = ctrl.citationCriteria.licenseNumber;
+      params.licenseState = ctrl.citationCriteria.licenseState;
+    } else if(optionSelectedMap['LOCATION']) {
+      var names = [];
+      ctrl.citationCriteria.municipalityNames.forEach(function(municip){
+        names.push(municip.municipality);
+      });
+      params.municipalityNames = names;
+      params.lastName = ctrl.citationCriteria.lastName;
+    }
+
+    Citations.find(params).then(function(criteria){
+      console.log(criteria);
+    }, function(){
+      toaster.pop('error', 'Oh no! We couldn\'t get your ticket information!');
+    });
   };
 
   ctrl.openMap = function(){

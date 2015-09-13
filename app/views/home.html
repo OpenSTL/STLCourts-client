@@ -3,7 +3,7 @@
     <div class="container">
       <h2 style="margin: 20px 0px;">Get Ticket Info</h2>
       <!--<h2><small>Use one of these options:</small></h2>-->
-      <form id="citationCriteriaFrm" name="citationCriteriaFrm" ng-submit="ctrl.findTicket(citationCriteriaFrm)" novalidate ng-submit-force="true">
+      <form id="citationCriteriaFrm" name="citationCriteriaFrm" ng-submit="ctrl.getDOB(citationCriteriaFrm)" novalidate ng-submit-force="true">
         <div class="row">
           <div class="col-md-4">
             <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected('TICKET_NUMBER')" ng-class="{'unselected' : ctrl.isUnselected('TICKET_NUMBER')}" ng-click="ctrl.getTicketWithNumber()">
@@ -59,7 +59,10 @@
               </div>
             </div>
             <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected('LOCATION')">
-              <span class="primary"><i class="fa fa-map-marker fa-lg"></i>&nbsp;Where did you get your ticket?</span><br/><br/>
+              <span class="primary"><i class="fa fa-map-marker fa-lg"></i>&nbsp;Where did you get your ticket?</span><br/>
+              <form-field label="Last Name" required>
+                <input type="text" ng-model="ctrl.citationCriteria.lastName" required ng-maxlength="20" displayName="Last Name" />
+              </form-field>
               <form-field required>
                 <ui-select id="selectedMunicipality" multiple name="selectedMunicipality" register-custom-form-control required displayName="Municipality" ng-model="ctrl.citationCriteria.municipalityNames">
                   <ui-select-match placeholder="Select a City">{{$item.municipality}}</ui-select-match>
@@ -70,7 +73,7 @@
               </form-field>
               <div class="centered">
                 - OR - <br/><br/>
-                <button class="btn btn-primary btn-lg" type="button" ng-click="ctrl.openMap()"><i class="fa fa-map"></i>&nbsp;&nbsp;Select on Map</button>
+                <button class="btn btn-primary" type="button" ng-click="ctrl.openMap()"><i class="fa fa-map"></i>&nbsp;&nbsp;Select on Map</button>
               </div>
             </div>
             <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('LOCATION')">
