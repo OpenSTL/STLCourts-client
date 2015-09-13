@@ -2,7 +2,13 @@
 
 angular.module('ghAngularApp').factory('Opportunities', function () {
 
-    return {
+  function findBySponsor(sponserId) {
 
-    };
+  }
+
+  var svc = {
+
+  };
+
+  return svc;
 });
