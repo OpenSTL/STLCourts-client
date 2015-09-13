@@ -11,8 +11,22 @@ html, body {
   font-size: 94%;
 }
 
+#wrapper {
+  min-height: 100%;
+  height: auto;
+  position: relative;
+  margin: 0 auto -60px !important;
+  padding: 0 0 60px;
+  display: table;
+}
+
 #mainContent {
-  padding: 50px 0 0;
+  padding-top: 50px;
+  min-height: 100%;
+  height: auto;
+  width: 100%;
+  position: relative;
+  display: table-cell;
 }
 
 .navbar {
@@ -114,4 +128,18 @@ label {
 
 .ui-select-bootstrap .ui-select-choices-row.active > a {
   background-color: $lightBlue !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .homepageTile {
+    height: auto;
+  }
+
+  .homePageTileIcon {
+    position: relative;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 1.2em;
+  }
 }

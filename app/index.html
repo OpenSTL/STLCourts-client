@@ -22,13 +22,15 @@
   <body ng-app="ghAngularApp">
     <toaster-container></toaster-container>
 
-    <div ng-include="'views/header.html'"></div>
+    <div id="wrapper">
+      <div ng-include="'views/header.html'"></div>
 
-    <div id="mainContent" ui-view></div>
+      <div id="mainContent" ui-view></div>
+    </div>
 
     <footer>
       <div class="container">
-        <p>&copy; Globalhack 5 Team Inveo</p>
+        &copy; Globalhack 5 Team Inveo
       </div>
     </footer>
 
