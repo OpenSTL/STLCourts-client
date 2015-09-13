@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('SponsorLoginCtrl', function (toaster, Sponsor) {
+angular.module('ghAngularApp').controller('SponsorLoginCtrl', function ($state, toaster, Sponsor) {
 
     var ctrl = this;
 
@@ -12,7 +12,15 @@ angular.module('ghAngularApp').controller('SponsorLoginCtrl', function (toaster,
     // Function for form submit
     ctrl.DoSponsorLogin = function(sponsorLoginFrm) {
         if (sponsorLoginFrm.$valid) {
-            Sponsor.Login(ctrl.credentials);
+            Sponsor.Login(ctrl.credentials).then(
+            function(response) {
+                Sponsor.StoreCurrentSponsor(response.data);
+                toaster.pop('success', 'Welcome back ' + response.data.name);
+                $state.go('sponsorMgmt');
+            },
+            function() {
+                toaster.pop('error', 'There was an error logging in.');
+            });
         } else {
             toaster.pop('error', 'Please provide the required information');
         }

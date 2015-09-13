@@ -34,6 +34,11 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
       url: '/sponsorLogin',
       templateUrl: 'views/sponsorLogin.html',
       controller: 'SponsorLoginCtrl as ctrl'
+    })
+    .state('sponsorMgmt', {
+      url: '/sponsorMgmt',
+      templateUrl: 'views/sponsorManagement.html',
+      controller: 'SponsorMgmtCtrl as ctrl'
     });
 
   $httpProvider.interceptors.push(function(){
