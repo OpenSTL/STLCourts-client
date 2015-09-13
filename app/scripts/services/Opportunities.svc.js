@@ -9,6 +9,12 @@ angular.module('ghAngularApp').factory('Opportunities', function ($resource) {
     });
   }
 
+  function findByCourtId(courtId) {
+    return OpportunitiesResource.get({courtId : courtId}).$promise.then(function(response) {
+      return response.opportunities;
+    });
+  }
+
   function findById(opportunityId){
     return OpportunitiesResource.get({id: opportunityId}).$promise;
   }
@@ -19,6 +25,7 @@ angular.module('ghAngularApp').factory('Opportunities', function ($resource) {
 
   var svc = {
     findById: findById,
+    findByCourtId: findByCourtId,
     findBySponsorId: findBySponsorId,
     create: create
   };

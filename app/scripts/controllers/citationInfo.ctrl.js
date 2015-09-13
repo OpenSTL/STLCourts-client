@@ -79,6 +79,6 @@ angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, 
   };
 
   ctrl.goToPaymentOptions = function() {
-    $state.go('paymentOptions');
+    $state.go('paymentOptions', { citationId: ctrl.selectedCitation.id });
   };
 });
