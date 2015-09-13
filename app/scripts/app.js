@@ -30,6 +30,16 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
         }
       }
     })
+    .state('paymentOptions', {
+      url: '/paymentOptions',
+      templateUrl: 'views/paymentOptions.html',
+      controller: 'PaymentOptionsCtrl as ctrl'
+    })
+    .state('opportunityDetails', {
+      url: '/opportunityDetails',
+      templateUrl: 'views/opportunityDetails.html',
+      controller: 'OpportunityDetailsCtrl as ctrl'
+    })
     .state('sponsorLogin', {
       url: '/sponsorLogin',
       templateUrl: 'views/sponsorLogin.html',

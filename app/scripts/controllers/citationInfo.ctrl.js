@@ -77,4 +77,8 @@ angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, 
   ctrl.hasViolations = function(citation) {
     return citation.violations.length > 0;
   };
+
+  ctrl.goToPaymentOptions = function() {
+    $state.go('paymentOptions');
+  };
 });
