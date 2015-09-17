@@ -9,7 +9,7 @@ version 0.12.1.
 
 Run `grunt build:(local|production)` for building and `grunt serve:(local|production)` for preview.
 
-NOTE: "dist" folder is checked in for use in Heroku - this is not a long-term solution. Procfile and web.js are also Heroku-specific. For local development using our Heroku database, using 'grunt serve:local' while also running the local backend service gh-spring-svc OR 'grunt serve:production' in order to run/develop while using the services deployed on Heroku.
+NOTE: "dist" folder is checked in for use in Heroku - this is not a long-term solution. Procfile and web.js are also Heroku-specific. For local development using our Heroku database, using `grunt serve:local` while also running the local backend service gh-spring-svc OR `grunt serve:production` in order to run/develop while using the services deployed on Heroku.
 
 ## Testing
 
