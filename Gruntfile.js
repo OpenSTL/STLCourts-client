@@ -567,14 +567,13 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', 'Display grunt options for this project', function () {
-    grunt.log.writeln('Display Sell-In Build Options:');
+    grunt.log.writeln('Build Options:');
     grunt.log.writeln(' - Build');
     grunt.log.writeln(' - Serve');
     grunt.log.writeln(' - ServeDist');
     grunt.log.writeln(' - Test [No Arguments Needed]');
     grunt.log.writeln('');
     grunt.log.writeln('Required Arguments:');
-    grunt.log.writeln(' - Environment : [local/dev/qa/prod]');
-    grunt.log.writeln(' - Deployment : [corp/ind]');
+    grunt.log.writeln(' - Environment : [local/prod]');
   });
 };
