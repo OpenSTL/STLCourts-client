@@ -10,7 +10,7 @@ angular.module('ghAngularApp').controller('PaymentOptionsCtrl', function (citati
   });
 
   ctrl.openNeeds = function(opportunity) {
-    var modalInstance = $modal.open({
+    $modal.open({
       templateUrl: 'views/opportunityDetails.html',
       controller: 'OpportunityDetailsCtrl as ctrl',
       size: 'md',
@@ -29,5 +29,5 @@ angular.module('ghAngularApp').controller('PaymentOptionsCtrl', function (citati
 
   ctrl.goBack = function(){
     $state.go('citationInfo', {citations : [ctrl.citation]});
-  }
+  };
 });

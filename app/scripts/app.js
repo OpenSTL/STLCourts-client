@@ -17,6 +17,14 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
         }
       }
     })
+    .state('about', {
+      url: '/about',
+      templateUrl: 'views/about.html'
+    })
+    .state('help', {
+      url: '/help',
+      templateUrl: 'views/help.html'
+    })
     .state('citationInfo', {
       url: '/ticketInfo',
       templateUrl: 'views/citationInfo.html',

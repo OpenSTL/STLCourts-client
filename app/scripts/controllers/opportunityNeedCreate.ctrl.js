@@ -14,12 +14,12 @@ angular.module('ghAngularApp').controller('OpportunityNeedCreateCtrl', function 
     opportunityId: ctrl.opportunity.id
   };
 
-  ctrl.openMin = function($event) {
+  ctrl.openMin = function() {
     ctrl.minOpen = true;
     ctrl.maxOpen = false;
   };
 
-  ctrl.openMax = function($event) {
+  ctrl.openMax = function() {
     ctrl.maxOpen = true;
     ctrl.minOpen = false;
   };

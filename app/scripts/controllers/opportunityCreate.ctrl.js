@@ -18,7 +18,7 @@ angular.module('ghAngularApp').controller('OpportunityCreateCtrl', function ($mo
         $modalInstance.close(ctrl.opportunity);
       }, function(){
         toaster.pop('error', 'There was an error trying to create your opportunity');
-      })
+      });
     } else {
       toaster.pop('error', 'Please correct the indicated errors and try again');
     }
@@ -26,5 +26,5 @@ angular.module('ghAngularApp').controller('OpportunityCreateCtrl', function ($mo
 
   ctrl.cancel = function(){
     $modalInstance.dismiss();
-  }
+  };
 });

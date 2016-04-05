@@ -37,7 +37,7 @@ angular.module('ghAngularApp').controller('SponsorMgmtCtrl', function ($state, S
   };
 
   ctrl.addNeed = function(opportunity) {
-    var modalInstance = $modal.open({
+    $modal.open({
       templateUrl: 'views/opportunityNeedCreate.html',
       controller: 'OpportunityNeedCreateCtrl as ctrl',
       size: 'md',
