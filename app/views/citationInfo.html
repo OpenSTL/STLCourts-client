@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="citationInfoPage">
   <div class="row">
     <div class="col-sm-12">
       <h2>Ticket Results</h2>
@@ -40,20 +40,22 @@
                 {{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}<br/>
               </small>
             </h3>
-            <label>Driver's License #</label><br/>
-            {{ctrl.selectedCitation.drivers_license_number}}
+            <div style="font-size: 1.2em">
+              <label style="">Driver's License #</label><br/>
+              {{ctrl.selectedCitation.drivers_license_number}}
+            </div>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 no-print">
             <h3>I Want To...</h3>
             <button type="button" class="btn btn-success btn-lg" ng-click="ctrl.goToPaymentOptions()"><i class="fa fa-dollar"></i>&nbsp;PAY TICKET</button>
-            <button type="button" class="btn btn-success btn-lg" ng-click="ctrl.printTicket()"><i class="fa fa-print"></i>&nbsp;PRINT TICKET</button>
+            <button type="button" class="btn btn-success btn-lg" ng-click="ctrl.printTicket()"><i class="fa fa-print"></i>&nbsp;PRINT INFO</button>
           </div>
         </div>
 
         <div class="row" style="margin-top: 20px;">
           <div class="col-sm-6">
             <h3>Ticket Info</h3>
-            <dl class="dl-horizontal">
+            <dl class="dl-horizontal" style="font-size: 1.2em">
               <dt>Ticket Date</dt>
               <dd>{{ctrl.selectedCitation.citation_date}}</dd>
               <dt>Total Fine</dt>
@@ -78,7 +80,7 @@
           </div>
           <div class="col-sm-6">
             <h3>Court Information</h3>
-            <dl class="dl-horizontal">
+            <dl class="dl-horizontal" style="font-size: 1.2em">
               <dt>Court Date</dt>
               <dd>{{ctrl.selectedCitation.court_date}}</dd>
               <dt>Court Name</dt>
@@ -87,7 +89,7 @@
               <dd>
                 {{ctrl.selectedCitation.court.address}}<br/>
                 {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip_code}}<br/>
-                <a href="{{ctrl.selectedCitation.courtDirectionLink}}" class="btn btn-success" target="_blank">GET DIRECTIONS</a>
+                <a href="{{ctrl.selectedCitation.courtDirectionLink}}" class="btn btn-success no-print" target="_blank">GET DIRECTIONS</a>
               </dd>
             </dl>
           </div>
@@ -97,7 +99,7 @@
           <div class="col-sm-12">
             <h3>Violations</h3>
             <ul ng-if="ctrl.hasViolations(ctrl.selectedCitation)">
-              <li ng-repeat="violation in ctrl.selectedCitation.violations">
+              <li ng-repeat="violation in ctrl.selectedCitation.violations" style="font-size: 1.2em">
                 {{violation.violation_description}}
                 <span ng-if="violation.warrant_status" class="badge" style="background-color: red">WARRANT ISSUED: {{violation.warrant_number}}</span>
               </li>

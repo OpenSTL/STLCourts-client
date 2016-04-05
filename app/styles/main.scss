@@ -211,3 +211,18 @@ table {
     color: $lightGrey;
   }
 }
+
+@media print {
+  .no-print, .no-print *
+  {
+    display: none !important;
+  }
+
+  #citationInfoPage h2 {
+    margin-top: 0;
+  }
+
+  #citationInfoPage .well {
+    margin-top: 10px;
+  }
+}
