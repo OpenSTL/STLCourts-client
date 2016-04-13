@@ -449,7 +449,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'Local',
-            apiEndpoint: '//localhost:8080/inveo-api/'
+            apiEndpoint: '//localhost:8080/api/'
           }
         }
       },
@@ -461,7 +461,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'Production',
-            apiEndpoint: '//gh-web-services.herokuapp.com/inveo-api/'
+            apiEndpoint: '//gh-web-services.herokuapp.com/api/'
           }
         }
       }
