@@ -1,9 +1,8 @@
-# Team Inveo Globalhack V Responsive Web Application
+# Your STL Courts Response Web Application
 
 This project contains the source code for the Angular application at gh-angular.herokuapp.com/#/ (does not currently work with SSL due to ArcGIS Ajax calls)
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.12.1.
+This project was generated with [yo angular generator](https://github.com/yeoman/generator-angular) version 0.12.1.
 
 ## Build & development
 
