@@ -27,14 +27,21 @@ angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($sc
     var layer = map.getLayer(map.graphicsLayerIds[0]);
     layer.queryFeatures(selectionQuery, function(queryResult){
       queryResult.features.forEach(function(feature){
-        municipalities.every(function(realMunicip){
-          if(realMunicip.municipality.toLowerCase() === feature.attributes.MUNICIPALITY.toLowerCase()) {
-            ctrl.selectedMunicipalities.push(realMunicip);
-            return false;
-          }
+        if (feature.attributes && feature.attributes.MUNICIPALITY)
+        {
+          municipalities.every(function (realMunicip) {
+            if (realMunicip.municipality.toLowerCase() === feature.attributes.MUNICIPALITY.toLowerCase()) {
+              ctrl.selectedMunicipalities.push(realMunicip);
+              return false;
+            }
 
-          return true;
-        });
+            return true;
+          });
+        }
+        else
+        {
+          console.log('Received a map feature with the incorrect attributes. Something is wrong with the ESRI configuration.');
+        }
       });
     });
   }
