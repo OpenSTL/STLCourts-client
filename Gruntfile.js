@@ -461,7 +461,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'Production',
-            apiEndpoint: '//gh-web-services.herokuapp.com/api/'
+            apiEndpoint: '/api/'
           }
         }
       }
