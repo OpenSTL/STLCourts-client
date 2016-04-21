@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/gh-angular.iml" filepath="$PROJECT_DIR$/gh-angular.iml" />
+      <module fileurl="file://$PROJECT_DIR$/STLCourts-client.iml" filepath="$PROJECT_DIR$/STLCourts-client.iml" />
     </modules>
   </component>
 </project>
