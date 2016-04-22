@@ -7,6 +7,10 @@ RUN mkdir /stlcourts-client
 COPY . /stlcourts-client
 WORKDIR /stlcourts-client
 
+#Install Ruby & Compass
+RUN apt-get install -y ruby-full
+RUN gem install compass
+
 RUN npm set progress=false && npm install
 RUN bower --allow-root install
 
