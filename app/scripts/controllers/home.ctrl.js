@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toaster, States, municipalities, $modal, $state) {
+angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toaster, States, municipalities, $uibModal, $state) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.municipalities = municipalities;
@@ -60,7 +60,7 @@ angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toast
 
   ctrl.getDOB = function(citationCriteriaFrm){
     if(citationCriteriaFrm.$valid) {
-      var modalInstance = $modal.open({
+      var modalInstance = $uibModal.open({
         templateUrl: 'views/dobPicker.html',
         controller: 'dobPickerCtrl as ctrl',
         size: 'sm'
@@ -108,7 +108,7 @@ angular.module('ghAngularApp').controller('HomeCtrl', function (Citations, toast
   ctrl.openMap = function(){
     ctrl.citationCriteria.municipalityNames = null;
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'views/locationPickerMap.html',
       controller: 'locationPickerMapCtrl as ctrl',
       size: 'md',

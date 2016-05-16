@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInstance, DateFormatter, toaster) {
+angular.module('ghAngularApp').controller('dobPickerCtrl', function ($uibModalInstance, DateFormatter, toaster) {
   var ctrl = this;
 
   ctrl.dob = null;
@@ -17,7 +17,7 @@ angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInsta
   ctrl.save = function(form) {
     if (form.$valid)
     {
-      $modalInstance.close(DateFormatter.format(ctrl.dob, 'mm/dd/yyyy'));
+      $uibModalInstance.close(DateFormatter.format(ctrl.dob, 'mm/dd/yyyy'));
     }
     else
     {
@@ -26,6 +26,6 @@ angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInsta
   };
 
   ctrl.cancel = function() {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 });

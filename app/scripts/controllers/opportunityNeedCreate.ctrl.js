@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('OpportunityNeedCreateCtrl', function ($modalInstance, toaster, Opportunities, courts, opportunity) {
+angular.module('ghAngularApp').controller('OpportunityNeedCreateCtrl', function ($uibModalInstance, toaster, Opportunities, courts, opportunity) {
   var ctrl = this;
   ctrl.municipalities = courts;
   ctrl.opportunity = opportunity;
@@ -28,7 +28,7 @@ angular.module('ghAngularApp').controller('OpportunityNeedCreateCtrl', function 
     if (form.$valid) {
       Opportunities.createNeed(ctrl.opportunity, ctrl.opportunityNeed).then(function(){
         toaster.pop('success', 'Opportunity Need was created');
-        $modalInstance.close(ctrl.opportunityNeed);
+        $uibModalInstance.close(ctrl.opportunityNeed);
       }, function(){
         toaster.pop('error', 'There was an error trying to create your opportunity need');
       });
@@ -38,6 +38,6 @@ angular.module('ghAngularApp').controller('OpportunityNeedCreateCtrl', function 
   };
 
   ctrl.cancel = function () {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 });

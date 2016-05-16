@@ -1,7 +1,7 @@
 'use strict';
 
 /* global esri */
-angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($scope, esriRegistry, $modalInstance, municipalities) {
+angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($scope, esriRegistry, $uibModalInstance, municipalities) {
   var ctrl = this;
   ctrl.selectedMunicipalities = [];
 
@@ -53,10 +53,10 @@ angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($sc
   });
 
   ctrl.selectLocation = function(){
-    $modalInstance.close(ctrl.selectedMunicipalities);
+    $uibModalInstance.close(ctrl.selectedMunicipalities);
   };
 
   ctrl.cancel = function() {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 });

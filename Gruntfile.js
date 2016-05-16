@@ -453,6 +453,19 @@ module.exports = function (grunt) {
           }
         }
       },
+      envLocalWithRemoteServices: {
+        // This should point to the machine running debuggable services
+        options: {
+          name: 'envConfig',
+          dest: '<%= yeoman.app %>/scripts/envConfig.js'
+        },
+        constants: {
+          ENV: {
+            name: 'Local',
+            apiEndpoint: '//test.yourstlcourts.com/api/'
+          }
+        }
+      },
       envProduction: {
         options: {
           name: 'envConfig',
@@ -486,6 +499,9 @@ module.exports = function (grunt) {
     if (targetEnvironment === 'Local' || targetEnvironment === 'local')
     {
       targetEnvironment = 'envLocal';
+    }
+    else if (targetEnvironment === 'uionly') {
+      targetEnvironment = 'envLocalWithRemoteServices';
     }
     else if (targetEnvironment === 'Production' || targetEnvironment === 'production' ||
       targetEnvironment === 'Prod'       || targetEnvironment === 'prod')
