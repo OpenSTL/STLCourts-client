@@ -4,11 +4,17 @@ angular.module('ghAngularApp').controller('dobPickerCtrl', function ($uibModalIn
   var ctrl = this;
 
   ctrl.dob = null;
-  ctrl.minDate = new Date(1900, 0, 1);
-  ctrl.maxDate = new Date();
   ctrl.status = {
     opened : false
   };
+
+  ctrl.datepickerOptions = {
+    minDate: new Date(1900, 0, 1),
+    maxDate: new Date()
+  };
+
+  ctrl.datepickerFormat = 'MM/dd/yyyy';
+  ctrl.acceptedDatepickerFormats = ['dd-MMMM-yyyy', 'MM-dd-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 
   ctrl.open = function() {
     ctrl.status.opened = true;
