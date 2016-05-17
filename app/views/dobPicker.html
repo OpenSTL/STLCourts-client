@@ -10,7 +10,8 @@
         <p class="input-group">
           <input displayName="Date of Birth" type="text" class="form-control" uib-datepicker-popup={{ctrl.datepickerFormat}}
                  ng-model="ctrl.dob" is-open="ctrl.status.opened" datepicker-options="ctrl.datepickerOptions"
-                 ng-required="true" close-text="Close" placeholder="MM/DD/YYYY" alt-input-formats="ctrl.acceptedDatepickerFormats"/>
+                 ng-required="true" close-text="Close" placeholder="MM/DD/YYYY" alt-input-formats="ctrl.acceptedDatepickerFormats"
+                 show-button-bar="false" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="ctrl.open($event)">
               <i class="glyphicon glyphicon-calendar"></i>
