@@ -4,7 +4,7 @@
 angular.module('ghAngularApp').factory('DateFormatter', function () {
   var dateFormat = {
     masks : {
-      "default":      "ddd mmm dd yyyy HH:MM:ss",
+      "default":      "mm/dd/yyyy",
       shortDate:      "m/d/yy",
       mediumDate:     "mmm d, yyyy",
       longDate:       "mmmm d, yyyy",
