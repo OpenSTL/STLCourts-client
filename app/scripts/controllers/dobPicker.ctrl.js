@@ -10,7 +10,7 @@ angular.module('ghAngularApp').controller('dobPickerCtrl', function ($uibModalIn
   var today = new Date;
   ctrl.datepickerOptions = {
     minDate: new Date(1900, 0, 1),
-    maxDate: new Date(today.getFullYear(),today.getMonth(),today.getDate())
+    maxDate: new Date(today.getFullYear()-18,today.getMonth(),today.getDate())
   };
 
   ctrl.datepickerFormat = 'MM/dd/yyyy';
