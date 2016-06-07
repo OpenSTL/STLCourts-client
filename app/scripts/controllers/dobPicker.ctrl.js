@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('ghAngularApp').controller('dobPickerCtrl', function ($uibModalInstance, DateFormatter, toaster) {
+  var today = new Date();
   var ctrl = this;
 
   ctrl.dob = null;
   ctrl.status = {
     opened : false
   };
-  var today = new Date;
   ctrl.datepickerOptions = {
     minDate: new Date(1900, 0, 1),
     maxDate: new Date(today.getFullYear()-18,today.getMonth(),today.getDate())

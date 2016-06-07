@@ -52,7 +52,7 @@ angular.module('ghAngularApp').factory('DateFormatter', function () {
     date = date ? new Date(date) : new Date;
     if (isNaN(date)) throw SyntaxError("invalid date");
 
-    mask = String(dF.masks[mask] || mask || dF.masks["default"]);
+    mask = String(dF.masks[mask] || mask || dF.masks[shortDate]);
 
     // Allow setting the utc argument via the mask
     if (mask.slice(0, 4) === "UTC:") {
