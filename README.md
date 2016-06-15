@@ -4,9 +4,12 @@ This project contains the source code for the Angular application at yourstlcour
 
 ## Build & development
 
-* Download NodeJS w/ npm
+* Download & Install NodeJS w/ npm
+* Download & Install Ruby
 * Install grunt-cli `npm install -g grunt-cli`
 * Install bower `npm install -g bower`
+* Install app dependencies `npm install && bower install`
+* Install compass `gem install compass`
 
 ### Build
 Run `grunt build:(local|uionly|production)` for building and `grunt serve:(local|uionly|production)` for preview.
@@ -18,4 +21,5 @@ Run `grunt build:(local|uionly|production)` for building and `grunt serve:(local
 
 ## Testing
 
+* Install karma `npm install -g karma-cli`
 Running `grunt test:local` will run the unit tests with karma.
