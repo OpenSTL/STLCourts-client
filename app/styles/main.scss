@@ -212,15 +212,6 @@ table {
   }
 }
 
-.faq{
-  .Question{
-    color: $blue;
-  }
-  .Answer{
-    color $lightBlue;
-  }
-}
-
 @media print {
   .no-print, .no-print *
   {
