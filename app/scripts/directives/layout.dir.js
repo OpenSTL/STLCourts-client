@@ -6,7 +6,7 @@ angular.module('ghAngularApp').directive('layout', function () {
 
     link: function ($scope, element) {
       $scope.$on('$stateChangeStart', function(event, toState){
-        if (toState.name === 'home' || toState.name === 'about' || toState.name === 'help') {
+        if (toState.name === 'home' || toState.name === 'about' || toState.name === 'help' || toState.name === 'info') {
           element.addClass('background');
         } else {
           element.removeClass('background');
