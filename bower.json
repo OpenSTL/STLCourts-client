@@ -1,8 +1,8 @@
 {
-  "name": "gh-angular",
-  "version": "0.1.0",
+  "name": "yourSTLCourts-client",
+  "version": "0.9.0",
   "dependencies": {
-    "angular": "1.5.3",
+    "angular": "~1.5.6",
     "bootstrap-sass-official": "^3.2.0",
     "angular-resource": "^1.3.0",
     "angular-sanitize": "^1.3.0",
@@ -12,7 +12,8 @@
     "components-font-awesome": "~4.4.0",
     "angularjs-toaster": "~0.4.15",
     "angular-bootstrap": "1.3.2",
-    "angular-ui-select": "~0.16.0"
+    "angular-ui-select": "~0.16.0",
+    "jquery": "^2.2.4"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.0"
