@@ -6,7 +6,6 @@
         <thead>
           <th>Ticket #</th>
           <th>Name</th>
-          <th>DOB</th>
           <th>Court Date</th>
           <th>Court Location</th>
           <th>Violations</th>
@@ -15,7 +14,6 @@
         <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation)">
           <td>{{citation.citation_number}}</td>
           <td>{{citation.first_name}} {{citation.last_name}}</td>
-          <td>{{citation.date_of_birth}}</td>
           <td>{{citation.court_date}}</td>
           <td>{{citation.court_location}}</td>
           <td>
@@ -59,6 +57,8 @@
           <div class="col-sm-6">
             <h3>Ticket Info</h3>
             <dl class="dl-horizontal" style="font-size: 1.2em">
+              <dt>Case Number</dt>
+              <dd>{{ctrl.selectedCitation.citation_number}}</dd>
               <dt>Ticket Date</dt>
               <dd>{{ctrl.selectedCitation.citation_date}}</dd>
               <dt>Total Fine</dt>
@@ -88,6 +88,9 @@
               <dd>{{ctrl.selectedCitation.court_date}}</dd>
               <dt>Court Name</dt>
               <dd>{{ctrl.selectedCitation.court.municipality}}</dd>
+              <dt>Court Phone Number</dt>
+              <!-- Will put this here once court API and database gets re-created, for now using a place holder <dd>{{ctrl.selectedCitation.court.phone_number}}</dd>-->
+              <dd>(XXX) XXX-XXXX</dd>
               <dt>Court Location</dt>
               <dd>
                 {{ctrl.selectedCitation.court.address}}<br/>
