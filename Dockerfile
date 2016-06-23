@@ -17,7 +17,10 @@ RUN bower --allow-root install
 # Rebuild node-sass due to some node versioning possible conflicts
 RUN npm rebuild node-sass
 
-#TODO: Run jasmine tests
+RUN npm install -g karma-cli
+
+#Run jasmine tests
+RUN grunt test:local
 
 # Building
 RUN grunt build:production
