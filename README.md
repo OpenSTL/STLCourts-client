@@ -11,6 +11,11 @@ This project contains the source code for the Angular application at yourstlcour
 * Install app dependencies `npm install && bower install`
 * Install compass `gem install compass`
 
+### Configs
+* local = use local API
+* uionly = use test API
+* production = use API at /api/ (presumably proxied)
+
 ### Build
 Run `grunt build:(local|uionly|production)` for building and `grunt serve:(local|uionly|production)` for preview.
 
