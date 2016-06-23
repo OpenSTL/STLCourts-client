@@ -6,6 +6,7 @@
         <thead>
           <th>Ticket #</th>
           <th>Name</th>
+          <th>DOB</th>
           <th>Court Date</th>
           <th>Court Location</th>
           <th>Violations</th>
@@ -14,6 +15,7 @@
         <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation)">
           <td>{{citation.citation_number}}</td>
           <td>{{citation.first_name}} {{citation.last_name}}</td>
+          <td>{{citation.date_of_birth}}</td>
           <td>{{citation.court_date}}</td>
           <td>{{citation.court_location}}</td>
           <td>
