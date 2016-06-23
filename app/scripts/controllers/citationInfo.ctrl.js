@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, $window, citations, Courts) {
+angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state, $window, citations, Courts) {
   var ctrl = this;
 
   ctrl.selectCitation = function(citation){

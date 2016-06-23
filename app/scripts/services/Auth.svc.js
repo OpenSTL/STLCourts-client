@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').factory('Auth', function ($state) {
+angular.module('yourStlCourts').factory('Auth', function ($state) {
 
   function authenticate(sponsor) {
     localStorage.setItem('sponsor', JSON.stringify(sponsor));

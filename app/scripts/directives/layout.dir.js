@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').directive('layout', function () {
+angular.module('yourStlCourts').directive('layout', function () {
   return {
     restrict: 'A',
 

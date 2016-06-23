@@ -1,7 +1,7 @@
 'use strict';
 
 /* jshint ignore:start */
-angular.module('ghAngularApp').factory('DateFormatter', function () {
+angular.module('yourStlCourts').factory('DateFormatter', function () {
   var dateFormat = {
     masks : {
       "default":      "mm/dd/yyyy",

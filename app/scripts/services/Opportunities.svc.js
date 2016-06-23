@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').factory('Opportunities', function ($resource) {
+angular.module('yourStlCourts').factory('Opportunities', function ($resource) {
   var OpportunitiesResource = $resource('opportunities/:id');
 
   function findBySponsorId(sponsorId) {

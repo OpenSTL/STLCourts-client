@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('HeaderCtrl', function (Auth) {
+angular.module('yourStlCourts').controller('HeaderCtrl', function (Auth) {
   var ctrl = this;
 
   ctrl.isAuthenticated = function(){

@@ -1,7 +1,7 @@
 'use strict';
 
 /* global esri */
-angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($scope, esriRegistry, $uibModalInstance, municipalities) {
+angular.module('yourStlCourts').controller('locationPickerMapCtrl', function ($scope, esriRegistry, $uibModalInstance, municipalities) {
   var ctrl = this;
   ctrl.selectedMunicipalities = [];
 

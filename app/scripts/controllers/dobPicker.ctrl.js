@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('dobPickerCtrl', function ($uibModalInstance, DateFormatter, toaster) {
+angular.module('yourStlCourts').controller('dobPickerCtrl', function ($uibModalInstance, DateFormatter, toaster) {
   var today = new Date();
   var ctrl = this;
 

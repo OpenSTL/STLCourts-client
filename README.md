@@ -4,7 +4,7 @@ This project contains the source code for the Angular application at yourstlcour
 
 ## Build & development
 
-* Download & Install NodeJS w/ npm
+* Download & Install NodeJS (v4.x) w/ npm
 * Download & Install Ruby
 * Install grunt-cli `npm install -g grunt-cli`
 * Install bower `npm install -g bower`
