@@ -48,7 +48,6 @@ html, body {
 
 .navbar {
   background-color: $lightGrey !important;
-  height: 85px;
 }
 
 footer {
@@ -177,6 +176,7 @@ label {
 
 .navbar-brand {
   padding: 5px !important;
+  height: 85px;
 }
 
 .navbar-default .navbar-nav > li > a {
