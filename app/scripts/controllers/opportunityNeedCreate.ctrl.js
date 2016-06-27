@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('OpportunityNeedCreateCtrl', function ($uibModalInstance, toaster, Opportunities, courts, opportunity) {
+angular.module('yourStlCourts').controller('OpportunityNeedCreateCtrl', function ($uibModalInstance, toaster, Opportunities, courts, opportunity) {
   var ctrl = this;
   ctrl.municipalities = courts;
   ctrl.opportunity = opportunity;

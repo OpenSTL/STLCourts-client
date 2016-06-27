@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('PaymentOptionsCtrl', function (citation, Opportunities, $state, $uibModal) {
+angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (citation, Opportunities, $state, $uibModal) {
   var ctrl = this;
 
   ctrl.citation = citation;

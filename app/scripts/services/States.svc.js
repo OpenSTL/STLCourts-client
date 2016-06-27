@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').factory('States', function () {
+angular.module('yourStlCourts').factory('States', function () {
   return [
     'AL',
     'AK',

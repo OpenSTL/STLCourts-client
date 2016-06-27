@@ -1,5 +1,5 @@
 'use strict';
-angular.module('ghAngularApp').factory('errorMessageResolver', function ($q) {
+angular.module('yourStlCourts').factory('errorMessageResolver', function ($q) {
   /**
    * Replaces string placeholders with corresponding template string
    */

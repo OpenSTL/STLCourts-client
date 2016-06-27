@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('SponsorLoginCtrl', function ($state, toaster, Sponsor, Auth) {
+angular.module('yourStlCourts').controller('SponsorLoginCtrl', function ($state, toaster, Sponsor, Auth) {
   var ctrl = this;
   if(Auth.isAuthenticated()){
     $state.go('sponsorMgmt');

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('SponsorMgmtCtrl', function ($state, Sponsor, Auth, opportunities, courts,
+angular.module('yourStlCourts').controller('SponsorMgmtCtrl', function ($state, Sponsor, Auth, opportunities, courts,
                                                                        Opportunities, toaster, $uibModal) {
   var ctrl = this;
 

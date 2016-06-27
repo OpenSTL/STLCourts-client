@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').directive('ngTranscludeReplace', [function () {
+angular.module('yourStlCourts').directive('ngTranscludeReplace', [function () {
   return {
     terminal: true,
     restrict: 'EA',

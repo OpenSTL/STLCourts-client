@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('ghAngularApp', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'esri.map', 'toaster',
+angular.module('yourStlCourts', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'esri.map', 'toaster',
   'ui.bootstrap', 'ui.select', 'jcs-autoValidate']);
 
-angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvider, ENV, $httpProvider, uiSelectConfig) {
+angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, ENV, $httpProvider, uiSelectConfig) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
@@ -94,7 +94,7 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('ghAngularApp').run(function (validator, validationElementModifier, errorMessageResolver) {
+angular.module('yourStlCourts').run(function (validator, validationElementModifier, errorMessageResolver) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
