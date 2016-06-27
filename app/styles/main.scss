@@ -212,6 +212,16 @@ table {
   }
 }
 
+.Question{
+  font-size: 1.5em;
+  color: $blue;
+}
+
+.Answer{
+  font-size: 1.2em;
+  color: $lightGray;
+}
+
 @media print {
   .no-print, .no-print *
   {
