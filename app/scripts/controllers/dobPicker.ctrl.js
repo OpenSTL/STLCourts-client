@@ -21,12 +21,9 @@ angular.module('yourStlCourts').controller('dobPickerCtrl', function ($uibModalI
   };
 
   ctrl.save = function(form) {
-    if (form.$valid)
-    {
+    if (form.$valid) {
       $uibModalInstance.close(DateFormatter.format(ctrl.dob, 'mm/dd/yyyy'));
-    }
-    else
-    {
+    } else {
       toaster.pop('error', 'Invalid date of birth.');
     }
   };
