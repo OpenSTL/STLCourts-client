@@ -27,4 +27,6 @@ Run `grunt build:(local|uionly|production)` for building and `grunt serve:(local
 ## Testing
 
 * Install karma `npm install -g karma-cli`
-Running `grunt test:local` will run the unit tests with karma.
+* Running `karma start test\karma.conf.js` will run the unit tests and re-run on file changes.
+... Alternatively, `cd test` and `karma start`
+* Running `grunt test:local` will run the unit tests a single time with karma.
