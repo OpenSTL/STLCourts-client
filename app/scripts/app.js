@@ -9,13 +9,7 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: 'views/home.html',
-      controller: 'HomeCtrl as ctrl',
-      resolve: {
-        municipalities: function(Courts){
-          return Courts.findAll();
-        }
-      }
+      templateUrl: 'views/home.html'
     })
     .state('ticketSearch', {
       url: '/ticket/search',
