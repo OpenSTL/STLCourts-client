@@ -17,6 +17,16 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
         }
       }
     })
+    .state('ticketSearch', {
+      url: '/ticket/search',
+      templateUrl: 'views/ticketSearch.html',
+      controller: 'ticketSearchCtrl as ctrl',
+      resolve: {
+        municipalities: function(Courts){
+          return Courts.findAll();
+        }
+      }
+    })
     .state('about', {
       url: '/about',
       templateUrl: 'views/about.html'
@@ -30,7 +40,7 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/info.html'
     })
     .state('citationInfo', {
-      url: '/ticketInfo',
+      url: '/ticket/info',
       templateUrl: 'views/citationInfo.html',
       controller: 'citationInfoCtrl as ctrl',
       params: {

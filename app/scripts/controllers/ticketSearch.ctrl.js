@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('HomeCtrl', function (Citations, toaster, States, municipalities, $uibModal, $state) {
+angular.module('yourStlCourts').controller('ticketSearchCtrl', function (Citations, toaster, States, municipalities, $uibModal, $state) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.municipalities = municipalities;

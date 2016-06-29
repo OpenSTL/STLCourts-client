@@ -12,7 +12,7 @@ angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state,
   };
 
   if(!citations) {
-    $state.go('home');
+    $state.go('ticketSearch');
   } else {
     ctrl.citations = citations;
     ctrl.selectedCitation = null;
