@@ -9,7 +9,8 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: 'views/home.html'
+      templateUrl: 'views/home.html',
+      controller: 'homeCtrl as ctrl'
     })
     .state('ticketSearch', {
       url: '/ticket/search',
