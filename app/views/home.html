@@ -5,8 +5,17 @@
   <div class="well" style="margin-top:20px">
     <h2>Everything you need in one place.</h2>
     <p>Use the search box below to find relevant court information.</p>
-    <input class="srch-box search" type="text" placeholder="enter the city name" required="">
-    <input class="srch-btn" type="button" value="Search">
-
+    <form-field required>
+      <p class="input-group">
+        <input class="form-control"
+               placeholder="enter the municipality's name"
+               show-button-bar="false" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="ctrl.open($event)">
+              <i>Search</i>
+            </button>
+          </span>
+      </p>
+    </form-field>
   </div>
 </div>
