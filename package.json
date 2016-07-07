@@ -1,5 +1,6 @@
 {
-  "name": "ghangular",
+  "name": "yourSTLCourts-client",
+  "version": "0.9.0",
   "private": true,
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -28,8 +29,10 @@
     "grunt-wiredep": "^2.0.0",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
+    "karma-coverage": "^0.5.3",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
+    "karma-spec-reporter": "0.0.26",
     "load-grunt-tasks": "^3.2.0",
     "time-grunt": "^1.0.0"
   },
@@ -37,7 +40,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test:local",
+    "test-watch": "karma start --auto-watch --no-single-run"
   },
   "dependencies": {
     "express": "^4.13.3",
