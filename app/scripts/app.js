@@ -34,6 +34,14 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       url: '/info',
       templateUrl: 'views/info.html'
     })
+    .state('legal', {
+          url: '/legal',
+          templateUrl: 'views/legal.html'
+    })
+    .state('privacy', {
+          url: '/privacy',
+          templateUrl: 'views/privacy.html'
+    })
     .state('citationInfo', {
       url: '/ticket/info',
       templateUrl: 'views/citationInfo.html',
