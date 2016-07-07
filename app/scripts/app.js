@@ -12,16 +12,6 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/home.html',
       controller: 'homeCtrl as ctrl'
     })
-    .state('ticketSearch', {
-      url: '/ticket/search',
-      templateUrl: 'views/ticketSearch.html',
-      controller: 'ticketSearchCtrl as ctrl',
-      resolve: {
-        municipalities: function(Courts){
-          return Courts.findAll();
-        }
-      }
-    })
     .state('about', {
       url: '/about',
       templateUrl: 'views/about.html'
@@ -30,12 +20,22 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       url: '/help',
       templateUrl: 'views/help.html'
     })
-   .state('info', {
+    .state('info', {
       url: '/info',
       templateUrl: 'views/info.html'
     })
+    .state('ticketSearch', {
+      url: '/tickets/search',
+      templateUrl: 'views/ticketSearch.html',
+      controller: 'ticketSearchCtrl as ctrl',
+      resolve: {
+        municipalities: function(Courts){
+          return Courts.findAll();
+        }
+      }
+    })
     .state('citationInfo', {
-      url: '/ticket/info',
+      url: '/tickets/info',
       templateUrl: 'views/citationInfo.html',
       controller: 'citationInfoCtrl as ctrl',
       params: {
