@@ -37,4 +37,14 @@ describe('HeaderCtrl', function () {
 
     expect(Auth.logout).toHaveBeenCalled();
   }));
+
+  it('gets the authenticated sponsor', inject(function(Auth) {
+    var sponsor = {id: 2, name: 'Sponsor'};
+    spyOn(Auth, 'getAuthenticatedSponsor').and.returnValue(sponsor);
+
+    var authenticatedSponsor = HeaderCtrl.getAuthenticatedSponsor();
+
+    expect(authenticatedSponsor).toEqual(sponsor);
+    expect(Auth.getAuthenticatedSponsor).toHaveBeenCalled();
+  }));
 });
