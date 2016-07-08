@@ -40,11 +40,11 @@ describe('DobPickerCtrl', function () {
 
   it('closes modal with dob on save', inject(function(DateFormatter) {
     var form = { $valid: true };
-    DobPickerCtrl.dob = new Date(1999, 5, 18);
+    DobPickerCtrl.dob = new Date(1995, 5, 18);
 
     DobPickerCtrl.save(form);
 
-    expect(modalInstance.close).toHaveBeenCalledWith('06/18/1999');
+    expect(modalInstance.close).toHaveBeenCalledWith('06/18/1995');
   }));
 
   it('shows error when saving invalid date', inject(function(toaster) {
