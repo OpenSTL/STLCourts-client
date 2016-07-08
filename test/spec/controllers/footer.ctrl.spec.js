@@ -11,9 +11,5 @@ describe('FooterCtrl', function() {
     });
   });
 
-  it('indicates should collapse options', function() {
-    var shouldCollapseOptions = FooterCtrl.collapseOptions();
-
-    expect(shouldCollapseOptions).toBe(false);
-  });
+  //TODO: Add tests where needed
 });
