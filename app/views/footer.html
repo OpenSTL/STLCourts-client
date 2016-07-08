@@ -1,0 +1,23 @@
+<div class="container" ng-controller="FooterCtrl as ctrl">
+  <div class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+      <div id="footer-body">
+      <table class="nav navbar-nav" width = 100%>
+
+        <span ng-if="ctrl.collapseOptions()">
+
+          <td><a ui-sref="home">Home</a></td>
+          <td><a ui-sref="ticketSearch">Tickets</a></td>
+          <td><a ui-sref="info">Info</a></td>
+          <td><a ui-sref="about">About</a></td>
+          <td><a ui-sref="help">Help</a></td>
+        </span>
+          <td><a ui-sref="legal">Legal Info</a></td>
+          <td><a ui-sref="privacy">Privacy Policy</a></td>
+          <td>©2016 CivTech St. Louis</td>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
