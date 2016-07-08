@@ -4,17 +4,15 @@
       <div id="footer-body">
       <table class="nav navbar-nav" width = 100%>
 
-        <span ng-if="ctrl.collapseOptions()">
 
-          <td><a ui-sref="home">Home</a></td>
-          <td><a ui-sref="ticketSearch">Tickets</a></td>
-          <td><a ui-sref="info">Info</a></td>
-          <td><a ui-sref="about">About</a></td>
-          <td><a ui-sref="help">Help</a></td>
-        </span>
+          <td ng-if="!ctrl.mobileCheck()"><a ui-sref="home">Home</a></td>
+          <td ng-if="!ctrl.mobileCheck()"><a ui-sref="ticketSearch">Tickets</a></td>
+          <td ng-if="!ctrl.mobileCheck()"><a ui-sref="info">Info</a></td>
+          <td ng-if="!ctrl.mobileCheck()"><a ui-sref="about">About</a></td>
+          <td ng-if="!ctrl.mobileCheck()"><a ui-sref="help">Help</a></td>
           <td><a ui-sref="legal">Legal Info</a></td>
           <td><a ui-sref="privacy">Privacy Policy</a></td>
-          <td>©2016 CivTech St. Louis</td>
+          <td>© 2016 CivTech St. Louis</td>
 
         </table>
       </div>
