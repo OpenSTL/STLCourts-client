@@ -110,7 +110,7 @@ angular.module('yourStlCourts').controller('ticketSearchCtrl', function (Citatio
 
     var modalInstance = $uibModal.open({
       templateUrl: 'views/locationPickerMap.html',
-      controller: 'locationPickerMapCtrl as ctrl',
+      controller: 'LocationPickerMapCtrl as ctrl',
       size: 'md',
       resolve: {
         municipalities: function() {

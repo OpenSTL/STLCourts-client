@@ -1,7 +1,7 @@
 'use strict';
 
 /* global esri */
-angular.module('yourStlCourts').controller('locationPickerMapCtrl', function ($scope, esriRegistry, $uibModalInstance, municipalities) {
+angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($scope, esriRegistry, $uibModalInstance, municipalities) {
   var ctrl = this;
   ctrl.selectedMunicipalities = [];
 
@@ -18,7 +18,6 @@ angular.module('yourStlCourts').controller('locationPickerMapCtrl', function ($s
     ctrl.selectedMunicipalities = [];
 
     var selectionQuery = new esri.tasks.Query();
-    console.log(selectionQuery);
     var tol = map.extent.getWidth()/map.width * 5;
     var x = evt.mapPoint.x;
     var y = evt.mapPoint.y;
@@ -27,8 +26,7 @@ angular.module('yourStlCourts').controller('locationPickerMapCtrl', function ($s
     var layer = map.getLayer(map.graphicsLayerIds[0]);
     layer.queryFeatures(selectionQuery, function(queryResult){
       queryResult.features.forEach(function(feature){
-        if (feature.attributes && feature.attributes.MUNICIPALITY)
-        {
+        if (feature.attributes && feature.attributes.MUNICIPALITY) {
           municipalities.every(function (realMunicip) {
             if (realMunicip.municipality.toLowerCase() === feature.attributes.MUNICIPALITY.toLowerCase()) {
               ctrl.selectedMunicipalities.push(realMunicip);
@@ -37,18 +35,18 @@ angular.module('yourStlCourts').controller('locationPickerMapCtrl', function ($s
 
             return true;
           });
-        }
-        else
-        {
-          console.log('Received a map feature with the incorrect attributes. Something is wrong with the ESRI configuration.');
+        } else {
+          console.error('Received a map feature with the incorrect attributes. Something is wrong with the ESRI configuration.');
         }
       });
     });
+
+    $scope.$apply();
   }
 
   esriRegistry.get('stlMap').then(function(map){
     map.on('click', function(e) {
-      $scope.$apply(onMapClick.bind(null, map, e));
+      onMapClick(map, e);
     });
   });
 
