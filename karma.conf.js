@@ -32,6 +32,7 @@ module.exports = function(config) {
       'bower_components/angularjs-toaster/toaster.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-ui-select/dist/select.js',
+      'bower_components/moment/moment.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/vendor/jcs-auto-validate.min.js',
