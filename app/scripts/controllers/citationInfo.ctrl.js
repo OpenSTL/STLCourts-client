@@ -85,4 +85,10 @@ angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state,
   ctrl.printTicket = function () {
     $window.print();
   };
+
+  ctrl.formatDate = function(dateToFormat){
+    //var moment = require('moment');
+    //return moment(dateToFormat).format('YYYY/MM/DD');
+    return dateToFormat;
+  };
 });

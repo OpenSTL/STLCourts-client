@@ -14,7 +14,7 @@
         <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation)">
           <td>{{citation.citation_number}}</td>
           <td>{{citation.first_name}} {{citation.last_name}}</td>
-          <td>{{citation.court_date}}</td>
+          <td>{{ctrl.formatDate(citation.court_date)}}</td>
           <td>{{citation.court_location}}</td>
           <td>
             <span ng-repeat="violation in citation.violations" ng-if="ctrl.hasViolations(citation)">
@@ -61,7 +61,7 @@
               <dt>Case Number</dt>
               <dd>{{ctrl.selectedCitation.citation_number}}</dd>
               <dt>Ticket Date</dt>
-              <dd>{{ctrl.selectedCitation.citation_date}}</dd>
+              <dd>{{ctrl.formatDate(ctrl.selectedCitation.citation_date)}}</dd>
               <dt>Total Fine</dt>
               <dd>
                 <span ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation)">
@@ -86,7 +86,7 @@
             <h3>Court Information</h3>
             <dl class="dl-horizontal" style="font-size: 1.2em">
               <dt>Court Date</dt>
-              <dd>{{ctrl.selectedCitation.court_date}}</dd>
+              <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_date)}}</dd>
               <dt>Court Name</dt>
               <dd>{{ctrl.selectedCitation.court.municipality}}</dd>
               <dt>Court Phone Number</dt>
