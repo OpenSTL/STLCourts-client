@@ -88,7 +88,7 @@ angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state,
 
   ctrl.formatDate = function(dateToFormat){
     //var moment = require('moment');
-    //return moment(dateToFormat).format('YYYY/MM/DD');
+    //return moment(dateToFormat).format('MM/DD/YYYY');
     return dateToFormat;
   };
 });
