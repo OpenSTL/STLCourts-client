@@ -7,11 +7,47 @@ describe('HeaderCtrl', function () {
   beforeEach(function() {
     module('yourStlCourts');
 
-    inject(function($controller, Auth) {
+    inject(function($controller, Auth, $httpBackend) {
       HeaderCtrl = $controller('HeaderCtrl', {
         Auth: Auth
       });
+
+      $httpBackend.whenGET(/.*\.html/).respond(200, '');
     });
+  });
+
+  it('sets up collapsed menu click handling on init', function() {
+    var selector = $([
+      $('<ul class="navbar-collapse"><li></li></ul>'),
+      $('<a class="navbar-brand"></a>')
+    ]);
+    spyOn(window, '$').and.returnValue(selector);
+    spyOn(selector, 'on');
+
+    HeaderCtrl.$onInit();
+
+    expect(selector.on).toHaveBeenCalledWith('click', jasmine.any(Function));
+  });
+
+  it('closes menu when navbar item or navbar brand is clicked', function() {
+    var navBarCollapse = $('<ul class="navbar-collapse"><li></li></ul>');
+    var selector = $([
+      navBarCollapse.find('li'),
+      $('<a class="navbar-brand"></a>')
+    ]);
+    var navBarCollapseSelector = $(navBarCollapse);
+    spyOn(navBarCollapseSelector, 'collapse');
+    var navBarToggleSelector = $('<div class="navbar-toggle"></div>');
+    spyOn(navBarToggleSelector, 'addClass');
+    spyOn(window, '$').and.returnValues(selector, navBarCollapseSelector, navBarToggleSelector);
+    spyOn(selector, 'on');
+
+    HeaderCtrl.$onInit();
+
+    selector.on.calls.first().args[1]();
+
+    expect(navBarCollapseSelector.collapse).toHaveBeenCalledWith('hide');
+    expect(navBarToggleSelector.addClass).toHaveBeenCalledWith('collapsed');
   });
 
   it('indicates is authenticated', inject(function (Auth) {
