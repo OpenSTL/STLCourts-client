@@ -1,20 +1,16 @@
 <div class="container">
   <div class="well" style="margin-top:20px">
     <h2>Everything you need in one place.</h2>
-    <p>Use the search box below to find relevant court information.</p>
-    <form ng-submit="ctrl.search()">
-      <form-field required>
-        <p class="input-group">
-          <input class="form-control" placeholder="enter the municipality's name" show-button-bar="false" />
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-default">
-              <i>Search</i>
-            </button>
-          </span>
-        </p>
-      </form-field>
-    </form>
-  </div>
+      <div class="form-group">
+        <form id="form" role="form">
+          <div class="form-group move-down">
+            <label for="Autocomplete">Find your Court</label>
+            <input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"/>
+          </div>
+          <div>result: {{result}}</div>
+        </form>
+      </div>
+    </div>
 
   <div class="row">
     <div class="col-md-4">
