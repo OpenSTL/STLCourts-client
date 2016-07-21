@@ -87,8 +87,15 @@ angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state,
   };
 
   ctrl.formatDate = function(dateToFormat){
-    //var moment = require('moment');
+    //TODO use moment once we find out how.
     //return moment(dateToFormat).format('MM/DD/YYYY');
-    return dateToFormat;
+    return mmddyyyyFormat(dateToFormat);
+    //return dateToFormat;
   };
+  function mmddyyyyFormat (dateToFormat){//translates from iso date
+    if(dateToFormat === null){return null;}
+    dateToFormat = dateToFormat.slice(5,7) + "/" + dateToFormat.slice(8,10) + "/" + dateToFormat.slice(0,4);
+
+    return dateToFormat;
+  }
 });
