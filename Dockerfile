@@ -8,7 +8,7 @@ COPY . /stlcourts-client
 WORKDIR /stlcourts-client
 
 #Install Ruby & Compass
-RUN apt-get install -y ruby-full
+RUN apt-get install -y ruby
 RUN gem install compass
 
 RUN npm set progress=false && npm install
