@@ -99,15 +99,18 @@ p {
 }
 
 $homepageTileHeight : 250px;
-.row-eq-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
+
+@media screen and (min-width:992px) {
+  .row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
 }
 
-.homePageTileRow{
-  margin-bottom:$footerHeight;
+.homePageTileRow {
+  margin-bottom: $footerHeight;
 }
 
 .homepageTile-bottomButton{
@@ -124,6 +127,7 @@ $homepageTileHeight : 250px;
 
 }
 
+
 .homepageTile {
   min-height: $homepageTileHeight;
   position: relative;
@@ -131,7 +135,7 @@ $homepageTileHeight : 250px;
 }
 
 .homepageTile-withButton{
-  margin-bottom:35px;
+  padding-bottom:35px;
 }
 
 .homePageTileIcon {
