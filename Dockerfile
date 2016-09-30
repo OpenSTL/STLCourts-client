@@ -1,7 +1,7 @@
 FROM cardinalsoftwaresolutions/nginx-node-bower-grunt
 
 #Install Ruby & Compass
-RUN apt-get update && apt-get install -y ruby
+RUN apt-get update && apt-get install -y ruby-full
 RUN gem install compass
 
 COPY deploy/nginx.conf /etc/nginx/nginx.conf
