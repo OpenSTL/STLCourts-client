@@ -226,6 +226,16 @@ table {
   color: $grey;
 }
 
+#homePage .well{
+  margin-top: 20px;
+}
+
+#courtSearchMap{
+  height:200px;
+  width:200px;
+  background-color: #00b3ee;
+}
+
 @media print {
   .no-print, .no-print *
   {

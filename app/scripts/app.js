@@ -10,7 +10,12 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
     .state('home', {
       url: '/',
       templateUrl: 'views/home.html',
-      controller: 'HomeCtrl as ctrl'
+      controller: 'HomeCtrl as ctrl',
+      resolve: {
+        municipalities: function(Courts){
+          return Courts.findAll();
+        }
+      }
     })
     .state('about', {
       url: '/about',
@@ -39,6 +44,19 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       resolve: {
         municipalities: function(Courts){
           return Courts.findAll();
+        }
+      }
+    })
+    .state('courtSearchInfo', {
+      url: '/courtSearch/info',
+      templateUrl: 'views/courtSearchInfo.html',
+      controller: 'courtSearchInfoCtrl as ctrl',
+      params: {
+        courtInfo: {value: undefined}
+      },
+      resolve: {
+        courtInfo : function($stateParams){
+          return $stateParams.courtInfo;
         }
       }
     })
