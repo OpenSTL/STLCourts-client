@@ -3,16 +3,6 @@
 angular.module('yourStlCourts').controller('courtSearchInfoCtrl', function ($state, $window, courtInfo) {
   var ctrl = this;
 
-
-  /*ctrl.selectCitation = function(citation){
-    ctrl.selectedCitation = citation;
-    Courts.findById(citation.court_id).then(function(court){
-      ctrl.selectedCitation.court = court;
-      ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
-    });
-  };
-*/
-  //window.alert("courtInfo: "+courtInfo.municipality);
   if(!courtInfo) {
     $state.go('home');
   } else {
