@@ -1,3 +1,5 @@
+$fa-font-path: "/bower_components/components-font-awesome/fonts/";
+
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
@@ -230,10 +232,8 @@ table {
   margin-top: 20px;
 }
 
-#courtSearchMap{
-  height:200px;
-  width:200px;
-  background-color: #00b3ee;
+#mapid{
+  height:250px;
 }
 
 @media print {

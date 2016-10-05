@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yourStlCourts', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'esri.map', 'toaster',
-  'ui.bootstrap', 'ui.select', 'jcs-autoValidate']);
+  'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet']);
 
 angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, ENV, $httpProvider, uiSelectConfig) {
   $urlRouterProvider.otherwise('/');

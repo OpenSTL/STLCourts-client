@@ -2,12 +2,28 @@
 
 angular.module('yourStlCourts').controller('courtSearchInfoCtrl', function ($state, $window, courtInfo) {
   var ctrl = this;
+  ctrl.courtOnMap = {
+        lat:51.505,
+        lng:-0.09,
+        zoom: 14
+  };
+  ctrl.courtMarkers = {};
+
+
+
+
+
 
   if(!courtInfo) {
     $state.go('home');
   } else {
     ctrl.courtInfo = courtInfo;
     ctrl.courtDirectionLink = getCourtDirectionLink(courtInfo);
+    ctrl.courtOnMap.lat = courtInfo.latitude;
+    ctrl.courtOnMap.lng = courtInfo.longitude;
+    ctrl.courtMarkers.m1 = {lat:courtInfo.latitude,lng:courtInfo.longitude, message: "Test"};
+    //ctrl.courtMarker.lat = courtInfo.latitude;
+    //ctrl.courtMarker.lng = courtInfo.longitude;
   }
 
   function getCourtDirectionLink(courtInfo) {
