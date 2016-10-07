@@ -8,6 +8,14 @@ angular.module('yourStlCourts').controller('courtSearchInfoCtrl', function ($sta
         zoom: 14
   };
   ctrl.courtMarkers = {};
+  var courtDefaultIcon = {
+    iconUrl: 'images/marker-icon.png',
+    shadowUrl: 'images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  };
 
 
 
@@ -21,7 +29,7 @@ angular.module('yourStlCourts').controller('courtSearchInfoCtrl', function ($sta
     ctrl.courtDirectionLink = getCourtDirectionLink(courtInfo);
     ctrl.courtOnMap.lat = courtInfo.latitude;
     ctrl.courtOnMap.lng = courtInfo.longitude;
-    ctrl.courtMarkers.m1 = {lat:courtInfo.latitude,lng:courtInfo.longitude, message: "Test"};
+    ctrl.courtMarkers.m1 = {lat:courtInfo.latitude,lng:courtInfo.longitude, message: "Test",icon: courtDefaultIcon};
     //ctrl.courtMarker.lat = courtInfo.latitude;
     //ctrl.courtMarker.lng = courtInfo.longitude;
   }

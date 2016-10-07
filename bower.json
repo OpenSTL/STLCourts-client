@@ -15,7 +15,7 @@
     "angular-ui-select": "~0.16.0",
     "jquery": "^2.2.4",
     "moment": "^2.14.1",
-    "leaflet": "^1.0.1",
+    "leaflet": "0.7.x",
     "angular-simple-logger": "^0.1.7",
     "ui-leaflet": "^2.0.0"
   },
@@ -34,7 +34,6 @@
     }
   },
   "resolutions": {
-    "angular": "~1.5.6",
-    "leaflet": "^1.0.1"
+    "angular": "~1.5.6"
   }
 }
