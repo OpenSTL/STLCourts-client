@@ -1,6 +1,5 @@
 'use strict';
-//planning on using: https://github.com/ghiden/angucomplete-alt
-//for the search box, just need to read into it a little
+
 angular.module('yourStlCourts').controller('HomeCtrl', function ($state,Courts,municipalities) {
   var ctrl = this;
 
@@ -9,9 +8,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function ($state,Courts,m
   ctrl.selectedCourt = null;
 
   ctrl.courtSelected  = function(){
-    $state.go('courtSearchInfo',{'courtInfo':ctrl.selectedCourt});
+    $state.go('courtSearchInfo',{'id':ctrl.selectedCourt.id});
   };
 
-  /*ctrl.search = function() {
-  };*/
 });

@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('courtSearchInfoCtrl', function ($state, $window, courtInfo) {
+angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, Courts, courtId){//courtInfo) {
   var ctrl = this;
+
   ctrl.courtOnMap = {
         lat:51.505,
         lng:-0.09,
@@ -17,21 +18,20 @@ angular.module('yourStlCourts').controller('courtSearchInfoCtrl', function ($sta
     shadowSize: [41, 41]
   };
 
-
-
-
-
-
-  if(!courtInfo) {
+  if(!courtId) {
     $state.go('home');
   } else {
-    ctrl.courtInfo = courtInfo;
-    ctrl.courtDirectionLink = getCourtDirectionLink(courtInfo);
-    ctrl.courtOnMap.lat = courtInfo.latitude;
-    ctrl.courtOnMap.lng = courtInfo.longitude;
-    ctrl.courtMarkers.m1 = {lat:courtInfo.latitude,lng:courtInfo.longitude, message: "Test",icon: courtDefaultIcon};
-    //ctrl.courtMarker.lat = courtInfo.latitude;
-    //ctrl.courtMarker.lng = courtInfo.longitude;
+    Courts.findById(courtId).then(function(court){
+      if (court.id === undefined){
+        $state.go('home');
+      }else {
+        ctrl.courtInfo = court;
+        ctrl.courtDirectionLink = getCourtDirectionLink(court);
+        ctrl.courtOnMap.lat = court.latitude;
+        ctrl.courtOnMap.lng = court.longitude;
+        ctrl.courtMarkers.m1 = {lat: court.latitude, lng: court.longitude, message: "Test", icon: courtDefaultIcon};
+      }
+    });
   }
 
   function getCourtDirectionLink(courtInfo) {
