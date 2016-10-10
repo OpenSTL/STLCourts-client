@@ -53,7 +53,7 @@ describe('DobPickerCtrl', function () {
 
     DobPickerCtrl.save(form);
 
-    expect(toaster.pop).toHaveBeenCalledWith('error', 'Invalid date of birth.');
+    expect(toaster.pop).toHaveBeenCalledWith('error', 'Invalid date of birth. Use mm/dd/yyyy');
   }));
 
   it('cancels', function() {
