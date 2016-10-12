@@ -22,15 +22,12 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     $state.go('home');
   } else {
     Courts.findById(courtId).then(function(court){
-      if (court.id === undefined){
-        $state.go('home');
-      }else {
         ctrl.courtInfo = court;
         ctrl.courtDirectionLink = getCourtDirectionLink(court);
         ctrl.courtOnMap.lat = court.latitude;
         ctrl.courtOnMap.lng = court.longitude;
         ctrl.courtMarkers.m1 = {lat: court.latitude, lng: court.longitude, message: "Test", icon: courtDefaultIcon};
-      }
+    }, function (error){
     });
   }
 
