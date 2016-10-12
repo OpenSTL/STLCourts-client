@@ -28,6 +28,7 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
         ctrl.courtOnMap.lng = court.longitude;
         ctrl.courtMarkers.m1 = {lat: court.latitude, lng: court.longitude, message: "Test", icon: courtDefaultIcon};
     }, function (error){
+        toaster.pop('error','Could not find the court requested.');
     });
   }
 
