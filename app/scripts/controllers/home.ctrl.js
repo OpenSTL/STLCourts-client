@@ -8,7 +8,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function ($state,Courts,m
   ctrl.selectedCourt = null;
 
   ctrl.courtSelected  = function(){
-    $state.go('courtSearchInfo',{'id':ctrl.selectedCourt.id});
+    $state.go('courtSearchInfo',{'courtId':ctrl.selectedCourt.id});
   };
 
 });

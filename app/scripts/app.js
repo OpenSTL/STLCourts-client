@@ -48,15 +48,19 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       }
     })
     .state('courtSearchInfo', {
-      url: '/courtSearch/info?id',
+      url: '/courts/{courtId}',
       templateUrl: 'views/courtSearchInfo.html',
       controller: 'CourtSearchInfoCtrl as ctrl',
       params: {
-        courtId: {value: undefined}
+        court: {value: undefined}
       },
       resolve: {
-        courtId : function($stateParams){
-          return $stateParams.id;
+        court: function ($stateParams,Courts) {
+          if ($stateParams.courtId != ""){
+            return Courts.findById($stateParams.courtId)
+          }else{
+            return null;
+          };
         }
       }
     })

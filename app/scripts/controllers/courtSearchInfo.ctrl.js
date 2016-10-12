@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, Courts, courtId){//courtInfo) {
+angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court){
   var ctrl = this;
 
   ctrl.courtOnMap = {
@@ -18,19 +18,17 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     shadowSize: [41, 41]
   };
 
-  if(!courtId) {
+  if(!court) {
     $state.go('home');
   } else {
-    Courts.findById(courtId).then(function(court){
         ctrl.courtInfo = court;
         ctrl.courtDirectionLink = getCourtDirectionLink(court);
         ctrl.courtOnMap.lat = court.latitude;
         ctrl.courtOnMap.lng = court.longitude;
         ctrl.courtMarkers.m1 = {lat: court.latitude, lng: court.longitude, message: "Test", icon: courtDefaultIcon};
-    }, function (error){
-        toaster.pop('error','Could not find the court requested.');
-    });
-  }
+
+  };
+
 
   function getCourtDirectionLink(courtInfo) {
     var address = courtInfo.address.replace(' ', '+');
