@@ -47,7 +47,6 @@
   "dependencies": {
     "express": "^4.13.3",
     "gzippo": "^0.2.0",
-    "karma-coverage": "^0.5.5",
     "morgan": "^1.6.1"
   }
 }
