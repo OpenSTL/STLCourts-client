@@ -251,6 +251,14 @@ table {
   }
 }
 
+#communityServiceEmbed{
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100%;
+  margin-top:80px;
+}
 .Question{
   font-size: 1.5em;
   color: $blue;

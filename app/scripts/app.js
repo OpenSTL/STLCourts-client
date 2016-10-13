@@ -65,6 +65,11 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
         }
       }
     })
+    .state('communityService',{
+      url: '/communityService',
+      templateUrl: 'views/CommunityService.html'
+      //controller: 'CommunityServiceCtrl as ctrl'
+    })
     .state('opportunityDetails', {
       url: '/opportunityDetails',
       templateUrl: 'views/opportunityDetails.html',
