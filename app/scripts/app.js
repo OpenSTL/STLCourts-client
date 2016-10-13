@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yourStlCourts', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'esri.map', 'toaster',
-  'ui.bootstrap', 'ui.select', 'jcs-autoValidate']);
+  'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet']);
 
 angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, ENV, $httpProvider, uiSelectConfig) {
   $urlRouterProvider.otherwise('/');
@@ -10,7 +10,12 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
     .state('home', {
       url: '/',
       templateUrl: 'views/home.html',
-      controller: 'HomeCtrl as ctrl'
+      controller: 'HomeCtrl as ctrl',
+      resolve: {
+        municipalities: function(Courts){
+          return Courts.findAll();
+        }
+      }
     })
     .state('about', {
       url: '/about',
@@ -39,6 +44,23 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       resolve: {
         municipalities: function(Courts){
           return Courts.findAll();
+        }
+      }
+    })
+    .state('courtSearchInfo', {
+      url: '/courts/{courtId}',
+      templateUrl: 'views/courtSearchInfo.html',
+      controller: 'CourtSearchInfoCtrl as ctrl',
+      params: {
+        court: {value: undefined}
+      },
+      resolve: {
+        court: function ($stateParams,Courts) {
+          if ($stateParams.courtId != ""){
+            return Courts.findById($stateParams.courtId)
+          }else{
+            return null;
+          };
         }
       }
     })

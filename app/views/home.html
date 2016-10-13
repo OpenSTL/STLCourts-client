@@ -1,11 +1,20 @@
-<div class="container">
-  <div class="well" style="margin-top:20px">
+<div class="container" id="homePage">
+  <div class="well">
     <h2>Everything you need in one place.</h2>
       <div class="form-group">
         <form id="form" role="form">
           <div class="form-group move-down">
+            <!--
             <label for="Autocomplete">Find your Court</label>
             <input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"/>
+            -->
+            <label for="courtsFinder">Find your Court</label>
+            <ui-select id="courtsFinder" name="courtsFinder" ng-model="ctrl.selectedCourt" on-select="ctrl.courtSelected();">
+              <ui-select-match placeholder="Search by City">{{$select.selected.municipality}}</ui-select-match>
+              <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search">
+                <div ng-bind-html="municipality.municipality | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
           </div>
           <!--
             <div ng-if(!null)> or something like that
