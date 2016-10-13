@@ -1,15 +1,17 @@
 FROM cardinalsoftwaresolutions/nginx-node-bower-grunt
 
+#Install Ruby & Compass
+RUN apt-get update && apt-get install -y ruby-full
+RUN gem install --no-rdoc --no-ri sass -v 3.4.22
+RUN gem install --no-rdoc --no-ri compass
+
 COPY deploy/nginx.conf /etc/nginx/nginx.conf
 
-# Copy application files and set working dir
-RUN mkdir /stlcourts-client
-COPY . /stlcourts-client
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm set progress=false && npm install
+RUN mkdir -p /stlcourts-client && cp -a /tmp/node_modules /stlcourts-client
 WORKDIR /stlcourts-client
-
-#Install Ruby & Compass
-RUN apt-get install -y ruby
-RUN gem install compass
+ADD . /stlcourts-client
 
 RUN npm set progress=false && npm install
 RUN bower --allow-root install
@@ -26,4 +28,4 @@ RUN grunt test:local
 RUN grunt build:production
 
 # Copy dist to nginx for hosting
-RUN cp -a /stlcourts-client/dist/. /usr/share/nginx/html
+RUN cp -a dist/. /usr/share/nginx/html

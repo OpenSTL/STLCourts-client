@@ -3,7 +3,7 @@
     <div class="container">
       <h2 class="secondaryAccent callToAction" style="margin-bottom: 20px;">Pick an option to start finding your ticket:</h2>
       <form id="citationCriteriaFrm" name="citationCriteriaFrm" ng-submit="ctrl.getDOB(citationCriteriaFrm)" novalidate ng-submit-force="true">
-        <div class="row">
+        <div class="row row-eq-height homePageTileRow">
           <div class="col-md-4">
             <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected('TICKET_NUMBER')" ng-class="{'unselected' : ctrl.isUnselected('TICKET_NUMBER')}" ng-click="ctrl.getTicketWithNumber()">
               <h3>Do you have your ticket #?</h3>
