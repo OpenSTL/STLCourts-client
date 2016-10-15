@@ -109,12 +109,6 @@ $homepageTileHeight : 250px;
   }
 }
 
-@media screen and (max-width:991px) {
-  .mobile-hide{
-    display: none;
-  }
-}
-
 .homePageTileRow {
   margin-bottom: $footerHeight;
 }
