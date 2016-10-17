@@ -2,7 +2,6 @@
 
 angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court){
   var ctrl = this;
-  var getCourtDirectionLink;
 
   ctrl.courtInfo = court;
 
@@ -21,7 +20,7 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     shadowSize: [41, 41]
   };
 
-  getCourtDirectionLink = function(courtInfo) {
+ function getCourtDirectionLink(courtInfo) {
       var address = courtInfo.address.replace(' ', '+');
       var city = courtInfo.city;
       var state = courtInfo.state;
