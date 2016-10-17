@@ -2,6 +2,8 @@
 
 angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court){
   var ctrl = this;
+  var getCourtDirectionLink;
+
   ctrl.courtInfo = court;
 
   ctrl.courtOnMap = {
@@ -19,7 +21,7 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     shadowSize: [41, 41]
   };
 
-  ctrl.getCourtDirectionLink = function(courtInfo) {
+  getCourtDirectionLink = function(courtInfo) {
       var address = courtInfo.address.replace(' ', '+');
       var city = courtInfo.city;
       var state = courtInfo.state;
@@ -31,7 +33,7 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
   if(!ctrl.courtInfo) {
     $state.go('home');
   } else {
-        ctrl.courtDirectionLink = ctrl.getCourtDirectionLink(ctrl.courtInfo);
+        ctrl.courtDirectionLink = getCourtDirectionLink(ctrl.courtInfo);
         ctrl.courtOnMap.lat = ctrl.courtInfo.latitude;
         ctrl.courtOnMap.lng = ctrl.courtInfo.longitude;
         ctrl.courtMarkers.m1 = {lat: ctrl.courtInfo.latitude, lng: ctrl.courtInfo.longitude, message: ctrl.courtInfo.address, icon: courtDefaultIcon};

@@ -48,17 +48,13 @@ describe('CourtSearchInfoCtrl', function() {
     expect($window.print).toHaveBeenCalled();
   }));
 
-  it('sets court on initialization',inject(function($rootScope){
-    $rootScope.$apply();
+  it('sets court on initialization',inject(function(){
     expect(CourtSearchInfoCtrl.courtInfo).toEqual(sample_court);
   }));
 
-  it('calls and gets correct directions',(function(){
-    //spyOn(CourtSearchInfoCtrl,'getCourtDirectionLink');
+  it('gets correct directions',(function(){
     var directionString = "https://maps.google.com?saddr=Current+Location&daddr=12500+Old Jamestown Road+St. Louis+MO+63033";
-    //expect(CourtSearchInfoCtrl.getCourtDirectionLink).toHaveBeenCalled();//.and.toEqual(directionString);
     expect(CourtSearchInfoCtrl.courtDirectionLink).toEqual(directionString);
-
   }));
 
 });
