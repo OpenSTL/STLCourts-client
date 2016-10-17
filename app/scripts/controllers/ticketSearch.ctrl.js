@@ -98,7 +98,7 @@ angular.module('yourStlCourts').controller('ticketSearchCtrl', function (Citatio
       if(result.citations.length > 0) {
         $state.go('citationInfo', {citations: result.citations});
       } else {
-        var homeLink = '<a href="/#/home"><u>clicking here</u></a>'
+        var homeLink = '<a href="/"><u>clicking here</u></a>'
         var noTicketsFoundMsg = 'We could not find any results for the  information you provided. It\'s possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
         toaster.pop({
           type: 'error',
