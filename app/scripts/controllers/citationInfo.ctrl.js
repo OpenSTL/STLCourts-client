@@ -78,6 +78,9 @@ angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state,
     return citation.violations.length > 0;
   };
 
+  ctrl.goToCommunityService = function() {
+    $state.go('communityService');
+  }
   ctrl.goToPaymentOptions = function() {
     $state.go('paymentOptions', { citationId: ctrl.selectedCitation.id });
   };
