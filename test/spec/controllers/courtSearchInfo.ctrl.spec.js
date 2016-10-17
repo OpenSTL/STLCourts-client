@@ -18,7 +18,7 @@ describe('CourtSearchInfoCtrl', function() {
   beforeEach(function() {
     module('yourStlCourts');
 
-    inject(function($controller,$state, $window, $q, $httpBackend){
+    inject(function($controller,$state, $window,$httpBackend){
 
       CourtSearchInfoCtrl = $controller('CourtSearchInfoCtrl',{
         $state: $state,
@@ -30,9 +30,15 @@ describe('CourtSearchInfoCtrl', function() {
     });
   });
 
-  xit('goes back to home page if court is null',inject(function($state){
+  it('goes back to home page if court is null',inject(function($state){
     spyOn($state,'go');
-    sample_court = null;
+    inject(function($controller,$state, $window) {
+      CourtSearchInfoCtrl = $controller('CourtSearchInfoCtrl', {
+        $state: $state,
+        $window: $window,
+        court: null
+      });
+    });
     expect($state.go).toHaveBeenCalledWith('home');
   }));
 
