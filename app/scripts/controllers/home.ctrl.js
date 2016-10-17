@@ -1,9 +1,8 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('HomeCtrl', function ($state,Courts,municipalities) {
+angular.module('yourStlCourts').controller('HomeCtrl', function ($state,municipalities) {
   var ctrl = this;
 
-  ctrl.courts = Courts;
   ctrl.municipalities = municipalities;
   ctrl.selectedCourt = null;
 

@@ -3,6 +3,8 @@
 angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court){
   var ctrl = this;
 
+  ctrl.courtInfo = court;
+
   ctrl.courtOnMap = {
         lat:51.505,
         lng:-0.09,
@@ -18,26 +20,25 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     shadowSize: [41, 41]
   };
 
-  if(!court) {
+ function getCourtDirectionLink(courtInfo) {
+      var address = courtInfo.address.replace(' ', '+');
+      var city = courtInfo.city;
+      var state = courtInfo.state;
+      var zip = courtInfo.zip_code;
+      var addressParts = [address, city, state, zip];
+      return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
+  }
+
+  if(!ctrl.courtInfo) {
     $state.go('home');
   } else {
-        ctrl.courtInfo = court;
-        ctrl.courtDirectionLink = getCourtDirectionLink(court);
-        ctrl.courtOnMap.lat = court.latitude;
-        ctrl.courtOnMap.lng = court.longitude;
-        ctrl.courtMarkers.m1 = {lat: court.latitude, lng: court.longitude, message: "Test", icon: courtDefaultIcon};
+        ctrl.courtDirectionLink = getCourtDirectionLink(ctrl.courtInfo);
+        ctrl.courtOnMap.lat = ctrl.courtInfo.latitude;
+        ctrl.courtOnMap.lng = ctrl.courtInfo.longitude;
+        ctrl.courtMarkers.m1 = {lat: ctrl.courtInfo.latitude, lng: ctrl.courtInfo.longitude, message: ctrl.courtInfo.address, icon: courtDefaultIcon};
 
   };
 
-
-  function getCourtDirectionLink(courtInfo) {
-    var address = courtInfo.address.replace(' ', '+');
-    var city = courtInfo.city;
-    var state = courtInfo.state;
-    var zip = courtInfo.zip_code;
-    var addressParts = [address, city, state, zip];
-    return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
-  }
 
   ctrl.printCourtInfo = function () {
     $window.print();
