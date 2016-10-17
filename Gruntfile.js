@@ -273,7 +273,7 @@ module.exports = function (grunt) {
         ],
         patterns: {
           js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg|ico))/g, 'Replacing references to images']]
-        }
+       }
       }
     },
 
