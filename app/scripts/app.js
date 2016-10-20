@@ -3,7 +3,8 @@
 angular.module('yourStlCourts', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'esri.map', 'toaster',
   'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet']);
 
-angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, ENV, $httpProvider, uiSelectConfig) {
+angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, $locationProvider, ENV, $httpProvider, uiSelectConfig) {
+  $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
