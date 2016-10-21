@@ -58,10 +58,15 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       resolve: {
         court: function ($stateParams,Courts) {
           if ($stateParams.courtId != ""){
-            return Courts.findById($stateParams.courtId)
+          return (Courts.findById($stateParams.courtId)
+            .then(function(court){ //a court was found
+              return court;},
+            function(err){ //something about the find Court by Court Id went wrong
+              return null;
+            }))
           }else{
-            return null;
-          };
+            return null; //somehow the courtId was empty/blank
+          }
         }
       }
     })
