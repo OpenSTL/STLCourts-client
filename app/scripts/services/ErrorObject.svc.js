@@ -5,10 +5,7 @@ angular.module('yourStlCourts').service('Error', function () {
     code:"",
     message:""
   }
-  /*this.errorObject = function(errorCode,errorMessage){
-    return {code:errorCode,message:errorMessage};
-  }
-  */
+  
   this.errorObject = function(errorCode,errorMessage){
     err.code = errorCode;
     err.message = errorMessage;
