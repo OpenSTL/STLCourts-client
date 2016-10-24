@@ -3,6 +3,7 @@
 angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court){
   var ctrl = this;
 
+  var j = 0;
   ctrl.courtInfo = court;
 
   ctrl.courtOnMap = {
@@ -37,7 +38,7 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
         ctrl.courtOnMap.lng = ctrl.courtInfo.longitude;
         ctrl.courtMarkers.m1 = {lat: ctrl.courtInfo.latitude, lng: ctrl.courtInfo.longitude, message: ctrl.courtInfo.address, icon: courtDefaultIcon};
 
-  };
+  }
 
 
   ctrl.printCourtInfo = function () {

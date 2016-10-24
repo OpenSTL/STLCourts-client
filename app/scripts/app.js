@@ -18,6 +18,11 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
         }
       }
     })
+    .state('error',{
+      url: '/error',
+      templateUrl: 'views/error.html',
+      controller: 'ErrorCtrl as ctrl'
+    })
     .state('about', {
       url: '/about',
       templateUrl: 'views/about.html'
@@ -56,16 +61,16 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
         court: {value: undefined}
       },
       resolve: {
-        court: function ($stateParams,Courts) {
-          if ($stateParams.courtId != ""){
-          return (Courts.findById($stateParams.courtId)
-            .then(function(court){ //a court was found
-              return court;},
-            function(err){ //something about the find Court by Court Id went wrong
-              return null;
-            }))
-          }else{
-            return null; //somehow the courtId was empty/blank
+        court: function ($stateParams,Courts,Error) {
+          if ($stateParams.courtId == "") {
+            throw Error.errorObject(ErrorCode.BAD_REQUEST, "No Court was found with the url you provided.");
+          } else {
+            return (Courts.findById($stateParams.courtId)
+              .then(function (court) {
+                return court;
+              },function(){
+                throw Error.errorObject(ErrorCode.NOT_FOUND, "No Court was found with the url you provided.");
+              }))
           }
         }
       }
@@ -140,10 +145,14 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function (validator, validationElementModifier, errorMessageResolver) {
+angular.module('yourStlCourts').run(function ($rootScope,$state,validator, validationElementModifier, errorMessageResolver) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
     validator.setErrorMessageResolver(errorMessageResolver.resolve);
+    $rootScope.$on('$stateChangeError',function(event, toState,toParams,fromState,fromParams,error){
+      event.preventDefault();
+      $state.go('error');
+    });
   }
 );
