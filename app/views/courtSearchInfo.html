@@ -1,0 +1,32 @@
+<div class="container" id="courtSearchInfoPage">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>{{ctrl.courtInfo.municipality}} Court Information</h2>
+        <div class="row" style="margin-top: 20px;">
+          <div class="col-sm-6">
+            <h3>Court Address</h3>
+            <p>{{ctrl.courtInfo.address}}</p>
+            <p>{{ctrl.courtInfo.city}}, {{ctrl.courtInfo.state}} {{ctrl.courtInfo.zip_code}}</p>
+
+            <h3>Court Phone Number</h3>
+              <!-- Will put this here once court API and database gets re-created, for now using a place holder <dd>{{ctrl.selectedCitation.court.phone_number}}</dd>-->
+            <p>(XXX) XXX-XXXX</p>
+
+            <h3>Court Hours</h3>
+            <p>TBD - TBD</p>
+
+
+          </div>
+          <div class="col-sm-6">
+            <leaflet id="mapid" lf-center="ctrl.courtOnMap" markers="ctrl.courtMarkers"></leaflet>
+            <p id="courtSearch-direction-button">
+              <a href="{{ctrl.courtDirectionLink}}" class="btn btn-success no-print" target="_blank">GET DIRECTIONS</a>
+            </p>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div id="printButton">
+    <button type="button" class="btn btn-success btn-lg no-print" ng-click="ctrl.printCourtInfo()"><i class="fa fa-print"></i>&nbsp;PRINT INFO</button>
+  </div>
+</div>

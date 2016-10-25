@@ -8,9 +8,14 @@
 
       <form-field required>
         <p class="input-group">
-          <input displayName="Date of Birth" type="date" class="form-control" datepicker-popup ng-model="ctrl.dob" is-open="ctrl.status.opened" min-date="ctrl.minDate" max-date="ctrl.maxDate" ng-required="true" close-text="Close" format="MM/dd/yyyy" />
+          <input displayName="Date of Birth" type="text" class="form-control" uib-datepicker-popup={{ctrl.datepickerFormat}}
+                 ng-model="ctrl.dob" is-open="ctrl.status.opened" datepicker-options="ctrl.datepickerOptions"
+                 ng-required="true" close-text="Close" placeholder="MM/DD/YYYY" alt-input-formats="ctrl.acceptedDatepickerFormats"
+                 show-button-bar="false" disable-invalid-styling="true" />
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="ctrl.open($event)"><i class="fa fa-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="ctrl.open($event)">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
           </span>
         </p>
       </form-field>

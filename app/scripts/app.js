@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('ghAngularApp', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'esri.map', 'toaster',
-  'ui.bootstrap', 'ui.select', 'jcs-autoValidate']);
+angular.module('yourStlCourts', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'esri.map', 'toaster',
+  'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet']);
 
-angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvider, ENV, $httpProvider, uiSelectConfig) {
+angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, $locationProvider, ENV, $httpProvider, uiSelectConfig) {
+  $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
@@ -25,8 +26,47 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
       url: '/help',
       templateUrl: 'views/help.html'
     })
+    .state('info', {
+      url: '/info',
+      templateUrl: 'views/info.html'
+    })
+    .state('legal', {
+          url: '/legal',
+          templateUrl: 'views/legal.html'
+    })
+    .state('privacy', {
+          url: '/privacy',
+          templateUrl: 'views/privacy.html'
+    })
+    .state('ticketSearch', {
+      url: '/tickets/search',
+      templateUrl: 'views/ticketSearch.html',
+      controller: 'ticketSearchCtrl as ctrl',
+      resolve: {
+        municipalities: function(Courts){
+          return Courts.findAll();
+        }
+      }
+    })
+    .state('courtSearchInfo', {
+      url: '/courts/{courtId}',
+      templateUrl: 'views/courtSearchInfo.html',
+      controller: 'CourtSearchInfoCtrl as ctrl',
+      params: {
+        court: {value: undefined}
+      },
+      resolve: {
+        court: function ($stateParams,Courts) {
+          if ($stateParams.courtId != ""){
+            return Courts.findById($stateParams.courtId)
+          }else{
+            return null;
+          };
+        }
+      }
+    })
     .state('citationInfo', {
-      url: '/ticketInfo',
+      url: '/tickets/info',
       templateUrl: 'views/citationInfo.html',
       controller: 'citationInfoCtrl as ctrl',
       params: {
@@ -47,6 +87,11 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
           return Citations.getByCitationId($stateParams.citationId);
         }
       }
+    })
+    .state('communityService',{
+      url: '/communityService',
+      templateUrl: 'views/CommunityService.html'
+      //controller: 'CommunityServiceCtrl as ctrl'
     })
     .state('opportunityDetails', {
       url: '/opportunityDetails',
@@ -90,7 +135,7 @@ angular.module('ghAngularApp').config(function($stateProvider, $urlRouterProvide
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('ghAngularApp').run(function (validator, validationElementModifier, errorMessageResolver) {
+angular.module('yourStlCourts').run(function (validator, validationElementModifier, errorMessageResolver) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);

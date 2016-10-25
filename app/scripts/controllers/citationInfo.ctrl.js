@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, $window, citations, Courts) {
+angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state, $window, citations, Courts) {
   var ctrl = this;
 
   ctrl.selectCitation = function(citation){
@@ -12,7 +12,7 @@ angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, 
   };
 
   if(!citations) {
-    $state.go('home');
+    $state.go('ticketSearch');
   } else {
     ctrl.citations = citations;
     ctrl.selectedCitation = null;
@@ -78,6 +78,9 @@ angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, 
     return citation.violations.length > 0;
   };
 
+  ctrl.goToCommunityService = function() {
+    $state.go('communityService');
+  }
   ctrl.goToPaymentOptions = function() {
     $state.go('paymentOptions', { citationId: ctrl.selectedCitation.id });
   };
@@ -85,4 +88,17 @@ angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, 
   ctrl.printTicket = function () {
     $window.print();
   };
+
+  ctrl.formatDate = function(dateToFormat){
+    //TODO use moment once we find out how.
+    //return moment(dateToFormat).format('MM/DD/YYYY');
+    return mmddyyyyFormat(dateToFormat);
+    //return dateToFormat;
+  };
+  function mmddyyyyFormat (dateToFormat){//translates from iso date
+    if(dateToFormat === null){return null;}
+    dateToFormat = dateToFormat.slice(5,7) + "/" + dateToFormat.slice(8,10) + "/" + dateToFormat.slice(0,4);
+
+    return dateToFormat;
+  }
 });

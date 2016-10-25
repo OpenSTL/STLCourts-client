@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('OpportunityCreateCtrl', function ($modalInstance, toaster, Opportunities, Auth, courts) {
+angular.module('yourStlCourts').controller('OpportunityCreateCtrl', function ($uibModalInstance, toaster, Opportunities, Auth, courts) {
   var ctrl = this;
   ctrl.municipalities = courts;
   ctrl.opportunity = {
@@ -15,7 +15,7 @@ angular.module('ghAngularApp').controller('OpportunityCreateCtrl', function ($mo
     if(form.$valid){
       Opportunities.create(ctrl.opportunity).then(function(){
         toaster.pop('success', 'Opportunity was created');
-        $modalInstance.close(ctrl.opportunity);
+        $uibModalInstance.close(ctrl.opportunity);
       }, function(){
         toaster.pop('error', 'There was an error trying to create your opportunity');
       });
@@ -25,6 +25,6 @@ angular.module('ghAngularApp').controller('OpportunityCreateCtrl', function ($mo
   };
 
   ctrl.cancel = function(){
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 });

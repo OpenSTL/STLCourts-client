@@ -1,7 +1,7 @@
 'use strict';
 
 /* global esri */
-angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($scope, esriRegistry, $modalInstance, municipalities) {
+angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($scope, esriRegistry, $uibModalInstance, municipalities) {
   var ctrl = this;
   ctrl.selectedMunicipalities = [];
 
@@ -18,7 +18,6 @@ angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($sc
     ctrl.selectedMunicipalities = [];
 
     var selectionQuery = new esri.tasks.Query();
-    console.log(selectionQuery);
     var tol = map.extent.getWidth()/map.width * 5;
     var x = evt.mapPoint.x;
     var y = evt.mapPoint.y;
@@ -27,8 +26,7 @@ angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($sc
     var layer = map.getLayer(map.graphicsLayerIds[0]);
     layer.queryFeatures(selectionQuery, function(queryResult){
       queryResult.features.forEach(function(feature){
-        if (feature.attributes && feature.attributes.MUNICIPALITY)
-        {
+        if (feature.attributes && feature.attributes.MUNICIPALITY) {
           municipalities.every(function (realMunicip) {
             if (realMunicip.municipality.toLowerCase() === feature.attributes.MUNICIPALITY.toLowerCase()) {
               ctrl.selectedMunicipalities.push(realMunicip);
@@ -37,26 +35,26 @@ angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($sc
 
             return true;
           });
-        }
-        else
-        {
-          console.log('Received a map feature with the incorrect attributes. Something is wrong with the ESRI configuration.');
+        } else {
+          console.error('Received a map feature with the incorrect attributes. Something is wrong with the ESRI configuration.');
         }
       });
     });
+
+    $scope.$apply();
   }
 
   esriRegistry.get('stlMap').then(function(map){
     map.on('click', function(e) {
-      $scope.$apply(onMapClick.bind(null, map, e));
+      onMapClick(map, e);
     });
   });
 
   ctrl.selectLocation = function(){
-    $modalInstance.close(ctrl.selectedMunicipalities);
+    $uibModalInstance.close(ctrl.selectedMunicipalities);
   };
 
   ctrl.cancel = function() {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 });

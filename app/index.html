@@ -2,28 +2,32 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Your STL Courts</title>
+    <base href="/">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="images/favicon.ico">
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/angularjs-toaster/toaster.css" />
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.16/esri/css/esri.css">
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/footer.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="ghAngularApp">
+  <body ng-app="yourStlCourts">
     <toaster-container></toaster-container>
 
     <div id="wrapper">
-      <div ng-include="'views/header.html'"></div>
+      <stl-courts-header></stl-courts-header>
 
       <div id="someOtherWrapper" layout>
         <div id="mainContent" ui-view></div>
@@ -32,7 +36,7 @@
 
     <footer>
       <div class="container">
-        &copy; CivTech St. Louis
+        <stl-courts-footer></stl-courts-footer>
       </div>
     </footer>
 
@@ -52,23 +56,29 @@
     <script src="bower_components/angularjs-toaster/toaster.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/envConfig.js"></script>
-    <script src="scripts/jcs-auto-validate.min.js"></script>
-    <script src="scripts/app.js"></script>
 
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="vendor/jcs-auto-validate.min.js"></script>
+    <script src="scripts/envConfig.js"></script>
+    <script src="scripts/app.js"></script>
     <script src="scripts/controllers/home.ctrl.js"></script>
+    <script src="scripts/controllers/ticketSearch.ctrl.js"></script>
     <script src="scripts/controllers/header.ctrl.js"></script>
     <script src="scripts/controllers/locationPickerMap.ctrl.js"></script>
     <script src="scripts/controllers/dobPicker.ctrl.js"></script>
     <script src="scripts/controllers/citationInfo.ctrl.js"></script>
     <script src="scripts/controllers/opportunityDetails.ctrl.js"></script>
     <script src="scripts/controllers/paymentOptions.ctrl.js"></script>
-    <script src="scripts/controllers/sponsorLogin.ctrl.js"></script>
-    <script src="scripts/controllers/sponsorManagement.ctrl.js"></script>
+    <script src="scripts/controllers/courtSearchInfo.ctrl.js"></script>
+    <!-- <script src="scripts/controllers/sponsorLogin.ctrl.js"></script>
+    <script src="scripts/controllers/sponsorManagement.ctrl.js"></script> -->
     <script src="scripts/controllers/opportunityCreate.ctrl.js"></script>
     <script src="scripts/controllers/opportunityNeedCreate.ctrl.js"></script>
 
@@ -76,7 +86,7 @@
     <script src="scripts/services/Citations.svc.js"></script>
     <script src="scripts/services/Courts.svc.js"></script>
     <script src="scripts/services/Opportunities.svc.js"></script>
-    <script src="scripts/services/Sponsor.svc.js"></script>
+    <!-- <script src="scripts/services/Sponsor.svc.js"></script> -->
     <script src="scripts/services/States.svc.js"></script>
     <script src="scripts/services/DateFormatter.svc.js"></script>
     <script src="scripts/services/ErrorMessageResolver.svc.js"></script>
@@ -85,6 +95,9 @@
     <script src="scripts/directives/formField.dir.js"></script>
     <script src="scripts/directives/ngTranscludeReplace.dir.js"></script>
     <script src="scripts/directives/layout.dir.js"></script>
+
+    <script src="scripts/components/stlCourtsHeader.comp.js"></script>
+    <script src="scripts/components/stlCourtsFooter.comp.js"></script>
     <!-- endbuild -->
 </body>
 </html>

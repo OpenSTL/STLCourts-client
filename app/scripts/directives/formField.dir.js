@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').directive('formField', function () {
+angular.module('yourStlCourts').directive('formField', function () {
   return {
     restrict: 'E',
     require: '^form',

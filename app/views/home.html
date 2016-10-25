@@ -1,88 +1,63 @@
-<div>
-  <div class="accent">
-    <div class="container">
-      <h2 class="secondaryAccent callToAction" style="margin-bottom: 20px;">Pick an option to start finding your ticket:</h2>
-      <form id="citationCriteriaFrm" name="citationCriteriaFrm" ng-submit="ctrl.getDOB(citationCriteriaFrm)" novalidate ng-submit-force="true">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected('TICKET_NUMBER')" ng-class="{'unselected' : ctrl.isUnselected('TICKET_NUMBER')}" ng-click="ctrl.getTicketWithNumber()">
-              <h3>Do you have your ticket #?</h3>
-              <div class="homePageTileIcon">
-                <i class="fa fa-newspaper-o fa-5x"></i>
-              </div>
-            </div>
-            <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected('TICKET_NUMBER')">
-              <span class="primary"><i class="fa fa-newspaper-o fa-lg"></i>&nbsp;Do you have your ticket #?</span><br/><br/>
-              <form-field label="Ticket #" required>
-                <input type="text" ng-model="ctrl.citationCriteria.citationNumber" required ng-maxlength="12" displayName="Ticket #" />
-              </form-field>
-            </div>
-            <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('TICKET_NUMBER')">
-              <div class="col-sm-12" style="text-align: center;">
-                <button class="btn btn-success btn-lg" style="margin-bottom: 20px" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
-              </div>
-            </div>
+<div class="container" id="homePage">
+  <div class="well">
+    <h2>Everything you need in one place.</h2>
+      <div class="form-group">
+        <form id="form" role="form">
+          <div class="form-group move-down">
+            <!--
+            <label for="Autocomplete">Find your Court</label>
+            <input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"/>
+            -->
+            <label for="courtsFinder">Find your Court</label>
+            <ui-select id="courtsFinder" name="courtsFinder" ng-model="ctrl.selectedCourt" on-select="ctrl.courtSelected();">
+              <ui-select-match placeholder="Search by City">{{$select.selected.municipality}}</ui-select-match>
+              <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search">
+                <div ng-bind-html="municipality.municipality | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
           </div>
-          <div class="col-md-4">
-            <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected('DRIVER_INFO')" ng-class="{'unselected' : ctrl.isUnselected('DRIVER_INFO')}" ng-click="ctrl.getTicketWithDriverInfo()">
-              <h3>Do you have your driver's license info?</h3>
-              <div class="homePageTileIcon">
-                <i class="fa fa-car fa-5x"></i>
-              </div>
+          <!--
+            <div ng-if(!null)> or something like that
+              <div>result: {{result}}</div>
+              You'll need to pull the court's Name, Phone Number, Address, and possibly a google map with the Address
             </div>
-            <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected('DRIVER_INFO')">
-              <span class="primary"><i class="fa fa-car fa-lg"></i>&nbsp;Do you have your driver's license info?</span><br/><br/>
-              <form-field label="License #" required>
-                <input type="text" ng-model="ctrl.citationCriteria.licenseNumber" required ng-maxlength="12" displayName="License #" />
-              </form-field>
-              <form-field label="License State" required>
-                <ui-select id="selectedState" name="selectedState" register-custom-form-control displayName="License State" ng-model="ctrl.citationCriteria.licenseState" required>
-                  <ui-select-match placeholder="State">{{$select.selected}}</ui-select-match>
-                  <ui-select-choices repeat="state in ctrl.states | filter: $select.search">
-                    {{state}}
-                  </ui-select-choices>
-                </ui-select>
-              </form-field>
-            </div>
-            <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('DRIVER_INFO')">
-              <div class="col-sm-12" style="text-align: center;">
-                <button class="btn btn-success btn-lg" style="margin-bottom: 20px" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected('LOCATION')" ng-class="{'unselected' : ctrl.isUnselected('LOCATION')}" ng-click="ctrl.getTicketWithLocation()">
-              <h3>Where did you get your ticket?</h3>
-              <div class="homePageTileIcon">
-                <i class="fa fa-map-marker fa-5x"></i>
-              </div>
-            </div>
-            <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected('LOCATION')">
-              <span class="primary"><i class="fa fa-map-marker fa-lg"></i>&nbsp;Where did you get your ticket?</span><br/>
-              <form-field label="Last Name" required>
-                <input type="text" ng-model="ctrl.citationCriteria.lastName" required ng-maxlength="20" displayName="Last Name" />
-              </form-field>
-              <form-field required>
-                <ui-select id="selectedMunicipality" multiple name="selectedMunicipality" register-custom-form-control required displayName="Municipality" ng-model="ctrl.citationCriteria.municipalityNames">
-                  <ui-select-match placeholder="Select a City">{{$item.municipality}}</ui-select-match>
-                  <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search track by municipality.municipality">
-                    <div ng-bind-html="municipality.municipality | highlight: $select.search"></div>
-                  </ui-select-choices>
-                </ui-select>
-              </form-field>
-              <div class="centered">
-                - OR - <br/><br/>
-                <button class="btn btn-primary" type="button" ng-click="ctrl.openMap()"><i class="fa fa-map"></i>&nbsp;&nbsp;Select on Map</button>
-              </div>
-            </div>
-            <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected('LOCATION')">
-              <div class="col-sm-12" style="text-align: center;">
-                <button class="btn btn-success btn-lg" style="margin-bottom: 20px" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
-              </div>
-            </div>
-          </div>
+          -->
+        </form>
+      </div>
+    </div>
+
+  <div class="row row-eq-height homePageTileRow">
+    <div class="col-md-4 visible-md-block visible-lg-block">
+      <div class="thumbnail homepageTile homepageTile-withButton centered">
+        <h3>Help</h3>
+        <p>Whether it's court information, assistance with your case, questions related to reinstating a drivers license, or signing up for and carrying out community service to pay for your fines and fees, we can help! Search for your ticket and browse this website to learn more. If your ticket information cannot be found here, it may be that the municipality that issued the ticket is not yet participating in YourSTLCourts and you must speak directly with that court.</p>
+        <div class="homepageTile-bottomButton">
+          <a href="/#/help"><button class="btn btn-primary" type="button"><i></i>Get help</button></a>
         </div>
-      </form>
+        <div class="homePageTileIcon">
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="thumbnail homepageTile homepageTile-withButton centered">
+        <h3>Tickets</h3>
+        <p> Do you have a ticket but can't remember how much you owe, when your court date is, or whether you can pay it online? Are you trying to take care of a lost ticket or forgotten warrant? Do you need to find out who to talk to about your ticket without fear of arrest? If so, you are in the right place! YourSTLCourts can help you resolve your ticket or warrant or connect you to someone who can help. </p>
+        <div class="homepageTile-bottomButton">
+          <a href="/#/tickets/search"><button class="btn btn-primary" type="button"><i></i>Find your tickets</button></a>
+        </div>
+          <div class="homePageTileIcon">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 visible-md-block visible-lg-block">
+      <div class="thumbnail homepageTile  homepageTile-withButton centered">
+        <h3>About</h3>
+        <p>YourSTLCourts, a MacArthur Foundation-funded project, seeks to provide a unified, user-friendly municipal court case and information lookup for the St. Louis region's many courts. The fact that we have so many political jurisdictions means that it can be confusing, difficult, and expensive to figure out how to take care of business. Many municipalities recognize this and have been partners in putting this system together. If the municipality you are trying to work with isn't here, let them know that you'd like them to participate!</p>
+        <div class="homepageTile-bottomButton">
+          <a href="/#/about"><button class="btn btn-primary" type="button"><i></i>Learn more</button></a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

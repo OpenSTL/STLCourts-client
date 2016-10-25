@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').factory('Citations', function ($resource) {
+angular.module('yourStlCourts').factory('Citations', function ($resource) {
   var CitationResource = $resource('citations/:id');
 
   function find(parameters) {

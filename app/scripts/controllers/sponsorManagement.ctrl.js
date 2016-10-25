@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('SponsorMgmtCtrl', function ($state, Sponsor, Auth, opportunities, courts, Opportunities, toaster, $modal) {
+angular.module('yourStlCourts').controller('SponsorMgmtCtrl', function ($state, Sponsor, Auth, opportunities, courts,
+                                                                       Opportunities, toaster, $uibModal) {
   var ctrl = this;
 
   if(!Auth.isAuthenticated()){
@@ -20,7 +21,7 @@ angular.module('ghAngularApp').controller('SponsorMgmtCtrl', function ($state, S
   }
 
   ctrl.createOpportunity = function(){
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'views/opportunityCreate.html',
       controller: 'OpportunityCreateCtrl as ctrl',
       size: 'md',
@@ -37,7 +38,7 @@ angular.module('ghAngularApp').controller('SponsorMgmtCtrl', function ($state, S
   };
 
   ctrl.addNeed = function(opportunity) {
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'views/opportunityNeedCreate.html',
       controller: 'OpportunityNeedCreateCtrl as ctrl',
       size: 'md',

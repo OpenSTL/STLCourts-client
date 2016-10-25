@@ -6,7 +6,6 @@
         <thead>
           <th>Ticket #</th>
           <th>Name</th>
-          <th>DOB</th>
           <th>Court Date</th>
           <th>Court Location</th>
           <th>Violations</th>
@@ -15,8 +14,7 @@
         <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation)">
           <td>{{citation.citation_number}}</td>
           <td>{{citation.first_name}} {{citation.last_name}}</td>
-          <td>{{citation.date_of_birth}}</td>
-          <td>{{citation.court_date}}</td>
+          <td>{{ctrl.formatDate(citation.court_date)}}</td>
           <td>{{citation.court_location}}</td>
           <td>
             <span ng-repeat="violation in citation.violations" ng-if="ctrl.hasViolations(citation)">
@@ -47,7 +45,16 @@
           </div>
           <div class="col-sm-6 no-print">
             <h3>I Want To...</h3>
-            <button type="button" class="btn btn-success btn-lg" ng-click="ctrl.goToPaymentOptions()"><i class="fa fa-dollar"></i>&nbsp;PAY TICKET</button>
+            <!--this works for now, but will want to make a ctrl.___() to do it better if regis is compattablie with my idea.-->
+            <a href="http://www.ipaycourt.com" target="_blank">
+            <!--<a href={{ctrl.selectedCitation.court.paymentSystem-->
+              <button type="button" class="btn btn-success btn-lg" ng-click=""><i class="fa fa-dollar"></i>&nbsp;PAY TICKET</button>
+            </a>
+            <!-- probably need to have some logic to determine when this gets displayed or maybe it is always a link?? -->
+            <!--<a href="https://www.stlvolunteer.org/HOC__Volunteer_Opportunity_Search_Page?isSavedSearch=yes&zpCd=63110&txtdtFrm=05/14/15&dstnc=0&crtrdVl=true&ctCn=All%20Countries" target="_blank">-->
+            <!-- also check out ctrl.goToPaymentOptions() as this may be a better landing page to place community service -->
+            <button type="button" class="btn btn-success btn-lg" ng-click="ctrl.goToCommunityService()">COMMUNITY SERVICE</button>
+
             <button type="button" class="btn btn-success btn-lg" ng-click="ctrl.printTicket()"><i class="fa fa-print"></i>&nbsp;PRINT INFO</button>
           </div>
         </div>
@@ -56,8 +63,10 @@
           <div class="col-sm-6">
             <h3>Ticket Info</h3>
             <dl class="dl-horizontal" style="font-size: 1.2em">
+              <dt>Case Number</dt>
+              <dd>{{ctrl.selectedCitation.citation_number}}</dd>
               <dt>Ticket Date</dt>
-              <dd>{{ctrl.selectedCitation.citation_date}}</dd>
+              <dd>{{ctrl.formatDate(ctrl.selectedCitation.citation_date)}}</dd>
               <dt>Total Fine</dt>
               <dd>
                 <span ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation)">
@@ -82,9 +91,12 @@
             <h3>Court Information</h3>
             <dl class="dl-horizontal" style="font-size: 1.2em">
               <dt>Court Date</dt>
-              <dd>{{ctrl.selectedCitation.court_date}}</dd>
+              <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_date)}}</dd>
               <dt>Court Name</dt>
               <dd>{{ctrl.selectedCitation.court.municipality}}</dd>
+              <dt>Court Phone Number</dt>
+              <!-- Will put this here once court API and database gets re-created, for now using a place holder <dd>{{ctrl.selectedCitation.court.phone_number}}</dd>-->
+              <dd>(XXX) XXX-XXXX</dd>
               <dt>Court Location</dt>
               <dd>
                 {{ctrl.selectedCitation.court.address}}<br/>

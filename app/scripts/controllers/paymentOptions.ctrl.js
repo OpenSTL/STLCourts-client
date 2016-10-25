@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('PaymentOptionsCtrl', function (citation, Opportunities, $state, $modal) {
+angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (citation, Opportunities, $state, $uibModal) {
   var ctrl = this;
 
   ctrl.citation = citation;
@@ -10,7 +10,7 @@ angular.module('ghAngularApp').controller('PaymentOptionsCtrl', function (citati
   });
 
   ctrl.openNeeds = function(opportunity) {
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'views/opportunityDetails.html',
       controller: 'OpportunityDetailsCtrl as ctrl',
       size: 'md',

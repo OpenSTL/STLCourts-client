@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('OpportunityDetailsCtrl', function (opportunity, needs, $modalInstance, DateFormatter) {
+angular.module('yourStlCourts').controller('OpportunityDetailsCtrl', function (opportunity, needs, $uibModalInstance, DateFormatter) {
   var ctrl = this;
   ctrl.opportunity = opportunity;
   ctrl.needs = needs;
@@ -10,6 +10,6 @@ angular.module('ghAngularApp').controller('OpportunityDetailsCtrl', function (op
   };
 
   ctrl.cancel = function(){
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 });

@@ -1,15 +1,32 @@
 # Your STL Courts Response Web Application
 
-This project contains the source code for the Angular application at gh-angular.herokuapp.com/#/ (does not currently work with SSL due to ArcGIS Ajax calls)
-
-This project was generated with [yo angular generator](https://github.com/yeoman/generator-angular) version 0.12.1.
+This project contains the source code for the Angular application at yourstlcourts.com (does not currently work with SSL due to ArcGIS Ajax calls)
 
 ## Build & development
 
-Run `grunt build:(local|production)` for building and `grunt serve:(local|production)` for preview.
+* Download & Install NodeJS (v4.x) w/ npm
+* Download & Install Ruby
+* Install grunt-cli `npm install -g grunt-cli`
+* Install bower `npm install -g bower`
+* Install app dependencies `npm install && bower install`
+* Install compass `gem install compass`
 
-NOTE: "dist" folder is checked in for use in Heroku - this is not a long-term solution. Procfile and web.js are also Heroku-specific. For local development using our Heroku database, using `grunt serve:local` while also running the local backend service gh-spring-svc OR `grunt serve:production` in order to run/develop while using the services deployed on Heroku.
+### Configs
+* local = use local API
+* uionly = use test API
+* production = use API at /api/ (presumably proxied)
+
+### Build
+Run `grunt build:(local|uionly|production)` for building and `grunt serve:(local|uionly|production)` for preview.
+
+### Development
+`grunt serve:local` - Runs the webapp, expecting a local copy of the services
+`grunt serve:uionly` - Runs the webapp, using the test.yourstlcourts.com web api
+`grunt serve:prod` - Runs the webapp, using the /api/ path for services expecting a proxy redirect
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+* Install karma `npm install -g karma-cli`
+* Running `karma start test\karma.conf.js` will run the unit tests and re-run on file changes.
+... Alternatively, `cd test` and `karma start`
+* Running `grunt test:local` will run the unit tests a single time with karma.

@@ -1,3 +1,5 @@
+$fa-font-path: "/bower_components/components-font-awesome/fonts/";
+
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
@@ -15,10 +17,10 @@ html, body {
 #wrapper {
   min-height: 100%;
   width: 100%;
-  height: auto;
+  height: 100%;
   position: relative;
-  margin-bottom: -60px !important;
-  padding-bottom: 60px !important;
+  margin: 0 auto -60px !important;
+  padding: 0 0 60px !important;
   display: table;
 }
 
@@ -48,13 +50,12 @@ html, body {
 
 .navbar {
   background-color: $lightGrey !important;
-  height: 85px;
 }
-
+$footerHeight : 60px;
 footer {
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: $footerHeight;
+  line-height: $footerHeight;
   text-align: center;
   background-color: $lightGrey;
 }
@@ -69,6 +70,10 @@ h2 {
 
 h3 {
   color: $blue;
+}
+
+p {
+  font-size: 1.1em;
 }
 
 .primary {
@@ -97,9 +102,42 @@ h3 {
 
 $homepageTileHeight : 250px;
 
+@media screen and (min-width:992px) {
+  .row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.homePageTileRow {
+  margin-bottom: $footerHeight;
+}
+
+.homepageTile-bottomButton{
+  position: absolute;
+  left:0px;
+  right:0px;
+  bottom:10px;
+  display:block;
+}
+.homepageTile-bottomButton a{
+  position:relative;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
 .homepageTile {
-  height: $homepageTileHeight;
+  min-height: $homepageTileHeight;
   position: relative;
+  height:100%;
+}
+
+.homepageTile-withButton{
+  padding-bottom:35px;
 }
 
 .homePageTileIcon {
@@ -121,7 +159,9 @@ $homepageTileHeight : 250px;
 
 .homepageTileSelected {
   padding: 10px;
-  height: $homepageTileHeight;
+  min-height: $homepageTileHeight;
+  position:relative;
+  height:100%;
 }
 
 label {
@@ -177,6 +217,7 @@ label {
 
 .navbar-brand {
   padding: 5px !important;
+  height: 85px;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -210,6 +251,37 @@ table {
   .modal-title {
     color: $lightGrey;
   }
+}
+
+#communityServiceEmbed{
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100%;
+  margin-top:80px;
+}
+.Question{
+  font-size: 1.5em;
+  color: $blue;
+}
+
+.Answer{
+  font-size: 1.2em;
+  color: $grey;
+}
+
+#homePage .well{
+  margin-top: 20px;
+}
+
+#mapid{
+  height:250px;
+}
+
+#courtSearch-direction-button{
+  margin-top: 10px;
+  text-align: right;
 }
 
 @media print {

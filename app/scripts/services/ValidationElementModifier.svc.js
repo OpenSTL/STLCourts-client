@@ -1,5 +1,5 @@
 'use strict';
-angular.module('ghAngularApp').factory('validationElementModifier', function () {
+angular.module('yourStlCourts').factory('validationElementModifier', function () {
   var reset = function (el) {
       angular.forEach(el.find('span.help-block'), function (helpBlock) {
         helpBlock = angular.element(helpBlock);
