@@ -48,6 +48,19 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
         }
       }
     })
+    .state('error',{
+      url:'/error',
+      templateUrl: 'views/error.html',
+      controller:'ErrorCtrl as ctrl',
+      params: {
+        error: { value : undefined }
+      },
+      resolve: {
+        error: function($stateParams) {
+          return $stateParams.error;
+        }
+      }
+    })
     .state('courtSearchInfo', {
       url: '/courts/{courtId}',
       templateUrl: 'views/courtSearchInfo.html',
@@ -56,12 +69,13 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
         court: {value: undefined}
       },
       resolve: {
-        court: function ($stateParams,Courts) {
-          if ($stateParams.courtId != ""){
-            return Courts.findById($stateParams.courtId)
-          }else{
-            return null;
-          };
+        court: function ($stateParams, Courts, Errors) {
+          if ($stateParams.courtId == "") {
+            throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No Court was found with the url you provided.");
+          } else {
+            return Courts.findById($stateParams.courtId).catch(function () {
+              throw Errors.makeError(Errors.ERROR_CODE.NOT_FOUND, "No Court was found with the url you provided.");            })
+          }
         }
       }
     })
