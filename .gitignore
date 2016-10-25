@@ -11,3 +11,4 @@
 *.iml
 
 app/scripts/envConfig.js
+coverage/
