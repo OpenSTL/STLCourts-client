@@ -24,7 +24,8 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
     })
     .state('help', {
       url: '/help',
-      templateUrl: 'views/help.html'
+      templateUrl: 'views/help.html',
+      controller: 'HelpCtrl as ctrl'
     })
     .state('info', {
       url: '/info',
