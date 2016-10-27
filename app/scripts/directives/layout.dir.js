@@ -6,12 +6,7 @@ angular.module('yourStlCourts').directive('layout', function () {
 
     link: function ($scope, element) {
       $scope.$on('$stateChangeStart', function(event, toState){
-        var statesToUseBackground = ['home',
-                                     'ticketSearch',
-                                     'about',
-                                     'help',
-                                     'info',
-                                     'error'];
+        var statesToUseBackground = ['home','ticketSearch','about','help','info','error'];
         if (statesToUseBackground.indexOf(toState.name) != -1){
           element.addClass('background');
         } else {
