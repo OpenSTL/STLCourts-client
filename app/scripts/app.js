@@ -70,7 +70,7 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       },
       resolve: {
         court: function ($stateParams, Courts, Errors) {
-          if ($stateParams.courtId == "") {
+          if (!$stateParams.courtId) {
             throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No Court was found with the url you provided.");
           } else {
             return Courts.findById($stateParams.courtId).catch(function () {
