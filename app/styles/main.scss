@@ -8,9 +8,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 @import "_colors";
 
+$navbar-height:85px;
+
 html, body {
   font-family: 'Roboto Condensed', sans-serif;
-  font-size: 94%;
+  font-size: $font-size-base;
   height: 100%;
 }
 
@@ -72,8 +74,12 @@ h3 {
   color: $blue;
 }
 
-p {
-  font-size: 1.1em;
+p, ul, ol {
+  font-size: 1.1rem;
+}
+
+ul.indent-only{
+  list-style: none;
 }
 
 .primary {
@@ -217,7 +223,7 @@ label {
 
 .navbar-brand {
   padding: 5px !important;
-  height: 85px;
+  height: $navbar-height;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -282,6 +288,30 @@ table {
 #courtSearch-direction-button{
   margin-top: 10px;
   text-align: right;
+}
+
+#court-fines td{
+  padding-right:10px;
+}
+
+#infoPage h2, #helpPage h2{
+  text-decoration: underline;
+}
+
+#infoPage h3, .helpPage-Question{
+  font-style: italic;
+}
+.helpPage-Question:hover{
+  cursor:pointer;
+}
+.about-page-margin{
+  margin-bottom:1.5rem;
+}
+.anchor{
+  display:block;
+  position:relative;
+  top:-($navbar-height) - 5px;
+  visibility: hidden;
 }
 
 @media print {
