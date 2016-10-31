@@ -39,16 +39,6 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
           url: '/privacy',
           templateUrl: 'views/privacy.html'
     })
-    .state('ticketSearch', {
-      url: '/tickets/search',
-      templateUrl: 'views/ticketSearch.html',
-      controller: 'ticketSearchCtrl as ctrl',
-      resolve: {
-        municipalities: function(Courts){
-          return Courts.findAll();
-        }
-      }
-    })
     .state('courtSearchInfo', {
       url: '/courts/{courtId}',
       templateUrl: 'views/courtSearchInfo.html',
