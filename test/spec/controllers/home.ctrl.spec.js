@@ -169,6 +169,69 @@ describe('HomeCtrl', function() {
     expect(toaster.pop).toHaveBeenCalledWith('error', 'Oh no! We couldn\'t get your ticket information!');
   }));
 
+  it('should set params.citationNumber correctly',inject(function(Citations,$q){
+    var deferred = $q.defer();
+    deferred.resolve({citations:[]});
+    spyOn(Citations,'find').and.returnValue(deferred.promise);
+
+    HomeCtrl.setOptionsSelectedMap(HomeCtrl.OptionToSelect.TICKET_NUMBER);
+
+    HomeCtrl.citationCriteria = {
+      citationNumber: '123',
+      licenseNumber: null,
+      licenseState: 'MO',
+      firstName: null,
+      lastName: null,
+      municipalityNames: null,
+      dob: '03/17/1990'
+    };
+
+    HomeCtrl.findTicket();
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',citationNumber:'123'});
+  }));
+
+  it('should set params.licenseNumber and params.licenseState correctly',inject(function(Citations,$q){
+    var deferred = $q.defer();
+    deferred.resolve({citations:[]});
+    spyOn(Citations,'find').and.returnValue(deferred.promise);
+
+    HomeCtrl.setOptionsSelectedMap(HomeCtrl.OptionToSelect.DRIVER_INFO);
+
+    HomeCtrl.citationCriteria = {
+      citationNumber: null,
+      licenseNumber: 'ABC',
+      licenseState: 'MO',
+      firstName: null,
+      lastName: null,
+      municipalityNames: null,
+      dob: '03/17/1990'
+    };
+
+    HomeCtrl.findTicket();
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',licenseNumber: 'ABC',licenseState: 'MO'});
+  }));
+
+  it('should set params.municipalityNames and params.lastName correctly',inject(function(Citations,$q){
+    var deferred = $q.defer();
+    deferred.resolve({citations:[]});
+    spyOn(Citations,'find').and.returnValue(deferred.promise);
+
+    HomeCtrl.setOptionsSelectedMap(HomeCtrl.OptionToSelect.LOCATION);
+
+    HomeCtrl.citationCriteria = {
+      citationNumber: null,
+      licenseNumber: null,
+      licenseState: 'MO',
+      firstName: null,
+      lastName: 'someLastName',
+      municipalityNames: [{municipality:'alpha'},{municipality:'beta'},{municipality:'charlie'}],
+      dob: '03/17/1990'
+    };
+
+    HomeCtrl.findTicket();
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',lastName: 'someLastName',municipalityNames: ['alpha','beta','charlie']});
+  }));
+
   it('opens locationPicker Modal and selects municipality names',inject(function($uibModal,$q){
 
     spyOn($uibModal, 'open').and.returnValue(fakeModal);
