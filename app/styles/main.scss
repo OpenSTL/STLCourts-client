@@ -32,7 +32,6 @@ html, body {
   width: 100%;
   background-color: $background;
   position: relative;
-  display: table-cell;
   padding-top: 85px;
 }
 
@@ -57,9 +56,12 @@ $footerHeight : 60px;
 footer {
   width: 100%;
   height: $footerHeight;
-  line-height: $footerHeight;
   text-align: center;
   background-color: $lightGrey;
+  border:1px solid #090909;
+  border-right: none;
+  border-left:none;
+  padding-top:15px;
 }
 
 h1 {
