@@ -150,10 +150,13 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function (validator, validationElementModifier, errorMessageResolver) {
+angular.module('yourStlCourts').run(function ($rootScope,validator, validationElementModifier, errorMessageResolver) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
     validator.setErrorMessageResolver(errorMessageResolver.resolve);
+    $rootScope.$on('$stateChangeSuccess', function() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    });
   }
 );
