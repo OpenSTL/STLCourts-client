@@ -55,7 +55,7 @@ html, body {
 $footerHeight : 60px;
 footer {
   width: 100%;
-  height: $footerHeight;
+  min-height: $footerHeight;
   text-align: center;
   background-color: $lightGrey;
   border:1px solid #090909;
