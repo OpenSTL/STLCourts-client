@@ -12,7 +12,7 @@
 
       <ui-select id="courtsFinder" name="courtsFinder" ng-model="ctrl.selectedCourt" on-select="ctrl.courtSelected();">
         <ui-select-match placeholder="Search by City">{{$select.selected.municipality}}</ui-select-match>
-        <ui-select-choices repeat="municipality in ctrl.municipalities | filter: {municipality:$select.search} | limitTo:3">
+        <ui-select-choices repeat="municipality in ctrl.municipalities | filter: {municipality:$select.search}">
           <div ng-bind-html="municipality.municipality | highlight: $select.search"></div>
         </ui-select-choices>
         <ui-select-no-choice>

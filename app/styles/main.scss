@@ -219,6 +219,10 @@ label {
   background-color: $lightBlue !important;
 }
 
+.ui-select-no-choice span {
+  margin-left: 15px;
+}
+
 @media only screen and (max-width: 768px) {
   .homepageTile {
     height: auto;
