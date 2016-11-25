@@ -39,16 +39,6 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
           url: '/privacy',
           templateUrl: 'views/privacy.html'
     })
-    .state('ticketSearch', {
-      url: '/tickets/search',
-      templateUrl: 'views/ticketSearch.html',
-      controller: 'ticketSearchCtrl as ctrl',
-      resolve: {
-        municipalities: function(Courts){
-          return Courts.findAll();
-        }
-      }
-    })
     .state('error',{
       url:'/error',
       templateUrl: 'views/error.html',
@@ -150,10 +140,13 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function (validator, validationElementModifier, errorMessageResolver) {
+angular.module('yourStlCourts').run(function ($rootScope,validator, validationElementModifier, errorMessageResolver) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
     validator.setErrorMessageResolver(errorMessageResolver.resolve);
+    $rootScope.$on('$stateChangeSuccess', function() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    });
   }
 );
