@@ -32,7 +32,6 @@ html, body {
   width: 100%;
   background-color: $background;
   position: relative;
-  display: table-cell;
   padding-top: 85px;
 }
 
@@ -56,10 +55,13 @@ html, body {
 $footerHeight : 60px;
 footer {
   width: 100%;
-  height: $footerHeight;
-  line-height: $footerHeight;
+  min-height: $footerHeight;
   text-align: center;
   background-color: $lightGrey;
+  border:1px solid #090909;
+  border-right: none;
+  border-left:none;
+  padding-top:15px;
 }
 
 h1 {
@@ -74,15 +76,7 @@ h3 {
   color: $blue;
 }
 
-p, ul, ol,
-.court-search-bar .ui-select-placeholder,
-.court-search-bar .ui-select-search,
-.court-search-bar ul,
-.homepageTileSelected .ui-select-placeholder,
-.homepageTileSelected .ui-select-search,
-.homepageTileSelected .ui-select-toggle,
-.homepageTileSelected ul,
-.homepageTileSelected input{
+p, ul, ol {
   font-size: 1.1rem;
 }
 
@@ -125,17 +119,8 @@ $homepageTileHeight : 250px;
   }
 }
 
-.homepageHeader-selected{
-  text-align: center;
-}
-
-.homepageTileIcon-selected{
-  display: block;
-  width:100%;
-}
-
-.homePageBottomMargin{
-  margin-bottom: $footerHeight + 30px;
+.homePageTileRow {
+  margin-bottom: $footerHeight;
 }
 
 .homepageTile-bottomButton{
@@ -152,17 +137,6 @@ $homepageTileHeight : 250px;
 
 }
 
-.court-search-bar{
-  padding: 0 1em 2em 1em;
-}
-
-.find-court-heading h3{
-  display: inline-block;
-}
-
-.find-court-heading{
-  margin: 1em 0;
-}
 
 .homepageTile {
   min-height: $homepageTileHeight;
@@ -182,13 +156,13 @@ $homepageTileHeight : 250px;
   font-size: 1.2em;
 }
 
-.homepageTile:hover, .court-search-bar:hover {
+.homepageTile:hover {
   border-color: $blue;
   cursor: pointer;
 }
 
-.homepageTile.unselected, .court-search-bar.unselected {
-  opacity: 0.7;
+.homepageTile.unselected {
+  opacity: 0.5;
 }
 
 .homepageTileSelected {
@@ -217,10 +191,6 @@ label {
 
 .ui-select-bootstrap .ui-select-choices-row.active > a {
   background-color: $lightBlue !important;
-}
-
-.ui-select-no-choice span {
-  margin-left: 15px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -326,6 +296,13 @@ table {
   padding-right:10px;
 }
 
+#infoPage h2, #helpPage h2{
+  text-decoration: underline;
+}
+
+#infoPage h3, .helpPage-Question{
+  font-style: italic;
+}
 .helpPage-Question:hover{
   cursor:pointer;
 }
