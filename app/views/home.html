@@ -10,13 +10,13 @@
         <h3>Find your Court?</h3>
       </div>
 
-      <ui-select id="courtsFinder" name="courtsFinder" ng-model="ctrl.selectedCourt" on-select="ctrl.courtSelected();">
+      <ui-select id="municipalitiesFinder" name="municipalitiesFinder" ng-model="ctrl.selectedMunicipality" on-select="ctrl.municipalitySelected();">
         <ui-select-match placeholder="Search by City">{{$select.selected.municipality}}</ui-select-match>
         <ui-select-choices repeat="municipality in ctrl.municipalities | filter: {municipality:$select.search}">
           <div ng-bind-html="municipality.municipality | highlight: $select.search"></div>
         </ui-select-choices>
         <ui-select-no-choice>
-          Please select a valid City name.
+          Please select a valid city name.
         </ui-select-no-choice>
       </ui-select>
 
