@@ -13,8 +13,8 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl as ctrl',
       resolve: {
-        municipalities: function(Courts){
-          return Courts.findAll();
+        municipalities: function(Municipalities){
+          return Municipalities.findAll();
         }
       }
     })
@@ -57,7 +57,8 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/courtSearchInfo.html',
       controller: 'CourtSearchInfoCtrl as ctrl',
       params: {
-        court: {value: undefined}
+        court: {value: undefined},
+        municipality: {value: undefined}
       },
       resolve: {
         court: function ($stateParams, Courts, Errors) {
@@ -65,6 +66,15 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
             throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No Court was found with the url you provided.");
           } else {
             return Courts.findById($stateParams.courtId).catch(function () {
+              throw Errors.makeError(Errors.ERROR_CODE.NOT_FOUND, "No Court was found with the url you provided.");            })
+          }
+        },
+        municipality: function($stateParams,Municipalities,Errors){
+          //Keep Error Message using "Court" vs "Municipality" because ultimate page is about a court
+          if (!$stateParams.courtId) {
+            throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No Court was found with the url you provided.");
+          } else {
+            return Municipalities.findByCourtId($stateParams.courtId).catch(function () {
               throw Errors.makeError(Errors.ERROR_CODE.NOT_FOUND, "No Court was found with the url you provided.");            })
           }
         }

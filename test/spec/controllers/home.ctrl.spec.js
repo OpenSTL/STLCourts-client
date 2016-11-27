@@ -75,9 +75,9 @@ describe('HomeCtrl', function() {
 
   it('goes to court search results page',inject(function($state){
     spyOn($state,'go');
-    HomeCtrl.selectedCourt = {id:10};
-    HomeCtrl.courtSelected();
-    expect($state.go).toHaveBeenCalledWith('courtSearchInfo',{courtId:HomeCtrl.selectedCourt.id});
+    HomeCtrl.selectedMunicipality = {id:10, municipality:"someMuni",court_id:5};
+    HomeCtrl.municipalitySelected();
+    expect($state.go).toHaveBeenCalledWith('courtSearchInfo',{courtId:HomeCtrl.selectedMunicipality.court_id});
   }));
 
   it('initializes citationCriteria',inject(function(){
