@@ -11,6 +11,28 @@ angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state,
     });
   };
 
+  ctrl.paymentWebsite = function(){
+    var websiteURL = "";
+    switch(ctrl.selectedCitation.court.payment_system){
+      case 'iPayCourt':
+        websiteURL = "http://www.ipaycourt.com";
+        break;
+      case 'nCourt':
+        websiteURL = "http://home.ncourt.com/";
+        break;
+      case 'IPG':
+        websiteURL = "https://trafficpayment.com/Default.aspx";
+        break;
+      case 'Municipal Online Payments Tyler':
+        websiteURL = "https://www.municipalonlinepayments.com/search/services/court";
+        break;
+      default:
+        break;
+    }
+
+    return websiteURL;
+  }
+
   if(!citations) {
     $state.go('ticketSearch');
   } else {

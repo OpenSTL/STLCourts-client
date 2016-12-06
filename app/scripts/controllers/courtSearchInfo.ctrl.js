@@ -1,10 +1,9 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court, municipality){
+angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court){
   var ctrl = this;
 
   ctrl.courtInfo = court;
-  ctrl.courtMunicipality = "";
 
   ctrl.courtOnMap = {
         lat:51.505,
@@ -37,8 +36,9 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
         ctrl.courtOnMap.lat = ctrl.courtInfo.latitude;
         ctrl.courtOnMap.lng = ctrl.courtInfo.longitude;
         ctrl.courtMarkers.m1 = {lat: ctrl.courtInfo.latitude, lng: ctrl.courtInfo.longitude, message: ctrl.courtInfo.address, icon: courtDefaultIcon};
-        ctrl.courtMunicipality = municipality?municipality.municipality:'';
+        ctrl.courtName = ctrl.courtInfo.court_name;
         ctrl.courtPhone = ctrl.courtInfo.phone;
+        ctrl.phoneExtension = ctrl.courtInfo.extension;
         ctrl.courtWebsite = ctrl.courtInfo.website;
   };
 
