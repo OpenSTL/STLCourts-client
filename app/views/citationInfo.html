@@ -45,9 +45,7 @@
           </div>
           <div class="col-sm-6 no-print">
             <h3>I Want To...</h3>
-            <!--this works for now, but will want to make a ctrl.___() to do it better if regis is compattablie with my idea.-->
-            <a href="http://www.ipaycourt.com" target="_blank">
-            <!--<a href={{ctrl.selectedCitation.court.paymentSystem-->
+            <a ng-if="ctrl.paymentWebsite() != ''" href="{{ctrl.paymentWebsite()}}" target="_blank">
               <button type="button" class="btn btn-success btn-lg" ng-click=""><i class="fa fa-dollar"></i>&nbsp;PAY TICKET</button>
             </a>
             <!-- probably need to have some logic to determine when this gets displayed or maybe it is always a link?? -->
@@ -93,10 +91,9 @@
               <dt>Court Date</dt>
               <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_date)}}</dd>
               <dt>Court Name</dt>
-              <dd>{{ctrl.selectedCitation.court.municipality}}</dd>
+              <dd>{{ctrl.selectedCitation.court.court_name}} Court</dd>
               <dt>Court Phone Number</dt>
-              <!-- Will put this here once court API and database gets re-created, for now using a place holder <dd>{{ctrl.selectedCitation.court.phone_number}}</dd>-->
-              <dd>(XXX) XXX-XXXX</dd>
+              <dd>{{ctrl.selectedCitation.court.phone}}<span ng-if="ctrl.selectedCitation.court.extension"> x{{ctrl.selectedCitation.court.extension}}</span></dd>
               <dt>Court Location</dt>
               <dd>
                 {{ctrl.selectedCitation.court.address}}<br/>
