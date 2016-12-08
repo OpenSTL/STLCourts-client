@@ -1,27 +1,20 @@
 'use strict';
 
 angular.module('yourStlCourts').factory('Municipalities', function ($resource, $q) {
+  var allMuniResource = $resource('municipalities');
   var MuniResource = $resource('municipalities/:id');
-  var MuniCourtResource = $resource('municipalities?courtId=:courtId');
-  var municipalities;
+  var MuniCourtResource = $resource('courts/:courtId/municipalities');
 
   function findById(id){
     return MuniResource.get({id: id}).$promise;
   }
 
   function findByCourtId(courtId){
-    return MuniCourtResource.get({courtId: courtId}).$promise;
+    return MuniCourtResource.query({courtId: courtId}).$promise;
   }
 
-  function findAll() {
-    if(municipalities) {
-      return $q.when(municipalities);
-    }
-
-    return MuniResource.get().$promise.then(function(data){
-      municipalities = data.municipalities;
-      return data.municipalities;
-    });
+  function findAll(){
+    return allMuniResource.query().$promise;
   }
 
   var svc = {
