@@ -1,0 +1,20 @@
+<div>
+  <div class="modal-header">
+    <h3 class="modal-title">Select Ticketed Location</h3>
+  </div>
+  <div class="modal-body">
+    <div>
+      <leaflet id="municipalityMap" lf-center="ctrl.center" geojson="geojson"></leaflet>
+    </div>
+    <div style="margin-top: 20px;" ng-if="ctrl.selectedMunicipalities.length > 0">
+      <label>Select Cities</label><br/>
+      <span ng-repeat="municip in ctrl.selectedMunicipalities">
+        {{municip.municipality}}<span ng-if="$index < ctrl.selectedMunicipalities.length - 1">, </span>
+      </span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ctrl.selectLocation()" ng-disabled="ctrl.selectedMunicipalities.length === 0">Save Selected</button>
+    <button class="btn btn-danger" type="button" ng-click="ctrl.cancel()">Cancel</button>
+  </div>
+</div>

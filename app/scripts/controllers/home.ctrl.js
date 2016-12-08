@@ -118,8 +118,8 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     ctrl.citationCriteria.municipalityNames = null;
 
     var modalInstance = $uibModal.open({
-      templateUrl: 'views/locationPickerMap.html',
-      controller: 'LocationPickerMapCtrl as ctrl',
+      templateUrl: 'views/locationPickerMap2.html',
+      controller: 'LocationPickerMapCtrl2 as ctrl',
       size: 'md',
       resolve: {
         municipalities: function() {
