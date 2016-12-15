@@ -90,7 +90,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     } else if(optionSelectedMap[ctrl.OptionToSelect.LOCATION]) {
       var names = [];
       ctrl.citationCriteria.municipalityNames.forEach(function(municip){
-        names.push(municip.municipality);
+        names.push(municip.municipality_name);
       });
       params.municipalityNames = names;
       params.lastName = ctrl.citationCriteria.lastName;
