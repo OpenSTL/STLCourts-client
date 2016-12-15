@@ -115,12 +115,15 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
   };
 
   ctrl.openMap = function(){
+    //see http://angular-ui.github.io/bootstrap/ for documentation
+    //could change this so that instead of setting to null pass on to the dialog and dialog can preselect the items
     ctrl.citationCriteria.municipalityNames = null;
 
     var modalInstance = $uibModal.open({
       templateUrl: 'views/locationPickerMap2.html',
       controller: 'LocationPickerMapCtrl2 as ctrl',
       size: 'md',
+      backdrop: false,
       resolve: {
         municipalities: function() {
           return ctrl.municipalities;
@@ -131,6 +134,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     modalInstance.result.then(function (selectedMunicipalities) {
       ctrl.citationCriteria.municipalityNames = selectedMunicipalities;
     });
+
   };
 
   initializeCitationCriteria();

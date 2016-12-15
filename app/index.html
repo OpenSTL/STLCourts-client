@@ -25,6 +25,7 @@
   </head>
   <body ng-app="yourStlCourts">
   <script type="text/javascript" src="data/stlCountyMunicipalBoundaries.js"></script>
+  <script src="scripts/geo/geojson-vt.js"></script>
     <toaster-container></toaster-container>
 
     <div id="wrapper">
@@ -61,8 +62,9 @@
     <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
-    <script src="http://www.sumbera.com/gist/js/leaflet/canvas/L.CanvasTiles.js"></script>
+    <!--<script src="http://www.sumbera.com/gist/js/vt/geojson-vt-dev.js"></script>-->
+    <script src="scripts/geo/L.CanvasTilesInteractive.js"></script>
+    <!--<script src="http://www.sumbera.com/gist/js/leaflet/canvas/L.CanvasTiles.js"></script>-->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="vendor/jcs-auto-validate.min.js"></script>
@@ -102,5 +104,6 @@
     <script src="scripts/components/stlCourtsHeader.comp.js"></script>
     <script src="scripts/components/stlCourtsFooter.comp.js"></script>
     <!-- endbuild -->
+
 </body>
 </html>
