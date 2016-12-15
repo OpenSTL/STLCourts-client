@@ -241,7 +241,7 @@ L.CanvasTilesInteractive =  L.TileLayer.Canvas.extend({
 
 });
 
-L.CanvasTilesInteractive = function (userDrawFunc, userHighlightFunc, userSelectFunc, options, callContext) {
+L.canvasTilesInteractive = function (userDrawFunc, userHighlightFunc, userSelectFunc, options, callContext) {
   return new L.CanvasTilesInteractive(userDrawFunc, userHighlightFunc, userSelectFunc, options, callContext);
 };
 

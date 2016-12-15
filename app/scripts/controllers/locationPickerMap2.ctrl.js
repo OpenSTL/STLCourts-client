@@ -34,7 +34,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
 
   var pad = 0;
   leafletData.getMap("municipalityMap").then(function(map){
-    var tileLayer = L.CanvasTilesInteractive()
+    var tileLayer = L.canvasTilesInteractive()
       .params({ debug: false, padding: 5 })
       .drawing(drawingOnCanvas)
       .highlighting(highlightMunicipalitiesOnCanvas)
