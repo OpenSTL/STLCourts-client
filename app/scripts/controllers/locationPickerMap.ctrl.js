@@ -28,7 +28,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
       queryResult.features.forEach(function(feature){
         if (feature.attributes && feature.attributes.MUNICIPALITY) {
           municipalities.every(function (realMunicip) {
-            if (realMunicip.municipality.toLowerCase() === feature.attributes.MUNICIPALITY.toLowerCase()) {
+            if (realMunicip.municipality_name.toLowerCase() === feature.attributes.MUNICIPALITY.toLowerCase()) {
               ctrl.selectedMunicipalities.push(realMunicip);
               return false;
             }

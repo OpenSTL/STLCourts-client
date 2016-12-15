@@ -11,7 +11,7 @@
     <div style="margin-top: 20px;" ng-if="ctrl.selectedMunicipalities.length > 0">
       <label>Select Cities</label><br/>
       <span ng-repeat="municip in ctrl.selectedMunicipalities">
-        {{municip.municipality}}<span ng-if="$index < ctrl.selectedMunicipalities.length - 1">, </span>
+        {{municip.municipality_name}}<span ng-if="$index < ctrl.selectedMunicipalities.length - 1">, </span>
       </span>
     </div>
   </div>

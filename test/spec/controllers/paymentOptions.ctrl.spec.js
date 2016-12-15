@@ -31,8 +31,8 @@ describe('PaymentOptionsCtrl', function () {
         $state: $state,
         $uibModal: $uibModal
       });
-      
-      $httpBackend.whenGET(/(.*\.html)|(courts)/).respond(200, '');
+
+      $httpBackend.whenGET(/(.*\.html)|(courts)|(municipalities)/).respond(200, '');
     });
   });
 
