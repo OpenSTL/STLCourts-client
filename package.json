@@ -49,8 +49,6 @@
     "express": "^4.13.3",
     "geojson-vt": "^2.4.0",
     "gzippo": "^0.2.0",
-    "leaflet-mapbox-vector-tile": "^0.1.6",
-    "leaflet-tilelayer-geojson": "^1.0.4",
     "morgan": "^1.6.1"
   }
 }

@@ -218,7 +218,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
         //lookup the entry from Municipalities
         var dbEntry = null;
         for (var i in municipalities){
-          var dbMuniName = municipalities[i].municipality;
+          var dbMuniName = municipalities[i].municipality_name;
           var friendlyMuniName = this.name.replace("&","and");
           if (friendlyMuniName == "unincorporated"){
             //need to figure out which county
