@@ -76,6 +76,18 @@ h3 {
   color: $blue;
 }
 
+p.address1{
+  padding-top:0px;
+  padding-bottom:0px;
+  margin-top:0px;
+  margin-bottom: 0px;
+}
+
+p.address2{
+  padding-top:0px;
+  margin-top:0px;
+}
+
 p, ul, ol,
 .court-search-bar .ui-select-placeholder,
 .court-search-bar .ui-select-search,

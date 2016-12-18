@@ -62,6 +62,7 @@ describe('HomeCtrl', function() {
       });
 
       $httpBackend.whenGET(/courts/).respond(200, '');
+      $httpBackend.whenGET(/municipalities/).respond(200, '');
     });
   });
 
@@ -75,9 +76,9 @@ describe('HomeCtrl', function() {
 
   it('goes to court search results page',inject(function($state){
     spyOn($state,'go');
-    HomeCtrl.selectedCourt = {id:10};
-    HomeCtrl.courtSelected();
-    expect($state.go).toHaveBeenCalledWith('courtSearchInfo',{courtId:HomeCtrl.selectedCourt.id});
+    HomeCtrl.selectedMunicipality = {id:10, municipality:"someMuni",court_id:5};
+    HomeCtrl.municipalitySelected();
+    expect($state.go).toHaveBeenCalledWith('courtSearchInfo',{courtId:HomeCtrl.selectedMunicipality.court_id});
   }));
 
   it('initializes citationCriteria',inject(function(){
@@ -224,7 +225,7 @@ describe('HomeCtrl', function() {
       licenseState: 'MO',
       firstName: null,
       lastName: 'someLastName',
-      municipalityNames: [{municipality:'alpha'},{municipality:'beta'},{municipality:'charlie'}],
+      municipalityNames: [{municipality_name:'alpha'},{municipality_name:'beta'},{municipality_name:'charlie'}],
       dob: '03/17/1990'
     };
 

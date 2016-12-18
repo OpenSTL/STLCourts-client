@@ -36,7 +36,10 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
         ctrl.courtOnMap.lat = ctrl.courtInfo.latitude;
         ctrl.courtOnMap.lng = ctrl.courtInfo.longitude;
         ctrl.courtMarkers.m1 = {lat: ctrl.courtInfo.latitude, lng: ctrl.courtInfo.longitude, message: ctrl.courtInfo.address, icon: courtDefaultIcon};
-
+        ctrl.courtName = ctrl.courtInfo.court_name;
+        ctrl.courtPhone = ctrl.courtInfo.phone;
+        ctrl.phoneExtension = ctrl.courtInfo.extension;
+        ctrl.courtWebsite = ctrl.courtInfo.website;
   };
 
 

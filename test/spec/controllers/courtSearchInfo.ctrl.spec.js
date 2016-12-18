@@ -3,17 +3,29 @@
 describe('CourtSearchInfoCtrl', function() {
   var CourtSearchInfoCtrl;
   var sample_court;
+  var sample_muni;
 
   sample_court = {
     id: 9,
+    court_name:"mySampleCourt",
     latitutde: 38.7947506,
     longitude: -90.26261696,
-    municipality: "Black Jack",
+    phone: "314.555.1212",
+    extension: "1",
+    website:"www.mywebsite.com",
     address: "12500 Old Jamestown Road",
     city: "St. Louis",
     state: "MO",
     zip_code: 63033
   };
+
+  sample_muni = {
+    id: 3,
+    municipality_name: "someMuni",
+    court_id: 42
+  };
+
+
 
   beforeEach(function() {
     module('yourStlCourts');
@@ -50,6 +62,13 @@ describe('CourtSearchInfoCtrl', function() {
 
   it('sets court on initialization',inject(function(){
     expect(CourtSearchInfoCtrl.courtInfo).toEqual(sample_court);
+  }));
+
+  it('sets phone,extension,courtName, and website on initialization',inject(function(){
+    expect(CourtSearchInfoCtrl.courtName).toEqual(sample_court.court_name);
+    expect(CourtSearchInfoCtrl.courtWebsite).toEqual(sample_court.website);
+    expect(CourtSearchInfoCtrl.courtPhone).toEqual(sample_court.phone);
+    expect(CourtSearchInfoCtrl.phoneExtension).toEqual(sample_court.extension);
   }));
 
   it('gets correct directions',(function(){

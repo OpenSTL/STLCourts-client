@@ -4,10 +4,10 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
   var ctrl = this;
   ctrl.states = States;
   ctrl.municipalities = municipalities;
-  ctrl.selectedCourt = null;
+  ctrl.selectedMunicipality = null;
 
-  ctrl.courtSelected  = function(){
-    $state.go('courtSearchInfo',{'courtId':ctrl.selectedCourt.id});
+  ctrl.municipalitySelected  = function(){
+    $state.go('courtSearchInfo',{'courtId':ctrl.selectedMunicipality.court_id});
   };
 
   ctrl.citationCriteria = {};
@@ -90,7 +90,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     } else if(optionSelectedMap[ctrl.OptionToSelect.LOCATION]) {
       var names = [];
       ctrl.citationCriteria.municipalityNames.forEach(function(municip){
-        names.push(municip.municipality);
+        names.push(municip.municipality_name);
       });
       params.municipalityNames = names;
       params.lastName = ctrl.citationCriteria.lastName;

@@ -13,8 +13,8 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl as ctrl',
       resolve: {
-        municipalities: function(Courts){
-          return Courts.findAll();
+        municipalities: function(Municipalities){
+          return Municipalities.findAll();
         }
       }
     })

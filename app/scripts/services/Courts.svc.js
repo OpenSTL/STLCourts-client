@@ -9,14 +9,7 @@ angular.module('yourStlCourts').factory('Courts', function ($resource, $q) {
   }
 
   function findAll() {
-    if(courts) {
-      return $q.when(courts);
-    }
-
-    return CourtResource.get().$promise.then(function(data){
-      courts = data.courts;
-      return data.courts;
-    });
+    return CourtResource.query().$promise;
   }
 
   var svc = {
