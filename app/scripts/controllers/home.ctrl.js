@@ -5,21 +5,20 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
   ctrl.states = States;
   ctrl.municipalities = municipalities;
   ctrl.selectedMunicipality = null;
+  ctrl.citationCriteria = {};
+  ctrl.hasEverSelected = false;
 
   ctrl.municipalitySelected  = function(){
-    $state.go('courtSearchInfo',{'courtId':ctrl.selectedMunicipality.court_id});
+    $state.go('courtSearchInfo',{courtId : ctrl.selectedMunicipality.court_id});
   };
-
-  ctrl.citationCriteria = {};
-
-  ctrl.hasEverSelected = false;
 
   ctrl.OptionToSelect = {
     TICKET_NUMBER : 'TICKET_NUMBER',
     DRIVER_INFO : 'DRIVER_INFO',
     LOCATION : 'LOCATION',
     COURT_SEARCH : 'COURT_SEARCH'
-  }
+  };
+
   var optionSelectedMap = {
     TICKET_NUMBER : false,
     DRIVER_INFO : false,
@@ -31,13 +30,9 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     initializeCitationCriteria();
     ctrl.hasEverSelected = true;
     for(var item in optionSelectedMap){
-      if (item == optionToSelect){
-        optionSelectedMap[item] = true;
-      }else{
-        optionSelectedMap[item] = false;
-      }
+      optionSelectedMap[item] = (item == optionToSelect);
     }
-  }
+  };
 
   ctrl.isUnselected = function(option){
     return !optionSelectedMap[option] && ctrl.hasEverSelected;
@@ -58,7 +53,6 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
       dob: null
     };
   }
-
 
   ctrl.getDOB = function(citationCriteriaFrm){
     if(citationCriteriaFrm.$valid) {
@@ -100,7 +94,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
       if(result.citations.length > 0) {
         $state.go('citationInfo', {citations: result.citations});
       } else {
-        var homeLink = '<a href="/"><u>clicking here</u></a>'
+        var homeLink = '<a href="/"><u>clicking here</u></a>';
         var noTicketsFoundMsg = 'We could not find any results for the  information you provided. It\'s possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
         toaster.pop({
           type: 'error',

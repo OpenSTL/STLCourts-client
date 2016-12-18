@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').factory('Courts', function ($resource, $q) {
+angular.module('yourStlCourts').factory('Courts', function ($resource) {
   var CourtResource = $resource('courts/:id');
   var courts;
 

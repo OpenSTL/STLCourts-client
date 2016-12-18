@@ -6,11 +6,13 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
   ctrl.courtInfo = court;
 
   ctrl.courtOnMap = {
-        lat:51.505,
-        lng:-0.09,
-        zoom: 14
+    lat:51.505,
+    lng:-0.09,
+    zoom: 14
   };
+
   ctrl.courtMarkers = {};
+
   var courtDefaultIcon = {
     iconUrl: 'images/marker-icon.png',
     shadowUrl: 'images/marker-shadow.png',
@@ -21,30 +23,28 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
   };
 
  function getCourtDirectionLink(courtInfo) {
-      var address = courtInfo.address.replace(' ', '+');
-      var city = courtInfo.city;
-      var state = courtInfo.state;
-      var zip = courtInfo.zip_code;
-      var addressParts = [address, city, state, zip];
-      return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
-  }
+    var address = courtInfo.address.replace(' ', '+');
+    var city = courtInfo.city;
+    var state = courtInfo.state;
+    var zip = courtInfo.zip_code;
+    var addressParts = [address, city, state, zip];
+    return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
+ }
 
   if(!ctrl.courtInfo) {
     $state.go('home');
   } else {
-        ctrl.courtDirectionLink = getCourtDirectionLink(ctrl.courtInfo);
-        ctrl.courtOnMap.lat = ctrl.courtInfo.latitude;
-        ctrl.courtOnMap.lng = ctrl.courtInfo.longitude;
-        ctrl.courtMarkers.m1 = {lat: ctrl.courtInfo.latitude, lng: ctrl.courtInfo.longitude, message: ctrl.courtInfo.address, icon: courtDefaultIcon};
-        ctrl.courtName = ctrl.courtInfo.court_name;
-        ctrl.courtPhone = ctrl.courtInfo.phone;
-        ctrl.phoneExtension = ctrl.courtInfo.extension;
-        ctrl.courtWebsite = ctrl.courtInfo.website;
-  };
-
+    ctrl.courtDirectionLink = getCourtDirectionLink(ctrl.courtInfo);
+    ctrl.courtOnMap.lat = ctrl.courtInfo.latitude;
+    ctrl.courtOnMap.lng = ctrl.courtInfo.longitude;
+    ctrl.courtMarkers.m1 = {lat: ctrl.courtInfo.latitude, lng: ctrl.courtInfo.longitude, message: ctrl.courtInfo.address, icon: courtDefaultIcon};
+    ctrl.courtName = ctrl.courtInfo.court_name;
+    ctrl.courtPhone = ctrl.courtInfo.phone;
+    ctrl.phoneExtension = ctrl.courtInfo.extension;
+    ctrl.courtWebsite = ctrl.courtInfo.website;
+  }
 
   ctrl.printCourtInfo = function () {
     $window.print();
   };
-
 });
