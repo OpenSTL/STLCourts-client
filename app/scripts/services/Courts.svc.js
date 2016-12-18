@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('yourStlCourts').factory('Courts', function ($resource) {
-  var CourtResource = $resource('courts/:id');
+angular.module('yourStlCourts').factory('Courts', function ($resource, $q) {
+  var CourtResource = $resource('courts/:id', {id: '@id'});
   var courts;
 
   function findById(id){
@@ -9,7 +9,13 @@ angular.module('yourStlCourts').factory('Courts', function ($resource) {
   }
 
   function findAll() {
-    return CourtResource.query().$promise;
+    if(courts) {
+      return $q.when(courts);
+    }
+    return CourtResource.query().$promise.then(function(response){
+      courts = response;
+      return courts;
+    });
   }
 
   var svc = {
