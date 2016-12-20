@@ -62,6 +62,7 @@ describe('HomeCtrl', function() {
       });
 
       $httpBackend.whenGET(/courts/).respond(200, '');
+      $httpBackend.whenGET(/municipalities/).respond(200, '');
     });
   });
 
@@ -224,7 +225,7 @@ describe('HomeCtrl', function() {
       licenseState: 'MO',
       firstName: null,
       lastName: 'someLastName',
-      municipalityNames: [{municipality:'alpha'},{municipality:'beta'},{municipality:'charlie'}],
+      municipalityNames: [{municipality_name:'alpha'},{municipality_name:'beta'},{municipality_name:'charlie'}],
       dob: '03/17/1990'
     };
 

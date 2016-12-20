@@ -11,18 +11,15 @@
       </div>
 
       <ui-select id="municipalitiesFinder" name="municipalitiesFinder" ng-model="ctrl.selectedMunicipality" on-select="ctrl.municipalitySelected();">
-        <ui-select-match placeholder="Search by City">{{$select.selected.municipality}}</ui-select-match>
-        <ui-select-choices repeat="municipality in ctrl.municipalities | filter: {municipality:$select.search}">
-          <div ng-bind-html="municipality.municipality | highlight: $select.search"></div>
+        <ui-select-match placeholder="Search by City">{{$select.selected.municipality_name}}</ui-select-match>
+        <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search">
+          <div ng-bind-html="municipality.municipality_name | highlight: $select.search"></div>
         </ui-select-choices>
         <ui-select-no-choice>
           Please select a valid city name.
         </ui-select-no-choice>
       </ui-select>
-
     </div>
-
-
 
     <form id="citationCriteriaFrm" name="citationCriteriaFrm" ng-submit="ctrl.getDOB(citationCriteriaFrm)" novalidate ng-submit-force="true">
       <div class="row row-eq-height">

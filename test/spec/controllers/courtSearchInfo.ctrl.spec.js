@@ -7,9 +7,11 @@ describe('CourtSearchInfoCtrl', function() {
 
   sample_court = {
     id: 9,
+    court_name:"mySampleCourt",
     latitutde: 38.7947506,
     longitude: -90.26261696,
     phone: "314.555.1212",
+    extension: "1",
     website:"www.mywebsite.com",
     address: "12500 Old Jamestown Road",
     city: "St. Louis",
@@ -19,7 +21,7 @@ describe('CourtSearchInfoCtrl', function() {
 
   sample_muni = {
     id: 3,
-    municipality: "someMuni",
+    municipality_name: "someMuni",
     court_id: 42
   };
 
@@ -33,8 +35,7 @@ describe('CourtSearchInfoCtrl', function() {
       CourtSearchInfoCtrl = $controller('CourtSearchInfoCtrl',{
         $state: $state,
         $window: $window,
-        court:sample_court,
-        municipality:sample_muni
+        court:sample_court
       });
 
       $httpBackend.whenGET(/courts/).respond(200, '');
@@ -47,8 +48,7 @@ describe('CourtSearchInfoCtrl', function() {
       CourtSearchInfoCtrl = $controller('CourtSearchInfoCtrl', {
         $state: $state,
         $window: $window,
-        court: null,
-        municipality:sample_muni
+        court: null
       });
     });
     expect($state.go).toHaveBeenCalledWith('home');
@@ -64,25 +64,11 @@ describe('CourtSearchInfoCtrl', function() {
     expect(CourtSearchInfoCtrl.courtInfo).toEqual(sample_court);
   }));
 
-  it('sets municipality on initialization',inject(function(){
-    expect(CourtSearchInfoCtrl.courtMunicipality).toEqual(sample_muni.municipality);
-  }));
-
-  it('sets blank municipality on initialization if municipality is null',inject(function(){
-    inject(function($controller,$state, $window) {
-      CourtSearchInfoCtrl = $controller('CourtSearchInfoCtrl', {
-        $state: $state,
-        $window: $window,
-        court: sample_court,
-        municipality:null
-      });
-    });
-    expect(CourtSearchInfoCtrl.courtMunicipality).toEqual('');
-  }));
-
-  it('sets phone and website on initialization',inject(function(){
+  it('sets phone,extension,courtName, and website on initialization',inject(function(){
+    expect(CourtSearchInfoCtrl.courtName).toEqual(sample_court.court_name);
     expect(CourtSearchInfoCtrl.courtWebsite).toEqual(sample_court.website);
     expect(CourtSearchInfoCtrl.courtPhone).toEqual(sample_court.phone);
+    expect(CourtSearchInfoCtrl.phoneExtension).toEqual(sample_court.extension);
   }));
 
   it('gets correct directions',(function(){
