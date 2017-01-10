@@ -34,13 +34,25 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
 
   var pad = 0;
   leafletData.getMap("municipalityMap").then(function(map){
-    var tileLayer = L.canvasTilesInteractive()
+    var tileLayer = L.geoJsonVtLayers(tileIndex,"municipalityMap",map,
+                                      {
+                                        featureOutlineWidth: 2,
+                                        featureHighlightWidth:5,
+                                        featureOutlineColor: 'rgba(0,0,255,1)',
+                                        featureHighlightColor: '',
+                                        featureSelectedColor: 'rgba(255,0,0,0.3)'
+                                      }
+                    );
+    tileLayer.addTo(map);
+  });
+  /*leafletData.getMap("municipalityMap").then(function(map){
+    var tileLayer = L.canvasTilesInteractive2()
       .params({ debug: false, padding: 5 })
       .drawing(drawingOnCanvas)
       .highlighting(highlightMunicipalitiesOnCanvas)
       .selecting(selectMunicipalityOnCanvas);
     tileLayer.addTo(map);
-  });
+  });*/
 
   function findContainingMunicipality(params, selectMunicipalities) {
     var mousedOverMunicipality = null;
