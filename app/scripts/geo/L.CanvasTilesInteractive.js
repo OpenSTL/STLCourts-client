@@ -19,6 +19,10 @@ L.GeoJsonVtLayers = L.GridLayer.extend({
     this._drawState = this._drawStates.DRAW;
     this._mousedOverMunicipality = null;
     this.mouseEventsOn = false;
+    this.on('tileload',function(tileEvent){
+//if i continue on this path, need to go this way because I need the tile to be placed so that I can find the tile offset position.
+    });
+    /*
     this.on('load',function(){
       self._firstTile = true;
       var htmlEl = L.DomUtil.get(self.leafletMapId);
@@ -34,7 +38,7 @@ L.GeoJsonVtLayers = L.GridLayer.extend({
         //L.DomEvent.on(htmlEl, 'click', self._onClick, self);
       }
     });
-
+    */
   },
   _muniObj: function(muniId, muniName){
     return {
@@ -101,6 +105,7 @@ L.GeoJsonVtLayers = L.GridLayer.extend({
     }
   },
   createTile: function(coords){
+    console.log("coords: "+coords);
     // create a <canvas> element for drawing
     var tile = L.DomUtil.create('canvas', 'leaflet-tile');
     // setup tile width and height according to the options
