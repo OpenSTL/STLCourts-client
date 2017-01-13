@@ -4,6 +4,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
   var ctrl = this;
   ctrl.states = States;
   ctrl.municipalities = municipalities;
+  ctrl.modifiedMunicipalities = modifyMunicipalities(municipalities);
   ctrl.selectedMunicipality = null;
   ctrl.citationCriteria = {};
   ctrl.hasEverSelected = false;
@@ -84,12 +85,12 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     } else if(optionSelectedMap[ctrl.OptionToSelect.LOCATION]) {
       var names = [];
       ctrl.citationCriteria.municipalityNames.forEach(function(municip){
-        if (municip.municipality_name == "Unincorporated St. Louis County"){
+        if (municip.municipality_name == "St. Louis County"){
           //need to search through all counties so add all counties for search purposes
-          names.push("Central St. Louis County");
-          names.push("West St. Louis County");
-          names.push("North St. Louis County");
-          names.push("South St. Louis County");
+          names.push("Unincorporated Central St. Louis County");
+          names.push("Unincorporated West St. Louis County");
+          names.push("Unincorporated North St. Louis County");
+          names.push("Unincorporated South St. Louis County");
         }else {
           names.push(municip.municipality_name);
         }
@@ -138,6 +139,25 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     });
 
   };
+
+  function modifyMunicipalities(municip){
+    //this function combines all of Unincorporated Central, West, South, North St. Louis Counties
+    // into one St. Louis County entry
+    var countyAdded = false;
+    var newMunicipalities = new Array();
+    for(var muniIndex = 0; muniIndex < municip.length; muniIndex++){
+      var muniName = municip[muniIndex].municipality_name;
+      if (muniName.indexOf("St. Louis County") != -1){
+        if (!countyAdded) {
+          newMunicipalities.push({municipality_name: "St. Louis County"});
+          countyAdded = true;
+        }
+      }else{
+        newMunicipalities.push({municipality_name: muniName});
+      }
+    }
+    return newMunicipalities;
+  }
 
   initializeCitationCriteria();
 });

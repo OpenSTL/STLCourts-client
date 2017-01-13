@@ -118,7 +118,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
     function getName(nameString){
       nameString = capitalizeFirstLetter(nameString);
       if (nameString == "Unincorporated"){
-        nameString = "Unincorporated St. Louis County";
+        nameString = "St. Louis County";
       }
       return nameString;
     }
@@ -135,7 +135,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
         var friendlyMuniName = this.name.replace("&","and");
         for (var i in municipalities){
           var dbMuniName = municipalities[i].municipality_name;
-          if (friendlyMuniName == "Unincorporated St. Louis County"){
+          if (friendlyMuniName == "St. Louis County"){
             dbEntry = {municipality_name:friendlyMuniName};
             break;
           }
@@ -177,7 +177,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
       var countyInArray = false;
       for(var index in this.municipalityObjs){
         arrayOfNames.push(this.municipalityObjs[index].name);
-        if (this.municipalityObjs[index].name == "Unincorporated St. Louis County"){
+        if (this.municipalityObjs[index].name == "St. Louis County"){
           if (!countyInArray){
             countyInArray = true;
           }else{
