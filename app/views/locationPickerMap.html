@@ -3,15 +3,14 @@
     <h3 class="modal-title">Select Ticketed Location</h3>
   </div>
   <div class="modal-body">
-    <esri-map id="map" map-options="ctrl.map.options" register-as="stlMap">
-      <esri-feature-layer url="//maps.stlouisco.com/arcgis/rest/services/OpenData/OpenData/FeatureServer/6"
-                          layer-options="{outFields: ['*']}"></esri-feature-layer>
-    </esri-map>
-
-    <div style="margin-top: 20px;" ng-if="ctrl.selectedMunicipalities.length > 0">
+    <div>
+      <leaflet id="municipalityMap" lf-center="ctrl.center"></leaflet>
+    </div>
+    <div ng-if="ctrl.mousedOverMunicipality != null">Municipality: {{ctrl.mousedOverMunicipality.name}}</div>
+    <div style="margin-top: 20px;" ng-if="ctrl.selectedMunicipalitiesObj.municipalityObjs.length > 0">
       <label>Select Cities</label><br/>
-      <span ng-repeat="municip in ctrl.selectedMunicipalities">
-        {{municip.municipality_name}}<span ng-if="$index < ctrl.selectedMunicipalities.length - 1">, </span>
+      <span ng-repeat="municpalityName in ctrl.selectedMunicipalitiesObj.getArrayOfNames()">
+        {{municpalityName}}<span ng-if="$index < ctrl.selectedMunicipalitiesObj.getArrayOfNames().length - 1">, </span>
       </span>
     </div>
   </div>
