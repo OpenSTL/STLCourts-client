@@ -33,211 +33,113 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
   var tileIndex = geojsonvt(data, tileOptions);
 
   var pad = 0;
+
+  var geoJson;
+  var highlightStyle = {
+    weight: 3,
+    color: 'blue',
+    fillColor:'blue',
+    dashArray: '',
+    fillOpacity: 0.5
+  };
+  var outlineStyle = {
+    weight: 3,
+    color: 'blue',
+    fillColor:'',
+    dashArray: '',
+    fillOpacity: 0
+  };
+  function highlightFeature(e) {
+    if (!ctrl.selectedMunicipalitiesObj.idInArray(e.target.feature.id)) {
+      var layer = e.target;
+      layer.setStyle(outlineStyle);
+
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
+    }
+    ctrl.mousedOverMunicipality = muniObj(e.target.feature.id,e.target.feature.properties.municipality);
+  }
+
+  function resetHighlight(e) {
+    if (!ctrl.selectedMunicipalitiesObj.idInArray(e.target.feature.id)) {
+      geoJson.resetStyle(e.target);
+    }
+    ctrl.mousedOverMunicipality = "";
+  }
+
+  function selectMunicipality(e) {
+    if (ctrl.selectedMunicipalitiesObj.municipalityClicked(muniObj(e.target.feature.id,e.target.feature.properties.municipality))){
+      var layer = e.target;
+      layer.setStyle(highlightStyle);
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
+    }else{
+      geoJson.resetStyle(e.target);
+    }
+  }
+
+  function onEachFeature(feature, layer) {
+    layer.on({
+      mouseover: highlightFeature,
+      mouseout: resetHighlight,
+      click:selectMunicipality
+    });
+  }
+
+
+
+
+
   leafletData.getMap("municipalityMap").then(function(map){
-    var tileLayer = L.geoJsonVtLayers(tileIndex,"municipalityMap",map,
-                                      {
-                                        featureOutlineWidth: 2,
-                                        featureHighlightWidth:5,
-                                        featureOutlineColor: 'rgba(0,0,255,1)',
-                                        featureHighlightColor: '',
-                                        featureSelectedColor: 'rgba(255,0,0,0.3)'
-                                      }
-                    );
-    tileLayer.addTo(map);
+    geoJson = L.geoJSON(countyMunicipalityBoundaryData,{
+      style: function(feature) {
+        return {
+          fillColor: "",
+          weight: 1,
+          opacity: 1,
+          color: 'blue',
+          dashArray: '',
+          fillOpacity: 0
+        }
+      },
+      onEachFeature: onEachFeature
+    }).addTo(map);
+
   });
-  /*leafletData.getMap("municipalityMap").then(function(map){
-    var tileLayer = L.canvasTilesInteractive2()
-      .params({ debug: false, padding: 5 })
-      .drawing(drawingOnCanvas)
-      .highlighting(highlightMunicipalitiesOnCanvas)
-      .selecting(selectMunicipalityOnCanvas);
-    tileLayer.addTo(map);
-  });*/
 
-  function findContainingMunicipality(params, selectMunicipalities) {
-    var mousedOverMunicipality = null;
-    var offsetLeft = params.canvas._leaflet_pos.x;
-    var offsetTop = params.canvas._leaflet_pos.y;
-    var mouseX = params.mousePoint.x - offsetLeft;
-    var mouseY = params.mousePoint.y - offsetTop;
-    var rightX = params.canvas.width + offsetLeft;
-    var rightY = params.canvas.height + offsetTop;
-    params.tilePoint.z = params.zoom;
-
-    var ctx = params.canvas.getContext('2d');
-
-    var tile = tileIndex.getTile(params.tilePoint.z, params.tilePoint.x, params.tilePoint.y);
-    if (!tile) {
-      return mousedOverMunicipality;
-    }
-
-    var features = tile.features;
-    for (var i = 0; i < features.length; i++) {
-      var feature = features[i],
-        type = feature.type;
-
-      ctx.beginPath();
-
-      for (var j = 0; j < feature.geometry.length; j++) {
-        var geom = feature.geometry[j];
-
-        for (var k = 0; k < geom.length; k++) {
-          var p = geom[k];
-          var extent = 4096;
-
-          var x = p[0] / extent * 256;
-          var y = p[1] / extent * 256;
-
-          if (k) ctx.lineTo(x + pad, y + pad);
-          else ctx.moveTo(x + pad, y + pad);
-        }
-      }
-
-      if (type === 3 || type === 1) {
-        if ((params.mousePoint != null) && isInside(params.mousePoint.x,params.mousePoint.y,offsetLeft,offsetTop,rightX,rightY)) {
-          if (ctx.isPointInPath(params.mousePoint.x - offsetLeft, params.mousePoint.y - offsetTop)) {
-            if (selectMunicipalities) {
-              if (ctrl.selectedMunicipalitiesObj.idInArray(feature.id)) {
-                ctrl.selectedMunicipalitiesObj.removeMunicipalityObj(feature.id);
-              } else {
-                //console.log("adding: "+feature.tags.municipality);
-                ctrl.selectedMunicipalitiesObj.addMunicipalityObj(muniObj(feature.id, feature.tags.municipality));
-                /*console.log("Contents:");
-                for(var i in ctrl.selectedMunicipalitiesObj.municipalityObjs){
-                  console.log(ctrl.selectedMunicipalitiesObj.municipalityObjs[i].name);
-                }*/
-              }
-            }else {
-              mousedOverMunicipality = muniObj(feature.id,feature.tags.municipality);
-              //mousedOverMunicipality = feature.id;//feature.tags.municipality;
-            }
-            break;
-          }
-        }
-      }
-    }
-    return mousedOverMunicipality;
-  }
-
-  function selectMunicipalityOnCanvas(params){
-    findContainingMunicipality(params,true);
-  }
-
-  function highlightMunicipalitiesOnCanvas(params){
-    //loop through everything to find municipality contained in break when found
-    if (params.firstTile == true)
-      ctrl.mousedOverMunicipality = null;
-
-    var mousedOverMunicipality = findContainingMunicipality(params,false);
-    if (mousedOverMunicipality != null)
-      ctrl.mousedOverMunicipality = mousedOverMunicipality;
-  }
-
-  function drawingOnCanvas(canvasOverlay, params) {
-
-    var bounds = params.bounds;
-    params.tilePoint.z = params.zoom;
-    var offsetLeft = params.canvas._leaflet_pos.x;
-    var offsetTop = params.canvas._leaflet_pos.y;
-
-    var ctx = params.canvas.getContext('2d');
-    ctx.globalCompositeOperation = 'source-over';
-
-
-    //console.log('getting tile z' + params.tilePoint.z + '-' + params.tilePoint.x + '-' + params.tilePoint.y);
-
-    var tile = tileIndex.getTile(params.tilePoint.z, params.tilePoint.x, params.tilePoint.y);
-    if (!tile) {
-      //console.log('tile empty');
-      return;
-    }
-
-    //console.log(params);
-    ctx.clearRect(0, 0, params.canvas.width, params.canvas.height);
-    var rightX = params.canvas.width + offsetLeft;
-    var rightY = params.canvas.height + offsetTop;
-    //console.log("["+offsetLeft+","+offsetTop+","+rightX+","+rightY+"]");
-    //console.log(params.canvas);
-    //console.log(tile);
-
-
-    var features = tile.features;
-
-    ctx.strokeStyle = 'blue';
-
-    for (var i = 0; i < features.length; i++) {
-      var feature = features[i],
-        type = feature.type;
-
-      ctx.fillStyle = feature.tags.color ? feature.tags.color : 'rgba(255,0,0,0.05)';
-      ctx.beginPath();
-
-      for (var j = 0; j < feature.geometry.length; j++) {
-        var geom = feature.geometry[j];
-        if (type === 1) {
-          ctx.arc(geom[0] * ratio + pad, geom[1] * ratio + pad, 2, 0, 2 * Math.PI, false);
-          continue;
-        }
-
-        for (var k = 0; k < geom.length; k++) {
-          var p = geom[k];
-          var extent = 4096;
-
-          var x = p[0] / extent * 256;
-          var y = p[1] / extent * 256;
-
-          if (k) ctx.lineTo(x + pad, y + pad);
-          else ctx.moveTo(x + pad, y + pad);
-        }
-      }
-
-      if (ctrl.selectedMunicipalitiesObj.idInArray(feature.id)){
-        var oldLineWidth = ctx.lineWidth;
-        ctx.lineWidth=5;
-        ctx.stroke();
-        ctx.lineWidth = oldLineWidth;
-      }else {
-        ctx.stroke();
-      }
-      if (ctrl.mousedOverMunicipality && (feature.id == ctrl.mousedOverMunicipality.id)){
-      //if (feature.id == ctrl.mousedOverMunicipality.id){
-        ctx.fillStyle = 'rgba(255,0,0,0.3)';
-        ctx.fill();
-      }
-    }
-  }
-
-  function isInside(x, y, z1, z2, z3, z4) {
-    var x1 = Math.min(z1, z3);
-    var x2 = Math.max(z1, z3);
-    var y1 = Math.min(z2, z4);
-    var y2 = Math.max(z2, z4);
-    if ((x1 <= x ) && ( x <= x2) && (y1 <= y) && (y <= y2)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   function muniObj(muniId, muniName){
+    function capitalizeFirstLetter (str) {
+      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
+
+    function getName(nameString){
+      nameString = capitalizeFirstLetter(nameString);
+      if (nameString == "Unincorporated"){
+        nameString = "Unincorporated St. Louis County";
+      }
+      return nameString;
+    }
+
     return {
       id: muniId,
-      name: muniName.toLowerCase(),
+      name: getName(muniName),
       isEqualTo: function (muniName) {
         return (this.name == muniName.toLowerCase());
       },
       getDatabaseMuniEntry: function(){
         //lookup the entry from Municipalities
         var dbEntry = null;
+        var friendlyMuniName = this.name.replace("&","and");
         for (var i in municipalities){
           var dbMuniName = municipalities[i].municipality_name;
-          var friendlyMuniName = this.name.replace("&","and");
-          if (friendlyMuniName == "unincorporated"){
-            //need to figure out which county
-            //for now just choose one
-            friendlyMuniName = "central st. louis county";
+          if (friendlyMuniName == "Unincorporated St. Louis County"){
+            dbEntry = {municipality_name:friendlyMuniName};
+            break;
           }
-          if (dbMuniName.toLowerCase() == friendlyMuniName){
+          if (dbMuniName.toLowerCase() == friendlyMuniName.toLowerCase()){
             dbEntry = municipalities[i];
             break;
           }
@@ -249,6 +151,16 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
 
   ctrl.selectedMunicipalitiesObj = {
     municipalityObjs: new Array(),
+    municipalityClicked: function(municipalityObj){
+      var municipalityAdded = false;
+      if (this.idInArray(municipalityObj.id)){
+        this.removeMunicipalityObj(municipalityObj.id);
+      }else{
+        this.addMunicipalityObj(municipalityObj);
+        municipalityAdded = true;
+      }
+      return municipalityAdded;
+    },
     addMunicipalityObj: function(municipalityObj){
       this.municipalityObjs.push(municipalityObj);
     },
@@ -260,18 +172,28 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
       }
     },
     getArrayOfNames: function(){
+      //this function removes duplicate names while allowing the selectedMunicipalitesObj to retain duplicated names with different ids
       var arrayOfNames = new Array();
+      var countyInArray = false;
       for(var index in this.municipalityObjs){
         arrayOfNames.push(this.municipalityObjs[index].name);
+        if (this.municipalityObjs[index].name == "Unincorporated St. Louis County"){
+          if (!countyInArray){
+            countyInArray = true;
+          }else{
+            arrayOfNames.pop();  //only need one entry for county so don't add again.
+          }
+
+        }
       }
       return arrayOfNames;
     },
-    getArrayOfDatabaseObjects: function(){
-      var arrayOfDatabaseObjects = new Array();
+    getArrayOfDatabaseObj: function(){
+      var arrayOfDatabaseObj = new Array();
       for(var index in this.municipalityObjs){
-        arrayOfDatabaseObjects.push(this.municipalityObjs[index].getDatabaseMuniEntry());
+        arrayOfDatabaseObj.push(this.municipalityObjs[index].getDatabaseMuniEntry());
       }
-      return arrayOfDatabaseObjects;
+      return arrayOfDatabaseObj;
     },
     idInArray: function(idToFind){
       var found = false;
@@ -287,7 +209,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl2', function ($
 
   ctrl.selectLocation = function(){
     //$uibModalInstance.close(ctrl.selectedMunicipalities);
-    $uibModalInstance.close(ctrl.selectedMunicipalitiesObj.getArrayOfDatabaseObjects());
+    $uibModalInstance.close(ctrl.selectedMunicipalitiesObj.getArrayOfDatabaseObj());
   };
 
   ctrl.cancel = function() {

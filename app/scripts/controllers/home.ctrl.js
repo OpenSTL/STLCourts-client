@@ -84,7 +84,15 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     } else if(optionSelectedMap[ctrl.OptionToSelect.LOCATION]) {
       var names = [];
       ctrl.citationCriteria.municipalityNames.forEach(function(municip){
-        names.push(municip.municipality_name);
+        if (municip.municipality_name == "Unincorporated St. Louis County"){
+          //need to search through all counties so add all counties for search purposes
+          names.push("Central St. Louis County");
+          names.push("West St. Louis County");
+          names.push("North St. Louis County");
+          names.push("South St. Louis County");
+        }else {
+          names.push(municip.municipality_name);
+        }
       });
       params.municipalityNames = names;
       params.lastName = ctrl.citationCriteria.lastName;
