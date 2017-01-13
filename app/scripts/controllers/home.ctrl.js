@@ -3,8 +3,10 @@
 angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toaster,States,municipalities,$uibModal,$state) {
   var ctrl = this;
   ctrl.states = States;
-  ctrl.municipalities = municipalities;
+  //modifyMunicipalities should be called and used before ctrl.municipalities is initialized
+  //because it will also modify the original municipalties object to remove the "Unincorporated" Key Word
   ctrl.modifiedMunicipalities = modifyMunicipalities(municipalities);
+  ctrl.municipalities = municipalities;
   ctrl.selectedMunicipality = null;
   ctrl.citationCriteria = {};
   ctrl.hasEverSelected = false;
@@ -148,6 +150,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     for(var muniIndex = 0; muniIndex < municip.length; muniIndex++){
       var muniName = municip[muniIndex].municipality_name;
       if (muniName.indexOf("St. Louis County") != -1){
+        municip[muniIndex].municipality_name = muniName.replace("Unincorporated ","");
         if (!countyAdded) {
           newMunicipalities.push({municipality_name: "St. Louis County"});
           countyAdded = true;
