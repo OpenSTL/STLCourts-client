@@ -111,7 +111,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
           type: 'error',
           body: noTicketsFoundMsg,
           bodyOutputType: 'trustedHtml',
-          timeout:0
+          timeout:7000
         });
       }
     }, function(){
