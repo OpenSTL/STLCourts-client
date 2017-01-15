@@ -10,13 +10,8 @@ describe('HomeCtrl', function() {
 
   municipalities = [{
     id: 9,
-    latitutde: 38.7947506,
-    longitude: -90.26261696,
-    municipality: "Black Jack",
-    address: "12500 Old Jamestown Road",
-    city: "St. Louis",
-    state: "MO",
-    zip_code: 63033
+    municipality_name: "Black Jack",
+    court_id: 10
   }];
 
   var citationCriteria = {
@@ -240,6 +235,7 @@ describe('HomeCtrl', function() {
     var expectedModalOptions = {
       templateUrl: 'views/locationPickerMap.html',
       controller: 'LocationPickerMapCtrl as ctrl',
+      backdrop: false,
       size: 'md',
       resolve: {
         municipalities: jasmine.any(Function)

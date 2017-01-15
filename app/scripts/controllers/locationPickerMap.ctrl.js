@@ -183,10 +183,9 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
       }
       return found;
     }
-  }
+  };
 
   ctrl.selectLocation = function(){
-    //$uibModalInstance.close(ctrl.selectedMunicipalities);
     $uibModalInstance.close(ctrl.selectedMunicipalitiesObj.getArrayOfDatabaseObj());
   };
 
