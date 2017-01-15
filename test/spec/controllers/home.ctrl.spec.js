@@ -65,6 +65,34 @@ describe('HomeCtrl', function() {
     expect(HomeCtrl.municipalities).toEqual(municipalities);
   }));
 
+  it('sets municipalities with unincorporated county correctly on initialization',inject(function(){
+    var municipalitesUnicorporated = [
+      {
+        id: 9,
+        municipality_name: "Unincorporated West St. Louis County"
+      },
+      {
+        id: 10,
+        municipality_name: "Unincorporated Central St. Louis County"
+      }
+    ];
+    inject(function(Citations,$controller,$state,$uibModal,toaster,$httpBackend){
+      HomeCtrl = $controller('HomeCtrl',{
+        $state: $state,
+        municipalities:municipalitesUnicorporated,
+        States: states,
+        $uibModal: $uibModal,
+        toaster:toaster,
+        Citations:Citations
+      })});
+
+      expect(HomeCtrl.municipalities.length).toEqual(2);
+      expect(HomeCtrl.municipalities[0].municipality_name).toEqual("West St. Louis County");
+      expect(HomeCtrl.modifiedMunicipalities.length).toEqual(1);
+      expect(HomeCtrl.modifiedMunicipalities[0].municipality_name).toEqual("St. Louis County");
+
+  }));
+
   it('sets states on initialization',inject(function(){
     expect(HomeCtrl.states).toEqual(states);
   }));
@@ -140,7 +168,7 @@ describe('HomeCtrl', function() {
 
     $rootScope.$apply();
 
-    var homeLink = '<a href="/"><u>clicking here</u></a>'
+    var homeLink = '<a href="/"><u>clicking here</u></a>';
     var noTicketsFoundMsg = 'We could not find any results for the  information you provided. It\'s possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
     var toasterBody = {
       type: 'error',
@@ -226,6 +254,27 @@ describe('HomeCtrl', function() {
 
     HomeCtrl.findTicket();
     expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',lastName: 'someLastName',municipalityNames: ['alpha','beta','charlie']});
+  }));
+
+  it('should convert St. Louis County names in params.municipalityNames correctly',inject(function(Citations,$q){
+    var deferred = $q.defer();
+    deferred.resolve({citations:[]});
+    spyOn(Citations,'find').and.returnValue(deferred.promise);
+
+    HomeCtrl.setOptionsSelectedMap(HomeCtrl.OptionToSelect.LOCATION);
+
+    HomeCtrl.citationCriteria = {
+      citationNumber: null,
+      licenseNumber: null,
+      licenseState: 'MO',
+      firstName: null,
+      lastName: 'someLastName',
+      municipalityNames: [{municipality_name:'St. Louis County'}],
+      dob: '03/17/1990'
+    };
+
+    HomeCtrl.findTicket();
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',lastName: 'someLastName',municipalityNames: ['Unincorporated Central St. Louis County','Unincorporated West St. Louis County','Unincorporated North St. Louis County','Unincorporated South St. Louis County']});
   }));
 
   it('opens locationPicker Modal and selects municipality names',inject(function($uibModal,$q){

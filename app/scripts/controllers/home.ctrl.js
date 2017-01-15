@@ -12,7 +12,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
   ctrl.hasEverSelected = false;
 
   ctrl.municipalitySelected  = function(){
-    $state.go('courtSearchInfo',{'courtId' : ctrl.selectedMunicipality.court_id});
+    $state.go('courtSearchInfo',{courtId : ctrl.selectedMunicipality.court_id});
   };
 
   ctrl.OptionToSelect = {
