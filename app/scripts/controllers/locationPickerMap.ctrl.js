@@ -40,7 +40,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
         layer.bringToFront();
       }
     }
-    ctrl.mousedOverMunicipality = muniObj(e.target.feature.id,e.target.feature.properties.municipality);
+    ctrl.mousedOverMunicipality = mapMuniObj(e.target.feature.id,e.target.feature.properties.municipality);
   }
 
   function resetHighlight(e) {
@@ -51,7 +51,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   }
 
   function selectMunicipality(e) {
-    if (ctrl.selectedMunicipalitiesObj.municipalityClicked(muniObj(e.target.feature.id,e.target.feature.properties.municipality))){
+    if (ctrl.selectedMunicipalitiesObj.municipalityClicked(mapMuniObj(e.target.feature.id,e.target.feature.properties.municipality))){
       var layer = e.target;
       layer.setStyle(highlightStyle);
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -88,7 +88,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   });
 
 
-  function muniObj(muniId, muniName){
+  function mapMuniObj(muniId, muniName){
     function capitalizeFirstLetter (str) {
       return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     }
