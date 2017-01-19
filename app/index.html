@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale = 1.0">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angularjs-toaster/toaster.css" />
@@ -23,16 +26,11 @@
     <link rel="stylesheet" href="styles/footer.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="yourStlCourts">
+  <body id="top" ng-app="yourStlCourts">
     <toaster-container></toaster-container>
-
-    <div id="wrapper">
       <stl-courts-header></stl-courts-header>
 
-      <div id="someOtherWrapper" layout>
-        <div id="mainContent" ui-view></div>
-      </div>
-    </div>
+      <div id="mainContent" ui-view></div>
 
     <footer>
         <stl-courts-footer></stl-courts-footer>
@@ -80,6 +78,7 @@
     <script src="scripts/controllers/home.ctrl.js"></script>
     <script src="scripts/controllers/help.ctrl.js"></script>
     <script src="scripts/controllers/header.ctrl.js"></script>
+    <script src="scripts/controllers/footer.ctrl.js"></script>
     <script src="scripts/controllers/locationPickerMap.ctrl.js"></script>
     <script src="scripts/controllers/dobPicker.ctrl.js"></script>
     <script src="scripts/controllers/citationInfo.ctrl.js"></script>
@@ -106,7 +105,6 @@
 
     <script src="scripts/directives/formField.dir.js"></script>
     <script src="scripts/directives/ngTranscludeReplace.dir.js"></script>
-    <script src="scripts/directives/layout.dir.js"></script>
 
     <script src="scripts/components/stlCourtsHeader.comp.js"></script>
     <script src="scripts/components/stlCourtsFooter.comp.js"></script>
