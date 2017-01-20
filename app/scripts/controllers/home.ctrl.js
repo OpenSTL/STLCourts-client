@@ -3,6 +3,9 @@
 angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toaster,States,municipalities,$uibModal,$state) {
   var ctrl = this;
   ctrl.states = States;
+  //modifyMunicipalities should be called and used before ctrl.municipalities is initialized
+  //because it will also modify the original municipalties object to remove the "Unincorporated" Key Word
+  ctrl.modifiedMunicipalities = modifyMunicipalities(municipalities);
   ctrl.municipalities = municipalities;
   ctrl.selectedMunicipality = null;
   ctrl.citationCriteria = {};
@@ -84,7 +87,15 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     } else if(optionSelectedMap[ctrl.OptionToSelect.LOCATION]) {
       var names = [];
       ctrl.citationCriteria.municipalityNames.forEach(function(municip){
-        names.push(municip.municipality_name);
+        if (municip.municipality_name == "St. Louis County"){
+          //need to search through all counties so add all counties for search purposes
+          names.push("Unincorporated Central St. Louis County");
+          names.push("Unincorporated West St. Louis County");
+          names.push("Unincorporated North St. Louis County");
+          names.push("Unincorporated South St. Louis County");
+        }else {
+          names.push(municip.municipality_name);
+        }
       });
       params.municipalityNames = names;
       params.lastName = ctrl.citationCriteria.lastName;
@@ -109,12 +120,15 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
   };
 
   ctrl.openMap = function(){
+    //see http://angular-ui.github.io/bootstrap/ for documentation
+    //could change this so that instead of setting to null pass on to the dialog and dialog can preselect the items
     ctrl.citationCriteria.municipalityNames = null;
 
     var modalInstance = $uibModal.open({
       templateUrl: 'views/locationPickerMap.html',
       controller: 'LocationPickerMapCtrl as ctrl',
       size: 'md',
+      backdrop: false,
       resolve: {
         municipalities: function() {
           return ctrl.municipalities;
@@ -125,7 +139,28 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (Citations,toast
     modalInstance.result.then(function (selectedMunicipalities) {
       ctrl.citationCriteria.municipalityNames = selectedMunicipalities;
     });
+
   };
+
+  function modifyMunicipalities(municip){
+    //this function combines all of Unincorporated Central, West, South, North St. Louis Counties
+    // into one St. Louis County entry
+    var countyAdded = false;
+    var newMunicipalities = new Array();
+    for(var muniIndex = 0; muniIndex < municip.length; muniIndex++){
+      var muniName = municip[muniIndex].municipality_name;
+      if (muniName.indexOf("St. Louis County") != -1){
+        municip[muniIndex].municipality_name = muniName.replace("Unincorporated ","");
+        if (!countyAdded) {
+          newMunicipalities.push({municipality_name: "St. Louis County"});
+          countyAdded = true;
+        }
+      }else{
+        newMunicipalities.push({municipality_name: muniName});
+      }
+    }
+    return newMunicipalities;
+  }
 
   initializeCitationCriteria();
 });
