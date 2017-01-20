@@ -1,0 +1,195 @@
+$fa-font-path: "/bower_components/components-font-awesome/fonts/";
+
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+// endbower
+
+@import "_colors";
+
+
+$subPageMargin: 1.5rem;
+
+.sub-page-title-block{
+  margin:0px;
+  width:100%;
+  text-align: left;
+  padding:2rem $subPageMargin;
+  background-color: $scheme_blue;
+  color: $white;
+}
+
+.sub-page-title-block h1{
+  font-size: 3em;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin:0px;
+  padding:0px;
+}
+
+.sub-page-container{
+  width:100%;
+  margin:0px;
+  padding:0px;
+  padding-bottom:15px;
+  font-family: "Lato",sans-serif;
+}
+
+.sub-page-container h2{
+  font-size: 1.7em;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin:0px;
+  margin-left: $subPageMargin;
+  padding:0px;
+  color: $scheme_magenta;
+}
+
+.sub-page-container h3{
+  font-size: 1.4em;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin:0px;
+  margin-left: $subPageMargin;
+  padding:0px;
+  color: $scheme_limeGreen;
+}
+
+.sub-page-container p{
+  margin:10px $subPageMargin;
+  font-size: 1em !important;
+}
+
+.sub-page-container .list-holder{
+  margin-left: $subPageMargin;
+}
+.sub-page-container ul{
+  padding-left: 0px !important;
+  margin-left: $subPageMargin;
+  margin-right: $subPageMargin;
+}
+
+.sub-page-container .page-anchor-menu{
+  margin-left: $subPageMargin;
+  font-size: 1em !important;
+}
+
+.sub-page-container .page-anchor-menu li:first-child{
+  padding-left: 0px !important;
+}
+
+.sub-page-container a{
+  color:$scheme_link_color;
+}
+
+.sub-page-container .btn{
+  color:$scheme_primary_color !important;
+}
+
+.sub-page-container h3 + p{
+  padding-top:0px;
+  margin-top:0px;
+}
+
+.sub-page-container .page-anchor-menu a{
+  color: $scheme_magenta !important;
+}
+
+#mapid{
+  height:250px;
+}
+
+@media only screen and (max-width: 1367px) {
+
+}
+
+@media only screen and (max-width: 1095px) {
+
+}
+
+@media only screen and (max-width: 1025px) {
+  .sub-page-title-block h1 {
+    font-size: 2.5em;
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .sub-page-title-block h1 {
+    font-size: 2em;
+  }
+  #mapid{
+    max-width: 400px;
+  }
+}
+
+@media only screen and (max-width: 451px) {
+  .sub-page-title-block h1 {
+    font-size: 1.5em;
+  }
+  #mapid{
+    max-width: 400px;
+  }
+}
+
+@media only screen and (max-width: 351px) {
+  .sub-page-title-block h1 {
+    font-size: 1.3em;
+  }
+  #mapid{
+    max-width: 325px;
+  }
+}
+
+.helpPage-Question:hover{
+  cursor:pointer;
+}
+
+.answer-panel, .answer-panel div{
+  padding-top:0px !important;
+  padding-bottom:0px !important;
+}
+
+.sub-page-container .indentThis{
+  padding-left: 0px !important;
+  margin-left: $subPageMargin !important;
+}
+
+.sub-page-container .no-indent{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-left:0px !important;
+  margin-right:0px !important;
+}
+
+.sub-page-container .alignContainerToPage,
+.sub-page-container .alignColumnsToPage{
+  padding-left: $subPageMargin !important;
+  padding-right: $subPageMargin !important;
+}
+
+.sub-page-container .alignRowToPage{
+  margin-left: -($subPageMargin) !important;
+  margin-right: -($subPageMargin) !important;
+}
+
+.sub-page-container .topMargin{
+  margin-top: 10px !important;
+}
+
+.sub-page-container .bottomMargin{
+  margin-bottom: 10px !important;
+}
+
+.sub-page-container .center-block{
+  text-align: center;
+}
+
+#map-print-row, #courtSearch-direction-button{
+  margin-top: 10px;
+}
+
+.sub-page-container .address,
+.sub-page-container .phone-number,
+.sub-page-container .website{
+  padding-top:0px !important;
+  padding-bottom: 0px !important;
+  margin-top:0px !important;
+  margin-bottom: 0px !important;
+}

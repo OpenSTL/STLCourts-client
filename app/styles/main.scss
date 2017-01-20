@@ -21,7 +21,7 @@ html{
 }
 
 body{
-  margin: 0 0 $footer-height 0;
+  margin: 0 0 $footer-height 0 !important;
   width:100%;
 }
 
@@ -58,18 +58,6 @@ footer {
   width: 100%;
   overflow:hidden;
   line-height: $footer-height;
-}
-
-h1 {
-  color: $blue;
-}
-
-h2 {
-  color: $blue;
-}
-
-h3 {
-  color: $blue;
 }
 
 p.address1{
@@ -494,7 +482,7 @@ label {
 
 
 .footerMenu a{
-  color: $scheme_limeGreen
+  color: $scheme_link_color;
 }
 
 #copyRight{
@@ -547,25 +535,10 @@ table {
   margin-top: 20px;
 }
 
-#mapid{
-  height:250px;
-}
-
-#courtSearch-direction-button{
-  margin-top: 10px;
-  text-align: right;
-}
-
 #court-fines td{
   padding-right:10px;
 }
 
-.helpPage-Question:hover{
-  cursor:pointer;
-}
-.about-page-margin{
-  margin-bottom:1.5rem;
-}
 .anchor{
   display:block;
   position:relative;

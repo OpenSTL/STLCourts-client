@@ -1,9 +1,8 @@
-<div class="container" id="helpPage">
-  <div class="well" style="margin-top:20px">
-    <h1 style="margin:0">Help</h1>
-  </div>
-  <div class="well" style="margin-top:20px">
-    <ul class="list-inline">
+<div class="sub-page-title-block">
+  <h1>Help</h1>
+</div>
+<div class="sub-page-container">
+    <ul class="list-inline page-anchor-menu">
       <li><a href="/help#tickets">Tickets</a></li>
       <li><a href="/help#courts">Courts</a></li>
       <li><a href="/help#legalHelp">Legal Help</a></li>
@@ -13,14 +12,14 @@
 
     <a class="anchor" name="tickets"></a>
     <h2>Tickets</h2>
-    <div class="panel-group h3" id="helpPageTickets-QA-accordion">
+    <div class="panel-group" id="helpPageTickets-QA-accordion">
       <div ng-repeat="item in ctrl.Ticket_QA_Array" class="panel panel-default">
         <div class="panel-heading">
           <a class="helpPage-Question" data-toggle="collapse" data-target="#helpTickets-A{{$index}}" data-parent="#helpPageTickets-QA-accordion">
             Q: {{item.q}}
           </a>
         </div>
-        <div id="helpTickets-A{{$index}}" class="panel-collapse collapse">
+        <div id="helpTickets-A{{$index}}" class="answer-panel panel-collapse collapse">
           <div class="panel-body small"><p ng-bind-html="'A: '+(item.a | linky:'_blank')"></p></div>
         </div>
       </div>
@@ -29,14 +28,14 @@
 
     <a class="anchor" name="courts"></a>
     <h2>Courts</h2>
-    <div class="panel-group h3" id="helpPageCourts-QA-accordion">
+    <div class="panel-group" id="helpPageCourts-QA-accordion">
       <div ng-repeat="item in ctrl.Courts_QA_Array" class="panel panel-default">
         <div class="panel-heading">
           <a class="helpPage-Question" data-toggle="collapse" data-target="#helpCourts-A{{$index}}" data-parent="#helpPageCourts-QA-accordion">
             Q: {{item.q}}
           </a>
         </div>
-        <div id="helpCourts-A{{$index}}" class="panel-collapse collapse">
+        <div id="helpCourts-A{{$index}}" class="answer-panel panel-collapse collapse">
           <div class="panel-body small"><p ng-bind-html="'A: '+(item.a | linky:'_blank')"></p></div>
         </div>
       </div>
@@ -44,14 +43,14 @@
 
     <a class="anchor" name="legalHelp"></a>
     <h2>Legal Help</h2>
-    <div class="panel-group h3" id="helpPageLegal-QA-accordion">
+    <div class="panel-group" id="helpPageLegal-QA-accordion">
       <div ng-repeat="item in ctrl.Legal_QA_Array" class="panel panel-default">
         <div class="panel-heading">
           <a class="helpPage-Question" data-toggle="collapse" data-target="#helpLegal-A{{$index}}" data-parent="#helpPageLegal-QA-accordion">
             Q: {{item.q}}
           </a>
         </div>
-        <div id="helpLegal-A{{$index}}" class="panel-collapse collapse">
+        <div id="helpLegal-A{{$index}}" class="answer-panel panel-collapse collapse">
           <div class="panel-body small"><p ng-bind-html="'A: '+(item.a | linky:'_blank')"></p></div>
         </div>
       </div>
@@ -60,25 +59,22 @@
 
     <a class="anchor" name="paymentHelp"></a>
     <h2>Payment Help</h2>
-    <div class="panel-group h3" id="helpPagePayment-QA-accordion">
+    <div class="panel-group" id="helpPagePayment-QA-accordion">
       <div ng-repeat="item in ctrl.Payment_QA_Array" class="panel panel-default">
         <div class="panel-heading">
           <a class="helpPage-Question" data-toggle="collapse" data-target="#helpPayment-A{{$index}}" data-parent="#helpPagePayment-QA-accordion">
             Q: {{item.q}}
           </a>
         </div>
-        <div id="helpPayment-A{{$index}}" class="panel-collapse collapse">
+        <div id="helpPayment-A{{$index}}" class="answer-panel panel-collapse collapse">
           <div class="panel-body small"><p ng-bind-html="'A: '+(item.a | linky:'_blank')"></p></div>
         </div>
       </div>
     </div>
 
     <br/>
-  </div>
-  <div class="well" style="margin-top:20px">
     <a class="anchor" name="resources"></a>
-    <h2>Reasources</h2>
+    <h2>Resources</h2>
     <p><a href = "http://www.stlouisco.com/Portals/8/docs/Document%20Library/municipal%20court/Ticket%20Description.pdf" target="_blank">Breakdown of a ticket</a></p>
-    <p>You can also get your info by texting: (314) XXX-XXXX</p>
-  </div>
+    <p>You can also get your info by texting: (314)254-8050</p>
 </div>
