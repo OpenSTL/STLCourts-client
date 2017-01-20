@@ -28,6 +28,7 @@
     <!-- endbuild -->
   </head>
   <body id="top" ng-app="yourStlCourts">
+    <script type="text/javascript" src="data/stlCountyMunicipalBoundaries.js"></script>
     <toaster-container></toaster-container>
       <stl-courts-header></stl-courts-header>
 
@@ -67,10 +68,9 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
-    <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
+    <script src="scripts/mapping/ui-leaflet.js"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="vendor/jcs-auto-validate.min.js"></script>
