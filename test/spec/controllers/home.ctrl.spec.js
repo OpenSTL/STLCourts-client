@@ -174,7 +174,7 @@ describe('HomeCtrl', function() {
       type: 'error',
       body: noTicketsFoundMsg,
       bodyOutputType: 'trustedHtml',
-      timeout:0
+      timeout:7000
     };
     HomeCtrl.findTicket();
     $rootScope.$apply();
