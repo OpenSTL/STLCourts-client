@@ -495,10 +495,10 @@ label {
 
 table {
   thead {
-    background-color: $blue;
+    background-color: $scheme_blue;
 
     th {
-      color: $lightGrey;
+      color: $white;
       font-weight: bold;
       font-size: 1.2em;
     }
@@ -506,10 +506,10 @@ table {
 }
 
 .modal-header {
-  background-color: $blue;
+  background-color: $scheme_blue;
 
   .modal-title {
-    color: $lightGrey;
+    color: $white;
   }
 }
 

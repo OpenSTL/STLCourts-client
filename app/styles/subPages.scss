@@ -52,6 +52,13 @@ $subPageMargin: 1.5rem;
   color: $scheme_limeGreen;
 }
 
+.sub-page-container h4{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin:0px;
+  margin-left: $subPageMargin;
+  padding:0px;
+}
+
 .sub-page-container p{
   margin:10px $subPageMargin;
   font-size: 1em !important;
@@ -79,8 +86,16 @@ $subPageMargin: 1.5rem;
   color:$scheme_link_color;
 }
 
-.sub-page-container .btn{
+.sub-page-container .btn-scheme-primary{
+  background-color:$scheme_primary_color !important;
+  color:$white !important;
+  border-color:$black !important;
+}
+
+.sub-page-container .btn-scheme-primary-invert{
+  background-color:$white !important;
   color:$scheme_primary_color !important;
+  border-color:$black !important;
 }
 
 .sub-page-container h3 + p{
@@ -187,9 +202,90 @@ $subPageMargin: 1.5rem;
 
 .sub-page-container .address,
 .sub-page-container .phone-number,
-.sub-page-container .website{
+.sub-page-container .website,
+.sub-page-container .zeroAboveBelow {
   padding-top:0px !important;
   padding-bottom: 0px !important;
   margin-top:0px !important;
   margin-bottom: 0px !important;
 }
+
+.ticket-results-container .label-for-small-screen{
+  display: none;
+}
+.ticket-results-container .hide-when-small-screen{
+  display: inherit;
+}
+
+.ticket-results-container .small-screen-view-button{
+  display: none;
+}
+
+.ticket-results-container tr td .inline-div{
+  display:inline-block;
+}
+
+@media only screen and (max-width: 760px){
+  .ticket-results-container table,
+  .ticket-results-container thead,
+  .ticket-results-container tbody,
+  .ticket-results-container th,
+  .ticket-results-container td,
+  .ticket-results-container tr{
+      display:block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+.ticket-results-container thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+.ticket-results-container tr { border: 1px solid #ccc; }
+.ticket-results-container .selectedRow{
+  background-color: transparent !important;
+}
+.ticket-results-container td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
+
+ .ticket-results-container td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  .ticket-results-container .small-screen-view-button{
+    display: inline;
+    float: right;
+  }
+
+  .ticket-results-container .table-item-label{
+    color: $scheme_primary_color;
+    font-size:1.1em;
+  }
+  .ticket-results-container .label-for-small-screen{
+    display: block;
+  }
+
+  .ticket-results-container .hide-when-small-screen{
+    display: none;
+  }
+
+  .ticket-results-container .hide-border-when-small{
+    border:none;
+  }
+
+}
+
+
