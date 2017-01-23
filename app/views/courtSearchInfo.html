@@ -9,12 +9,12 @@
         <p class="address no-indent">{{ctrl.courtInfo.address}}</p>
         <p class="address no-indent">{{ctrl.courtInfo.city}}, {{ctrl.courtInfo.state}} {{ctrl.courtInfo.zip_code}}</p>
 
-        <div class="topMargin" ng-if="ctrl.courtPhone != '' ">
+        <div class="topMargin" ng-if="ctrl.courtPhone">
           <h2 class="no-indent">Court Phone Number</h2>
-          <p class="phone-number no-indent">{{ctrl.courtPhone}} <span ng-if="ctrl.phoneExtension != ''"> x{{ctrl.phoneExtension}}</span></p> <!-- Maybe we need to format the numbers -->
+          <p class="phone-number no-indent">{{ctrl.courtPhone}} <span ng-if="ctrl.phoneExtension"> x{{ctrl.phoneExtension}}</span></p> <!-- Maybe we need to format the numbers -->
        </div>
 
-        <div class="topMargin bottomMargin" ng-if="ctrl.courtWebsite != '' ">
+        <div class="topMargin bottomMargin" ng-if="ctrl.courtWebsite">
           <h2 class="no-indent">Website</h2>
           <p class="website no-indent" ng-bind-html="ctrl.courtWebsite | linky"></p>
         </div>

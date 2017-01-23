@@ -14,8 +14,7 @@ describe('FooterCtrl', function() {
 
   it('sets copyRightYears on initialization',inject(function(){
     var currentYear = (new Date()).getFullYear();
-    expect(FooterCtrl.copyRightYears(2016)).toEqual("2016-"+currentYear);
-    expect(FooterCtrl.copyRightYears(currentYear)).toEqual(currentYear);
+    expect(FooterCtrl.copyRightYears()).toEqual("2016-"+currentYear);
   }));
 
 });
