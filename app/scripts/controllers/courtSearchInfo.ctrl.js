@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court){
+angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court,leafletData){
   var ctrl = this;
 
   ctrl.courtInfo = court;
@@ -11,7 +11,11 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     zoom: 14
   };
 
-  ctrl.courtMarkers = {};
+  leafletData.getMap("mapid").then(function(map){
+    map.dragging.disable();
+  });
+
+    ctrl.courtMarkers = {};
 
   var courtDefaultIcon = {
     iconUrl: 'images/marker-icon.png',

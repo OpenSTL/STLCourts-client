@@ -1,14 +1,17 @@
-<div class="container">
+<div class="container-fluid">
+  <div class="row">
     <div class="col-xs-5 col-sm-8">
       <ul class="footerMenu" style="text-align: left;">
           <li class="hidden-xs"><a ui-sref="home">Home</a></li>
           <li class="hidden-xs"><a ui-sref="info">Info</a></li>
           <li class="hidden-xs"><a ui-sref="help">Help</a></li>
           <li class="hidden-xs"><a ui-sref="about">About</a></li>
-          <li class="visible-xs-block"><a ui-sref="legal">Legal Info</a></li>
-          <li class="visible-xs-block"><a ui-sref="privacy">Privacy Policy</a></li>
+          <li class="visible-*-block"><a ui-sref="legal">Legal Info</a></li>
+          <li class="visible-*-block"><a ui-sref="privacy">Privacy Policy</a></li>
       </ul>
     </div>
-    <div class="col-xs-7 col-sm-4" style="text-align: right;">&copy; 2016 CivTech St. Louis
+    <div class="col-xs-7 col-sm-4" style="text-align: right;">
+      <span id="copyRight">&copy;{{ctrl.copyRightYears(2016)}} CivTech St. Louis</span>
     </div>
+  </div>
 </div>
