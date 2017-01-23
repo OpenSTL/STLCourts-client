@@ -10,12 +10,6 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
     zoom: 10
   };
 
-  angular.extend($scope, {
-    defaults: {
-      scrollWheelZoom: false
-    }
-  });
-
   var geoJson;
   var highlightStyle = {
     weight: 3,
@@ -71,19 +65,21 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   }
 
   leafletData.getMap("municipalityMap").then(function(map){
-    geoJson = L.geoJSON(countyMunicipalityBoundaryData,{
-      style: function(feature) {
-        return {
-          fillColor: "",
-          weight: 1,
-          opacity: 1,
-          color: 'blue',
-          dashArray: '',
-          fillOpacity: 0
-        }
-      },
-      onEachFeature: onEachFeature
-    }).addTo(map);
+    $http.get('data/stlCountyMunicipalBoundaries.json').success(function(geoJsonData){
+      geoJson = L.geoJSON(geoJsonData,{
+        style: function(feature) {
+          return {
+            fillColor: "",
+            weight: 1,
+            opacity: 1,
+            color: 'blue',
+            dashArray: '',
+            fillOpacity: 0
+          }
+        },
+        onEachFeature: onEachFeature
+      }).addTo(map);
+    });
 
   });
 
