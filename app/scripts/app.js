@@ -126,7 +126,7 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
     return {
       request: function(config) {
         // prepend base url
-        if(config.url.indexOf('.html') < 0) {
+        if(config.url.indexOf('.html') < 0 && config.url.indexOf('.json') < 0) {
           config.url = ENV.apiEndpoint + config.url;
         }
         return config;

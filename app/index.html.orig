@@ -27,7 +27,12 @@
     <link rel="stylesheet" href="styles/footer.css">
     <!-- endbuild -->
   </head>
+<<<<<<< HEAD
+  <body ng-app="yourStlCourts">
+=======
   <body id="top" ng-app="yourStlCourts">
+    <script type="text/javascript" src="data/stlCountyMunicipalBoundaries.js"></script>
+>>>>>>> develop
     <toaster-container></toaster-container>
       <stl-courts-header></stl-courts-header>
 
