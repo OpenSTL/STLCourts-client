@@ -1,0 +1,28 @@
+<a class="showFullTileBox" href="#ticketSubmitInfoBtn">
+  <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected(ctrl.OptionToSelect.TICKET_NUMBER)" ng-class="{'unselected' : ctrl.isUnselected(ctrl.OptionToSelect.TICKET_NUMBER)}" ng-click="ctrl.setOptionsSelectedMap(ctrl.OptionToSelect.TICKET_NUMBER)">
+    <div>
+      <div class="homePageTileIcon">
+        <i class="fa fa-newspaper-o fa-2x"></i>
+      </div>
+      <h3>I have my ticket number.</h3>
+    </div>
+  </div>
+  <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected(ctrl.OptionToSelect.TICKET_NUMBER)">
+    <a href="#top"><button type="button" class="close" aria-label="Close" ng-click="ctrl.setOptionsSelectedMap(ctrl.OptionToSelect.COURT_SEARCH);"><span aria-hidden="true">&times;</span></button></a>
+    <div>
+      <div class="homePageTileIcon">
+        <i class="fa fa-newspaper-o fa-2x"></i>
+      </div>
+      <h3>I have my ticket information.</h3>
+    </div>
+    <form-field label="Ticket #" required>
+      <input type="text" ng-model="ctrl.citationCriteria.citationNumber" required ng-maxlength="12" displayName="Ticket #" />
+    </form-field>
+  </div>
+  <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected(ctrl.OptionToSelect.TICKET_NUMBER)">
+    <div class="col-sm-12" style="text-align: center;">
+      <button id="ticketSubmitInfoBtn" class="btn btn-lg" style="margin-bottom: 20px" ng-disabled="!citationCriteriaFrm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+    </div>
+  </div>
+</a>
+
