@@ -46,7 +46,7 @@ angular.module('yourStlCourts').factory('Municipalities', function ($resource, $
     return newMunicipalities;
   }
 
-  function createFriendlyStlCountyMunicipalities(){
+  function createMunicipalitiesMapNames(){
     //this function takes the database name "Unincorporated St. Louis County" and renames it to "St. Louis County"
     var newMunicipalities = new Array();
     if (municipalities) {
@@ -62,12 +62,31 @@ angular.module('yourStlCourts').factory('Municipalities', function ($resource, $
     return newMunicipalities;
   }
 
+  function translateMapNamesToDatabaseNames(municipalityArray){
+    var names = [];
+    if (municipalityArray) {
+      municipalityArray.forEach(function (municip) {
+        if (municip.municipality_name == "St. Louis County") {
+          //need to search through all counties so add all counties for search purposes
+          names.push("Unincorporated Central St. Louis County");
+          names.push("Unincorporated West St. Louis County");
+          names.push("Unincorporated North St. Louis County");
+          names.push("Unincorporated South St. Louis County");
+        } else {
+          names.push(municip.municipality_name);
+        }
+      });
+    }
+    return names;
+  }
+
   var svc = {
     findById: findById,
     findByCourtId: findByCourtId,
     findAll: findAll,
     combineCountyMunis: combineCountyMunisIntoOne,
-    friendlyMunicipalities: createFriendlyStlCountyMunicipalities
+    municipalitiesMapNames: createMunicipalitiesMapNames,
+    translateMapNamesToDatabaseNames: translateMapNamesToDatabaseNames
   };
 
   return svc;

@@ -1,43 +1,10 @@
 'use strict';
-
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (Citations,toaster,States,municipalities,$uibModal,$state,TicketFinder) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder,Citations,States,Municipalities,$uibModal,toaster,$state) {
   var ctrl = this;
   ctrl.states = States;
-  ctrl.modifiedMunicipalities = municipalities.combineCountyMunis();
-  ctrl.municipalities = municipalities.friendlyMunicipalities();
-
-  ctrl.citationCriteria = {};
-  ctrl.hasEverSelected = false;
-
-  ctrl.TicketFinderToSelect = {
-    TICKET_NUMBER : 'TICKET_NUMBER',
-    DRIVER_INFO : 'DRIVER_INFO',
-    LOCATION : 'LOCATION',
-    COURT_SEARCH : 'COURT_SEARCH'
-  };
-
-  var optionSelectedMap = {
-    TICKET_NUMBER : false,
-    DRIVER_INFO : false,
-    LOCATION : false,
-    COURT_SEARCH : false
-  };
-
-  ctrl.setOptionsSelectedMap = function(TicketFinderToSelect){
-    initializeCitationCriteria();
-    /*ctrl.hasEverSelected = true;
-    for(var item in optionSelectedMap){
-      optionSelectedMap[item] = (item == TicketFinderToSelect);
-    }*/
-  };
-
-  ctrl.isUnselected = function(option){
-    return !optionSelectedMap[option] && ctrl.hasEverSelected;
-  };
-
-  ctrl.isSelected = function(option ){
-    return optionSelectedMap[option];
-  };
+  ctrl.modifiedMunicipalities = Municipalities.combineCountyMunis();
+  ctrl.municipalitiesMapNames = Municipalities.municipalitiesMapNames();
+  ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
 
   function initializeCitationCriteria() {
     ctrl.citationCriteria = {
@@ -51,8 +18,17 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (Citatio
     };
   }
 
-  ctrl.getDOB = function(citationCriteriaFrm){
-    if(citationCriteriaFrm.$valid) {
+  ctrl.selectTicketFinder = function(TicketFinderToSelect){
+    initializeCitationCriteria();
+    TicketFinder.finderSelected = TicketFinderToSelect;
+  };
+
+  ctrl.isSelected = function(){
+    return (TicketFinder.finderSelected == ctrl.currentTicketFinder);
+  };
+
+  ctrl.getDOB = function(){
+    if(ctrl.ticketForm.$valid) {
       var modalInstance = $uibModal.open({
         templateUrl: 'views/dobPicker.html',
         controller: 'dobPickerCtrl as ctrl',
@@ -73,30 +49,23 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (Citatio
       dob: ctrl.citationCriteria.dob
     };
 
-    if(optionSelectedMap[ctrl.TicketFinderToSelect.TICKET_NUMBER]) {
-      params.citationNumber = ctrl.citationCriteria.citationNumber;
-    } else if(optionSelectedMap[ctrl.TicketFinderToSelect.DRIVER_INFO]) {
-      params.licenseNumber = ctrl.citationCriteria.licenseNumber;
-      params.licenseState = ctrl.citationCriteria.licenseState;
-    } else if(optionSelectedMap[ctrl.TicketFinderToSelect.LOCATION]) {
-      var names = [];
-      ctrl.citationCriteria.municipalityNames.forEach(function(municip){
-        if (municip.municipality_name == "St. Louis County"){
-          //need to search through all counties so add all counties for search purposes
-          names.push("Unincorporated Central St. Louis County");
-          names.push("Unincorporated West St. Louis County");
-          names.push("Unincorporated North St. Louis County");
-          names.push("Unincorporated South St. Louis County");
-        }else {
-          names.push(municip.municipality_name);
-        }
-      });
-      params.municipalityNames = names;
-      params.lastName = ctrl.citationCriteria.lastName;
+    switch(TicketFinder.finderSelected){
+      case ctrl.TicketFinderToSelect.TICKET_NUMBER:
+        params.citationNumber = ctrl.citationCriteria.citationNumber;
+        break;
+      case ctrl.TicketFinderToSelect.DRIVER_INFO:
+        params.licenseNumber = ctrl.citationCriteria.licenseNumber;
+        params.licenseState = ctrl.citationCriteria.licenseState;
+        break;
+      case ctrl.TicketFinderToSelect.LOCATION:
+        params.municipalityNames = Municipalities.translateMapNamesToDatabaseNames(ctrl.citationCriteria.municipalityNames);
+        params.lastName = ctrl.citationCriteria.lastName;
+        break;
     }
 
     Citations.find(params).then(function(result){
       if(result.citations.length > 0) {
+        ctrl.selectTicketFinder(ctrl.TicketFinderToSelect.NONE);
         $state.go('citationInfo', {citations: result.citations});
       } else {
         var homeLink = '<a href="/"><u>clicking here</u></a>';
@@ -125,7 +94,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (Citatio
       backdrop: false,
       resolve: {
         municipalities: function() {
-          return ctrl.municipalities;
+          return ctrl.municipalitiesMapNames;
         }
       }
     });
@@ -133,9 +102,5 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (Citatio
     modalInstance.result.then(function (selectedMunicipalities) {
       ctrl.citationCriteria.municipalityNames = selectedMunicipalities;
     });
-
   };
-
-
-  initializeCitationCriteria();
 });
