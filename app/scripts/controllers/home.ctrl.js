@@ -4,9 +4,13 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder,Mu
   var ctrl = this;
   ctrl.municipalities = Municipalities.municipalitiesMapNames();
   ctrl.selectedMunicipality = null;
+  ctrl.finderSelected = TicketFinder.TicketFinderToSelect.NONE;
+  ctrl.updateFinderSelected = function(TicketFinderToSelect){
+    ctrl.finderSelected = TicketFinderToSelect;
+  };
 
   ctrl.clearTicketFinder = function(){
-    TicketFinder.finderSelected = TicketFinder.TicketFinderToSelect.NONE;
+    ctrl.finderSelected = TicketFinder.TicketFinderToSelect.NONE;
   };
 
   ctrl.municipalitySelected  = function(){

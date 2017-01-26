@@ -33,7 +33,6 @@ describe('TicketFinderCtrl', function() {
   };
 
   ticketFinder = {
-    finderSelected: "",
     TicketFinderToSelect:{
       TICKET_NUMBER : 'TICKET_NUMBER',
       DRIVER_INFO : 'DRIVER_INFO',
@@ -65,6 +64,10 @@ describe('TicketFinderCtrl', function() {
         Citations:Citations,
         TicketFinder:ticketFinder
       });
+
+      TicketFinderCtrl.selectFinder = function (someValue) {
+
+      };
       $httpBackend.whenGET(/municipalities/).respond(200, '');
     });
   });
@@ -83,14 +86,9 @@ describe('TicketFinderCtrl', function() {
     expect(TicketFinderCtrl.citationCriteria).toEqual(citationCriteria);
   }));
 
-  it('sets finderSelected correctly',inject(function(){
-    TicketFinderCtrl.selectTicketFinder("ABC");
-    expect(ticketFinder.finderSelected).toEqual("ABC");
-  }));
-
   it('sets correctly determins if it is selected',inject(function(){
     TicketFinderCtrl.currentTicketFinder = "DEF";
-    TicketFinderCtrl.selectTicketFinder(TicketFinderCtrl.currentTicketFinder);
+    TicketFinderCtrl.finderSelected = "DEF";
     expect(TicketFinderCtrl.isSelected()).toBe(true);
   }));
 
@@ -183,7 +181,7 @@ describe('TicketFinderCtrl', function() {
     deferred.resolve({citations:[]});
     spyOn(Citations,'find').and.returnValue(deferred.promise);
 
-    TicketFinderCtrl.selectTicketFinder(TicketFinderCtrl.TicketFinderToSelect.TICKET_NUMBER);
+    TicketFinderCtrl.finderSelected = TicketFinderCtrl.TicketFinderToSelect.TICKET_NUMBER;
 
     TicketFinderCtrl.citationCriteria = {
       citationNumber: '123',
@@ -205,7 +203,7 @@ describe('TicketFinderCtrl', function() {
     deferred.resolve({citations:[]});
     spyOn(Citations,'find').and.returnValue(deferred.promise);
 
-    TicketFinderCtrl.selectTicketFinder(TicketFinderCtrl.TicketFinderToSelect.DRIVER_INFO);
+    TicketFinderCtrl.finderSelected = TicketFinderCtrl.TicketFinderToSelect.DRIVER_INFO;
 
     TicketFinderCtrl.citationCriteria = {
       citationNumber: null,
@@ -227,7 +225,7 @@ describe('TicketFinderCtrl', function() {
     deferred.resolve({citations:[]});
     spyOn(Citations,'find').and.returnValue(deferred.promise);
 
-    TicketFinderCtrl.selectTicketFinder(TicketFinderCtrl.TicketFinderToSelect.LOCATION);
+    TicketFinderCtrl.finderSelected = TicketFinderCtrl.TicketFinderToSelect.LOCATION;
 
     TicketFinderCtrl.citationCriteria = {
       citationNumber: null,

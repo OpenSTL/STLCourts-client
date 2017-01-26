@@ -21,7 +21,8 @@ describe('HomeCtrl', function() {
   ticketFinder = {
     finderSelected: "SomeValue",
     TicketFinderToSelect:{
-      NONE : 'NONE'
+      NONE : 'NONE',
+      DUMMY : 'DUMMY'
     }
   };
 
@@ -43,6 +44,15 @@ describe('HomeCtrl', function() {
     expect(HomeCtrl.municipalities).toEqual(municipalityArray);
   }));
 
+  it('clears TicketFinderToSelect on inititialization',inject(function(){
+    expect(HomeCtrl.finderSelected).toEqual(ticketFinder.TicketFinderToSelect.NONE);
+  }));
+
+  it('updates finderSelected',inject(function(){
+    HomeCtrl.updateFinderSelected(ticketFinder.TicketFinderToSelect.DUMMY);
+    expect(HomeCtrl.finderSelected).toEqual(ticketFinder.TicketFinderToSelect.DUMMY);
+  }));
+
   it('goes to court search results page',inject(function($state){
     spyOn($state,'go');
     HomeCtrl.selectedMunicipality = {id:10, municipality:"someMuni",court_id:5};
@@ -52,7 +62,7 @@ describe('HomeCtrl', function() {
 
   it('clears TicketFinderToSelect',inject(function(){
     HomeCtrl.clearTicketFinder();
-    expect(ticketFinder.finderSelected).toEqual(ticketFinder.TicketFinderToSelect.NONE);
+    expect(HomeCtrl.finderSelected).toEqual(ticketFinder.TicketFinderToSelect.NONE);
   }));
 
 });

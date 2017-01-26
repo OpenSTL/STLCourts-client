@@ -3,8 +3,12 @@
 angular.module('yourStlCourts').component('ticketFinderBox', {
   templateUrl: 'views/ticketFinderBox.html',
   controller: 'TicketFinderCtrl as ctrl',
-  transclude:true,
+  /*require:{
+    updateFinderSelected: '^HomeCtrl'
+  },*/
   bindings: {
+    finderSelected: '=',
+    selectFinder: '=',
     municipalities: '<',
     icon: '@',
     currentTicketFinder: '@',

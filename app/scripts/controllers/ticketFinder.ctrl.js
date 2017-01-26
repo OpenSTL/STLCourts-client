@@ -21,11 +21,11 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
 
   ctrl.selectTicketFinder = function(TicketFinderToSelect){
     initializeCitationCriteria();
-    TicketFinder.finderSelected = TicketFinderToSelect;
+    ctrl.selectFinder(TicketFinderToSelect);
   };
 
   ctrl.isSelected = function(){
-    return (TicketFinder.finderSelected == ctrl.currentTicketFinder);
+    return (ctrl.finderSelected == ctrl.currentTicketFinder);
   };
 
   ctrl.getDOB = function(){
@@ -50,7 +50,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
       dob: ctrl.citationCriteria.dob
     };
 
-    switch(TicketFinder.finderSelected){
+    switch(ctrl.finderSelected){
       case ctrl.TicketFinderToSelect.TICKET_NUMBER:
         params.citationNumber = ctrl.citationCriteria.citationNumber;
         break;
@@ -66,7 +66,6 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
 
     Citations.find(params).then(function(result){
       if(result.citations.length > 0) {
-        ctrl.selectTicketFinder(ctrl.TicketFinderToSelect.NONE);
         $state.go('citationInfo', {citations: result.citations});
       } else {
         var homeLink = '<a href="/"><u>clicking here</u></a>';
