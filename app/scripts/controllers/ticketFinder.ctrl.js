@@ -5,6 +5,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.modifiedMunicipalities = Municipalities.combineCountyMunis();
   ctrl.municipalitiesMapNames = Municipalities.municipalitiesMapNames();
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
+  ctrl.citationCriteria = {};
 
   function initializeCitationCriteria() {
     ctrl.citationCriteria = {
