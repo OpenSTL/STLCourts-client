@@ -29,6 +29,8 @@
   padding: 0px !important;
   margin:0px !important;
   height: 54px !important;
+  position: relative;
+  z-index: 11;
 }
 .navbar-brand img{
   height: 100%;
