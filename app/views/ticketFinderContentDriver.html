@@ -1,0 +1,11 @@
+<form-field label="License #" required>
+  <input type="text" ng-model="ctrl.citationCriteria.licenseNumber" required ng-maxlength="12" displayName="License #" />
+</form-field>
+<form-field label="License State" required>
+  <ui-select id="selectedState" name="selectedState" register-custom-form-control displayName="License State" ng-model="ctrl.citationCriteria.licenseState" required>
+    <ui-select-match placeholder="State">{{$select.selected}}</ui-select-match>
+    <ui-select-choices repeat="state in ctrl.states | filter: $select.search">
+      {{state}}
+    </ui-select-choices>
+  </ui-select>
+</form-field>

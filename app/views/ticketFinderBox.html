@@ -1,0 +1,29 @@
+<form name="ctrl.ticketForm" ng-submit="ctrl.getDOB()" novalidate ng-submit-force="true">
+<a class="showFullTileBox" href="#footer">
+  <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected()" ng-class="{'unselected' : !ctrl.isSelected()}" ng-click="ctrl.selectTicketFinder(ctrl.currentTicketFinder)">
+    <div>
+      <div class="homePageTileIcon">
+        <i class="fa {{ctrl.icon}} fa-2x"></i>
+      </div>
+      <h3>{{ctrl.text}}</h3>
+    </div>
+  </div>
+  <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected()">
+    <a href="#top"><button type="button" class="close" aria-label="Close" ng-click="ctrl.selectTicketFinder(ctrl.TicketFinderToSelect.NONE);"><span aria-hidden="true">&times;</span></button></a>
+    <div>
+      <div class="homePageTileIcon">
+        <i class="fa {{ctrl.icon}} fa-2x"></i>
+      </div>
+      <h3>{{ctrl.text}}</h3>
+    </div>
+    <div ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.TICKET_NUMBER" ng-include="'views/ticketFinderContentTicket.html'"></div>
+    <div ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.DRIVER_INFO" ng-include="'views/ticketFinderContentDriver.html'"></div>
+    <div ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.LOCATION" ng-include="'views/ticketFinderContentLocation.html'"></div>
+  </div>
+  <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected()">
+    <div class="col-sm-12" style="text-align: center;">
+      <button class="btn btn-lg" style="margin-bottom: 20px" ng-disabled="!ctrl.ticketForm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+    </div>
+  </div>
+</a>
+</form>

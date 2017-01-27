@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').directive('ngTranscludeReplace', [function () {
+angular.module('yourStlCourts').directive('ngTranscludeReplace', function () {
   return {
     terminal: true,
     restrict: 'EA',
@@ -19,4 +19,4 @@ angular.module('yourStlCourts').directive('ngTranscludeReplace', [function () {
       });
     }
   };
-}]);
+});
