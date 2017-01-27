@@ -48,6 +48,13 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         }
       },
+      json: {
+        files: ['<%= yeoman.app %>/data/{,*/}*.json'],
+        tasks: ['newer:jshint:all'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
@@ -66,7 +73,8 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}'
+          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}',
+          '<%= yeoman.app %>/data/{,*/}*.json',
         ]
       }
     },
@@ -89,6 +97,7 @@ module.exports = function (grunt) {
               connect().use('/bower_components', connect.static('./bower_components')),
               connect().use('/node_modules', connect.static('./node_modules')),
               connect().use('/app/styles', connect.static('./app/styles')),
+              connect().use('/data', connect.static('./data')),
               connect.static(appConfig.app)
             ];
           }
@@ -392,7 +401,8 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'data/*.json'
           ]
         }, {
           expand: true,
