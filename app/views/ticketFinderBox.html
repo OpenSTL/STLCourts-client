@@ -16,9 +16,9 @@
       </div>
       <h3>{{ctrl.text}}</h3>
     </div>
-    <ticket-finder-content-ticket ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.TICKET_NUMBER"></ticket-finder-content-ticket>
-    <ticket-finder-content-driver ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.DRIVER_INFO"></ticket-finder-content-driver>
-    <ticket-finder-content-location ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.LOCATION"></ticket-finder-content-location>
+    <div ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.TICKET_NUMBER" ng-include="'views/ticketFinderContentTicket.html'"></div>
+    <div ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.DRIVER_INFO" ng-include="'views/ticketFinderContentDriver.html'"></div>
+    <div ng-if="ctrl.currentTicketFinder==ctrl.TicketFinderToSelect.LOCATION" ng-include="'views/ticketFinderContentLocation.html'"></div>
   </div>
   <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected()">
     <div class="col-sm-12" style="text-align: center;">
