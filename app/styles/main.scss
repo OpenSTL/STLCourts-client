@@ -7,7 +7,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 @import "_colors";
 
-$navbar-height:95px;
 $footer-height: 60px;
 
 html, body {
@@ -24,11 +23,16 @@ body{
   margin: 0 0 $footer-height 0 !important;
   width:100%;
 }
-
+#headerContent{
+  position: relative;
+  z-index: 10;
+}
 #mainContent {
   min-height: 100%;
   height: auto;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .background {
@@ -37,15 +41,6 @@ body{
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-
-.navbar-nav li{
-  text-transform: uppercase;
-  font-family: 'Montserrat',sans-serif !important;
-}
-
-.navbar {
-  background-color: $white !important;
 }
 
 footer {
@@ -304,33 +299,6 @@ label {
 
 .selectedRow {
   background-color: $grey;
-}
-
-.navbar{
-  margin:20px 0;
-  height:$navbar-height - 40px !important;
-  border:none !important;
-}
-
-.navbar-brand{
-  padding: 0px 0px 0px 15px !important;
-  height: 54px !important;
-}
-.navbar-brand img{
-  height: 100%;
-  padding-left: 15px;
-}
-
-.navbar-default .navbar-nav > li > a {
-  color: #777 !important;
-}
-
-.navbar-default .navbar-nav > li > a:hover {
-  color: $blue;
-}
-
-.navbar-header {
-  margin-right: 20px !important;
 }
 
 #mainSearchBox{

@@ -1,14 +1,10 @@
-$fa-font-path: "/bower_components/components-font-awesome/fonts/";
-
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
 // endbower
 
 @import "_colors";
+@import "_constants";
 
-
-$subPageMargin: 1.5rem;
 
 .sub-page-title-block{
   margin:0px;
@@ -174,12 +170,14 @@ $subPageMargin: 1.5rem;
 }
 
 .sub-page-container .alignContainerToPage,
-.sub-page-container .alignColumnsToPage{
+.sub-page-container .alignColumnsToPage,
+.alignContainerToPage, .alignColumnsToPage{
   padding-left: $subPageMargin !important;
   padding-right: $subPageMargin !important;
 }
 
-.sub-page-container .alignRowToPage{
+.sub-page-container .alignRowToPage,
+.alignRowToPage{
   margin-left: -($subPageMargin) !important;
   margin-right: -($subPageMargin) !important;
 }
