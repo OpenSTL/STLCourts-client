@@ -54,4 +54,28 @@
   }
 }
 
+@media screen and (min-width:768px) and (max-width:900px) {
+  .navbar-header{
+    display:block;
+    float:none;
+    clear:both;
+    text-align: center;
+  }
+
+  .navbar-brand{
+    display:block;
+    float:none;
+    height: 40px !important;
+  }
+
+  #navbar{
+    text-align: center;
+  }
+
+  .navbar-nav{
+    float:none !important;
+    display:inline-block;
+  }
+}
+
 
