@@ -1,0 +1,49 @@
+{
+  "ticket-qa":[
+    {"q":"I need to go to court to contest a ticket. I remember exactly where I was pulled over, but I can not figure out where I need to go for court.",
+     "a":"On YourSTLCourts, under Ticket Finder, you can look up your ticket information based on your name, birth date, and location where you received the ticket.",
+     "keywords":[]},
+    {"q":"I put my information into YourSTLCourts and got a message saying that my case can not be found. What do I do?",
+     "a":"There are 81 courts in St. Louis County and not all of them currently participate in YourSTLCourts. If you remember where you got your ticket, you can google the court’s phone number and call the court directly, or go to their website. Mention that you would like to see them participating in YourSTLCourts!",
+      "keywords":[]},
+    {"q":"I know I have court coming up, but I lost my ticket, I can not remember when my court date is, and I am not sure who to call.",
+     "a":"Once you locate your information in YourSTLCourts, you will find your court date and the contact information of the court.",
+      "keywords":[]},
+    {"q":"Can I pay the ticket right now without going to court?",
+     "a":"Most likely. YourSTLCourts will tell you if your ticket can be paid now online. However, some cases require a court appearance.",
+      "keywords":[]},
+    {"q":"I’d like to know whether there’s a warrant out for my arrest, and how to resolve it.",
+     "a":"You’ve just discovered that you have a warrant for your arrest. NOW what?\n\nFirst, don’t panic. We can help you get started.\n\nThere are several reasons you may have an outstanding warrant, such as a missed court date or unpaid fines and fees. Regardless of why there is a warrant, it must be resolved.\n\nAll outstanding warrants must be discussed with the judge of the municipality that issued the ticket. For example, if Florissant issued the warrant, but Chesterfield issued a second traffic violation, you must see the judge in Florissant about the warrant and the judge in Chesterfield about the second traffic violation. Rest assured, you will not automatically be arrested when showing up to court to resolve a warrant.\n\nYou must contact the court clerk to schedule time with the judge. Showing up to court without being on the docket is not permitted. The clerk’s phone number is available on your ticket’s citations page. Click here to find your ticket on YourSTLCourts.\n\nAt court, explain your situation to the judge. Come prepared to pay some fines and fees. Many times, the judge is willing to work with citizens to resolve an outstanding warrant. They understand that compounded fines and fees result in a situation that is unaffordable for most people. Ask about a payment plan or a one-time payment that is affordable in order to clear your case and warrant.\n\nIf you need legal assistance, click here (link) to contact an attorney.",
+      "keywords":["warrant"]},
+    {"q":"I owe fines and fees for several violations and I can not afford to pay. What are my options?",
+     "a":"You currently have a couple of options. You can work out a payment plan with the judge or you can apply for a fee waiver due to an inability to pay. A lawyer can assist you with that application, which can be found here: http://www.courts.mo.gov/hosted/probono/AppFormaPauperis.htm.",
+      "keywords":[]},
+    {"q":"I can’t afford to pay the fines, fees, and personal property taxes, which I must pay all at once, to renew my expired license plate tags. What do I do?",
+     "a":"To get information about renewing your plates with the state of Missouri, go here: http://dor.mo.gov/motorv/renewing.php. If you need information about renewing your plates with the state of Illinois, go here: http://www.cyberdriveillinois.com/departments/vehicles/onlinerenewals/home.html. Additionally, the judge may be able to assist you with a plan when you meet him/her in court.",
+      "keywords":[]}
+  ],
+  "courts-qa":[
+    {"q":"What are my rights in court?",
+      "a":"To view your rights, click on the \"Your Rights\" tab above.",
+      "keywords":[]},
+    {"q":"What can I expect when I go to court?",
+      "a":"Each court has its own hours of operation. You must follow their dress code and procedures, which you can find on this website.",
+      "keywords":[]},
+    {"q":"I do not own clothes that comply with their dress code. What do I do?",
+      "a":"The Urban League of Metropolitan St. Louis operates a Clothing Closet in St. Louis County. For more info, you can look here: https://www.ulstl.com/meeting-families-basic-needs/clothing-assistance. You can also call United Way’s 211 Help Line for additional resources.",
+      "keywords":[]}
+    ],
+  "legal-qa": [
+    {"q":"How do I get help with my case?",
+      "a":"You have the right to legal representation in court. There are lawyers who are willing to provide assistance to you on your case at no charge. Though, this does not obligate them in any way to represent you in court unless you enter into a formal agreement. Contact 282-7272 for more information.",
+      "keywords":[]},
+    {"q":"I do not believe the charge against me is fair/valid. Is it worth fighting a small violation?",
+      "a":"If you believe you are not guilty, you should plead not guilty. A guilty plea is an admission of guilt and results in you giving up your rights of legal representation and to present witnesses. It also has additional repercussions beyond fines, including points on your license and the possibility of additional liability if you were involved in an accident. If you want to plead Not Guilty and argue your case, you have the right to legal representation, and a lawyer will be provided to you if you cannot afford one. For additional information on this, see “Your Rights” on this website.",
+      "keywords":[]}
+    ],
+  "payment-qa": [
+    {"q":"After paying my court fines and fees, I will need help with my other bills. Where can I go for help?",
+      "a":"United Way can connect you with a number of resources, including rent, utility, and food assistance. Just dial 211 on any phone to connect to their help line.",
+      "keywords":[]}
+    ]
+}

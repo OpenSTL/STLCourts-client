@@ -25,7 +25,14 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
     .state('help', {
       url: '/help',
       templateUrl: 'views/help.html',
-      controller: 'HelpCtrl as ctrl'
+      controller: 'HelpCtrl as ctrl',
+      resolve: {
+        qaData: function($http) {
+          return $http.get('data/questionAnswers.json').then(function(data){
+            return data.data;
+          });
+        }
+      }
     })
     .state('info', {
       url: '/info',
@@ -73,13 +80,23 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
     .state('citationInfo', {
       url: '/tickets/info',
       templateUrl: 'views/citationInfo.html',
-      controller: 'citationInfoCtrl as ctrl',
+      controller: 'CitationInfoCtrl as ctrl',
       params: {
         citations: { value : undefined }
       },
       resolve: {
         citations: function($stateParams) {
           return $stateParams.citations;
+        },
+        qaData: function($http) {
+          return $http.get('data/questionAnswers.json').then(function(data){
+            return data.data;
+          });
+        },
+        paymentWebsites: function($http){
+          return $http.get('data/paymentWebsites.json').then(function(data){
+            return data.data;
+          });
         }
       }
     })
