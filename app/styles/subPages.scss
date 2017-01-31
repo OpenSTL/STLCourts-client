@@ -284,6 +284,19 @@
     border:none;
   }
 
+  .parenthesis-list{
+    list-style-type: none;
+  }
+
+  .parenthesis-list{
+    counter-reset: parenthisis-counter;
+  }
+
+  .parenthesis-list li:before{
+    content: counter(parenthisis-counter,lower-alpha) ") ";
+    counter-increment: parenthisis-counter;
+  }
+
 }
 
 
