@@ -84,12 +84,29 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       }
     })
     .state('paymentOptions', {
-      url: '/paymentOptions/:citationId',
-      templateUrl: 'views/PaymentOptions.html',
+      url: '/paymentOptions/{citation}/{dob}',
+      templateUrl: 'views/paymentOptions.html',
       controller: 'PaymentOptionsCtrl as ctrl',
       resolve: {
         citation: function($stateParams, Citations) {
-          return Citations.getByCitationId($stateParams.citationId);
+          console.log("resolving");
+          alert("here");
+          /*
+          if (!$stateParams.citation || !$stateParams.dob){
+            throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No tickets were found with the information provided.");
+          }else{
+            var params = {
+              dob: $stateParams.dob,
+              citationNumber:$stateParams.citation
+            };
+            console.log("dob: "+params.dob+"   citationNumber: "+params.citationNumber);
+            return Citations.find(params).then(function(result){
+              if(result.citations.length < 0) {
+                throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No tickets were found with the information provided.");
+              }
+              return result.citations;
+            });
+          } */
         }
       }
     })
