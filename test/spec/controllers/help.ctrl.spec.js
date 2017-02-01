@@ -3,19 +3,19 @@
 describe('HelpCtrl', function() {
   var HelpCtrl;
 
-  var qadata = "mydata";
+  var faqData = "mydata";
 
   beforeEach(function() {
     module('yourStlCourts');
 
     inject(function($controller){
       HelpCtrl = $controller('HelpCtrl',{
-        qaData:qadata
+        faqData:faqData
       });
     });
   });
 
   it('sets qaData on initialization',inject(function(){
-    expect(HelpCtrl.qaData).toEqual(qadata);
+    expect(HelpCtrl.faqData).toEqual(faqData);
   }));
 });

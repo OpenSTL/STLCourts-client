@@ -1,14 +1,14 @@
 'use strict';
-angular.module('yourStlCourts').controller('QaGroupCtrl', function () {
+angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
   var ctrl = this;
-  ctrl.qaName = camelize(ctrl.groupTitle);
+  ctrl.faqName = camelize(ctrl.groupTitle);
 
-  ctrl.keywordFilter = function(qaItem){
+  ctrl.keywordFilter = function(faqItem){
       var found = false;
       if (ctrl.keywords){
         var keywordArray = ctrl.keywords.split(",");
         for (var keywordIndex in keywordArray){
-          if (qaItem.keywords.indexOf(keywordArray[keywordIndex]) != -1){
+          if (faqItem.keywords.indexOf(keywordArray[keywordIndex]) != -1){
             found = true;
             break;
           }

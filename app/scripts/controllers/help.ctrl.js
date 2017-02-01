@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('HelpCtrl', function (qaData) {
+angular.module('yourStlCourts').controller('HelpCtrl', function (faqData) {
   var ctrl = this;
-  ctrl.qaData = qaData;
+  ctrl.faqData = faqData;
 });

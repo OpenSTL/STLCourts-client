@@ -3,7 +3,7 @@
 describe('CitationInfoCtrl', function() {
   var CitationInfoCtrl;
 
-  var qaData = {
+  var faqData = {
     "dataLabel":[
       {"q":"myQuestion",
         "a":"myAnswer",
@@ -64,7 +64,7 @@ describe('CitationInfoCtrl', function() {
     inject(function($rootScope,$httpBackend, $controller,$state,$window,Courts){
       $httpBackend.whenGET(/municipalities/).respond(200, '');
       CitationInfoCtrl = $controller('CitationInfoCtrl',{
-        qaData:qaData,
+        faqData:faqData,
         paymentData:paymentData,
         $state:$state,
         $window:$window,
@@ -75,8 +75,8 @@ describe('CitationInfoCtrl', function() {
 
   });
 
-  it('correctly sets qaData and paymentData',inject(function(){
-    expect(CitationInfoCtrl.qaData).toEqual(qaData);
+  it('correctly sets faqData and paymentData',inject(function(){
+    expect(CitationInfoCtrl.faqData).toEqual(faqData);
     expect(CitationInfoCtrl.paymentData).toEqual(paymentData);
   }));
 
@@ -114,7 +114,7 @@ describe('CitationInfoCtrl', function() {
     spyOn($state,'go');
 
     var CitationInfoCtrl = $controller('CitationInfoCtrl',{
-      qaData:qaData,
+      faqData:faqData,
       paymentData:paymentData,
       $state:$state,
       $window:$window,
@@ -137,7 +137,7 @@ describe('CitationInfoCtrl', function() {
     spyOn(Courts,'findById').and.returnValue(deferred.promise);
 
     CitationInfoCtrl = $controller('CitationInfoCtrl',{
-      qaData:qaData,
+      faqData:faqData,
       paymentData:paymentData,
       $state:$state,
       $window:$window,

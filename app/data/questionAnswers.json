@@ -1,5 +1,5 @@
 {
-  "ticket-qa":[
+  "ticket-faq":[
     {"q":"I need to go to court to contest a ticket. I remember exactly where I was pulled over, but I can not figure out where I need to go for court.",
      "a":"On YourSTLCourts, under Ticket Finder, you can look up your ticket information based on your name, birth date, and location where you received the ticket.",
      "keywords":[]},
@@ -22,7 +22,7 @@
      "a":"To get information about renewing your plates with the state of Missouri, go here: http://dor.mo.gov/motorv/renewing.php. If you need information about renewing your plates with the state of Illinois, go here: http://www.cyberdriveillinois.com/departments/vehicles/onlinerenewals/home.html. Additionally, the judge may be able to assist you with a plan when you meet him/her in court.",
       "keywords":[]}
   ],
-  "courts-qa":[
+  "courts-faq":[
     {"q":"What are my rights in court?",
       "a":"To view your rights, click on the \"Your Rights\" tab above.",
       "keywords":[]},
@@ -33,7 +33,7 @@
       "a":"The Urban League of Metropolitan St. Louis operates a Clothing Closet in St. Louis County. For more info, you can look here: https://www.ulstl.com/meeting-families-basic-needs/clothing-assistance. You can also call United Way’s 211 Help Line for additional resources.",
       "keywords":[]}
     ],
-  "legal-qa": [
+  "legal-faq": [
     {"q":"How do I get help with my case?",
       "a":"You have the right to legal representation in court. There are lawyers who are willing to provide assistance to you on your case at no charge. Though, this does not obligate them in any way to represent you in court unless you enter into a formal agreement. Contact 282-7272 for more information.",
       "keywords":[]},
@@ -41,7 +41,7 @@
       "a":"If you believe you are not guilty, you should plead not guilty. A guilty plea is an admission of guilt and results in you giving up your rights of legal representation and to present witnesses. It also has additional repercussions beyond fines, including points on your license and the possibility of additional liability if you were involved in an accident. If you want to plead Not Guilty and argue your case, you have the right to legal representation, and a lawyer will be provided to you if you cannot afford one. For additional information on this, see “Your Rights” on this website.",
       "keywords":[]}
     ],
-  "payment-qa": [
+  "payment-faq": [
     {"q":"After paying my court fines and fees, I will need help with my other bills. Where can I go for help?",
       "a":"United Way can connect you with a number of resources, including rent, utility, and food assistance. Just dial 211 on any phone to connect to their help line.",
       "keywords":[]}

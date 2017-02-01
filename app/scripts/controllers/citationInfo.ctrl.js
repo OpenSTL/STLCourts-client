@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (qaData,paymentData,$state, $window, citations, Courts) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts) {
   var ctrl = this;
-  ctrl.qaData = qaData;
+  ctrl.faqData = faqData;
   ctrl.paymentData = paymentData;
 
   ctrl.selectCitation = function(citation){

@@ -27,7 +27,7 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/help.html',
       controller: 'HelpCtrl as ctrl',
       resolve: {
-        qaData: function($http) {
+        faqData: function($http) {
           return $http.get('data/questionAnswers.json').then(function(data){
             return data.data;
           });
@@ -88,12 +88,12 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
         citations: function($stateParams) {
           return $stateParams.citations;
         },
-        qaData: function($http) {
+        faqData: function($http) {
           return $http.get('data/questionAnswers.json').then(function(data){
             return data.data;
           });
         },
-        paymentWebsites: function($http){
+        paymentData: function($http){
           return $http.get('data/paymentWebsites.json').then(function(data){
             return data.data;
           });

@@ -1,6 +1,6 @@
 'use strict';
 /*
-    Usage: <qa-group></qa-group>
+    Usage: <faq-group></faq-group>
     attributes:
      set no-title="true" if you don't want the title to appear above the qa
      set keywords if you only want to show the q/a which has the keyword defined,
@@ -10,9 +10,9 @@
      group-title is the name to be displayed above the Q&A section
  */
 
-angular.module('yourStlCourts').component('qaGroup', {
-  templateUrl: 'views/qaGroup.html',
-  controller: 'QaGroupCtrl as ctrl',
+angular.module('yourStlCourts').component('faqGroup', {
+  templateUrl: 'views/faqGroup.html',
+  controller: 'FaqGroupCtrl as ctrl',
   bindings: {
       groupTitle:"@",
       arrayName:"@",
