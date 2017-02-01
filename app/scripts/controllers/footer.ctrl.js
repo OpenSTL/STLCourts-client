@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('FooterCtrl', function () {
+angular.module('yourStlCourts').controller('FooterCtrl', function (Contact) {
   var ctrl = this;
+  ctrl.email = Contact.email;
 
   ctrl.copyRightYears = function(){
     var startingYear = 2016;
