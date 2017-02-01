@@ -20,7 +20,8 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
     })
     .state('about', {
       url: '/about',
-      templateUrl: 'views/about.html'
+      templateUrl: 'views/about.html',
+      controller: 'AboutCtrl as ctrl'
     })
     .state('help', {
       url: '/help',
