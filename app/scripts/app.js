@@ -101,14 +101,11 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       }
     })
     .state('paymentOptions', {
-      url: '/paymentOptions/{citation}/{dob}',
-      templateUrl: 'views/paymentOptions.html',
-      controller: 'PaymentOptionsCtrl as ctrl',
+      url: '/paymentOptions/{citation}/{dob:.*}',
+      templateUrl: 'views/citationInfo.html',
+      controller: 'CitationInfoCtrl as ctrl',
       resolve: {
-        citation: function($stateParams, Citations) {
-          console.log("resolving");
-          alert("here");
-          /*
+        citations: function($stateParams, Citations,Errors) {
           if (!$stateParams.citation || !$stateParams.dob){
             throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No tickets were found with the information provided.");
           }else{
@@ -116,26 +113,29 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
               dob: $stateParams.dob,
               citationNumber:$stateParams.citation
             };
-            console.log("dob: "+params.dob+"   citationNumber: "+params.citationNumber);
             return Citations.find(params).then(function(result){
-              if(result.citations.length < 0) {
+              if(result.citations.length <= 0) {
                 throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No tickets were found with the information provided.");
               }
               return result.citations;
             });
-          } */
+          }
+        },
+        faqData: function($http) {
+          return $http.get('data/questionAnswers.json').then(function(data){
+            return data.data;
+          });
+        },
+        paymentData: function($http){
+          return $http.get('data/paymentWebsites.json').then(function(data){
+            return data.data;
+          });
         }
       }
     })
     .state('communityService',{
       url: '/communityService',
       templateUrl: 'views/communityService.html'
-      //controller: 'CommunityServiceCtrl as ctrl'
-    })
-    .state('opportunityDetails', {
-      url: '/opportunityDetails',
-      templateUrl: 'views/opportunityDetails.html',
-      controller: 'OpportunityDetailsCtrl as ctrl'
     })
     .state('sponsorLogin', {
       url: '/sponsorLogin',
