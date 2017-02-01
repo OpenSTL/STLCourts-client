@@ -283,7 +283,22 @@
   .ticket-results-container .hide-border-when-small{
     border:none;
   }
+}
 
+.parenthesis-list li{
+  list-style: none;
+}
+
+.parenthesis-list{
+  counter-reset: parenthisis-counter;
+  padding:0px;
+  margin:10px ($subPageMargin + 1);
+  font-size: 1em !important;
+}
+
+.parenthesis-list li:before{
+  content: counter(parenthisis-counter) ") ";
+  counter-increment: parenthisis-counter;
 }
 
 
