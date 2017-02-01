@@ -283,20 +283,22 @@
   .ticket-results-container .hide-border-when-small{
     border:none;
   }
+}
 
-  .parenthesis-list{
-    list-style-type: none;
-  }
+.parenthesis-list li{
+  list-style: none;
+}
 
-  .parenthesis-list{
-    counter-reset: parenthisis-counter;
-  }
+.parenthesis-list{
+  counter-reset: parenthisis-counter;
+  padding:0px;
+  margin:10px ($subPageMargin + 1);
+  font-size: 1em !important;
+}
 
-  .parenthesis-list li:before{
-    content: counter(parenthisis-counter,lower-alpha) ") ";
-    counter-increment: parenthisis-counter;
-  }
-
+.parenthesis-list li:before{
+  content: counter(parenthisis-counter) ") ";
+  counter-increment: parenthisis-counter;
 }
 
 
