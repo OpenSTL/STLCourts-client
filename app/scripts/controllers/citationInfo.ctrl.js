@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state, $window, citations, Courts) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts) {
   var ctrl = this;
+  ctrl.faqData = faqData;
+  ctrl.paymentData = paymentData;
 
   ctrl.selectCitation = function(citation){
     ctrl.selectedCitation = citation;
@@ -11,30 +13,31 @@ angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state,
     });
   };
 
+  ctrl.hasWarrant = function(){
+    var hasWarrant = false;
+    if (ctrl.selectedCitation && ctrl.hasViolations(ctrl.selectedCitation)){
+     for(var violationIndex in ctrl.selectedCitation.violations){
+       if (ctrl.selectedCitation.violations[violationIndex].warrant_status){
+         hasWarrant = true;
+         break;
+       }
+     }
+    }
+    return hasWarrant;
+  };
+
   ctrl.paymentWebsite = function(){
     var websiteURL = "";
-    switch(ctrl.selectedCitation.court.payment_system){
-      case 'iPayCourt':
-        websiteURL = "http://www.ipaycourt.com";
-        break;
-      case 'nCourt':
-        websiteURL = "http://home.ncourt.com/";
-        break;
-      case 'IPG':
-        websiteURL = "https://trafficpayment.com/Default.aspx";
-        break;
-      case 'Municipal Online Payments Tyler':
-        websiteURL = "https://www.municipalonlinepayments.com/search/services/court";
-        break;
-      default:
-        break;
+    if (ctrl.selectedCitation && ctrl.selectedCitation.court) {
+      if (ctrl.selectedCitation.court.payment_system in ctrl.paymentData){
+        websiteURL = ctrl.paymentData[ctrl.selectedCitation.court.payment_system];
+      }
     }
-
     return websiteURL;
-  }
+  };
 
   if(!citations) {
-    $state.go('ticketSearch');
+    $state.go('home');
   } else {
     ctrl.citations = citations;
     ctrl.selectedCitation = null;
@@ -102,7 +105,7 @@ angular.module('yourStlCourts').controller('citationInfoCtrl', function ($state,
 
   ctrl.goToCommunityService = function() {
     $state.go('communityService');
-  }
+  };
   ctrl.goToPaymentOptions = function() {
     $state.go('paymentOptions', { citationId: ctrl.selectedCitation.id });
   };

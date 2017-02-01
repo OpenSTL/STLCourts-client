@@ -40,14 +40,13 @@
       <div class="row alignRowToPage">
         <div class="col-sm-6 alignColumnsToPage">
           <h2 class="no-indent">
-            {{ctrl.selectedCitation.first_name}} {{ctrl.selectedCitation.last_name}}
+            Your Information
           </h2>
+          <p class="no-indent zeroAboveBelow">{{ctrl.selectedCitation.first_name}} {{ctrl.selectedCitation.last_name}}</p>
           <p class="address no-indent">{{ctrl.selectedCitation.defendant_address}}</p>
           <p class="address no-indent">{{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}</p>
-          <h2 class="no-indent">
-            Driver's License #
-          </h2>
-          <p class="no-indent zeroAboveBelow">{{ctrl.selectedCitation.drivers_license_number}}</p>
+          <p class="no-indent zeroAboveBelow">Driver's License #: {{ctrl.selectedCitation.drivers_license_number}}</p>
+          <br>
         </div>
         <div class="col-sm-6 alignColumnsToPage">
           <h2 class="no-indent">Ticket Info</h2>
@@ -90,6 +89,12 @@
           <span class="noViolations" ng-if="!ctrl.hasViolations(ctrl.selectedCitation)">
             Violation data unavailable. Please contact your court.
           </span>
+        </div>
+      </div>
+      <div ng-if="ctrl.hasWarrant()" class="row alignRowToPage">
+        <div class="col-sm-12 alignColumnsToPage">
+          <p class="no-indent zeroAboveBelow">You have a warrant, the following may help to answer your questions:</p>
+          <faq-group group-title="Tickets" no-title="true" array-name="ticket-faq" keywords="warrant" source-data="ctrl.faqData"></faq-group>
         </div>
       </div>
 
