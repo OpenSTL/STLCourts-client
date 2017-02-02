@@ -1,0 +1,136 @@
+<div class="sub-page-title-block">
+  <h1>Ticket Results</h1>
+</div>
+<div class="sub-page-container">
+  <div class="ticket-results-container container-fluid topMargin alignContainerToPage">
+    <div class="row alignRowToPage">
+      <div class="col-sm-12 alignColumnsToPageToPage">
+        <table class="table table-condensed table-bordered table-hover" ng-if="ctrl.citations.length > 1">
+          <thead>
+            <th class="hide-when-small-screen"></th>
+            <th>Ticket #</th>
+            <th>Name</th>
+            <th>Court Date</th>
+            <th>Court Location</th>
+            <th>Violations</th>
+          </thead>
+          <tbody>
+          <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation)">
+            <td class="hide-when-small-screen center-block"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view</button></td>
+            <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></span></td>
+            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>
+            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_date)}}</td>
+            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{citation.court_location}}</td>
+            <td class="hide-border-when-small">
+              <span class="label-for-small-screen table-item-label">Violations</span>
+              <span ng-repeat="violation in citation.violations" ng-if="ctrl.hasViolations(citation)">
+                {{violation.violation_description}}<span ng-if="$index < citation.violations.length - 1">, </span>
+              </span>
+              <span class="noViolations" ng-if="!ctrl.hasViolations(citation)">
+                Violation data unavailable. Please contact your court.
+              </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    <div id="selectedCitationInfo" class="container-fluid topMargin alignContainerToPage" ng-if="ctrl.selectedCitation">
+      <div class="row alignRowToPage">
+        <div class="col-sm-6 alignColumnsToPage">
+          <h2 class="no-indent">
+            Your Information
+          </h2>
+          <p class="no-indent zeroAboveBelow">{{ctrl.selectedCitation.first_name}} {{ctrl.selectedCitation.last_name}}</p>
+          <p class="address no-indent">{{ctrl.selectedCitation.defendant_address}}</p>
+          <p class="address no-indent">{{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}</p>
+          <p class="no-indent zeroAboveBelow">Driver's License #: {{ctrl.selectedCitation.drivers_license_number}}</p>
+          <br>
+        </div>
+        <div class="col-sm-6 alignColumnsToPage">
+          <h2 class="no-indent">Ticket Info</h2>
+          <dl class="dl-horizontal" style="font-size: 1.2em">
+            <dt>Case Number</dt>
+            <dd>{{ctrl.selectedCitation.citation_number}}</dd>
+            <dt>Ticket Date</dt>
+            <dd>{{ctrl.formatDate(ctrl.selectedCitation.citation_date)}}</dd>
+            <dt>Total Fine</dt>
+            <dd>
+              <span ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation)">
+                ${{ctrl.getFineTotal(ctrl.selectedCitation)}}
+              </span>
+              <span class="italic" ng-if="ctrl.isMissingFineInfo(ctrl.selectedCitation)">
+                Fine Info Unavailable
+              </span>
+            </dd>
+            <dt>Total Court Fee</dt>
+            <dd>
+              <span ng-if="!ctrl.isMissingFeeInfo(ctrl.selectedCitation)">
+                ${{ctrl.getFeeTotal(ctrl.selectedCitation)}}
+              </span>
+              <span class="italic" ng-if="ctrl.isMissingFeeInfo(ctrl.selectedCitation)">
+                Fee Info Unavailable
+              </span>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="row alignRowToPage">
+        <div class="col-sm-12 alignColumnsToPage">
+          <h2 class="no-indent">Violations</h2>
+          <ul ng-if="ctrl.hasViolations(ctrl.selectedCitation)">
+            <li ng-repeat="violation in ctrl.selectedCitation.violations" style="font-size: 1.2em">
+              {{violation.violation_description}}
+              <span ng-if="violation.warrant_status" class="badge" style="background-color: red">WARRANT ISSUED: {{violation.warrant_number}}</span>
+            </li>
+          </ul>
+          <span class="noViolations" ng-if="!ctrl.hasViolations(ctrl.selectedCitation)">
+            Violation data unavailable. Please contact your court.
+          </span>
+        </div>
+      </div>
+      <div ng-if="ctrl.hasWarrant()" class="row alignRowToPage">
+        <div class="col-sm-12 alignColumnsToPage">
+          <p class="no-indent zeroAboveBelow">You have a warrant, the following may help to answer your questions:</p>
+          <faq-group group-title="Tickets" no-title="true" array-name="ticket-faq" keywords="warrant" source-data="ctrl.faqData"></faq-group>
+        </div>
+      </div>
+
+      <div class="row alignRowToPage topMargin">
+        <div class="col-sm-6 alignColumnsToPage">
+          <h2 class="no-indent">Court Information</h2>
+          <dl class="dl-horizontal" style="font-size: 1.2em">
+            <dt>Court Date</dt>
+            <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_date)}}</dd>
+            <dt>Court Name</dt>
+            <dd>{{ctrl.selectedCitation.court.court_name}} Court</dd>
+            <dt>Court Phone Number</dt>
+            <dd>{{ctrl.selectedCitation.court.phone}}<span ng-if="ctrl.selectedCitation.court.extension"> x{{ctrl.selectedCitation.court.extension}}</span></dd>
+            <dt>Court Location</dt>
+            <dd>
+              {{ctrl.selectedCitation.court.address}}<br/>
+              {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip_code}}<br/>
+              <a href="{{ctrl.selectedCitation.courtDirectionLink}}" class="btn btn-scheme-primary no-print" target="_blank">GET DIRECTIONS</a>
+            </dd>
+          </dl>
+        </div>
+        <div class="col-sm-6 alignColumnsToPage no-print">
+          <h2 class="no-indent">I Want To...</h2>
+          <p>
+            <a ng-if="ctrl.paymentWebsite() != ''" href="{{ctrl.paymentWebsite()}}" target="_blank">
+              <button type="button" class="btn btn-scheme-primary btn-lg" ng-click=""><i class="fa fa-dollar"></i>&nbsp;PAY TICKET</button>
+            </a>
+          </p>
+          <p>
+            <button type="button" class="btn btn-scheme-primary btn-lg" ng-click="ctrl.goToCommunityService()">EXPLORE COMMUNITY SERVICE OPTIONS</button>
+          </p>
+          <p>
+            <button type="button" class="btn btn-scheme-primary btn-lg" ng-click="ctrl.printTicket()"><i class="fa fa-print"></i>&nbsp;PRINT INFO</button>
+          </p>
+        </div>
+      </div>
+
+    </div>
+</div>
