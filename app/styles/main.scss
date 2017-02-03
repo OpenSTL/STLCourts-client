@@ -1,11 +1,10 @@
-$fa-font-path: "/bower_components/components-font-awesome/fonts/";
-
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
-// bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
-// endbower
-
 @import "_colors";
+@import "_constants";
+
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "angularjs-toaster/toaster.scss";
+// endbower
 
 $footer-height: 60px;
 
