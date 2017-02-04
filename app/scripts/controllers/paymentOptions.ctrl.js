@@ -10,7 +10,7 @@ angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (citat
   };
   ctrl.datepickerOptions = {
     minDate: new Date(1900, 0, 1),
-    maxDate: new Date(today.getFullYear()-18,today.getMonth(),today.getDate())
+    maxDate: new Date(today.getFullYear(),today.getMonth(),today.getDate())
   };
 
   ctrl.datepickerFormat = 'MM/dd/yyyy';
@@ -20,16 +20,6 @@ angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (citat
     ctrl.status.opened = true;
   };
 
-  var modalInstance = $uibModal.open({
-    templateUrl: 'views/dobPicker.html',
-    controller: 'dobPickerCtrl as ctrl',
-    size: 'sm'
-  });
-
-  modalInstance.result.then(function (dob) {
-    ctrl.dob = dob;
-    //ctrl.findTicket();
-  });
 
   /*ctrl.save = function(form) {
     if (form.$valid) {
