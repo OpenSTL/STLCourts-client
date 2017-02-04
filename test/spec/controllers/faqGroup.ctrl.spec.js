@@ -19,7 +19,7 @@ describe('FaqGroupCtrl', function() {
 
   });
 
-  xit('correctly sets groupTitle and faqName',inject(function(){
+  it('correctly sets groupTitle and faqName',inject(function(){
     expect(FaqGroupCtrl.groupTitle).toBeDefined();
     expect(FaqGroupCtrl.groupTitle).toEqual("Home Alone");
     expect(FaqGroupCtrl.faqName).toEqual("homeAlone");
