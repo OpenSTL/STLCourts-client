@@ -2,7 +2,8 @@
 @import "_constants";
 
 // bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "angularjs-toaster/toaster.scss";
 // endbower
 
 $footer-height: 60px;

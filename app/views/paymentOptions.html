@@ -1,0 +1,27 @@
+<div class="sub-page-title-block">
+  <h1>Security Screen</h1>
+</div>
+<div class="sub-page-container">
+  <h2 class="text-center">As a security precaution, please enter your date of birth to access payment options for your ticket.</h2>
+  <div class="container-fluid topMargin alignContainerToPage">
+    <div class="row alignRowToPage">
+      <div class="col-sm-12 alignColumnsToPageToPage">
+        <div class="payment-options-date-picker">
+          <div class="payment-options-date-picker-input-div">
+            <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.datepickerFormat}}" ng-model="ctrl.dob" is-open="ctrl.status.opened" datepicker-options="ctrl.datepickerOptions" ng-required="true" close-text="Close" alt-input-formats="ctrl.acceptedDatepickerFormats" />
+
+            <!--<input displayName="Date of Birth" type="text" class="form-control" uib-datepicker-popup={{ctrl.datepickerFormat}}
+                 ng-model="ctrl.dob" is-open="ctrl.status.opened" datepicker-options="ctrl.datepickerOptions"
+                 ng-required="true" close-text="Close" placeholder="MM/DD/YYYY" alt-input-formats="ctrl.acceptedDatepickerFormats"
+                 show-button-bar="true" disable-invalid-styling="true" datepicker-append-to-body="true" popup-placement="top"/>-->
+          </div>
+          <button type="button" class="btn btn-default" ng-click="ctrl.open($event)">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </button>
+
+        </div>
+        <div><button type="button" class="btn btn-default" ng-click="ctrl.validateDate()"></button> </div>
+      </div>
+    </div>
+  </div>
+</div>

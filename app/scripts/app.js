@@ -102,24 +102,18 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       }
     })
     .state('paymentOptions', {
-      url: '/paymentOptions/:citationId',
-      templateUrl: 'views/PaymentOptions.html',
+      url: '/paymentOptions/{citationId}',
+      templateUrl: 'views/paymentOptions.html',
       controller: 'PaymentOptionsCtrl as ctrl',
       resolve: {
-        citation: function($stateParams, Citations) {
-          return Citations.getByCitationId($stateParams.citationId);
+        citationId: function($stateParams) {
+            return $stateParams.citationId;
+          }
         }
-      }
     })
     .state('communityService',{
       url: '/communityService',
       templateUrl: 'views/communityService.html'
-      //controller: 'CommunityServiceCtrl as ctrl'
-    })
-    .state('opportunityDetails', {
-      url: '/opportunityDetails',
-      templateUrl: 'views/opportunityDetails.html',
-      controller: 'OpportunityDetailsCtrl as ctrl'
     })
     .state('sponsorLogin', {
       url: '/sponsorLogin',
