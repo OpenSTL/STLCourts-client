@@ -10,7 +10,8 @@ angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (citat
   };
   ctrl.datepickerOptions = {
     minDate: new Date(1900, 0, 1),
-    maxDate: new Date(today.getFullYear()-18,today.getMonth(),today.getDate())
+    maxDate: new Date(today.getFullYear(),today.getMonth(),today.getDate()),
+    showWeeks:false
   };
 
   ctrl.datepickerFormat = 'MM/dd/yyyy';
@@ -20,16 +21,22 @@ angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (citat
     ctrl.status.opened = true;
   };
 
-  var modalInstance = $uibModal.open({
-    templateUrl: 'views/dobPicker.html',
-    controller: 'dobPickerCtrl as ctrl',
-    size: 'sm'
-  });
+  ctrl.validateDob = function(){
+    var dateValidator = /^[0-1][1-9][\/](([0][1-9])|([1-2][0-9])|([3][0-1]))[\/][0-9]{4}$/;
+    if (dateValidator.test(ctrl.myDate)){
+      //passes basic date form now make sure it is a vaild date.
+      var datePartsArray = ctrl.myDate.split("/");
+      var d;
+      try {
+        d = new Date(datePartsArray[2], datePartsArray[0], datePartsArray[1]);
+        alert("worked");
+      }catch(dateErr){
+        alert("tried converting. "+dateErr);
+      }
+    }
 
-  modalInstance.result.then(function (dob) {
-    ctrl.dob = dob;
-    //ctrl.findTicket();
-  });
+  };
+
 
   /*ctrl.save = function(form) {
     if (form.$valid) {
