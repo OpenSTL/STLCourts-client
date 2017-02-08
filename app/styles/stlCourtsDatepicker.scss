@@ -14,8 +14,16 @@
   padding: 2px 3px;
 }
 
-.stl-courts-datepicker-input span{
+.stl-courts-datepicker-input span.dim{
   color:#cccccc;
+}
+
+.stl-courts-datepicker-input span.underline{
+  text-decoration: underline;
+}
+
+.stl-courts-datepicker-input span.noShow{
+  opacity:0;
 }
 
 

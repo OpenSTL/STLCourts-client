@@ -1,5 +1,5 @@
 'use strict';
-angular.module('yourStlCourts').controller('StlCourtsDatepicker', function ($rootScope) {
+angular.module('yourStlCourts').controller('StlCourtsDatepicker', function () {
   var ctrl = this;
   var unformattedDateChars = new Array();
   var currentIndex = 0;
@@ -138,7 +138,7 @@ angular.module('yourStlCourts').controller('StlCourtsDatepicker', function ($roo
 
   ctrl.setCaretPos = function(){
     if (stringPosition) {
-      ctrl.stringPositionValue = "string position: "+stringPosition;
+      ctrl.stringPositionValue = stringPosition;
       var baseOffsetPos = 0;
       var position = baseOffsetPos + stringPosition;
       var mySel = window.getSelection();
