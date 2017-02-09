@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (Citations,citationId,toaster,$state) {
+angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (Citations,citationId,toaster,$state,Errors) {
   var ctrl = this;
   ctrl.dob = null;
   ctrl.dobValid = false;
