@@ -1,3 +1,12 @@
-<div class="stl-courts-datepicker-input" ng-bind-html="ctrl.dateString" contenteditable></div>
-<div>Caret Pos: {{ctrl.caretPos}}</div>
-<div>String Pos: {{ctrl.stringPositionValue}}</div>
+<div class="stl-courts-datepicker-input-line">
+  <div class="stl-courts-datepicker-input" contenteditable="true" spellcheck="false"></div>
+  <button type="button" class="btn btn-default btn-xs" ng-click="ctrl.openCloseDateCalendar()">
+    <i class="glyphicon glyphicon-calendar"></i>
+  </button>
+</div>
+<div class="stl-courts-datepicker-calendar stl-courts-datepicker-hidden">
+  <div>{{ctrl.dt}}</div>
+  <div style="display:inline-block;">
+    <div uib-datepicker ng-model="ctrl.dt" class="well well-sm" datepicker-options="ctrl.datepickerOptions"></div>
+  </div>
+</div>

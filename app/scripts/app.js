@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yourStlCourts', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'toaster',
-  'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet']);
+  'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet','angularMoment']);
 
 angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, $locationProvider, ENV, $httpProvider, uiSelectConfig) {
   $locationProvider.html5Mode(true);

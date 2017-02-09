@@ -12,6 +12,10 @@
   font: -webkit-small-control;
   margin-top: 5px;
   padding: 2px 3px;
+  width:100px;
+  margin-left:auto;
+  margin-right:auto;
+  display:inline-block;
 }
 
 .stl-courts-datepicker-input span.dim{
@@ -24,6 +28,18 @@
 
 .stl-courts-datepicker-input span.noShow{
   opacity:0;
+}
+
+.stl-courts-datepicker-hidden{
+  display:none;
+}
+
+.stl-courts-datepicker-calendar > div:first-child{
+  display:none;
+}
+
+.stl-courts-datepicker-input-line{
+  margin-bottom:10px;
 }
 
 

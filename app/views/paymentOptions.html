@@ -7,21 +7,10 @@
     <div class="row alignRowToPage">
       <div class="col-sm-12 alignColumnsToPageToPage">
         <div class="payment-options-date-picker">
-          <stl-courts-datepicker date-format="MM/DD/YYYY"></stl-courts-datepicker>
-          <!--<input ng-model="ctrl.myDate" type="text" placeholder="MM/DD/YYYY"/> -->
-          <!--<div class="payment-options-date-picker-input-div">
-            <input displayName="Date of Birth" type="text" class="form-control" uib-datepicker-popup={{ctrl.datepickerFormat}}
-                 ng-model="ctrl.dob" is-open="ctrl.status.opened" datepicker-options="ctrl.datepickerOptions"
-                 ng-required="true" close-text="Close" placeholder="MM/DD/YYYY" alt-input-formats="ctrl.acceptedDatepickerFormats"
-                 show-button-bar="true" disable-invalid-styling="true" datepicker-append-to-body="true" popup-placement="top"/>
-
-          <button type="button" class="btn btn-default" ng-click="ctrl.open($event)">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
-          </button>
-        </div> -->
-        <br>
-        <div class="text-center">
-          <button type="button" class="btn btn-default" ng-click="ctrl.validateDob()">View Payment Options</button>
+          <stl-courts-datepicker date-field="ctrl.dob" date-valid="ctrl.dobValid" date-over-18="ctrl.dobOver18" date-format="MM/DD/YYYY"></stl-courts-datepicker>
+          <div class="text-center">
+            <button type="button" class="btn btn-default" ng-click="ctrl.dobValidate()">View Payment Options</button>
+          </div>
         </div>
       </div>
     </div>

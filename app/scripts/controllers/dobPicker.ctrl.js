@@ -1,30 +1,23 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('dobPickerCtrl', function ($uibModalInstance, DateFormatter, toaster) {
-  var today = new Date();
+angular.module('yourStlCourts').controller('dobPickerCtrl', function ($uibModalInstance, toaster) {
   var ctrl = this;
 
   ctrl.dob = null;
-  ctrl.status = {
-    opened : false
-  };
-  ctrl.datepickerOptions = {
-    minDate: new Date(1900, 0, 1),
-    maxDate: new Date(today.getFullYear()-18,today.getMonth(),today.getDate())
-  };
+  ctrl.dobValid = false;
+  ctrl.dobOver18 = false;
 
-  ctrl.datepickerFormat = 'MM/dd/yyyy';
-  ctrl.acceptedDatepickerFormats = ['dd-MMMM-yyyy', 'MM-dd-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-
-  ctrl.open = function() {
-    ctrl.status.opened = true;
-  };
-
-  ctrl.save = function(form) {
-    if (form.$valid) {
-      $uibModalInstance.close(DateFormatter.format(ctrl.dob, 'mm/dd/yyyy'));
-    } else {
-      toaster.pop('error', 'Invalid date of birth. Use mm/dd/yyyy');
+  ctrl.save = function(){
+    if (ctrl.dobValid && ctrl.dobOver18){
+      $uibModalInstance.close(ctrl.dob);
+    }else{
+      if (!ctrl.dobValid){
+        toaster.pop('error', 'Invalid date of birth.');
+      }else{
+        if (!ctrl.dobOver18){
+          toaster.pop('error', 'Sorry, you must be at least 18 years old to use this site.');
+        }
+      }
     }
   };
 
