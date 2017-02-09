@@ -49,10 +49,35 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
         $scope.ctrl.openCloseDateCalendar("close");
       });
 
+      $(element).find(".stl-courts-datepicker-input").children().each(function(index){
+          $(this).attr("click-index",index);
+          $(this).on('click',function(event){
+            keyDirection = direction.forward;
+            event.stopPropagation(); //keep event from triggering the whole div's click handler
+            var el = getElement(event.target);
+            caretPosition = $(event.target).attr("click-index");
+            moveCaretPos(el);
+            insertUnderscoreAtCursor(el);
+          });
+      });
+
       element.on('click',function(event){
-        var el = getElement(event.toElement);
-        keyDirection = direction.forward;
-        saveCaretPos(el);
+        var el = getElement(event.target);
+        //handle case where user clicks on the containing div element and not a date digit
+        var sel = window.getSelection();
+        var fn = sel.anchorNode;
+        caretPosition = 1; //set to beginning after p as default;
+        if (fn){
+          if (fn.nodeType == 3){  //for browsers like chrome -- returns a text node
+            caretPosition = $(fn).parent().attr("click-index");
+            if (caretPosition == 0) //if caret at beginning move to first char, end condition is ok by default
+              caretPosition = 1;
+          }
+          if (fn.nodeType == 1){ //for browsers like edge -- returns the whole div ie an element node
+            //since we don't know if it was clicked at the beginning or end just set cursor at beginning
+            caretPosition = 1;
+          }
+        }
         moveCaretPos(el);
         insertUnderscoreAtCursor(el);
       });
@@ -60,8 +85,6 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
       element.on('keypress',function(event){
         var keyCode = event.keyCode;
         var el = getElement(event.target);
-        saveCaretPos(el);
-        moveCaretPos(el);
         event.preventDefault();
         if (keyCode >= keys.zero && keyCode <= keys.nine) {
           keyDirection = direction.forward;
@@ -78,17 +101,19 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
 
       element.on('keyup',function(event){
         var el = getElement(event.target);
-        saveCaretPos(el);
-        moveCaretPos(el);
         event.preventDefault();
         var keycode = event.keyCode;
         switch(keycode){
           case keys.backspace:
             keyDirection = direction.backwards;
+            caretPosition--;
+            moveCaretPos(el);
             deleteDateDigit(el);
             break;
           case keys.left_arrow:
             keyDirection = direction.backwards;
+            caretPosition--;
+            moveCaretPos(el);
             insertUnderscoreAtCursor(el);
             break;
           case keys.delete:
@@ -97,6 +122,8 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
             break;
           case keys.right_arrow:
             keyDirection = direction.forward;
+            caretPosition++;
+            moveCaretPos(el);
             insertUnderscoreAtCursor(el);
             break;
         }
@@ -111,12 +138,16 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
             $(dateElement).addClass("underline");
             moveCaretPos(el);
           }else{
-            if (keyDirection == direction.forward) {
-              caretPosition++;
-            }else {
-              caretPosition--;
+            if (dateElementChar != "p") {
+              if (keyDirection == direction.forward) {
+                caretPosition++;
+              } else {
+                caretPosition--;
+              }
+              insertUnderscoreAtCursor(el);
+            }else{
+              moveCaretPos(el);
             }
-            insertUnderscoreAtCursor(el);
           }
         }else{
           moveCaretPos(el);
@@ -134,29 +165,34 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
           }
       }
 
-      function deleteDateDigit(el){
+      function deleteDateDigit(el){  //delete digit at cursor
         var dateElement;
-        if (keyDirection == direction.backwards) {
-          caretPosition--;
-        }
         dateElement = getDateElementFromCaretPos(el);
 
         if (dateElement){
           var dateElementChar = dateElement.innerText;
           if (/[0-9mdy]/i.test(dateElementChar)) {
             $(dateElement).addClass("dim");
-            var templateChar = $scope.ctrl.dateFormat.charAt(caretPosition);
+            var templateChar = $scope.ctrl.dateFormat.charAt(Number(caretPosition)-1); //template is 1 off because of beginning p element
             dateElement.innerText = templateChar;
             updateDateString();
             if (keyDirection == direction.forward) {
               caretPosition++;
+              moveCaretPos(el);
             }
             insertUnderscoreAtCursor(el);
           }else{
-            if (keyDirection == direction.forward) {
-              caretPosition++;
+            if (dateElementChar != "p") {
+              if (keyDirection == direction.forward) {
+                caretPosition++;
+              }else{
+                if (keyDirection == direction.backwards){
+                  caretPosition--;
+                }
+              }
+              moveCaretPos(el);
+              deleteDateDigit(el);
             }
-            deleteDateDigit(el);
           }
         }
       }
@@ -168,7 +204,7 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
 
       function updateDateString(){
         $timeout(function(){
-          $scope.ctrl.dateString = $(element).find(".stl-courts-datepicker-input").get(0).innerText.replace("p","");
+          $scope.ctrl.dateString = $(element).find(".stl-courts-datepicker-input").get(0).innerText.replace(/p/g,"");
         });
       }
 
@@ -255,6 +291,7 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
       function wrapEachLetter(stringToWrap){
         //have to place a non visible span at the beginning because selection range shows as 0 position before and after 1st span
         var  newString = '<span class="noShow">p</span>';
+        //var newString = "";
         for(var i = 0; i < stringToWrap.length; i++){
           if (/[mdy]/i.test(stringToWrap[i])) {
             newString += '<span class="dim">' + stringToWrap[i] + '</span>';
@@ -262,31 +299,41 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
             newString += '<span>' + stringToWrap[i] + '</span>';
           }
         }
+        newString += '<span class="noShow">p</span>';
         return newString;
       }
 
+      function getCharAtCaretPos(){
+        return $(element).find(".stl-courts-datepicker-input").children("span[click-index ='"+caretPosition+"']").html();
+      }
+
       function moveCaretPos(el){
-        if ($scope.ctrl.dateFormat.length < caretPosition)
-          caretPosition -= 1;
+        var char = getCharAtCaretPos();
+        if (char) {
+          if (char == "p") {
+            if (caretPosition == 0)
+              caretPosition++;
+          }
+        }else{
+          //arrow keys moved the caratPosition to an illegal position
+          if (caretPosition <= 0){ //move caratePosition back to first character
+            caretPosition = 1;
+          }else{//caratPosition is to far to right so move it back to end of end character
+            caretPosition--;
+          }
+        }
         var mySel = window.getSelection();
-        mySel.collapse(el,caretPosition+1);
+        mySel.collapse(el,caretPosition);
       }
 
       function saveCaretPos(el){
         var mySel = window.getSelection();
         var fn = mySel.focusNode;
-        var selectedElement = $(fn).parent().get(0);
-        caretPosition = 0;
-        $(el).children().each(function(index){
-          if (this == selectedElement){
-            caretPosition = index;
-            return false;
-          }
-        });
+        caretPosition = $(fn).attr("click-index");
       }
 
       function getDateElementFromCaretPos(el){
-        return $(el).children().get(caretPosition + 1);
+        return $(el).children().get(caretPosition);
       }
 
       function resetUnderline(el){
@@ -314,6 +361,7 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
       element.on('$destroy',function(){
         $(element).find(".stl-courts-datepicker-input").off('blur');
         $(element).find(".stl-courts-datepicker-input").off('click');
+        $(element).find(".stl-courts-datepicker-input").children().off('click');
         element.off('keydown');
         element.off('keyup');
         element.off('keypress');
