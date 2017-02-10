@@ -44,6 +44,12 @@
   margin-right: 0px !important;
 }
 
+@media screen and (min-width:768px){
+  .navbar-collapse.collapse{
+    height: 10px !important; /* when not in mobile view this needs to be small */
+  }
+}
+
 @media screen and (max-width:767px) {
   .navbar-collapse {
     background-color: $navbarCollapseMenuColor;
