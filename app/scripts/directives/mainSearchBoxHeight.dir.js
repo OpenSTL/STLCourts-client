@@ -15,8 +15,7 @@ angular.module('yourStlCourts').directive('mainSearchBox', function ($window) {
 
       function resizeMainSearchBox(){
         var newHeight = $(element).parentsUntil('body').parent().width()*.3125;
-        $(element).height(Number(newHeight)+2);
-        console.log("resized");
+        $(element).height(Number(newHeight));
       }
 
       element.on('$destroy',function(){
