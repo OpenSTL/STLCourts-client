@@ -305,9 +305,10 @@ label {
   background-size:100%;
   background-repeat: no-repeat;
   padding:0px;
-  padding-top:50px;
   text-align: center;
   font-family: 'Source Sans Pro', sans-serif;
+  overflow: hidden; /* anything other than visible needed so that the h1 margin-top doesn't collapse into this element's margin-top */
+  width:100%;
 }
 
 #mainSearchBox h1{
@@ -315,6 +316,7 @@ label {
   color:$white;
   padding:0 15px;
   margin:0px !important;
+  margin-top:50px !important;
 }
 
 #searchBoxInstructions{
@@ -346,10 +348,10 @@ label {
   #mainSearchBox{
     height: 427px;
     background-image: url('../images/main-image-1366x427.jpg');
-    padding-top:50px;
   }
   #mainSearchBox h1{
     font-size:3em;
+    margin-top:50px !important;
   }
 
   #searchBoxInstructions,.main-page-banner{
@@ -370,11 +372,11 @@ label {
   #mainSearchBox{
     height: 320px;
     background-image: url('../images/main-image-1024x320.jpg');
-    padding-top:30px;
   }
 
   #mainSearchBox h1{
     font-size:2.5em;
+    margin-top:30px !important;
   }
 
   #searchBoxInstructions,.main-page-banner{
@@ -390,11 +392,11 @@ label {
   #mainSearchBox{
     height: 240px;
     background-image: url('../images/main-image-768x240.jpg');
-    padding-top:10px;
   }
 
   #mainSearchBox h1{
     font-size:2em;
+    margin-top:10px !important;
   }
 
   #searchBoxInstructions, .main-page-banner{
@@ -410,11 +412,11 @@ label {
   #mainSearchBox{
     height: 141px;
     background-image: url('../images/main-image-450x141.jpg');
-    padding-top:5px;
   }
 
   #mainSearchBox h1{
     font-size:1.5em;
+    margin-top:5px !important;
   }
 
   #searchBoxInstructions, .main-page-banner{
@@ -430,11 +432,11 @@ label {
   #mainSearchBox{
     height: 100px;
     background-image: url('../images/main-image-320x100.jpg');
-    padding-top:5px;
   }
 
   #mainSearchBox h1{
     font-size:1.3em;
+    margin-top:5px !important;
   }
 
   #searchBoxInstructions,.main-page-banner{
@@ -512,7 +514,6 @@ table {
 .anchor{
   display:block;
   position:relative;
-  top:-($navbar-height) - 5px;
   visibility: hidden;
 }
 
