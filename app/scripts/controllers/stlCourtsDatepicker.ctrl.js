@@ -2,7 +2,7 @@
 angular.module('yourStlCourts').controller('StlCourtsDatepicker', function () {
   var ctrl = this;
 
-  ctrl.dt = new Date();
+  ctrl.uibDatePickerDate = new Date();
 
   ctrl.datepickerOptions = {
     minDate: new Date(1900, 0, 1),

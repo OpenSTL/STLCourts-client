@@ -6,7 +6,7 @@ angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (Citat
   ctrl.dobValid = false;
   ctrl.dobOver18 = false;
 
-  ctrl.dobValidate = function(){
+  ctrl.viewPaymentOptions = function(){
     if (ctrl.dobValid && ctrl.dobOver18){
       var params = {
         dob: ctrl.dob,

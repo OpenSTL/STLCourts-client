@@ -34,7 +34,7 @@ describe('PaymentOptionsCtrl', function () {
     PaymentOptionsCtrl.dobValid = true;
     PaymentOptionsCtrl.dobOver18 = true;
     PaymentOptionsCtrl.dob = "myDate";
-    PaymentOptionsCtrl.dobValidate();
+    PaymentOptionsCtrl.viewPaymentOptions();
     $rootScope.$apply();
     expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}]});
   }));
@@ -49,13 +49,13 @@ describe('PaymentOptionsCtrl', function () {
     PaymentOptionsCtrl.dob = "myDate";
 
     var err = Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No tickets were found with the information provided.");
-    expect(function(){PaymentOptionsCtrl.dobValidate(); $rootScope.$apply();}).toThrow(err);
+    expect(function(){PaymentOptionsCtrl.viewPaymentOptions(); $rootScope.$apply();}).toThrow(err);
   }));
 
   it('shows error when saving invalid date', inject(function(toaster) {
     spyOn(toaster, 'pop');
     PaymentOptionsCtrl.dobValid = false;
-    PaymentOptionsCtrl.dobValidate();
+    PaymentOptionsCtrl.viewPaymentOptions();
     expect(toaster.pop).toHaveBeenCalledWith('error', 'Invalid date of birth.');
   }));
 
@@ -63,7 +63,7 @@ describe('PaymentOptionsCtrl', function () {
     spyOn(toaster, 'pop');
     PaymentOptionsCtrl.dobValid = true;
     PaymentOptionsCtrl.dobOver18 = false;
-    PaymentOptionsCtrl.dobValidate();
+    PaymentOptionsCtrl.viewPaymentOptions();
     expect(toaster.pop).toHaveBeenCalledWith('error', 'Sorry, you must be at least 18 years old to use this site.');
   }));
 });

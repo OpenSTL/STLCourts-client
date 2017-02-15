@@ -14,7 +14,7 @@ describe('StlCourtsDatepicker', function () {
   });
 
   it('initializes variables on init',function(){
-    expect(StlCourtsDatepicker.dt instanceof Date).toBe(true);
+    expect(StlCourtsDatepicker.uibDatePickerDate instanceof Date).toBe(true);
     expect(StlCourtsDatepicker.datepickerOptions.minDate instanceof Date).toBe(true);
     expect(StlCourtsDatepicker.datepickerOptions.maxDate instanceof Date).toBe(true);
     expect(StlCourtsDatepicker.datepickerOptions.showWeeks).toBe(false);
