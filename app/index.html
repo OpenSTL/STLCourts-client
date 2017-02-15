@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="styles/subPages.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/stlCourtsDatepicker.css">
     <!-- endbuild -->
   </head>
   <body id="top" ng-app="yourStlCourts">
@@ -64,6 +65,7 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -80,23 +82,20 @@
     <script src="scripts/controllers/footer.ctrl.js"></script>
     <script src="scripts/controllers/locationPickerMap.ctrl.js"></script>
     <script src="scripts/controllers/dobPicker.ctrl.js"></script>
-    <script src="scripts/controllers/citationInfo.ctrl.js"></script>
-    <script src="scripts/controllers/opportunityDetails.ctrl.js"></script>
     <script src="scripts/controllers/paymentOptions.ctrl.js"></script>
+    <script src="scripts/controllers/citationInfo.ctrl.js"></script>
     <script src="scripts/controllers/courtSearchInfo.ctrl.js"></script>
     <script src="scripts/controllers/about.ctrl.js"></script>
     <script src="scripts/controllers/error.ctrl.js"></script>
+    <script src="scripts/controllers/stlCourtsDatepicker.ctrl.js"></script>
     <!-- <script src="scripts/controllers/sponsorLogin.ctrl.js"></script>
     <script src="scripts/controllers/sponsorManagement.ctrl.js"></script> -->
-    <script src="scripts/controllers/opportunityCreate.ctrl.js"></script>
-    <script src="scripts/controllers/opportunityNeedCreate.ctrl.js"></script>
 
     <script src="scripts/services/Auth.svc.js"></script>
     <script src="scripts/services/Citations.svc.js"></script>
     <script src="scripts/services/Courts.svc.js"></script>
     <script src="scripts/services/Municipalities.svc.js"></script>
     <script src="scripts/services/TicketFinder.svc.js"></script>
-    <script src="scripts/services/Opportunities.svc.js"></script>
     <script src="scripts/services/Contact.svc.js"></script>
     <!-- <script src="scripts/services/Sponsor.svc.js"></script> -->
     <script src="scripts/services/States.svc.js"></script>
@@ -107,6 +106,7 @@
 
     <script src="scripts/directives/formField.dir.js"></script>
     <script src="scripts/directives/ngTranscludeReplace.dir.js"></script>
+    <script src="scripts/directives/stlCourtsDatepicker.dir.js"></script>
     <script src="scripts/directives/mainSearchBoxHeight.dir.js"></script>
 
     <script src="scripts/components/stlCourtsHeader.comp.js"></script>

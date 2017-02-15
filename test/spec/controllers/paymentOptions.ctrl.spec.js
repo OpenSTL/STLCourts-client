@@ -1,80 +1,69 @@
 'use strict';
 
 describe('PaymentOptionsCtrl', function () {
+
   var PaymentOptionsCtrl;
-  var citation;
-  var opportunities;
+  var citationId = 5;
 
   beforeEach(function() {
     module('yourStlCourts');
 
-    citation = {
-      id: 10,
-      citation_number: 'M123456',
-      court_id: 100
-    };
-
-    opportunities = [{
-      id: 5,
-      name: 'Pickup trash',
-      courtId: 100
-    }];
-
-    inject(function($controller, Opportunities, $state, $uibModal, $q, $httpBackend) {
-      var opportunitiesDefer = $q.defer();
-      opportunitiesDefer.resolve(opportunities);
-      spyOn(Opportunities, 'findByCourtId').and.returnValue(opportunitiesDefer.promise);
-
+    inject(function($controller, toaster,$state,Citations,Errors,$httpBackend) {
       PaymentOptionsCtrl = $controller('PaymentOptionsCtrl', {
-        citation: citation,
-        Opportunities: Opportunities,
-        $state: $state,
-        $uibModal: $uibModal
+        Citations:Citations,
+        citationId:citationId,
+        $state:$state,
+        toaster: toaster,
+        Errors: Errors
       });
-
-      $httpBackend.whenGET(/(.*\.html)|(courts)|(municipalities)/).respond(200, '');
+      $httpBackend.whenGET(/municipalities/).respond(200, '');
     });
   });
 
-  it('sets citation on initialization', inject(function($rootScope) {
-    $rootScope.$apply();
+  it('initializes variables on init',function(){
+    expect(PaymentOptionsCtrl.dob).toBeNull();
+    expect(PaymentOptionsCtrl.dobValid).toBe(false);
+    expect(PaymentOptionsCtrl.dobOver18).toBe(false);
+  });
 
-    expect(PaymentOptionsCtrl.citation).toEqual(citation);
-    expect(PaymentOptionsCtrl.opportunities).toEqual(opportunities);
+  it('goes to citationInfo page',inject(function(Citations,$rootScope,$q,$state){
+    var deferred = $q.defer();
+    deferred.resolve({citations:[{},{}]});
+    spyOn(Citations,'find').and.returnValue(deferred.promise);
+    spyOn($state,'go');
+    PaymentOptionsCtrl.dobValid = true;
+    PaymentOptionsCtrl.dobOver18 = true;
+    PaymentOptionsCtrl.dob = "myDate";
+    PaymentOptionsCtrl.viewPaymentOptions();
+    $rootScope.$apply();
+    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}]});
   }));
 
-  it('opens modal to open needs for an opportunity', inject(function($q, $uibModal, Opportunities, $rootScope) {
-    spyOn($uibModal, 'open');
-    var needsDefer = $q.defer();
-    needsDefer.resolve([{id: 55, need: 'Need people!'}]);
-    spyOn(Opportunities, 'findNeeds').and.returnValue(needsDefer.promise);
+  it('throws error when no citations are found',inject(function(Errors,Citations,$rootScope,$q){
+    var deferred = $q.defer();
+    deferred.resolve({citations:[]});
+    spyOn(Citations,'find').and.returnValue(deferred.promise);
+    spyOn(Errors,'makeError');
+    PaymentOptionsCtrl.dobValid = true;
+    PaymentOptionsCtrl.dobOver18 = true;
+    PaymentOptionsCtrl.dob = "myDate";
 
-    PaymentOptionsCtrl.openNeeds(opportunities[0]);
-
-    var expectedModalOptions = {
-      templateUrl: 'views/opportunityDetails.html',
-      controller: 'OpportunityDetailsCtrl as ctrl',
-      size: 'md',
-      resolve: {
-        opportunity: jasmine.any(Function),
-        needs: jasmine.any(Function)
-      }
-    };
-
-    expect($uibModal.open).toHaveBeenCalledWith(expectedModalOptions);
-    expect($uibModal.open.calls.first().args[0].resolve.opportunity()).toEqual(opportunities[0]);
-    $uibModal.open.calls.first().args[0].resolve.needs(Opportunities).then(function(needs) {
-      expect(needs).toEqual([{id: 55, need: 'Need people!'}]);
-    });
-
-    $rootScope.$apply();
+    var err = Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No tickets were found with the information provided.");
+    expect(function(){PaymentOptionsCtrl.viewPaymentOptions(); $rootScope.$apply();}).toThrow(err);
   }));
 
-  it('goes back to the ticket info page', inject(function($state) {
-    spyOn($state, 'go');
+  it('shows error when saving invalid date', inject(function(toaster) {
+    spyOn(toaster, 'pop');
+    PaymentOptionsCtrl.dobValid = false;
+    PaymentOptionsCtrl.viewPaymentOptions();
+    expect(toaster.pop).toHaveBeenCalledWith('error', 'Invalid date of birth.');
+  }));
 
-    PaymentOptionsCtrl.goBack();
-
-    expect($state.go).toHaveBeenCalledWith('citationInfo', {citations : [PaymentOptionsCtrl.citation]});
+  it('shows error when saving date for under 18 year old', inject(function(toaster) {
+    spyOn(toaster, 'pop');
+    PaymentOptionsCtrl.dobValid = true;
+    PaymentOptionsCtrl.dobOver18 = false;
+    PaymentOptionsCtrl.viewPaymentOptions();
+    expect(toaster.pop).toHaveBeenCalledWith('error', 'Sorry, you must be at least 18 years old to use this site.');
   }));
 });

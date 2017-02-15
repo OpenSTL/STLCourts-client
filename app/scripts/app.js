@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yourStlCourts', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'toaster',
-  'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet']);
+  'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet','angularMoment']);
 
 angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, $locationProvider, ENV, $httpProvider, uiSelectConfig) {
   $locationProvider.html5Mode(true);
@@ -102,23 +102,18 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       }
     })
     .state('paymentOptions', {
-      url: '/paymentOptions/:citationId',
-      templateUrl: 'views/PaymentOptions.html',
+      url: '/paymentOptions/{citationId}',
+      templateUrl: 'views/paymentOptions.html',
       controller: 'PaymentOptionsCtrl as ctrl',
       resolve: {
-        citation: function($stateParams, Citations) {
-          return Citations.getByCitationId($stateParams.citationId);
+        citationId: function($stateParams) {
+            return $stateParams.citationId;
+          }
         }
-      }
     })
     .state('communityService',{
       url: '/communityService',
       templateUrl: 'views/communityService.html'
-    })
-    .state('opportunityDetails', {
-      url: '/opportunityDetails',
-      templateUrl: 'views/opportunityDetails.html',
-      controller: 'OpportunityDetailsCtrl as ctrl'
     })
     .state('sponsorLogin', {
       url: '/sponsorLogin',
