@@ -7,7 +7,7 @@ describe('CourtSearchInfoCtrl', function() {
 
   sample_court = {
     id: 9,
-    court_name:"mySampleCourt",
+    name:"mySampleCourt",
     latitutde: 38.7947506,
     longitude: -90.26261696,
     phone: "314.555.1212",
@@ -16,13 +16,12 @@ describe('CourtSearchInfoCtrl', function() {
     address: "12500 Old Jamestown Road",
     city: "St. Louis",
     state: "MO",
-    zip_code: 63033
+    zip: 63033
   };
 
   sample_muni = {
     id: 3,
-    municipality_name: "someMuni",
-    court_id: 42
+    name: "someMuni"
   };
 
 
@@ -65,7 +64,7 @@ describe('CourtSearchInfoCtrl', function() {
   }));
 
   it('sets phone,extension,courtName, and website on initialization',inject(function(){
-    expect(CourtSearchInfoCtrl.courtName).toEqual(sample_court.court_name);
+    expect(CourtSearchInfoCtrl.courtName).toEqual(sample_court.name);
     expect(CourtSearchInfoCtrl.courtWebsite).toEqual(sample_court.website);
     expect(CourtSearchInfoCtrl.courtPhone).toEqual(sample_court.phone);
     expect(CourtSearchInfoCtrl.phoneExtension).toEqual(sample_court.extension);

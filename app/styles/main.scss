@@ -535,3 +535,17 @@ table {
 .white-space-pre-line{
   white-space: pre-line;
 }
+
+.ui-select-container {
+  .ui-select-choices-group-label {
+    font-size: 1.2em;
+    color: $black;
+    font-weight: bold;
+  }
+
+  .ui-select-choices-row.active {
+    .text-muted {
+      color: $white;
+    }
+  }
+}

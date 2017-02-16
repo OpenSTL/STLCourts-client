@@ -30,7 +30,7 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     var address = courtInfo.address.replace(' ', '+');
     var city = courtInfo.city;
     var state = courtInfo.state;
-    var zip = courtInfo.zip_code;
+    var zip = courtInfo.zip;
     var addressParts = [address, city, state, zip];
     return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
  }
@@ -42,7 +42,7 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     ctrl.courtOnMap.lat = ctrl.courtInfo.latitude;
     ctrl.courtOnMap.lng = ctrl.courtInfo.longitude;
     ctrl.courtMarkers.m1 = {lat: ctrl.courtInfo.latitude, lng: ctrl.courtInfo.longitude, message: ctrl.courtInfo.address, icon: courtDefaultIcon};
-    ctrl.courtName = ctrl.courtInfo.court_name;
+    ctrl.courtName = ctrl.courtInfo.name;
     ctrl.courtPhone = ctrl.courtInfo.phone;
     ctrl.phoneExtension = ctrl.courtInfo.extension;
     ctrl.courtWebsite = ctrl.courtInfo.website;

@@ -15,7 +15,7 @@
       </form-field>
       <form-field label="Municipality" required>
         <ui-select id="selectedMunicipality" name="selectedMunicipality" register-custom-form-control required displayName="Municipality" ng-model="ctrl.opportunity.courtId">
-          <ui-select-match placeholder="Select a Municipality">{{$select.selected.municipality_name}}</ui-select-match>
+          <ui-select-match placeholder="Select a Municipality">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="municipality.id as municipality in ctrl.municipalities | filter: $select.search track by municipality.municipality">
             <div ng-bind-html="municipality.municipality | highlight: $select.search"></div>
           </ui-select-choices>

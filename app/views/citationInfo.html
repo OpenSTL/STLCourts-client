@@ -105,13 +105,13 @@
             <dt>Court Date</dt>
             <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_date)}}</dd>
             <dt>Court Name</dt>
-            <dd>{{ctrl.selectedCitation.court.court_name}} Court</dd>
+            <dd>{{ctrl.selectedCitation.court.name}} Court</dd>
             <dt>Court Phone Number</dt>
             <dd>{{ctrl.selectedCitation.court.phone}}<span ng-if="ctrl.selectedCitation.court.extension"> x{{ctrl.selectedCitation.court.extension}}</span></dd>
             <dt>Court Location</dt>
             <dd>
               {{ctrl.selectedCitation.court.address}}<br/>
-              {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip_code}}<br/>
+              {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip}}<br/>
               <a href="{{ctrl.selectedCitation.courtDirectionLink}}" class="btn btn-scheme-primary no-print" target="_blank">GET DIRECTIONS</a>
             </dd>
           </dl>

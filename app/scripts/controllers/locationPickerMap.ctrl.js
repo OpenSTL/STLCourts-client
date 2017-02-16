@@ -2,7 +2,8 @@
 
 angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($scope, $http, $uibModalInstance, municipalities, leafletData) {
   var ctrl = this;
-  ctrl.mousedOverMunicipality = "";
+  ctrl.mousedOverMunicipality = null;
+  ctrl.selectedMunicipalities = [];
 
   ctrl.center = {
     lat:38.62775,
@@ -18,6 +19,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
     dashArray: '',
     fillOpacity: 0.5
   };
+
   var outlineStyle = {
     weight: 3,
     color: 'blue',
@@ -25,8 +27,10 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
     dashArray: '',
     fillOpacity: 0
   };
+
   function highlightFeature(e) {
-    if (!ctrl.selectedMunicipalitiesObj.idInArray(e.target.feature.id)) {
+    var municipality = getMunicipalityFromMapName(e.target.feature.properties.municipality);
+    if(!isMunicipalitySelected(municipality.id)) {
       var layer = e.target;
       layer.setStyle(outlineStyle);
 
@@ -34,25 +38,29 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
         layer.bringToFront();
       }
     }
-    ctrl.mousedOverMunicipality = mapMuniObj(e.target.feature.id,e.target.feature.properties.municipality);
+    ctrl.mousedOverMunicipality = municipality;
   }
 
   function resetHighlight(e) {
-    if (!ctrl.selectedMunicipalitiesObj.idInArray(e.target.feature.id)) {
+    var municipality = getMunicipalityFromMapName(e.target.feature.properties.municipality);
+    if(!isMunicipalitySelected(municipality.id)) {
       geoJson.resetStyle(e.target);
     }
-    ctrl.mousedOverMunicipality = "";
+    ctrl.mousedOverMunicipality = null;
   }
 
   function selectMunicipality(e) {
-    if (ctrl.selectedMunicipalitiesObj.municipalityClicked(mapMuniObj(e.target.feature.id,e.target.feature.properties.municipality))){
+    var municipality = getMunicipalityFromMapName(e.target.feature.properties.municipality);
+    if(isMunicipalitySelected(municipality.id)) {
+      removeMuncipality(municipality);
+      geoJson.resetStyle(e.target);
+    } else {
+      addMunicipality(municipality);
       var layer = e.target;
       layer.setStyle(highlightStyle);
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
       }
-    }else{
-      geoJson.resetStyle(e.target);
     }
   }
 
@@ -80,109 +88,36 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
         onEachFeature: onEachFeature
       }).addTo(map);
     });
-
   });
 
-
-  function mapMuniObj(muniId, muniName){
-    function capitalizeFirstLetter (str) {
-      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-    }
-
+  function getMunicipalityFromMapName(muniMapName){
     function getName(nameString){
-      nameString = capitalizeFirstLetter(nameString);
-      if (nameString == "Unincorporated"){
-        nameString = "St. Louis County";
+      if (nameString.toLowerCase() == "unincorporated"){
+        nameString += " St. Louis County";
       }
-      return nameString;
+
+      return nameString.replace("&", "and");
     }
 
-    return {
-      id: muniId,
-      name: getName(muniName),
-      isEqualTo: function (muniName) {
-        return (this.name == muniName.toLowerCase());
-      },
-      getDatabaseMuniEntry: function(){
-        //lookup the entry from Municipalities
-        var dbEntry = null;
-        var friendlyMuniName = this.name.replace("&","and");
-        for (var i in municipalities){
-          var dbMuniName = municipalities[i].municipality_name;
-          if (friendlyMuniName == "St. Louis County"){
-            dbEntry = {municipality_name:friendlyMuniName};
-            break;
-          }
-          if (dbMuniName.toLowerCase() == friendlyMuniName.toLowerCase()){
-            dbEntry = municipalities[i];
-            break;
-          }
-        }
-        return dbEntry;
-      }
-    }
+    return _.find(municipalities, function(municipality) {
+      return municipality.name.toLowerCase() === getName(muniMapName).toLowerCase();
+    });
   }
 
-  ctrl.selectedMunicipalitiesObj = {
-    municipalityObjs: new Array(),
-    municipalityClicked: function(municipalityObj){
-      var municipalityAdded = false;
-      if (this.idInArray(municipalityObj.id)){
-        this.removeMunicipalityObj(municipalityObj.id);
-      }else{
-        this.addMunicipalityObj(municipalityObj);
-        municipalityAdded = true;
-      }
-      return municipalityAdded;
-    },
-    addMunicipalityObj: function(municipalityObj){
-      this.municipalityObjs.push(municipalityObj);
-    },
-    removeMunicipalityObj: function (municipalityId) {
-      for(var index in this.municipalityObjs){
-        if (this.municipalityObjs[index].id == municipalityId){
-          this.municipalityObjs.splice(index,1);
-        }
-      }
-    },
-    getArrayOfNames: function(){
-      //this function removes duplicate names while allowing the selectedMunicipalitesObj to retain duplicated names with different ids
-      var arrayOfNames = new Array();
-      var countyInArray = false;
-      for(var index in this.municipalityObjs){
-        arrayOfNames.push(this.municipalityObjs[index].name);
-        if (this.municipalityObjs[index].name == "St. Louis County"){
-          if (!countyInArray){
-            countyInArray = true;
-          }else{
-            arrayOfNames.pop();  //only need one entry for county so don't add again.
-          }
+  function isMunicipalitySelected(municipalityId) {
+    return !!_.find(ctrl.selectedMunicipalities, {id: municipalityId});
+  }
 
-        }
-      }
-      return arrayOfNames;
-    },
-    getArrayOfDatabaseObj: function(){
-      var arrayOfDatabaseObj = new Array();
-      for(var index in this.municipalityObjs){
-        arrayOfDatabaseObj.push(this.municipalityObjs[index].getDatabaseMuniEntry());
-      }
-      return arrayOfDatabaseObj;
-    },
-    idInArray: function(idToFind){
-      var found = false;
-      for(var index in this.municipalityObjs){
-        if (this.municipalityObjs[index].id == idToFind){
-          found = true;
-          break;
-        }
-      }
-      return found;
-    }
-  };
+  function addMunicipality(municipality) {
+    ctrl.selectedMunicipalities.push(municipality);
+  }
+
+  function removeMuncipality(municipality) {
+    _.pull(ctrl.selectedMunicipalities, municipality);
+  }
 
   ctrl.selectLocation = function(){
-    $uibModalInstance.close(ctrl.selectedMunicipalitiesObj.getArrayOfDatabaseObj());
+    $uibModalInstance.close(ctrl.selectedMunicipalities);
   };
 
   ctrl.cancel = function() {

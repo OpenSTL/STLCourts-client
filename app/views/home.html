@@ -2,10 +2,18 @@
   <h1>Your Ticket. Your Rights. Right at your Fingertips.</h1>
 
   <span id="searchBoxInstructions">Use the search box below to find relevant court information</span>
-  <ui-select id="municipalitiesFinder" name="municipalitiesFinder" ng-model="ctrl.selectedMunicipality" on-select="ctrl.municipalitySelected();" ng-click="ctrl.clearTicketFinder();">
-    <ui-select-match placeholder="Enter your City...">{{$select.selected.municipality_name}}</ui-select-match>
-    <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search">
-      <div ng-bind-html="municipality.municipality_name | highlight: $select.search"></div>
+  <ui-select id="municipalitiesFinder" name="municipalitiesFinder" ng-model="ctrl.selectedCitySearchGroup" on-select="ctrl.onCitySearchGroupSelected()" ng-click="ctrl.clearTicketFinder()">
+    <ui-select-match placeholder="Enter your City...">{{$select.selected.municipalityName}}</ui-select-match>
+    <ui-select-choices group-by="ctrl.groupCourts" repeat="searchGroup in ctrl.citySearchGroups | filter: $select.search">
+      <div ng-switch="searchGroup.municipalityCourtCount > 1">
+        <span ng-switch-when="true">
+          <span ng-bind-html="searchGroup.court.name | highlight: $select.search"></span>&nbsp;Court</span>
+        </span>
+        <span ng-switch-when="false">
+          <span ng-bind-html="searchGroup.municipalityName | highlight: $select.search"></span>&nbsp;
+          <small class="text-muted">(<span ng-bind-html="searchGroup.court.name | highlight: $select.search"></span>&nbsp;Court)</small>
+        </span>
+      </div>
     </ui-select-choices>
     <ui-select-no-choice>
       Please select a valid city name.
