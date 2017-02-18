@@ -17,6 +17,7 @@ describe('PaymentOptionsCtrl', function () {
         Errors: Errors
       });
       $httpBackend.whenGET(/municipalities/).respond(200, '');
+      $httpBackend.whenGET(/courts/).respond(200, '');
     });
   });
 
@@ -34,8 +35,10 @@ describe('PaymentOptionsCtrl', function () {
     PaymentOptionsCtrl.dobValid = true;
     PaymentOptionsCtrl.dobOver18 = true;
     PaymentOptionsCtrl.dob = "myDate";
+
     PaymentOptionsCtrl.viewPaymentOptions();
     $rootScope.$apply();
+
     expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}]});
   }));
 
