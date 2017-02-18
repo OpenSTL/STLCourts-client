@@ -74,7 +74,7 @@ p, ul, ol,
 .homepageTileSelected .ui-select-toggle,
 .homepageTileSelected ul,
 .homepageTileSelected input{
-  font-size: 1.1rem;
+  font-size: $standard_font_size;
 }
 
 ul.indent-only{
@@ -534,6 +534,10 @@ table {
 
 .white-space-pre-line{
   white-space: pre-line;
+}
+
+.dob-date-picker-modal{
+  text-align: center;
 }
 
 .ui-select-container {
