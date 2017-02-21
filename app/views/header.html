@@ -19,7 +19,7 @@
             <li><a ui-sref="info">Search Court/Info</a></li>
             <li><a ui-sref="communityService">Community Service Options</a></li>
             <li><a ui-sref="help">Help</a></li>
-            <li class="visibl e-xs-* hidden-sm hidden-md hidden-lg"><a ui-sref="about">About</a></li>
+            <li class="visible-xs-* hidden-sm hidden-md hidden-lg"><a ui-sref="about">About</a></li>
           </ul>
           <div class="primary" style="position: relative; float: right; font-size: 1.2em; padding-top: 10px;" ng-if="ctrl.isAuthenticated()">
             Logged in as: {{ctrl.getAuthenticatedSponsor().name}}&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm" ng-click="ctrl.logout()">Logout</button>
