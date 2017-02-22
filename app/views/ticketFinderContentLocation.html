@@ -2,10 +2,10 @@
   <input type="text" ng-model="ctrl.citationCriteria.lastName" required ng-maxlength="20" displayName="Last Name" />
 </form-field>
 <form-field required>
-  <ui-select id="selectedMunicipality" multiple name="selectedMunicipality" register-custom-form-control required displayName="Municipality" ng-model="ctrl.citationCriteria.municipalityNames">
-    <ui-select-match placeholder="Select a City">{{$item.municipality_name}}</ui-select-match>
-    <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search track by municipality.municipality_name">
-      <div ng-bind-html="municipality.municipality_name | highlight: $select.search"></div>
+  <ui-select id="selectedMunicipality" multiple name="selectedMunicipality" register-custom-form-control required displayName="Municipality" ng-model="ctrl.citationCriteria.municipalities">
+    <ui-select-match placeholder="Select a City">{{$item.name}}</ui-select-match>
+    <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search track by municipality.id">
+      <div ng-bind-html="municipality.name | highlight: $select.search"></div>
     </ui-select-choices>
   </ui-select>
 </form-field>

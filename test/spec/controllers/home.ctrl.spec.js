@@ -3,66 +3,67 @@
 describe('HomeCtrl', function() {
   var HomeCtrl;
   var municipalities;
-  var ticketFinder;
-
-  var municipalityArray = [{
-    id: 9,
-    municipality_name: "Black Jack",
-    court_id: 10
-  }];
-
-  municipalities = {
-    municipalitiesMapNames: function(){
-      return (municipalityArray);
-    }
-  };
-
-
-  ticketFinder = {
-    finderSelected: "SomeValue",
-    TicketFinderToSelect:{
-      NONE : 'NONE',
-      DUMMY : 'DUMMY'
-    }
-  };
+  var courts;
 
   beforeEach(function() {
     module('yourStlCourts');
 
-    inject(function($controller,$state,$httpBackend){
+    municipalities = [{id: 9, name: 'Black Jack', courts: [100]}, {id: 8, name: 'Beverly Hills', courts: [100, 101]}];
+    courts = [{id: 100, name: 'Black Jack Court'}, {id: 101, name: 'Beverly Hills Court'}];
+
+    inject(function($controller, $state, $httpBackend, TicketFinder){
       HomeCtrl = $controller('HomeCtrl',{
         $state: $state,
-        Municipalities:municipalities,
-        TicketFinder:ticketFinder
+        municipalities: municipalities,
+        courts: courts,
+        TicketFinder: TicketFinder
       });
 
       $httpBackend.whenGET(/municipalities/).respond(200, '');
+      $httpBackend.whenGET(/courts/).respond(200, '');
     });
   });
 
-  it('sets municipalities on initialization',inject(function(){
-    expect(HomeCtrl.municipalities).toEqual(municipalityArray);
+  it('sets properties on initialization',inject(function(TicketFinder){
+    expect(HomeCtrl.citySearchGroups).toEqual([
+      {municipalityName: 'Black Jack', municipalityCourtCount: 1, court: courts[0]},
+      {municipalityName: 'Beverly Hills', municipalityCourtCount: 2, court: courts[0]},
+      {municipalityName: 'Beverly Hills', municipalityCourtCount: 2, court: courts[1]}
+      ]);
+    expect(HomeCtrl.municipalities).toEqual(municipalities);
+    expect(HomeCtrl.finderSelected).toEqual(TicketFinder.TicketFinderToSelect.NONE);
   }));
 
-  it('clears TicketFinderToSelect on inititialization',inject(function(){
-    expect(HomeCtrl.finderSelected).toEqual(ticketFinder.TicketFinderToSelect.NONE);
-  }));
+  it('updates finderSelected',inject(function(TicketFinder){
+    HomeCtrl.updateFinderSelected(TicketFinder.TicketFinderToSelect.DUMMY);
 
-  it('updates finderSelected',inject(function(){
-    HomeCtrl.updateFinderSelected(ticketFinder.TicketFinderToSelect.DUMMY);
-    expect(HomeCtrl.finderSelected).toEqual(ticketFinder.TicketFinderToSelect.DUMMY);
+    expect(HomeCtrl.finderSelected).toEqual(TicketFinder.TicketFinderToSelect.DUMMY);
   }));
 
   it('goes to court search results page',inject(function($state){
     spyOn($state,'go');
-    HomeCtrl.selectedMunicipality = {id:10, municipality:"someMuni",court_id:5};
-    HomeCtrl.municipalitySelected();
-    expect($state.go).toHaveBeenCalledWith('courtSearchInfo',{courtId:HomeCtrl.selectedMunicipality.court_id});
+    HomeCtrl.selectedCitySearchGroup = { municipalityName:"someMuni", court: {id: 5} };
+
+    HomeCtrl.onCitySearchGroupSelected();
+
+    expect($state.go).toHaveBeenCalledWith('courtSearchInfo',{courtId:HomeCtrl.selectedCitySearchGroup.court.id});
   }));
 
-  it('clears TicketFinderToSelect',inject(function(){
+  it('clears TicketFinderToSelect',inject(function(TicketFinder){
     HomeCtrl.clearTicketFinder();
-    expect(HomeCtrl.finderSelected).toEqual(ticketFinder.TicketFinderToSelect.NONE);
+
+    expect(HomeCtrl.finderSelected).toEqual(TicketFinder.TicketFinderToSelect.NONE);
   }));
 
+  it('does not group courts with 1 court', function() {
+    var groupResult = HomeCtrl.groupCourts(HomeCtrl.citySearchGroups[0]);
+
+    expect(groupResult).toBeUndefined();
+  });
+
+  it('groups courts into city search groups with multiple courts', function() {
+    var groupResult = HomeCtrl.groupCourts(HomeCtrl.citySearchGroups[1]);
+
+    expect(groupResult).toEqual(HomeCtrl.citySearchGroups[1].municipalityName);
+  });
 });

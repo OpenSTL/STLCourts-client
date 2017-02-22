@@ -1,9 +1,7 @@
 'use strict';
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder,Citations,States,Municipalities,$uibModal,toaster,$state) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state) {
   var ctrl = this;
   ctrl.states = States;
-  ctrl.modifiedMunicipalities = Municipalities.combineCountyMunis();
-  ctrl.municipalitiesMapNames = Municipalities.municipalitiesMapNames();
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
   ctrl.citationCriteria = {};
 
@@ -14,7 +12,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
       licenseState: 'MO',
       firstName: null,
       lastName: null,
-      municipalityNames: null,
+      municipalities: null,
       dob: null
     };
   }
@@ -59,7 +57,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
         params.licenseState = ctrl.citationCriteria.licenseState;
         break;
       case ctrl.TicketFinderToSelect.LOCATION:
-        params.municipalityNames = Municipalities.translateMapNamesToDatabaseNames(ctrl.citationCriteria.municipalityNames);
+        params.municipalityIds = _.map(ctrl.citationCriteria.municipalities, 'id');
         params.lastName = ctrl.citationCriteria.lastName;
         break;
     }
@@ -85,7 +83,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.openMap = function(){
     //see http://angular-ui.github.io/bootstrap/ for documentation
     //could change this so that instead of setting to null pass on to the dialog and dialog can preselect the items
-    ctrl.citationCriteria.municipalityNames = null;
+    ctrl.citationCriteria.municipalities = [];
 
     var modalInstance = $uibModal.open({
       templateUrl: 'views/locationPickerMap.html',
@@ -94,13 +92,15 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
       backdrop: false,
       resolve: {
         municipalities: function() {
-          return ctrl.municipalitiesMapNames;
+          return Municipalities.findAll();
         }
       }
     });
 
     modalInstance.result.then(function (selectedMunicipalities) {
-      ctrl.citationCriteria.municipalityNames = selectedMunicipalities;
+      ctrl.citationCriteria.municipalities = selectedMunicipalities;
     });
   };
+
+  initializeCitationCriteria();
 });

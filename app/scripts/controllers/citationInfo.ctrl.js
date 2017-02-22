@@ -29,8 +29,8 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.paymentWebsite = function(){
     var websiteURL = "";
     if (ctrl.selectedCitation && ctrl.selectedCitation.court) {
-      if (ctrl.selectedCitation.court.payment_system in ctrl.paymentData){
-        websiteURL = ctrl.paymentData[ctrl.selectedCitation.court.payment_system];
+      if (ctrl.selectedCitation.court.paymentSystem in ctrl.paymentData){
+        websiteURL = ctrl.paymentData[ctrl.selectedCitation.court.paymentSystem];
       }
     }
     return websiteURL;
@@ -50,7 +50,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     var address = citation.court.address.replace(' ', '+');
     var city = citation.court.city;
     var state = citation.court.state;
-    var zip = citation.court.zip_code;
+    var zip = citation.court.zip;
     var addressParts = [address, city, state, zip];
     return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
   }
