@@ -4,8 +4,10 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   var ctrl = this;
   ctrl.mousedOverMunicipality = null;
   ctrl.selectedMunicipalities = [];
+  var selectedMapMunicipalityIds = [];
+  var unincorporatedCount = 0;
 
-  ctrl.center = {
+    ctrl.center = {
     lat:38.62775,
     lng:-90.381801,
     zoom: 10
@@ -29,8 +31,9 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   };
 
   function highlightFeature(e) {
+    var mapMunicipalityId = e.target.feature.id;
     var municipality = getMunicipalityFromMapName(e.target.feature.properties.municipality);
-    if(!isMunicipalitySelected(municipality.id)) {
+    if(!isMunicipalitySelected(mapMunicipalityId)) {
       var layer = e.target;
       layer.setStyle(outlineStyle);
 
@@ -42,20 +45,21 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   }
 
   function resetHighlight(e) {
-    var municipality = getMunicipalityFromMapName(e.target.feature.properties.municipality);
-    if(!isMunicipalitySelected(municipality.id)) {
+    var mapMunicipalityId = e.target.feature.id;
+    if(!isMunicipalitySelected(mapMunicipalityId)) {
       geoJson.resetStyle(e.target);
     }
     ctrl.mousedOverMunicipality = null;
   }
 
   function selectMunicipality(e) {
+    var mapMunicipalityId = e.target.feature.id;
     var municipality = getMunicipalityFromMapName(e.target.feature.properties.municipality);
-    if(isMunicipalitySelected(municipality.id)) {
-      removeMuncipality(municipality);
+    if(isMunicipalitySelected(mapMunicipalityId)) {
+      removeMuncipality(municipality, mapMunicipalityId);
       geoJson.resetStyle(e.target);
     } else {
-      addMunicipality(municipality);
+      addMunicipality(municipality, mapMunicipalityId);
       var layer = e.target;
       layer.setStyle(highlightStyle);
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -68,7 +72,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
-      click:selectMunicipality
+      click: selectMunicipality
     });
   }
 
@@ -104,16 +108,42 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
     });
   }
 
-  function isMunicipalitySelected(municipalityId) {
-    return !!_.find(ctrl.selectedMunicipalities, {id: municipalityId});
+  function isMunicipalitySelected(mapMunicipalityId) {
+    return _.includes(selectedMapMunicipalityIds, mapMunicipalityId);
   }
 
-  function addMunicipality(municipality) {
-    ctrl.selectedMunicipalities.push(municipality);
+  function addMunicipality(municipality, mapMunicipalityId) {
+    updateUnincorporatedCount(municipality, true);
+    if(!_.find(ctrl.selectedMunicipalities, {id: municipality.id})) {
+      ctrl.selectedMunicipalities.push(municipality);
+    }
+    selectedMapMunicipalityIds.push(mapMunicipalityId);
   }
 
-  function removeMuncipality(municipality) {
-    _.pull(ctrl.selectedMunicipalities, municipality);
+  function removeMuncipality(municipality, mapMunicipalityId) {
+    updateUnincorporatedCount(municipality, false);
+
+    var unincorporated = isUnincorporated(municipality);
+    var shouldRemove = unincorporated ? unincorporatedCount === 0 : true;
+    if(shouldRemove) {
+      _.pull(ctrl.selectedMunicipalities, municipality);
+    }
+
+    _.pull(selectedMapMunicipalityIds, mapMunicipalityId);
+  }
+
+  function updateUnincorporatedCount(municipality, isAdded) {
+    if(isUnincorporated(municipality)) {
+      if(isAdded) {
+        unincorporatedCount++;
+      } else {
+        unincorporatedCount--;
+      }
+    }
+  }
+
+  function isUnincorporated(municipality) {
+    return municipality.name.toLowerCase().indexOf('unincorporated') >= 0;
   }
 
   ctrl.selectLocation = function(){
