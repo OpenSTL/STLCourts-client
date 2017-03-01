@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts, moment) {
   var ctrl = this;
   ctrl.faqData = faqData;
   ctrl.paymentData = paymentData;
@@ -114,16 +114,12 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     $window.print();
   };
 
-  ctrl.formatDate = function(dateToFormat){
-    //TODO use moment once we find out how.
-    //return moment(dateToFormat).format('MM/DD/YYYY');
-    return mmddyyyyFormat(dateToFormat);
-    //return dateToFormat;
+  ctrl.formatDate = function(dateObjToFormat){
+    return moment(dateObjToFormat).format("MM/DD/YYYY");
   };
-  function mmddyyyyFormat (dateToFormat){//translates from iso date
-    if(dateToFormat === null){return null;}
-    dateToFormat = dateToFormat.slice(5,7) + "/" + dateToFormat.slice(8,10) + "/" + dateToFormat.slice(0,4);
 
-    return dateToFormat;
-  }
+  ctrl.formatTime = function(dateTimeObjToFormat){
+    return moment(dateTimeObjToFormat).format("hh:mm A");
+  };
+
 });
