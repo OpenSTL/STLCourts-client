@@ -2,6 +2,7 @@
 angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
   var ctrl = this;
   ctrl.faqName = camelize(ctrl.groupTitle);
+  ctrl.autolinker = new Autolinker({stripPrefix:false});
 
   ctrl.keywordFilter = function(faqItem){
       var found = false;
