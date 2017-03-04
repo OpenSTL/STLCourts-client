@@ -5,7 +5,7 @@ angular.module('yourStlCourts').factory('Courts', function ($resource, $q) {
   var courts;
 
   function findById(id){
-    return !!courts ? $q.when(_.cloneDeep(_.find(courts, {id: parseInt(id)}))) : CourtResource.get({id: id}).$promise;
+    return !!courts ? $q.when(_.cloneDeep(_.find(courts, {id: id}))) : CourtResource.get({id: id}).$promise;
   }
 
   function findAll() {

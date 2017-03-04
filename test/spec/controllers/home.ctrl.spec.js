@@ -8,8 +8,8 @@ describe('HomeCtrl', function() {
   beforeEach(function() {
     module('yourStlCourts');
 
-    municipalities = [{id: 9, name: 'Black Jack', courts: [100]}, {id: 8, name: 'Beverly Hills', courts: [100, 101]}];
-    courts = [{id: 100, name: 'Black Jack Court'}, {id: 101, name: 'Beverly Hills Court'}];
+    municipalities = [{id: "XYZ", name: 'Black Jack', courts: ["ABC"]}, {id: "MNO", name: 'Beverly Hills', courts: ["ABC", "DEF"]}];
+    courts = [{id: "ABC", name: 'Black Jack Court'}, {id: "DEF", name: 'Beverly Hills Court'}];
 
     inject(function($controller, $state, $httpBackend, TicketFinder){
       HomeCtrl = $controller('HomeCtrl',{
@@ -42,7 +42,7 @@ describe('HomeCtrl', function() {
 
   it('goes to court search results page',inject(function($state){
     spyOn($state,'go');
-    HomeCtrl.selectedCitySearchGroup = { municipalityName:"someMuni", court: {id: 5} };
+    HomeCtrl.selectedCitySearchGroup = { municipalityName:"someMuni", court: {id: "HIJ"} };
 
     HomeCtrl.onCitySearchGroupSelected();
 
