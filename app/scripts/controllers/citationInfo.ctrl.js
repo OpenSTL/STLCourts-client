@@ -115,17 +115,19 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   };
 
   ctrl.formatDate = function(dateObjToFormat){
-    if (dateObjToFormat)
+    if (dateObjToFormat) {
       return moment(dateObjToFormat).format("MM/DD/YYYY");
-    else
+    }else {
       return "";
+    }
   };
 
-  ctrl.formatTime = function(dateTimeObjToFormat){
-    if (dateTimeObjToFormat)
+  ctrl.formatTime = function(dateTimeObjToFormat) {
+    if (dateTimeObjToFormat){
       return moment(dateTimeObjToFormat).format("hh:mm A");
-    else
+    }else{
       return "";
+    }
   };
 
 });
