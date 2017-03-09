@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts,Session) {
   var ctrl = this;
   ctrl.faqData = faqData;
   ctrl.paymentData = paymentData;
@@ -37,8 +37,12 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   };
 
   if(!citations) {
+    Session.addLatestCitationResults(null);
+    console.log("added to Session: null");
     $state.go('home');
   } else {
+    Session.addLatestCitationResults(citations);
+    console.log("added to Session");
     ctrl.citations = citations;
     ctrl.selectedCitation = null;
     if(ctrl.citations.length === 1) {
