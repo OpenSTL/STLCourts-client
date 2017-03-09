@@ -91,19 +91,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
       },
       resolve: {
         citations: function ($stateParams,Session) {
-          var citations = null;
-          if ($stateParams.citations) {
-            console.log("reading from looked up");
-            citations = $stateParams.citations;
-            Session.addLatestCitationResults(citations);
-          }else{
-            var citations = Session.getLatestCitationResults();
-             if (citations)
-             console.log("reading from Session");
-             else
-             console.log("reading from Session: null");
-          }
-          return citations;
+          return Session.getLatestCitations($stateParams.citations);
         },
         faqData: function ($http) {
           return $http.get('data/questionAnswers.json').then(function (data) {
@@ -168,7 +156,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,Session) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
@@ -176,6 +164,5 @@ angular.module('yourStlCourts').run(function ($rootScope, validator, validationE
     $rootScope.$on('$stateChangeSuccess', function () {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-    //Session.initialize();
   }
 );

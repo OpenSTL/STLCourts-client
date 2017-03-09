@@ -4,13 +4,16 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   var ctrl = this;
   ctrl.faqData = faqData;
   ctrl.paymentData = paymentData;
+  ctrl.selectedCitation = null;
 
   ctrl.selectCitation = function(citation){
-    ctrl.selectedCitation = citation;
-    Courts.findById(citation.court_id).then(function(court){
-      ctrl.selectedCitation.court = court;
-      ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
-    });
+    ctrl.selectedCitation = Session.storeSelectedCitation(citation);
+    if (ctrl.selectedCitation) {
+      Courts.findById(citation.court_id).then(function (court) {
+        ctrl.selectedCitation.court = court;
+        ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
+      });
+    }
   };
 
   ctrl.hasWarrant = function(){
@@ -37,16 +40,13 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   };
 
   if(!citations) {
-    Session.addLatestCitationResults(null);
-    console.log("added to Session: null");
     $state.go('home');
   } else {
-    Session.addLatestCitationResults(citations);
-    console.log("added to Session");
     ctrl.citations = citations;
-    ctrl.selectedCitation = null;
     if(ctrl.citations.length === 1) {
       ctrl.selectCitation(ctrl.citations[0]);
+    }else{
+      ctrl.selectCitation(Session.getLastSelectedCitation());
     }
   }
 
