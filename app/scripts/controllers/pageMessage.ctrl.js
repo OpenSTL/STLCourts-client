@@ -2,7 +2,6 @@
 
 angular.module('yourStlCourts').controller('PageMessageCtrl', function (PageMessage, $state) {
   var ctrl = this;
-
   ctrl.hasMessage = function(){
     return PageMessage.hasMessage();
   };
