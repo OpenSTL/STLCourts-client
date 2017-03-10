@@ -13,9 +13,9 @@ describe('Courts', function() {
   });
 
   it('finds a court by id', function() {
-    $httpBackend.expectGET(httpRoot + '/courts/5').respond(200);
+    $httpBackend.expectGET(httpRoot + '/courts/ABC').respond(200);
 
-    Courts.findById(5);
+    Courts.findById("ABC");
 
     $httpBackend.flush();
   });

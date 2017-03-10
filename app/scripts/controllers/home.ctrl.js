@@ -30,7 +30,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $
         groups.push({
           municipalityName: municipality.name,
           municipalityCourtCount: municipality.courts.length,
-          court: _.find(courts, {id: parseInt(courtId)})
+          court: _.find(courts, {id: courtId})
         });
       });
     });
