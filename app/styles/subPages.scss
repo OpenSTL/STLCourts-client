@@ -109,7 +109,8 @@
 }
 
 .sub-page-container .page-anchor-menu a{
-  color: $scheme_magenta !important;
+  color: $grey !important;
+  text-transform: lowercase;
 }
 
 #mapid{
