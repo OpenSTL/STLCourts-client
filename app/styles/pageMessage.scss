@@ -1,0 +1,52 @@
+@import "_colors";
+@import "_constants";
+
+.page-message-message{
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-align: center;
+  padding:10px 10px;
+}
+
+.page-message-has-link{
+  cursor:pointer;
+}
+
+.large-screen-message{
+  position:absolute;
+  top:0;
+  right:0;
+  min-width:250px;
+  max-width:400px;
+  min-height:25px;
+  border-bottom-left-radius: 7px;
+  -webkit-border-bottom-left-radius: 7px;
+  background-color: $scheme_limeGreen;
+  z-index: 11;
+}
+
+.small-screen-message{
+  position:relative;
+  display:block;
+  border-radius:5px;
+  -webkit-border-radius: 5px;
+  min-height:25px;
+  z-index: 9;
+  margin:0 auto 10px auto;
+  background-color: $scheme_limeGreen;
+  width:80%;
+}
+
+@media only screen and (max-width: 767px) {
+  .large-screen-message{
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .small-screen-message{
+    display:none;
+  }
+}
