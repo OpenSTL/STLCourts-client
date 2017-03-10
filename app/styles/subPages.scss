@@ -81,6 +81,7 @@
 .sub-page-container .page-anchor-menu{
   margin-left: $subPageMargin;
   font-size: $standard_font_size !important;
+  margin-bottom:1.5rem;
 }
 
 .sub-page-container .page-anchor-menu li:first-child{
@@ -109,8 +110,7 @@
 }
 
 .sub-page-container .page-anchor-menu a{
-  color: $grey !important;
-  text-transform: lowercase;
+  color: $scheme_magenta !important;
 }
 
 #mapid{
