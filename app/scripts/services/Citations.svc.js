@@ -7,10 +7,7 @@ angular.module('yourStlCourts').factory('Citations', function ($resource,$q) {
     var deferred = $q.defer();
     CitationResource.get(parameters,function(citations){
       for(var count = 0; count < citations.length; count++){
-        citations[count].citation_date = getDate(citations[count].citation_date);
-        citations[count].date_of_birth = getDate(citations[count].date_of_birth);
-        citations[count].court_dateTime = getDate(citations[count].court_dateTime);
-        violationDateCreate(citations[count].violations);
+        convertCitationDateStringsToDates(citations[count]);
       }
       deferred.resolve(citations);
     });
@@ -21,10 +18,7 @@ angular.module('yourStlCourts').factory('Citations', function ($resource,$q) {
   function getByCitationId(citationId) {
     var deferred = $q.defer();
     CitationResource.get(parameters).then(function(citation){
-      citations[count].citation_date = getDate(citations[count].citation_date);
-      citations[count].date_of_birth = getDate(citations[count].date_of_birth);
-      citations[count].court_dateTime = getDate(citations[count].court_dateTime);
-      violationDateCreate(citation.violations);
+      convertCitationDateStringsToDates(citation);
       deferred.resolve(citation);
     });
 
@@ -43,6 +37,13 @@ angular.module('yourStlCourts').factory('Citations', function ($resource,$q) {
     }else{
       return null;
     }
+  }
+
+  function convertCitationDateStringsToDates(citation){
+    citation[count].citation_date = getDate(citation[count].citation_date);
+    citation[count].date_of_birth = getDate(citation[count].date_of_birth);
+    citation[count].court_dateTime = getDate(citation[count].court_dateTime);
+    violationDateCreate(citation.violations);
   }
 
   var svc = {
