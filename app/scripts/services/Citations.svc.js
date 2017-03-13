@@ -13,8 +13,6 @@ angular.module('yourStlCourts').factory('Citations', function ($resource,$q) {
         violationDateCreate(citations[count].violations);
       }
       deferred.resolve(citations);
-    },function(error){
-      deferred.reject(error);
     });
 
     return deferred.promise;
@@ -28,8 +26,6 @@ angular.module('yourStlCourts').factory('Citations', function ($resource,$q) {
       citations[count].court_dateTime = getDate(citations[count].court_dateTime);
       violationDateCreate(citation.violations);
       deferred.resolve(citation);
-    },function(error){
-      deferred.reject(error);
     });
 
     return deferred.promise;
