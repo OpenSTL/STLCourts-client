@@ -22,6 +22,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/loading.css">
     <link rel="stylesheet" href="styles/subPages.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/footer.css">
@@ -30,6 +31,7 @@
     <!-- endbuild -->
   </head>
   <body id="top" ng-app="yourStlCourts">
+    <loading></loading>
     <toaster-container></toaster-container>
       <stl-courts-header id="headerContent"></stl-courts-header>
 
@@ -110,6 +112,7 @@
     <script src="scripts/directives/ngTranscludeReplace.dir.js"></script>
     <script src="scripts/directives/stlCourtsDatepicker.dir.js"></script>
     <script src="scripts/directives/mainSearchBoxHeight.dir.js"></script>
+    <script src="scripts/directives/loading.dir.js"></script>
 
     <script src="scripts/components/stlCourtsHeader.comp.js"></script>
     <script src="scripts/components/stlCourtsFooter.comp.js"></script>

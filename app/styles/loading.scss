@@ -1,0 +1,40 @@
+@import "_colors";
+@import "_constants";
+
+#long-load{
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  position:fixed;
+  display:block;
+  z-index: 100;
+  background-color: #000000;
+  opacity: .8;
+}
+
+#long-load-image-holder{
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  position:fixed;
+  display:block;
+  z-index: 101;
+  text-align: center;
+}
+
+#long-load-image{
+  position:relative;
+  height:100px;
+  top:50%;
+  margin-top:-50px;
+  color: $scheme_blue;
+}
+
+#long-load-image span{
+  margin-top:10px;
+  display:block;
+}
+
+
