@@ -22,6 +22,12 @@ angular.module('yourStlCourts').directive('loading', function($timeout){
         $(element).addClass("hidden");
         fastEnough = true;
       });
+
+      $scope.$on('$stateChangeError',function(){
+          //if there was an error, remove the spinning wait icon and let system handle error
+        $(element).addClass("hidden");
+        fastEnough = true;
+      });
     }
   }
 });
