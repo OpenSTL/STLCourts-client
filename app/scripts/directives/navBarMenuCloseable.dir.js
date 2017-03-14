@@ -2,7 +2,7 @@
 
   angular.module('yourStlCourts').directive('navBarMenuCloseable', function($document){
     return{
-      restrict: 'C',
+      restrict: 'A',
       link: function($scope,element,attrs){
         $document.on('click',function (event) {
           var clickover = $(event.target);
@@ -13,7 +13,6 @@
         });
 
         element.on('$destroy',function(){
-          console.log("destroyed");
           $document.off('click');
         });
       }
