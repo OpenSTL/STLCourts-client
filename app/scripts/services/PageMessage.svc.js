@@ -6,7 +6,6 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope) {
 
   function setMessage(messageHtml){
     message = messageHtml;
-    $rootScope.$broadcast('pageMessageUpdated');
   }
 
   function set(messageHtml,stateToGoTo){

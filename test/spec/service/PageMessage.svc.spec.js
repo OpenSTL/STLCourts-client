@@ -23,7 +23,6 @@ describe('PageMessage', function() {
     spyOn($rootScope,'$broadcast');
     PageMessage.setMessage("Hello");
     expect(PageMessage.getMessage()).toEqual("Hello");
-    expect($rootScope.$broadcast).toHaveBeenCalledWith('pageMessageUpdated');
     expect(PageMessage.hasMessage()).toBe(true);
   }));
 
@@ -31,7 +30,6 @@ describe('PageMessage', function() {
     spyOn($rootScope,'$broadcast');
     PageMessage.set("Bye","MyLink");
     expect(PageMessage.getMessage()).toEqual("Bye");
-    expect($rootScope.$broadcast).toHaveBeenCalledWith('pageMessageUpdated');
     expect(PageMessage.hasMessage()).toBe(true);
 
     expect(PageMessage.getLink()).toEqual("MyLink");
