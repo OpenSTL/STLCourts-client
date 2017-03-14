@@ -7,7 +7,8 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.selectedCitation = null;
 
   ctrl.selectCitation = function(citation){
-    ctrl.selectedCitation = Session.storeSelectedCitation(citation);
+    ctrl.selectedCitation = citation;
+    Session.setSelectedCitation(ctrl.selectedCitation);
     if (ctrl.selectedCitation) {
       Courts.findById(citation.court_id).then(function (court) {
         ctrl.selectedCitation.court = court;

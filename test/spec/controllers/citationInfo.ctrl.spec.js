@@ -61,7 +61,7 @@ describe('CitationInfoCtrl', function () {
 
   var session = {
     getLastSelectedCitation:function(){return null},
-    storeSelectedCitation:function(value){return value}
+    setSelectedCitation:function(value){}
   };
 
   var expectedAddress = "https://maps.google.com?saddr=Current+Location&daddr=" + "123+Anystreet+anyCity+MO+12345";

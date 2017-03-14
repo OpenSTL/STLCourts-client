@@ -10,23 +10,25 @@ describe('Session', function() {
     });
   });
 
-  it('returns Null if no latest Citations', function() {
-    var returnedCitations = Session.getLatestCitations(null);
-    expect(returnedCitations).toBe(null);
-  });
-
-  it('correctly returns latest Citations', function(){
-    var returnedCitations = Session.getLatestCitations(citations);
-    expect(returnedCitations).toEqual(citations);
-    returnedCitations = Session.getLatestCitations(null);
-    expect(returnedCitations).toEqual(citations);
-  });
-
-  if('returns correctly stores latest citation and returns latestCitation', function(){
-    var storedCitation = Session.storeSelectedCitation(citations[1]);
-    expect(storedCitation.id).toEqual(12);
+  it('initializes to null correctly', function(){
+    var returnedCitations = Session.getLatestCitations();
     var returnedCitation = Session.getLastSelectedCitation();
-    expect(returnedCitation.id).toEqual(12);
+
+    expect(returnedCitations).toBe(null);
+    expect(returnedCitation).toBe(null);
+
+  });
+
+  it('correctly returns latest citations', function(){
+    Session.setLatestCitations(citations);
+    var returnedCitations = Session.getLatestCitations();
+    expect(returnedCitations).toEqual(citations);
+  });
+
+  it('correctly returns last selected citation', function(){
+    Session.setSelectedCitation(citations[1]);
+    var returnedCitation = Session.getLastSelectedCitation();
+    expect(returnedCitation).toEqual(citations[1]);
   });
 
 });

@@ -91,7 +91,12 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
       },
       resolve: {
         citations: function ($stateParams,Session) {
-          return Session.getLatestCitations($stateParams.citations);
+          var citations = Session.getLatestCitations();
+          if ($stateParams.citations){
+            citations = $stateParams.citations;
+            Session.setLatestCitations(citations);
+          }
+          return citations;
         },
         faqData: function ($http) {
           return $http.get('data/questionAnswers.json').then(function (data) {

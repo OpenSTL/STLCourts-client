@@ -3,27 +3,27 @@
 angular.module('yourStlCourts').factory('Session', function () {
   var latestCitations = null;
   var lastSelectedCitation = null;
-  function getLatestCitations(citations) {
-    if (!citations) {
-      citations = latestCitations;
-    }
+  function getLatestCitations() {
+    return latestCitations;
+  }
+
+  function setLatestCitations(citations){
     latestCitations = citations;
-    return citations;
   }
 
   function getLastSelectedCitation(){
     return lastSelectedCitation;
   }
 
-  function storeSelectedCitation(citation){
+  function setSelectedCitation(citation){
     lastSelectedCitation = citation;
-    return citation;
   }
 
   var svc = {
     getLatestCitations: getLatestCitations,
+    setLatestCitations: setLatestCitations,
     getLastSelectedCitation: getLastSelectedCitation,
-    storeSelectedCitation:storeSelectedCitation
+    setSelectedCitation:setSelectedCitation
   };
 
   return svc;
