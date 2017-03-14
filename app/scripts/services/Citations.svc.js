@@ -1,28 +1,22 @@
 'use strict';
 
-angular.module('yourStlCourts').factory('Citations', function ($resource,$q) {
-  var CitationResource = $resource('citations/:id');
+angular.module('yourStlCourts').factory('Citations', function ($resource) {
+  var CitationResource = $resource('citations/:id', {id: '@id'});
 
   function find(parameters) {
-    var deferred = $q.defer();
-    CitationResource.get(parameters,function(citations){
+    return CitationResource.get(parameters,function(citations){
       for(var count = 0; count < citations.length; count++){
         convertCitationDateStringsToDates(citations[count]);
       }
-      deferred.resolve(citations);
-    });
-
-    return deferred.promise;
+      return citations;
+    }).$promise;
   }
 
   function getByCitationId(citationId) {
-    var deferred = $q.defer();
-    CitationResource.get(parameters).then(function(citation){
+    return CitationResource.get({id: citationId},function(citation){
       convertCitationDateStringsToDates(citation);
-      deferred.resolve(citation);
-    });
-
-    return deferred.promise;
+      return citation;
+    }).$promise;
   }
 
   function violationDateCreate(violations){
