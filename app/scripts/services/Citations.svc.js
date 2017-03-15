@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yourStlCourts').factory('Citations', function ($resource) {
-  var CitationResource = $resource('citations/:id', {id: '@id'});
+  var CitationResource = $resource('citations/');
 
   function find(parameters) {
     return CitationResource.get(parameters).$promise.then(function(citations){
