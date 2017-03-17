@@ -4,7 +4,8 @@ angular.module('yourStlCourts').factory('Citations', function ($resource) {
   var CitationResource = $resource('citations/');
 
   function find(parameters) {
-    return CitationResource.get(parameters).$promise.then(function(citations){
+    parameters = parameters || {};
+    return CitationResource.query(parameters).$promise.then(function(citations){
       for(var count = 0; count < citations.length; count++){
         convertCitationDateStringsToDates(citations[count]);
       }
@@ -27,9 +28,9 @@ angular.module('yourStlCourts').factory('Citations', function ($resource) {
   }
 
   function convertCitationDateStringsToDates(citation){
-    citation[count].citation_date = getDate(citation[count].citation_date);
-    citation[count].date_of_birth = getDate(citation[count].date_of_birth);
-    citation[count].court_dateTime = getDate(citation[count].court_dateTime);
+    citation.citation_date = getDate(citation.citation_date);
+    citation.date_of_birth = getDate(citation.date_of_birth);
+    citation.court_dateTime = getDate(citation.court_dateTime);
     violationDateCreate(citation.violations);
   }
 

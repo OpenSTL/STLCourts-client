@@ -13,10 +13,10 @@ angular.module('yourStlCourts').controller('PaymentOptionsCtrl', function (Citat
         citationNumber:citationId
       };
       return Citations.find(params).then(function(result){
-        if(result.citations.length <= 0) {
+        if(result.length <= 0) {
           throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No tickets were found with the information provided.");
         }
-        $state.go('citationInfo', {citations: result.citations});
+        $state.go('citationInfo', {citations: result});
       });
     }else{
       if (!ctrl.dobValid){
