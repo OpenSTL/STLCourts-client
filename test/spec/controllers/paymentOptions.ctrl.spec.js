@@ -29,7 +29,7 @@ describe('PaymentOptionsCtrl', function () {
 
   it('goes to citationInfo page',inject(function(Citations,$rootScope,$q,$state){
     var deferred = $q.defer();
-    deferred.resolve({citations:[{},{}]});
+    deferred.resolve([{},{}]);
     spyOn(Citations,'find').and.returnValue(deferred.promise);
     spyOn($state,'go');
     PaymentOptionsCtrl.dobValid = true;
@@ -44,7 +44,7 @@ describe('PaymentOptionsCtrl', function () {
 
   it('throws error when no citations are found',inject(function(Errors,Citations,$rootScope,$q){
     var deferred = $q.defer();
-    deferred.resolve({citations:[]});
+    deferred.resolve([]);
     spyOn(Citations,'find').and.returnValue(deferred.promise);
     spyOn(Errors,'makeError');
     PaymentOptionsCtrl.dobValid = true;
