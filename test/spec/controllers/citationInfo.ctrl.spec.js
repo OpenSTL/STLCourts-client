@@ -209,9 +209,9 @@ describe('CitationInfoCtrl', function () {
   }));
 
   it('correctlyFormatsDate', inject(function () {
-    var isoDate = "2016/02/16";
+    var isoDate = new Date("2016/02/16");
     expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("02/16/2016");
     isoDate = null;
-    expect(CitationInfoCtrl.formatDate(isoDate)).toEqual(null);
+    expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("");
   }));
 });

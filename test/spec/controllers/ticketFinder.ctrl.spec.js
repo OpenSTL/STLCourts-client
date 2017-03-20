@@ -106,13 +106,13 @@ describe('TicketFinderCtrl', function() {
 
   it('should go to citationInfo if citations were found',inject(function(Citations,$rootScope,$q,$state){
     var deferred = $q.defer();
-    deferred.resolve({citations:[{},{}]});
+    deferred.resolve([{},{}]);
     spyOn(Citations,'find').and.returnValue(deferred.promise);
     spyOn($state,'go');
     TicketFinderCtrl.citationCriteria = {dob: "dob"};
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}]});
+    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations: [{},{}]});
   }));
 
   it('should toast message if no citations were found',inject(function(Citations,$rootScope,$q,toaster){

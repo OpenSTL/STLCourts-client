@@ -8,9 +8,11 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
   return{
     restrict: 'E',
     scope:{
-      dateField:'=',
-      dateValid:'=',
-      dateOver18:'='
+      isoDateString:'=?', //returns iso date string of date part only yyyy-MM-dd no Time
+      dateObject:'=?',  //returns javascript Date
+      dateField:'=?',  //returns date String formatted to "MM/dd/yyyy"
+      dateValid:'=?',
+      dateOver18:'=?'
     },
     templateUrl: 'views/stlCourtsDatepicker.html',
     controller: 'StlCourtsDatepicker as ctrl',
@@ -89,7 +91,7 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
         }else{
           jsDateString = new Date();
         }
-        return jsDateString.toISOString();
+        return jsDateString.toISOString().split("T")[0];
       }
 
 
@@ -110,9 +112,12 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
         if ($scope.ctrl.valid) {
           $scope.ctrl.over18 = isOver18();
           //set hooks for external access
+          $scope.dateObject = getDateObjectFromDateString();
+          $scope.isoDateString = getISODateString($scope.ctrl.dateString);
           $scope.dateField = $scope.ctrl.dateString;
           $scope.dateOver18 = $scope.ctrl.over18;
           $scope.dateValid = $scope.ctrl.valid;
+
           if (!uibDatePickerDateJustChangedDateString) {
             if ($scope.ctrl.valid) {
               dateStringJustChangedUibDatePickerDate = true;
