@@ -5,10 +5,18 @@ angular.module('yourStlCourts').directive('scrollable', function ($anchorScroll,
     restrict: 'A',
 
     link: function ($scope, element) {
-      $scope.$on('scrollToLocation', function(event, idToScrollTo){
-        $timeout(function () {
-          $anchorScroll(idToScrollTo);
-        },500);
+      var scope = $scope;
+      $scope.$on('scrollToLocation', function(event, idToScrollTo, hasNgIncludedContent){
+        var scrollToId = idToScrollTo;
+        if (hasNgIncludedContent){
+          scope.$on('$includeContentLoaded',function(){
+            $timeout(function(){
+              $anchorScroll(scrollToId);
+            },500);
+          });
+        }else{
+          $anchorScroll(scrollToId);
+        }
       });
     }
   };

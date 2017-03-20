@@ -24,7 +24,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
     initializeCitationCriteria();
     ctrl.selectFinder(TicketFinderToSelect);
     if (TicketFinderToSelect == TicketFinder.TicketFinderToSelect.NONE) {
-      $scope.$broadcast('scrollToLocation',closeScrollToId);
+      $scope.$broadcast('scrollToLocation',closeScrollToId,false);
     }
   };
 
@@ -32,7 +32,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
     if (ctrl.finderSelected == ctrl.currentTicketFinder){
       if (!isBoxOpened) { //if the box is opened already, then it has scrolled. don't keep scrolling
         isBoxOpened = true;
-        $scope.$broadcast('scrollToLocation',openScrollToId);
+        $scope.$broadcast('scrollToLocation',openScrollToId,true);
       }
       return true;
     }else{
