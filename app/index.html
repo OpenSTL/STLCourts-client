@@ -27,12 +27,14 @@
     <link rel="stylesheet" href="styles/footer.css">
     <link rel="stylesheet" href="styles/ticketFinder.css">
     <link rel="stylesheet" href="styles/stlCourtsDatepicker.css">
+    <link rel="stylesheet" href="styles/pageMessage.css">
     <!-- endbuild -->
   </head>
   <body ng-app="yourStlCourts">
+    <page-message display-class="large-screen-message"></page-message>
     <toaster-container></toaster-container>
       <stl-courts-header id="headerContent"></stl-courts-header>
-
+      <page-message display-class="small-screen-message"></page-message>
       <div id="mainContent" ui-view></div>
 
     <footer>
@@ -68,6 +70,7 @@
     <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/Autolinker.js/dist/Autolinker.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -90,6 +93,7 @@
     <script src="scripts/controllers/about.ctrl.js"></script>
     <script src="scripts/controllers/error.ctrl.js"></script>
     <script src="scripts/controllers/stlCourtsDatepicker.ctrl.js"></script>
+    <script src="scripts/controllers/pageMessage.ctrl.js"></script>
     <!-- <script src="scripts/controllers/sponsorLogin.ctrl.js"></script>
     <script src="scripts/controllers/sponsorManagement.ctrl.js"></script> -->
 
@@ -99,6 +103,7 @@
     <script src="scripts/services/Municipalities.svc.js"></script>
     <script src="scripts/services/TicketFinder.svc.js"></script>
     <script src="scripts/services/Contact.svc.js"></script>
+    <script src="scripts/services/PageMessage.svc.js"></script>
     <!-- <script src="scripts/services/Sponsor.svc.js"></script> -->
     <script src="scripts/services/States.svc.js"></script>
     <script src="scripts/services/DateFormatter.svc.js"></script>
@@ -117,6 +122,7 @@
     <script src="scripts/components/stlCourtsFooter.comp.js"></script>
     <script src="scripts/components/ticketFinderBox.comp.js"></script>
     <script src="scripts/components/faqGroup.comp.js"></script>
+    <script src="scripts/components/pageMessage.comp.js"></script>
     <!-- endbuild -->
 </body>
 </html>

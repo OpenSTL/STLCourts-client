@@ -47,6 +47,7 @@ module.exports = function(config) {
       'bower_components/angular-simple-logger/dist/angular-simple-logger.js',
       'bower_components/angular-moment/angular-moment.js',
       'bower_components/lodash/lodash.js',
+      'bower_components/Autolinker.js/dist/Autolinker.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/vendor/ui-leaflet.js',
