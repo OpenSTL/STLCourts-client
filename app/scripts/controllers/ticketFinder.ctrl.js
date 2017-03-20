@@ -1,9 +1,12 @@
 'use strict';
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
   ctrl.citationCriteria = {};
+  var openScrollToId = ctrl.openScrollToId?ctrl.openScrollToId:"footer";
+  var closeScrollToId = ctrl.closeScrollToId?ctrl.closeScrollToId:"top";
+  var isBoxOpened = false;
 
   function initializeCitationCriteria() {
     ctrl.citationCriteria = {
@@ -20,10 +23,22 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.selectTicketFinder = function(TicketFinderToSelect){
     initializeCitationCriteria();
     ctrl.selectFinder(TicketFinderToSelect);
+    if (TicketFinderToSelect == TicketFinder.TicketFinderToSelect.NONE) {
+      $scope.$broadcast('scrollToLocation',closeScrollToId,false);
+    }
   };
 
   ctrl.isSelected = function(){
-    return (ctrl.finderSelected == ctrl.currentTicketFinder);
+    if (ctrl.finderSelected == ctrl.currentTicketFinder){
+      if (!isBoxOpened) { //if the box is opened already, then it has scrolled. don't keep scrolling
+        isBoxOpened = true;
+        $scope.$broadcast('scrollToLocation',openScrollToId,true);
+      }
+      return true;
+    }else{
+      isBoxOpened = false;
+      return false;
+    }
   };
 
   ctrl.getDOB = function(){
@@ -63,8 +78,8 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
     }
 
     Citations.find(params).then(function(result){
-      if(result.citations.length > 0) {
-        $state.go('citationInfo', {citations: result.citations});
+      if(result.length > 0) {
+        $state.go('citationInfo', {citations: result  });
       } else {
         var homeLink = '<a href="/"><u>clicking here</u></a>';
         var noTicketsFoundMsg = 'We could not find any results for the  information you provided. It\'s possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';

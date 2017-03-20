@@ -9,6 +9,8 @@ angular.module('yourStlCourts').component('ticketFinderBox', {
     municipalities: '<',
     icon: '@',
     currentTicketFinder: '@',
-    text: '@'
+    text: '@',
+    openScrollToId: '=?',
+    closeScrollToId: '=?'
     }
 });

@@ -31,7 +31,8 @@ describe('TicketFinderCtrl', function() {
         $uibModal: $uibModal,
         toaster: toaster,
         Citations: Citations,
-        TicketFinder: TicketFinder
+        TicketFinder: TicketFinder,
+        $scope:$rootScope.$new()
       });
 
       TicketFinderCtrl.selectFinder = function (someValue) {
@@ -51,6 +52,18 @@ describe('TicketFinderCtrl', function() {
     TicketFinderCtrl.currentTicketFinder = "DEF";
     TicketFinderCtrl.finderSelected = "DEF";
     expect(TicketFinderCtrl.isSelected()).toBe(true);
+  }));
+
+  it('correctly calls selectFinder', inject(function(TicketFinder){
+    spyOn(TicketFinderCtrl,'selectFinder');
+    TicketFinderCtrl.selectTicketFinder(TicketFinder.TicketFinderToSelect.NONE);
+    expect(TicketFinderCtrl.selectFinder).toHaveBeenCalledWith(TicketFinder.TicketFinderToSelect.NONE);
+  }));
+
+  it('correctly returns false for isSelected',inject(function(TicketFinder){
+    TicketFinderCtrl.finderSelected = TicketFinder.TicketFinderToSelect.NONE;
+    TicketFinderCtrl.currentTicketFinder = TicketFinder.TicketFinderToSelect.DRIVER_INFO;
+    expect(TicketFinderCtrl.isSelected()).toBe(false);
   }));
 
   it('should toast an error if form not valid',inject(function(toaster){
@@ -93,13 +106,13 @@ describe('TicketFinderCtrl', function() {
 
   it('should go to citationInfo if citations were found',inject(function(Citations,$rootScope,$q,$state){
     var deferred = $q.defer();
-    deferred.resolve({citations:[{},{}]});
+    deferred.resolve([{},{}]);
     spyOn(Citations,'find').and.returnValue(deferred.promise);
     spyOn($state,'go');
     TicketFinderCtrl.citationCriteria = {dob: "dob"};
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}]});
+    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations: [{},{}]});
   }));
 
   it('should toast message if no citations were found',inject(function(Citations,$rootScope,$q,toaster){
