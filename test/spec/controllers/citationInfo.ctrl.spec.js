@@ -59,6 +59,11 @@ describe('CitationInfoCtrl', function () {
     zip: "12345"
   };
 
+  var session = {
+    getLastSelectedCitation:function(){return null},
+    setSelectedCitation:function(value){}
+  };
+
   var expectedAddress = "https://maps.google.com?saddr=Current+Location&daddr=" + "123+Anystreet+anyCity+MO+12345";
 
   beforeEach(function () {
@@ -74,7 +79,8 @@ describe('CitationInfoCtrl', function () {
         $state: $state,
         $window: $window,
         citations: citations,
-        Courts: Courts
+        Courts: Courts,
+        Session: session
       });
     });
   });
@@ -84,7 +90,7 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.paymentData).toEqual(paymentData);
   }));
 
-  it('correctly sets selected citation', inject(function (Courts, $q, $rootScope) {
+  it('correctly sets selected citation', inject(function (Courts, $q, $rootScope,Session) {
     var deferred = $q.defer();
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
@@ -96,6 +102,12 @@ describe('CitationInfoCtrl', function () {
     expect(Courts.findById).toHaveBeenCalledWith(citation.court_id);
     expect(CitationInfoCtrl.selectedCitation.court).toEqual(court);
     expect(CitationInfoCtrl.selectedCitation.courtDirectionLink).toEqual(expectedAddress);
+  }));
+
+  it('correctly sets selected citation when citation is null', inject(function () {
+    CitationInfoCtrl.selectCitation(null);
+
+    expect(CitationInfoCtrl.selectedCitation).toBe(null);
   }));
 
   it('returns correct result for hasWarrant', inject(function () {

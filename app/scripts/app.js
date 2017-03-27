@@ -90,8 +90,13 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         citations: {value: undefined}
       },
       resolve: {
-        citations: function ($stateParams) {
-          return $stateParams.citations;
+        citations: function ($stateParams,Session) {
+          var citations = Session.getLatestCitations();
+          if ($stateParams.citations){
+            citations = $stateParams.citations;
+            Session.setLatestCitations(citations);
+          }
+          return citations;
         },
         faqData: function ($http) {
           return $http.get('data/questionAnswers.json').then(function (data) {
