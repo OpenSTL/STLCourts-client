@@ -110,10 +110,10 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         }
       }
     })
-    .state('paymentOptions', {
-      url: '/paymentOptions/{citationId}',
-      templateUrl: 'views/paymentOptions.html',
-      controller: 'PaymentOptionsCtrl as ctrl',
+    .state('citations', {
+      url: '/citations/{citationId}',
+      templateUrl: 'views/citations.html',
+      controller: 'CitationsCtrl as ctrl',
       resolve: {
         citationId: function($stateParams) {
             return $stateParams.citationId;
