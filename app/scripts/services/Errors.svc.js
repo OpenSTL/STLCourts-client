@@ -4,7 +4,7 @@ angular.module('yourStlCourts').factory('Errors', function ($rootScope, $state) 
   var ERROR_CODE = {
     BAD_REQUEST: 400,
     NOT_FOUND: 404
-  }
+  };
 
   var svc = {
     makeError: makeError,

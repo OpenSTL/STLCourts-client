@@ -19,7 +19,7 @@
             <td class="hide-when-small-screen center-block"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view</button></td>
             <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></span></td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>
-            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_date)}}</td>
+            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_dateTime)}}</td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{citation.court_location}}</td>
             <td class="hide-border-when-small">
               <span class="label-for-small-screen table-item-label">Violations</span>
@@ -103,16 +103,18 @@
           <h2 class="no-indent">Court Information</h2>
           <dl class="dl-horizontal indentThis">
             <dt>Court Date</dt>
-            <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_date)}}</dd>
+            <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_dateTime)}}</dd>
+            <dt>Court Time</dt>
+            <dd>{{ctrl.formatTime(ctrl.selectedCitation.court_dateTime)}}</dd>
             <dt>Court Name</dt>
-            <dd>{{ctrl.selectedCitation.court.court_name}} Court</dd>
+            <dd>{{ctrl.selectedCitation.court.name}} Court</dd>
             <dt>Court Phone Number</dt>
             <dd>{{ctrl.selectedCitation.court.phone}}<span ng-if="ctrl.selectedCitation.court.extension"> x{{ctrl.selectedCitation.court.extension}}</span></dd>
             <dt>Court Location</dt>
             <dd>
               <span style="display:inline-block">
                 {{ctrl.selectedCitation.court.address}}<br/>
-                {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip_code}}<br/>
+                {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip}}<br/>
                 <a href="{{ctrl.selectedCitation.courtDirectionLink}}" class="btn btn-scheme-primary no-print" target="_blank">GET DIRECTIONS</a>
               </span>
             </dd>

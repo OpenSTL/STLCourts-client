@@ -50,10 +50,27 @@
   padding:0px;
 }
 
-.sub-page-container p,
-.sub-page-container faq-group{
+.sub-page-container p{
   margin:10px $subPageMargin;
   font-size: $standard_font_size !important;
+}
+
+.sub-page-container faq-group{
+  font-size: $standard_font_size !important;
+}
+
+faq-group h2{
+  margin-bottom:.2rem;
+}
+
+faq-group .panel-group{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+faq-group.no-margin .panel-group{
+  margin-left:0px;
+  margin-right:0px;
 }
 
 .sub-page-container dl{
@@ -81,10 +98,15 @@
 .sub-page-container .page-anchor-menu{
   margin-left: $subPageMargin;
   font-size: $standard_font_size !important;
+  margin-bottom:1.5rem;
 }
 
 .sub-page-container .page-anchor-menu li:first-child{
   padding-left: 0px !important;
+}
+
+.sub-page-container .page-anchor-menu li{
+  margin-right:15px;
 }
 
 .sub-page-container a{
@@ -328,10 +350,6 @@
 
 .payment-options-date-picker{
   text-align: center;
-}
-.payment-options-date-picker input{
-  width:120px;
-  display:inline-block;
 }
 
 .payment-options-date-picker-input-div{

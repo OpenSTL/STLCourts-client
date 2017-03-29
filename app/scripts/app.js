@@ -3,7 +3,7 @@
 angular.module('yourStlCourts', ['ngResource', 'ngSanitize', 'ngTouch', 'envConfig', 'ui.router', 'toaster',
   'ui.bootstrap', 'ui.select', 'jcs-autoValidate','ui-leaflet','angularMoment']);
 
-angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvider, $locationProvider, ENV, $httpProvider, uiSelectConfig) {
+angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvider, $locationProvider, ENV, $httpProvider, uiSelectConfig) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 
@@ -13,8 +13,11 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl as ctrl',
       resolve: {
-        municipalities: function(Municipalities){
+        municipalities: function (Municipalities) {
           return Municipalities.findAll();
+        },
+        courts: function (Courts) {
+          return Courts.findAll();
         }
       }
     })
@@ -28,8 +31,8 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/help.html',
       controller: 'HelpCtrl as ctrl',
       resolve: {
-        faqData: function($http) {
-          return $http.get('data/questionAnswers.json').then(function(data){
+        faqData: function ($http) {
+          return $http.get('data/questionAnswers.json').then(function (data) {
             return data.data;
           });
         }
@@ -40,22 +43,22 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/info.html'
     })
     .state('legal', {
-          url: '/legal',
-          templateUrl: 'views/legal.html'
+      url: '/legal',
+      templateUrl: 'views/legal.html'
     })
     .state('privacy', {
-          url: '/privacy',
-          templateUrl: 'views/privacy.html'
+      url: '/privacy',
+      templateUrl: 'views/privacy.html'
     })
-    .state('error',{
-      url:'/error',
+    .state('error', {
+      url: '/error',
       templateUrl: 'views/error.html',
-      controller:'ErrorCtrl as ctrl',
+      controller: 'ErrorCtrl as ctrl',
       params: {
-        error: { value : undefined }
+        error: {value: undefined}
       },
       resolve: {
-        error: function($stateParams) {
+        error: function ($stateParams) {
           return $stateParams.error;
         }
       }
@@ -73,7 +76,8 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
             throw Errors.makeError(Errors.ERROR_CODE.BAD_REQUEST, "No Court was found with the url you provided.");
           } else {
             return Courts.findById($stateParams.courtId).catch(function () {
-              throw Errors.makeError(Errors.ERROR_CODE.NOT_FOUND, "No Court was found with the url you provided.");            })
+              throw Errors.makeError(Errors.ERROR_CODE.NOT_FOUND, "No Court was found with the url you provided.");
+            });
           }
         }
       }
@@ -83,35 +87,40 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/citationInfo.html',
       controller: 'CitationInfoCtrl as ctrl',
       params: {
-        citations: { value : undefined }
+        citations: {value: undefined}
       },
       resolve: {
-        citations: function($stateParams) {
-          return $stateParams.citations;
+        citations: function ($stateParams,Session) {
+          var citations = Session.getLatestCitations();
+          if ($stateParams.citations){
+            citations = $stateParams.citations;
+            Session.setLatestCitations(citations);
+          }
+          return citations;
         },
-        faqData: function($http) {
-          return $http.get('data/questionAnswers.json').then(function(data){
+        faqData: function ($http) {
+          return $http.get('data/questionAnswers.json').then(function (data) {
             return data.data;
           });
         },
-        paymentData: function($http){
-          return $http.get('data/paymentWebsites.json').then(function(data){
+        paymentData: function ($http) {
+          return $http.get('data/paymentWebsites.json').then(function (data) {
             return data.data;
           });
         }
       }
     })
-    .state('paymentOptions', {
-      url: '/paymentOptions/{citationId}',
-      templateUrl: 'views/paymentOptions.html',
-      controller: 'PaymentOptionsCtrl as ctrl',
+    .state('citations', {
+      url: '/citations/{citationId}',
+      templateUrl: 'views/citations.html',
+      controller: 'CitationsCtrl as ctrl',
       resolve: {
         citationId: function($stateParams) {
             return $stateParams.citationId;
           }
         }
     })
-    .state('communityService',{
+    .state('communityService', {
       url: '/communityService',
       templateUrl: 'views/communityService.html'
     })
@@ -125,20 +134,20 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
       templateUrl: 'views/sponsorManagement.html',
       controller: 'SponsorMgmtCtrl as ctrl',
       resolve: {
-        opportunities: function(Opportunities, Auth){
+        opportunities: function (Opportunities, Auth) {
           return Opportunities.findBySponsorId(Auth.getAuthenticatedSponsor().id);
         },
-        courts: function(Courts){
+        courts: function (Courts) {
           return Courts.findAll();
         }
       }
     });
 
-  $httpProvider.interceptors.push(function(){
+  $httpProvider.interceptors.push(function () {
     return {
-      request: function(config) {
+      request: function (config) {
         // prepend base url
-        if(config.url.indexOf('.html') < 0 && config.url.indexOf('.json') < 0) {
+        if (config.url.indexOf('.html') < 0 && config.url.indexOf('.json') < 0) {
           config.url = ENV.apiEndpoint + config.url;
         }
         return config;
@@ -152,13 +161,14 @@ angular.module('yourStlCourts').config(function($stateProvider, $urlRouterProvid
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope,validator, validationElementModifier, errorMessageResolver) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,PageMessage) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
     validator.setErrorMessageResolver(errorMessageResolver.resolve);
-    $rootScope.$on('$stateChangeSuccess', function() {
+    $rootScope.$on('$stateChangeSuccess', function () {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
+    PageMessage.start();
   }
 );

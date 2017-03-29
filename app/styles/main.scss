@@ -122,6 +122,10 @@ ul.indent-only{
   color: white;
 }
 
+.black-button{
+  color:#000000;
+}
+
 .no-border-col .homepageTile{
   border: none !important;
 }
@@ -538,4 +542,18 @@ table {
 
 .dob-date-picker-modal{
   text-align: center;
+}
+
+.ui-select-container {
+  .ui-select-choices-group-label {
+    font-size: 1.2em;
+    color: $black;
+    font-weight: bold;
+  }
+
+  .ui-select-choices-row.active {
+    .text-muted {
+      color: $white;
+    }
+  }
 }

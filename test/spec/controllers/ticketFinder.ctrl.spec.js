@@ -6,83 +6,45 @@ describe('TicketFinderCtrl', function() {
   var states;
   var citationCriteria;
   var ticketFinder;
-
-  states = ['AL'];
-
-  var municipalityArray1 = [{
-    id: 9,
-    municipality_name: "Black Jack",
-    court_id: 10
-  }];
-  var municipalityArray2 = [{
-    id: 10,
-    municipality_name: "Black White",
-    court_id: 84
-  }];
-
-  municipalities = {
-    combineCountyMunis: function(){
-      return (municipalityArray1);
-    },
-    municipalitiesMapNames: function(){
-      return (municipalityArray2);
-    },
-    translateMapNamesToDatabaseNames: function () {
-      return (municipalityArray2);
-    }
-  };
-
-  ticketFinder = {
-    TicketFinderToSelect:{
-      TICKET_NUMBER : 'TICKET_NUMBER',
-      DRIVER_INFO : 'DRIVER_INFO',
-      LOCATION : 'LOCATION',
-      NONE : 'NONE'
-    }
-  };
-
-  var citationCriteria = {
-    citationNumber: null,
-    licenseNumber: null,
-    licenseState: 'MO',
-    firstName: null,
-    lastName: null,
-    municipalityNames: null,
-    dob: null
-  };
+  var citationCriteria;
 
   beforeEach(function() {
     module('yourStlCourts');
 
-    inject(function(Citations,$controller,$state,$uibModal,toaster,$rootScope,$httpBackend){
+    states = ['AL'];
+
+    citationCriteria = {
+      citationNumber: null,
+      licenseNumber: null,
+      licenseState: 'MO',
+      firstName: null,
+      lastName: null,
+      municipalities: null,
+      dob: null
+    };
+
+    inject(function(Citations, Municipalities, $controller, $state, $uibModal, toaster, $rootScope, $httpBackend, TicketFinder){
       TicketFinderCtrl = $controller('TicketFinderCtrl',{
         $state: $state,
-        Municipalities:municipalities,
+        Municipalities: Municipalities,
         States: states,
         $uibModal: $uibModal,
-        toaster:toaster,
-        Citations:Citations,
-        TicketFinder:ticketFinder
+        toaster: toaster,
+        Citations: Citations,
+        TicketFinder: TicketFinder,
+        $scope:$rootScope.$new()
       });
 
       TicketFinderCtrl.selectFinder = function (someValue) {
 
       };
       $httpBackend.whenGET(/municipalities/).respond(200, '');
+      $httpBackend.whenGET(/courts/).respond(200, '');
     });
   });
 
-  it('sets municipalities on initialization',inject(function(){
-    expect(TicketFinderCtrl.modifiedMunicipalities).toEqual(municipalityArray1);
-    expect(TicketFinderCtrl.municipalitiesMapNames).toEqual(municipalityArray2);
-  }));
-
-  it('sets states on initialization',inject(function(){
+  it('initializes properties',inject(function(){
     expect(TicketFinderCtrl.states).toEqual(states);
-  }));
-
-  it('initializes citationCriteria',inject(function(){
-    TicketFinderCtrl.selectTicketFinder("Test");
     expect(TicketFinderCtrl.citationCriteria).toEqual(citationCriteria);
   }));
 
@@ -92,12 +54,23 @@ describe('TicketFinderCtrl', function() {
     expect(TicketFinderCtrl.isSelected()).toBe(true);
   }));
 
+  it('correctly calls selectFinder', inject(function(TicketFinder){
+    spyOn(TicketFinderCtrl,'selectFinder');
+    TicketFinderCtrl.selectTicketFinder(TicketFinder.TicketFinderToSelect.NONE);
+    expect(TicketFinderCtrl.selectFinder).toHaveBeenCalledWith(TicketFinder.TicketFinderToSelect.NONE);
+  }));
+
+  it('correctly returns false for isSelected',inject(function(TicketFinder){
+    TicketFinderCtrl.finderSelected = TicketFinder.TicketFinderToSelect.NONE;
+    TicketFinderCtrl.currentTicketFinder = TicketFinder.TicketFinderToSelect.DRIVER_INFO;
+    expect(TicketFinderCtrl.isSelected()).toBe(false);
+  }));
+
   it('should toast an error if form not valid',inject(function(toaster){
     spyOn(toaster,'pop');
     TicketFinderCtrl.ticketForm = {$valid: false};
     TicketFinderCtrl.getDOB();
     expect(toaster.pop).toHaveBeenCalledWith('error', 'Please provide the required information');
-
   }));
 
   it('should open $uibModal when form submitted', inject(function ($rootScope, $uibModal, $q) {
@@ -133,13 +106,13 @@ describe('TicketFinderCtrl', function() {
 
   it('should go to citationInfo if citations were found',inject(function(Citations,$rootScope,$q,$state){
     var deferred = $q.defer();
-    deferred.resolve({citations:[{},{}]});
+    deferred.resolve([{},{}]);
     spyOn(Citations,'find').and.returnValue(deferred.promise);
     spyOn($state,'go');
     TicketFinderCtrl.citationCriteria = {dob: "dob"};
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}]});
+    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations: [{},{}]});
   }));
 
   it('should toast message if no citations were found',inject(function(Citations,$rootScope,$q,toaster){
@@ -233,13 +206,13 @@ describe('TicketFinderCtrl', function() {
       licenseState: 'MO',
       firstName: null,
       lastName: 'someLastName',
-      municipalityNames: [{municipality_name:'alpha'},{municipality_name:'beta'},{municipality_name:'charlie'}],
+      municipalities: [{id: 9}, {id: 11}],
       dob: '03/17/1990'
     };
 
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',lastName: 'someLastName',municipalityNames: municipalityArray2});
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990', lastName: 'someLastName', municipalityIds: [9, 11]});
   }));
 
   it('opens locationPicker Modal and selects municipality names',inject(function($uibModal,$q, $rootScope){
@@ -265,11 +238,13 @@ describe('TicketFinderCtrl', function() {
     $rootScope.$apply();
 
     expect($uibModal.open).toHaveBeenCalledWith(expectedModalOptions);
-    expect(TicketFinderCtrl.citationCriteria.municipalityNames).toEqual(['a','b']);
+    expect(TicketFinderCtrl.citationCriteria.municipalities).toEqual(['a','b']);
 
   }));
 
-  it('opens locationPicker Modal and initializes municipalities',inject(function($uibModal,$q,$rootScope){
+  it('opens locationPicker Modal and initializes municipalities',inject(function($uibModal, $q, $rootScope, Municipalities){
+    spyOn(Municipalities, 'findAll');
+
     var modalDefer = $q.defer();
     modalDefer.resolve(['a','b']);
     var modalInstance = {
@@ -281,9 +256,21 @@ describe('TicketFinderCtrl', function() {
       actualOptions = options;
       return modalInstance;
     });
-    TicketFinderCtrl.openMap();
-    $rootScope.$apply();
-    expect(actualOptions.resolve.municipalities()).toEqual(municipalityArray2);
-  }));
 
+    TicketFinderCtrl.openMap();
+
+    $rootScope.$apply();
+
+    expect(actualOptions).toEqual({
+      templateUrl: 'views/locationPickerMap.html',
+      controller: 'LocationPickerMapCtrl as ctrl',
+      size: 'md',
+      backdrop: false,
+      resolve: {
+        municipalities: jasmine.any(Function)
+      }
+    });
+    expect(Municipalities.findAll).toHaveBeenCalled();
+    expect(TicketFinderCtrl.citationCriteria.municipalities).toEqual(['a', 'b']);
+  }));
 });

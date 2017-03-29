@@ -1,6 +1,28 @@
 @import "_colors";
 @import "_constants";
 
+.stl-courts-datepicker-date-group{
+  display:inline-block;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  background-color: white;
+  background-color: -moz-field;
+  border: 1px solid darkgray;
+}
+
+.stl-courts-datepicker-MM,
+.stl-courts-datepicker-DD{
+  width: 35px;
+  text-align: center;
+  border: none;
+}
+
+.stl-courts-datepicker-YYYY{
+  width: 50px;
+  text-align: center;
+  border: none;
+}
+
 .stl-courts-datepicker-input {
   -moz-appearance: textfield;
   -webkit-appearance: textfield;

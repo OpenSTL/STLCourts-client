@@ -355,6 +355,18 @@ module.exports = function (grunt) {
       }
     },
 
+    // replace the font file path
+    replace: {
+      dist: {
+        src: ['<%= yeoman.dist %>/styles//*.css','<%= yeoman.dist %>/scripts//*.js'],
+        overwrite: true,                 // overwrite matched source files
+        replacements: [{
+          from: '../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/',
+          to: '../fonts/'
+        }]
+      }
+    },
+
     ngtemplates: {
       dist: {
         options: {
@@ -416,6 +428,14 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      fonts: {
+        expand: true,
+        flatten: true,
+        cwd: '.',
+        src: ['bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*'],
+        dest: '<%= yeoman.dist %>/fonts',
+        filter: 'isFile'
       }
     },
 
@@ -551,6 +571,7 @@ module.exports = function (grunt) {
       'clean:dist',
       'ngconstant:' + buildOptions[0],
       'wiredep',
+      'copy:fonts',
       'useminPrepare',
       'copy:styles',
       'concurrent:dist',
@@ -564,7 +585,8 @@ module.exports = function (grunt) {
       'uglify',
       'filerev',
       'usemin',
-      'htmlmin'
+      'htmlmin',
+      'replace:dist'
     ]);
   });
 

@@ -22,6 +22,7 @@ module.exports = function(config) {
       // bower:js
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
+      'bower_components/angular-animate/angular-animate.js',
       'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js',
       'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js',
       'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js',
@@ -38,7 +39,6 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
-      'bower_components/angular-animate/angular-animate.js',
       'bower_components/angularjs-toaster/toaster.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-ui-select/dist/select.js',
@@ -46,6 +46,8 @@ module.exports = function(config) {
       'bower_components/leaflet/dist/leaflet-src.js',
       'bower_components/angular-simple-logger/dist/angular-simple-logger.js',
       'bower_components/angular-moment/angular-moment.js',
+      'bower_components/lodash/lodash.js',
+      'bower_components/Autolinker.js/dist/Autolinker.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/vendor/ui-leaflet.js',
