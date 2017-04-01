@@ -3,7 +3,7 @@
 
   <span id="searchBoxInstructions"></span>
   <ui-select id="municipalitiesFinder" name="municipalitiesFinder" ng-model="ctrl.selectedCitySearchGroup" on-select="ctrl.onCitySearchGroupSelected()" ng-click="ctrl.clearTicketFinder()">
-    <ui-select-match placeholder="I know where I got my ticket">{{$select.selected.municipalityName}}</ui-select-match>
+    <ui-select-match placeholder="Find municipal court information...">{{$select.selected.municipalityName}}</ui-select-match>
     <ui-select-choices group-by="ctrl.groupCourts" repeat="searchGroup in ctrl.citySearchGroups | filter: $select.search">
       <div ng-switch="searchGroup.municipalityCourtCount > 1">
         <span ng-switch-when="true">
