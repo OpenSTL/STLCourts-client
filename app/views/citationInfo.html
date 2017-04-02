@@ -43,8 +43,10 @@
             Your Information
           </h2>
           <p class="zeroAboveBelow">{{ctrl.selectedCitation.first_name}} {{ctrl.selectedCitation.last_name}}</p>
-          <p class="address">{{ctrl.selectedCitation.defendant_address}}</p>
-          <p class="address">{{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}</p>
+          <div ng-if="ctrl.selectedCitation.defendant_address">
+            <p class="address">{{ctrl.selectedCitation.defendant_address}}</p>
+            <p class="address">{{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}</p>
+          </div>
           <p class="zeroAboveBelow">Driver's License #: {{ctrl.selectedCitation.drivers_license_number}}</p>
           <br>
         </div>
