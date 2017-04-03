@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html id="top">
   <head>
     <meta charset="utf-8">
     <title>Your STL Courts</title>
@@ -25,12 +25,16 @@
     <link rel="stylesheet" href="styles/subPages.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/ticketFinder.css">
+    <link rel="stylesheet" href="styles/stlCourtsDatepicker.css">
+    <link rel="stylesheet" href="styles/pageMessage.css">
     <!-- endbuild -->
   </head>
-  <body id="top" ng-app="yourStlCourts">
+  <body ng-app="yourStlCourts">
+    <page-message display-class="large-screen-message"></page-message>
     <toaster-container></toaster-container>
       <stl-courts-header id="headerContent"></stl-courts-header>
-
+      <page-message display-class="small-screen-message"></page-message>
       <div id="mainContent" ui-view></div>
 
     <footer>
@@ -41,6 +45,7 @@
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
@@ -57,13 +62,15 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angularjs-toaster/toaster.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/Autolinker.js/dist/Autolinker.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -80,38 +87,43 @@
     <script src="scripts/controllers/footer.ctrl.js"></script>
     <script src="scripts/controllers/locationPickerMap.ctrl.js"></script>
     <script src="scripts/controllers/dobPicker.ctrl.js"></script>
+    <script src="scripts/controllers/citations.ctrl.js"></script>
     <script src="scripts/controllers/citationInfo.ctrl.js"></script>
-    <script src="scripts/controllers/opportunityDetails.ctrl.js"></script>
-    <script src="scripts/controllers/paymentOptions.ctrl.js"></script>
     <script src="scripts/controllers/courtSearchInfo.ctrl.js"></script>
     <script src="scripts/controllers/about.ctrl.js"></script>
     <script src="scripts/controllers/error.ctrl.js"></script>
+    <script src="scripts/controllers/stlCourtsDatepicker.ctrl.js"></script>
+    <script src="scripts/controllers/pageMessage.ctrl.js"></script>
     <!-- <script src="scripts/controllers/sponsorLogin.ctrl.js"></script>
     <script src="scripts/controllers/sponsorManagement.ctrl.js"></script> -->
-    <script src="scripts/controllers/opportunityCreate.ctrl.js"></script>
-    <script src="scripts/controllers/opportunityNeedCreate.ctrl.js"></script>
 
     <script src="scripts/services/Auth.svc.js"></script>
     <script src="scripts/services/Citations.svc.js"></script>
     <script src="scripts/services/Courts.svc.js"></script>
     <script src="scripts/services/Municipalities.svc.js"></script>
     <script src="scripts/services/TicketFinder.svc.js"></script>
-    <script src="scripts/services/Opportunities.svc.js"></script>
     <script src="scripts/services/Contact.svc.js"></script>
+    <script src="scripts/services/PageMessage.svc.js"></script>
     <!-- <script src="scripts/services/Sponsor.svc.js"></script> -->
     <script src="scripts/services/States.svc.js"></script>
     <script src="scripts/services/DateFormatter.svc.js"></script>
     <script src="scripts/services/ErrorMessageResolver.svc.js"></script>
     <script src="scripts/services/Errors.svc.js"></script>
     <script src="scripts/services/ValidationElementModifier.svc.js"></script>
+    <script src="scripts/services/Session.svc.js"></script>
 
     <script src="scripts/directives/formField.dir.js"></script>
     <script src="scripts/directives/ngTranscludeReplace.dir.js"></script>
+    <script src="scripts/directives/stlCourtsDatepicker.dir.js"></script>
+    <script src="scripts/directives/mainSearchBoxHeight.dir.js"></script>
+    <script src="scripts/directives/scrollable.dir.js"></script>
+    <script src="scripts/directives/navBarMenuCloseable.dir.js"></script>
 
     <script src="scripts/components/stlCourtsHeader.comp.js"></script>
     <script src="scripts/components/stlCourtsFooter.comp.js"></script>
     <script src="scripts/components/ticketFinderBox.comp.js"></script>
     <script src="scripts/components/faqGroup.comp.js"></script>
+    <script src="scripts/components/pageMessage.comp.js"></script>
     <!-- endbuild -->
 </body>
 </html>

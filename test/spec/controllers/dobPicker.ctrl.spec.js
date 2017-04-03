@@ -8,57 +8,49 @@ describe('DobPickerCtrl', function () {
   beforeEach(function() {
     module('yourStlCourts');
 
-    inject(function($controller, DateFormatter, toaster) {
+    inject(function($controller, toaster) {
       modalInstance = {
         dismiss: jasmine.createSpy('dismiss spy'),
         close: jasmine.createSpy('close spy')
       };
       DobPickerCtrl = $controller('dobPickerCtrl', {
         $uibModalInstance: modalInstance,
-        DateFormatter: DateFormatter,
         toaster: toaster
       });
     });
   });
 
-  it('sets variables on init', function() {
-    var today = new Date();
-
+  it('initializes variables on init',function(){
     expect(DobPickerCtrl.dob).toBeNull();
-    expect(DobPickerCtrl.status.opened).toBe(false);
-    expect(DobPickerCtrl.datepickerOptions.minDate).toEqual(new Date(1900, 0, 1));
-    expect(DobPickerCtrl.datepickerOptions.maxDate).toEqual(new Date(today.getFullYear()-18,today.getMonth(),today.getDate()));
-    expect(DobPickerCtrl.datepickerFormat).toEqual('MM/dd/yyyy');
-    expect(DobPickerCtrl.acceptedDatepickerFormats).toEqual(['dd-MMMM-yyyy', 'MM-dd-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate']);
+    expect(DobPickerCtrl.dobValid).toBe(false);
+    expect(DobPickerCtrl.dobOver18).toBe(false);
   });
 
-  it('sets to open status', function() {
-    DobPickerCtrl.open();
-
-    expect(DobPickerCtrl.status.opened).toBe(true);
+  it('calls save with dob',function(){
+    DobPickerCtrl.dobValid = true;
+    DobPickerCtrl.dobOver18 = true;
+    DobPickerCtrl.dob = "myDate";
+    DobPickerCtrl.save();
+    expect(modalInstance.close).toHaveBeenCalledWith(DobPickerCtrl.dob);
   });
-
-  it('closes modal with dob on save', inject(function(DateFormatter) {
-    var form = { $valid: true };
-    DobPickerCtrl.dob = new Date(1995, 5, 18);
-
-    DobPickerCtrl.save(form);
-
-    expect(modalInstance.close).toHaveBeenCalledWith('06/18/1995');
-  }));
 
   it('shows error when saving invalid date', inject(function(toaster) {
-    var form = { $valid: false };
     spyOn(toaster, 'pop');
+    DobPickerCtrl.dobValid = false;
+    DobPickerCtrl.save();
+    expect(toaster.pop).toHaveBeenCalledWith('error', 'Invalid date of birth.');
+  }));
 
-    DobPickerCtrl.save(form);
-
-    expect(toaster.pop).toHaveBeenCalledWith('error', 'Invalid date of birth. Use mm/dd/yyyy');
+  it('shows error when saving date for under 18 year old', inject(function(toaster) {
+    spyOn(toaster, 'pop');
+    DobPickerCtrl.dobValid = true;
+    DobPickerCtrl.dobOver18 = false;
+    DobPickerCtrl.save();
+    expect(toaster.pop).toHaveBeenCalledWith('error', 'Sorry, you must be at least 18 years old to use this site.');
   }));
 
   it('cancels', function() {
     DobPickerCtrl.cancel();
-
     expect(modalInstance.dismiss).toHaveBeenCalled();
   });
 });

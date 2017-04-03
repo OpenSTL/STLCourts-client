@@ -1,24 +1,13 @@
 <div>
-  <form id="dobFrm" name="dobFrm" novalidate ng-submit="ctrl.save(dobFrm)" ng-submit-force="true">
+  <form id="dobFrm" name="dobFrm" novalidate ng-submit="ctrl.save()" ng-submit-force="true">
     <div class="modal-header">
       <h3 class="modal-title">Date of Birth</h3>
     </div>
     <div class="modal-body">
       <label>In order to protect privacy, please provide your date of birth</label>
-
-      <form-field required>
-        <p class="input-group">
-          <input displayName="Date of Birth" type="text" class="form-control" uib-datepicker-popup={{ctrl.datepickerFormat}}
-                 ng-model="ctrl.dob" is-open="ctrl.status.opened" datepicker-options="ctrl.datepickerOptions"
-                 ng-required="true" close-text="Close" placeholder="MM/DD/YYYY" alt-input-formats="ctrl.acceptedDatepickerFormats"
-                 show-button-bar="false" disable-invalid-styling="true" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="ctrl.open($event)">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </p>
-      </form-field>
+      <div class="dob-date-picker-modal">
+        <stl-courts-datepicker iso-date-string="ctrl.dob" date-valid="ctrl.dobValid" date-over-18="ctrl.dobOver18"></stl-courts-datepicker>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-primary" type="submit">Find Ticket</button>

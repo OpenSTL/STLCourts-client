@@ -1,18 +1,26 @@
-<div class="accent" id="mainSearchBox">
-  <h1>Everything you need in one place.</h1>
+<main-search-box class="accent" id="mainSearchBox">
+  <h1>Your Ticket. Your Rights. Right at your Fingertips.</h1>
 
-  <span id="searchBoxInstructions">Use the search box below to find relevant court information</span>
-  <ui-select id="municipalitiesFinder" name="municipalitiesFinder" ng-model="ctrl.selectedMunicipality" on-select="ctrl.municipalitySelected();" ng-click="ctrl.clearTicketFinder();">
-    <ui-select-match placeholder="Enter your City...">{{$select.selected.municipality_name}}</ui-select-match>
-    <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search">
-      <div ng-bind-html="municipality.municipality_name | highlight: $select.search"></div>
+  <span id="searchBoxInstructions"></span>
+  <ui-select id="municipalitiesFinder" name="municipalitiesFinder" ng-model="ctrl.selectedCitySearchGroup" on-select="ctrl.onCitySearchGroupSelected()" ng-click="ctrl.clearTicketFinder()">
+    <ui-select-match placeholder="Find municipal court information...">{{$select.selected.municipalityName}}</ui-select-match>
+    <ui-select-choices group-by="ctrl.groupCourts" repeat="searchGroup in ctrl.citySearchGroups | filter: $select.search">
+      <div ng-switch="searchGroup.municipalityCourtCount > 1">
+        <span ng-switch-when="true">
+          <span ng-bind-html="searchGroup.court.name | highlight: $select.search"></span>&nbsp;Court</span>
+        </span>
+        <span ng-switch-when="false">
+          <span ng-bind-html="searchGroup.municipalityName | highlight: $select.search"></span>&nbsp;
+          <small class="text-muted">(<span ng-bind-html="searchGroup.court.name | highlight: $select.search"></span>&nbsp;Court)</small>
+        </span>
+      </div>
     </ui-select-choices>
     <ui-select-no-choice>
       Please select a valid city name.
     </ui-select-no-choice>
   </ui-select>
 
-</div>
+</main-search-box>
 
 <p class="main-page-banner">Use the options below to find your ticket information</p>
 
@@ -26,7 +34,7 @@
           <ticket-finder-box text="I have my driver's license number." municipalities="ctrl.municipalities" icon="fa-car" select-finder="ctrl.updateFinderSelected" finder-selected="ctrl.finderSelected" current-ticket-finder="DRIVER_INFO"></ticket-finder-box>
         </div>
         <div class="col-md-4 lime-green-accent no-border-col">
-          <ticket-finder-box text="I know where I got my ticket." municipalities="ctrl.municipalities" icon="fa-map-marker" select-finder="ctrl.updateFinderSelected" finder-selected="ctrl.finderSelected" current-ticket-finder="LOCATION"></ticket-finder-box>
+          <ticket-finder-box text="I kind of remember where I got my ticket." municipalities="ctrl.municipalities" icon="fa-map-marker" select-finder="ctrl.updateFinderSelected" finder-selected="ctrl.finderSelected" current-ticket-finder="LOCATION"></ticket-finder-box>
         </div>
       </div>
   </div>

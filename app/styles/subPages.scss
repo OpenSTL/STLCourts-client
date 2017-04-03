@@ -52,7 +52,38 @@
 
 .sub-page-container p{
   margin:10px $subPageMargin;
-  font-size: 1em !important;
+  font-size: $standard_font_size !important;
+}
+
+.sub-page-container faq-group{
+  font-size: $standard_font_size !important;
+}
+
+faq-group h2{
+  margin-bottom:.2rem;
+}
+
+faq-group .panel-group{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+faq-group.no-margin .panel-group{
+  margin-left:0px;
+  margin-right:0px;
+}
+
+.sub-page-container dl{
+  font-size: $standard_font_size !important;
+}
+
+.sub-page-container dt{
+  margin-left:auto !important;
+  text-align:left !important;
+}
+
+.sub-page-container td{
+  font-size: $font-size-base !important;
 }
 
 .sub-page-container .list-holder{
@@ -66,11 +97,16 @@
 
 .sub-page-container .page-anchor-menu{
   margin-left: $subPageMargin;
-  font-size: 1em !important;
+  font-size: $standard_font_size !important;
+  margin-bottom:1.5rem;
 }
 
 .sub-page-container .page-anchor-menu li:first-child{
   padding-left: 0px !important;
+}
+
+.sub-page-container .page-anchor-menu li{
+  margin-right:15px;
 }
 
 .sub-page-container a{
@@ -102,6 +138,13 @@
   height:250px;
 }
 
+.btn-autosize {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+
 @media only screen and (max-width: 1367px) {
 
 }
@@ -113,6 +156,10 @@
 @media only screen and (max-width: 1025px) {
   .sub-page-title-block h1 {
     font-size: 2.5em;
+  }
+
+  .btn-autosize {
+    font-size: 14px;
   }
 }
 
@@ -132,6 +179,7 @@
   #mapid{
     max-width: 400px;
   }
+
 }
 
 @media only screen and (max-width: 351px) {
@@ -150,6 +198,10 @@
 .answer-panel, .answer-panel div{
   padding-top:0px !important;
   padding-bottom:0px !important;
+}
+
+.sub-page-container .no-margin{
+  margin:0px !important;
 }
 
 .sub-page-container .indentThis{
@@ -265,7 +317,7 @@
 
   .ticket-results-container .table-item-label{
     color: $scheme_primary_color;
-    font-size:1.1em;
+    font-size:$standard_font_size;
   }
   .ticket-results-container .label-for-small-screen{
     display: block;
@@ -288,12 +340,22 @@
   counter-reset: parenthisis-counter;
   padding:0px;
   margin:10px ($subPageMargin + 1);
-  font-size: 1em !important;
+  font-size: $standard_font_size !important;
 }
 
 .parenthesis-list li:before{
   content: counter(parenthisis-counter) ") ";
   counter-increment: parenthisis-counter;
 }
+
+.payment-options-date-picker{
+  text-align: center;
+}
+
+.payment-options-date-picker-input-div{
+  display:inline-block;
+  vertical-align: top;
+}
+
 
 

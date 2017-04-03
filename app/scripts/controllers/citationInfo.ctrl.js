@@ -1,16 +1,20 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts,Session,moment) {
   var ctrl = this;
   ctrl.faqData = faqData;
   ctrl.paymentData = paymentData;
+  ctrl.selectedCitation = null;
 
   ctrl.selectCitation = function(citation){
     ctrl.selectedCitation = citation;
-    Courts.findById(citation.court_id).then(function(court){
-      ctrl.selectedCitation.court = court;
-      ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
-    });
+    Session.setSelectedCitation(ctrl.selectedCitation);
+    if (ctrl.selectedCitation) {
+      Courts.findById(citation.court_id).then(function (court) {
+        ctrl.selectedCitation.court = court;
+        ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
+      });
+    }
   };
 
   ctrl.hasWarrant = function(){
@@ -29,8 +33,8 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.paymentWebsite = function(){
     var websiteURL = "";
     if (ctrl.selectedCitation && ctrl.selectedCitation.court) {
-      if (ctrl.selectedCitation.court.payment_system in ctrl.paymentData){
-        websiteURL = ctrl.paymentData[ctrl.selectedCitation.court.payment_system];
+      if (ctrl.selectedCitation.court.paymentSystem in ctrl.paymentData){
+        websiteURL = ctrl.paymentData[ctrl.selectedCitation.court.paymentSystem];
       }
     }
     return websiteURL;
@@ -40,9 +44,10 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     $state.go('home');
   } else {
     ctrl.citations = citations;
-    ctrl.selectedCitation = null;
     if(ctrl.citations.length === 1) {
       ctrl.selectCitation(ctrl.citations[0]);
+    }else{
+      ctrl.selectCitation(Session.getLastSelectedCitation());
     }
   }
 
@@ -50,7 +55,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     var address = citation.court.address.replace(' ', '+');
     var city = citation.court.city;
     var state = citation.court.state;
-    var zip = citation.court.zip_code;
+    var zip = citation.court.zip;
     var addressParts = [address, city, state, zip];
     return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
   }
@@ -124,16 +129,20 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     $window.print();
   };
 
-  ctrl.formatDate = function(dateToFormat){
-    //TODO use moment once we find out how.
-    //return moment(dateToFormat).format('MM/DD/YYYY');
-    return mmddyyyyFormat(dateToFormat);
-    //return dateToFormat;
+  ctrl.formatDate = function(dateObjToFormat){
+    if (dateObjToFormat) {
+      return moment(dateObjToFormat).format("MM/DD/YYYY");
+    }else {
+      return "";
+    }
   };
-  function mmddyyyyFormat (dateToFormat){//translates from iso date
-    if(dateToFormat === null){return null;}
-    dateToFormat = dateToFormat.slice(5,7) + "/" + dateToFormat.slice(8,10) + "/" + dateToFormat.slice(0,4);
 
-    return dateToFormat;
-  }
+  ctrl.formatTime = function(dateTimeObjToFormat) {
+    if (dateTimeObjToFormat){
+      return moment(dateTimeObjToFormat).format("hh:mm A");
+    }else{
+      return "";
+    }
+  };
+
 });

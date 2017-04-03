@@ -7,10 +7,10 @@
       <leaflet id="municipalityMap" lf-center="ctrl.center"></leaflet>
     </div>
     <div ng-if="ctrl.mousedOverMunicipality != null">Municipality: {{ctrl.mousedOverMunicipality.name}}</div>
-    <div style="margin-top: 20px;" ng-if="ctrl.selectedMunicipalitiesObj.municipalityObjs.length > 0">
+    <div style="margin-top: 20px;" ng-if="ctrl.selectedMunicipalities.length > 0">
       <label>Select Cities</label><br/>
-      <span ng-repeat="municpalityName in ctrl.selectedMunicipalitiesObj.getArrayOfNames()">
-        {{municpalityName}}<span ng-if="$index < ctrl.selectedMunicipalitiesObj.getArrayOfNames().length - 1">, </span>
+      <span ng-repeat="municipality in ctrl.selectedMunicipalities">
+        {{municipality.name}}<span ng-if="$index < ctrl.selectedMunicipalities.length - 1">, </span>
       </span>
     </div>
   </div>

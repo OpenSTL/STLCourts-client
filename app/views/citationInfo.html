@@ -19,7 +19,7 @@
             <td class="hide-when-small-screen center-block"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view</button></td>
             <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></span></td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>
-            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_date)}}</td>
+            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_dateTime)}}</td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{citation.court_location}}</td>
             <td class="hide-border-when-small">
               <span class="label-for-small-screen table-item-label">Violations</span>
@@ -42,15 +42,17 @@
           <h2 class="no-indent">
             Your Information
           </h2>
-          <p class="no-indent zeroAboveBelow">{{ctrl.selectedCitation.first_name}} {{ctrl.selectedCitation.last_name}}</p>
-          <p class="address no-indent">{{ctrl.selectedCitation.defendant_address}}</p>
-          <p class="address no-indent">{{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}</p>
-          <p class="no-indent zeroAboveBelow">Driver's License #: {{ctrl.selectedCitation.drivers_license_number}}</p>
+          <p class="zeroAboveBelow">{{ctrl.selectedCitation.first_name}} {{ctrl.selectedCitation.last_name}}</p>
+          <div ng-if="ctrl.selectedCitation.defendant_address">
+            <p class="address">{{ctrl.selectedCitation.defendant_address}}</p>
+            <p class="address">{{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}</p>
+          </div>
+          <p class="zeroAboveBelow">Driver's License #: {{ctrl.selectedCitation.drivers_license_number}}</p>
           <br>
         </div>
         <div class="col-sm-6 alignColumnsToPage">
           <h2 class="no-indent">Ticket Info</h2>
-          <dl class="dl-horizontal" style="font-size: 1.2em">
+          <dl class="dl-horizontal indentThis">
             <dt>Case Number</dt>
             <dd>{{ctrl.selectedCitation.citation_number}}</dd>
             <dt>Ticket Date</dt>
@@ -81,7 +83,7 @@
         <div class="col-sm-12 alignColumnsToPage">
           <h2 class="no-indent">Violations</h2>
           <ul ng-if="ctrl.hasViolations(ctrl.selectedCitation)">
-            <li ng-repeat="violation in ctrl.selectedCitation.violations" style="font-size: 1.2em">
+            <li ng-repeat="violation in ctrl.selectedCitation.violations">
               {{violation.violation_description}}
               <span ng-if="violation.warrant_status" class="badge" style="background-color: red">WARRANT ISSUED: {{violation.warrant_number}}</span>
             </li>
@@ -94,25 +96,29 @@
       <div ng-if="ctrl.hasWarrant()" class="row alignRowToPage">
         <div class="col-sm-12 alignColumnsToPage">
           <p class="no-indent zeroAboveBelow">You have a warrant, the following may help to answer your questions:</p>
-          <faq-group group-title="Tickets" no-title="true" array-name="ticket-faq" keywords="warrant" source-data="ctrl.faqData"></faq-group>
+          <faq-group class="no-margin" group-title="Tickets" no-title="true" array-name="ticket-faq" keywords="warrant" source-data="ctrl.faqData"></faq-group>
         </div>
       </div>
 
       <div class="row alignRowToPage topMargin">
         <div class="col-sm-6 alignColumnsToPage">
           <h2 class="no-indent">Court Information</h2>
-          <dl class="dl-horizontal" style="font-size: 1.2em">
+          <dl class="dl-horizontal indentThis">
             <dt>Court Date</dt>
-            <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_date)}}</dd>
+            <dd>{{ctrl.formatDate(ctrl.selectedCitation.court_dateTime)}}</dd>
+            <dt>Court Time</dt>
+            <dd>{{ctrl.formatTime(ctrl.selectedCitation.court_dateTime)}}</dd>
             <dt>Court Name</dt>
-            <dd>{{ctrl.selectedCitation.court.court_name}} Court</dd>
+            <dd>{{ctrl.selectedCitation.court.name}} Court</dd>
             <dt>Court Phone Number</dt>
             <dd>{{ctrl.selectedCitation.court.phone}}<span ng-if="ctrl.selectedCitation.court.extension"> x{{ctrl.selectedCitation.court.extension}}</span></dd>
             <dt>Court Location</dt>
             <dd>
-              {{ctrl.selectedCitation.court.address}}<br/>
-              {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip_code}}<br/>
-              <a href="{{ctrl.selectedCitation.courtDirectionLink}}" class="btn btn-scheme-primary no-print" target="_blank">GET DIRECTIONS</a>
+              <span style="display:inline-block">
+                {{ctrl.selectedCitation.court.address}}<br/>
+                {{ctrl.selectedCitation.court.city}}, {{ctrl.selectedCitation.court.state}} {{ctrl.selectedCitation.court.zip}}<br/>
+                <a href="{{ctrl.selectedCitation.courtDirectionLink}}" class="btn btn-scheme-primary no-print" target="_blank">GET DIRECTIONS</a>
+              </span>
             </dd>
           </dl>
         </div>
@@ -120,14 +126,14 @@
           <h2 class="no-indent">I Want To...</h2>
           <p>
             <a ng-if="ctrl.paymentWebsite() != '' && ctrl.canPayOnline(ctrl.selectedCitation)" href="{{ctrl.paymentWebsite()}}" target="_blank">
-              <button type="button" class="btn btn-scheme-primary btn-lg" ng-click=""><i class="fa fa-dollar"></i>&nbsp;PAY TICKET</button>
+              <button type="button" class="btn btn-scheme-primary btn-autosize" ng-click=""><i class="fa fa-dollar"></i>&nbsp;PAY MY TICKET</button>
             </a>
           </p>
           <p>
-            <button type="button" class="btn btn-scheme-primary btn-lg" ng-click="ctrl.goToCommunityService()">EXPLORE COMMUNITY SERVICE OPTIONS</button>
+            <button type="button" class="btn btn-scheme-primary btn-autosize" ng-click="ctrl.goToCommunityService()">EXPLORE COMMUNITY SERVICE OPTIONS</button>
           </p>
           <p>
-            <button type="button" class="btn btn-scheme-primary btn-lg" ng-click="ctrl.printTicket()"><i class="fa fa-print"></i>&nbsp;PRINT INFO</button>
+            <button type="button" class="btn btn-scheme-primary btn-autosize" ng-click="ctrl.printTicket()"><i class="fa fa-print"></i>&nbsp;PRINT INFO</button>
           </p>
         </div>
       </div>

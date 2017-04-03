@@ -8,7 +8,7 @@
       </a>
     </div>
     <div id="help-{{ctrl.faqName}}-A{{$index}}" class="answer-panel panel-collapse collapse">
-      <div class="panel-body small white-space-pre-line"><p ng-bind-html="'A: '+(item.a | linky:'_blank')"></p></div>
+      <div class="panel-body small white-space-pre-line"><p ng-bind-html="'A: '+ctrl.autolinker.link(item.a)"></p></div>
     </div>
   </div>
 </div>

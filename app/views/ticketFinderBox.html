@@ -1,5 +1,5 @@
-<form name="ctrl.ticketForm" ng-submit="ctrl.getDOB()" novalidate ng-submit-force="true">
-<a class="showFullTileBox" href="#footer">
+<form scrollable name="ctrl.ticketForm" ng-submit="ctrl.getDOB()" novalidate ng-submit-force="true">
+<a class="showFullTileBox">
   <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected()" ng-class="{'unselected' : !ctrl.isSelected()}" ng-click="ctrl.selectTicketFinder(ctrl.currentTicketFinder)">
     <div>
       <div class="homePageTileIcon">
@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="thumbnail homepageTileSelected" ng-if="ctrl.isSelected()">
-    <a href="#top"><button type="button" class="close" aria-label="Close" ng-click="ctrl.selectTicketFinder(ctrl.TicketFinderToSelect.NONE);"><span aria-hidden="true">&times;</span></button></a>
+    <a><button type="button" class="close" aria-label="Close" ng-click="ctrl.selectTicketFinder(ctrl.TicketFinderToSelect.NONE);"><span aria-hidden="true">&times;</span></button></a>
     <div>
       <div class="homePageTileIcon">
         <i class="fa {{ctrl.icon}} fa-2x"></i>
@@ -22,7 +22,7 @@
   </div>
   <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected()">
     <div class="col-sm-12" style="text-align: center;">
-      <button class="btn btn-lg" style="margin-bottom: 20px" ng-disabled="!ctrl.ticketForm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+      <button class="ticket-finder-find-ticket-button btn btn-lg" style="margin-bottom: 20px" ng-disabled="!ctrl.ticketForm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
     </div>
   </div>
 </a>

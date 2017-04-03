@@ -1,0 +1,5 @@
+<div class="{{ctrl.displayClass}}" ng-class="{'page-message-no-show':!ctrl.hasMessage()}">
+  <div ng-if="ctrl.hasMessage()" class="page-message-message" ng-class="{'page-message-has-link':ctrl.hasLink()}" ng-click="ctrl.gotoLink()">
+    <span ng-bind-html="ctrl.message()"></span>
+  </div>
+</div>

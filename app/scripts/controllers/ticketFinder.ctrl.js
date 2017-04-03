@@ -1,11 +1,12 @@
 'use strict';
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder,Citations,States,Municipalities,$uibModal,toaster,$state) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope) {
   var ctrl = this;
   ctrl.states = States;
-  ctrl.modifiedMunicipalities = Municipalities.combineCountyMunis();
-  ctrl.municipalitiesMapNames = Municipalities.municipalitiesMapNames();
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
   ctrl.citationCriteria = {};
+  var openScrollToId = ctrl.openScrollToId?ctrl.openScrollToId:"footer";
+  var closeScrollToId = ctrl.closeScrollToId?ctrl.closeScrollToId:"top";
+  var isBoxOpened = false;
 
   function initializeCitationCriteria() {
     ctrl.citationCriteria = {
@@ -14,7 +15,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
       licenseState: 'MO',
       firstName: null,
       lastName: null,
-      municipalityNames: null,
+      municipalities: null,
       dob: null
     };
   }
@@ -22,10 +23,22 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.selectTicketFinder = function(TicketFinderToSelect){
     initializeCitationCriteria();
     ctrl.selectFinder(TicketFinderToSelect);
+    if (TicketFinderToSelect == TicketFinder.TicketFinderToSelect.NONE) {
+      $scope.$broadcast('scrollToLocation',closeScrollToId,false);
+    }
   };
 
   ctrl.isSelected = function(){
-    return (ctrl.finderSelected == ctrl.currentTicketFinder);
+    if (ctrl.finderSelected == ctrl.currentTicketFinder){
+      if (!isBoxOpened) { //if the box is opened already, then it has scrolled. don't keep scrolling
+        isBoxOpened = true;
+        $scope.$broadcast('scrollToLocation',openScrollToId,true);
+      }
+      return true;
+    }else{
+      isBoxOpened = false;
+      return false;
+    }
   };
 
   ctrl.getDOB = function(){
@@ -59,14 +72,14 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
         params.licenseState = ctrl.citationCriteria.licenseState;
         break;
       case ctrl.TicketFinderToSelect.LOCATION:
-        params.municipalityNames = Municipalities.translateMapNamesToDatabaseNames(ctrl.citationCriteria.municipalityNames);
+        params.municipalityIds = _.map(ctrl.citationCriteria.municipalities, 'id');
         params.lastName = ctrl.citationCriteria.lastName;
         break;
     }
 
     Citations.find(params).then(function(result){
-      if(result.citations.length > 0) {
-        $state.go('citationInfo', {citations: result.citations});
+      if(result.length > 0) {
+        $state.go('citationInfo', {citations: result  });
       } else {
         var homeLink = '<a href="/"><u>clicking here</u></a>';
         var noTicketsFoundMsg = 'We could not find any results for the  information you provided. It\'s possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
@@ -85,7 +98,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.openMap = function(){
     //see http://angular-ui.github.io/bootstrap/ for documentation
     //could change this so that instead of setting to null pass on to the dialog and dialog can preselect the items
-    ctrl.citationCriteria.municipalityNames = null;
+    ctrl.citationCriteria.municipalities = [];
 
     var modalInstance = $uibModal.open({
       templateUrl: 'views/locationPickerMap.html',
@@ -94,13 +107,15 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
       backdrop: false,
       resolve: {
         municipalities: function() {
-          return ctrl.municipalitiesMapNames;
+          return Municipalities.findAll();
         }
       }
     });
 
     modalInstance.result.then(function (selectedMunicipalities) {
-      ctrl.citationCriteria.municipalityNames = selectedMunicipalities;
+      ctrl.citationCriteria.municipalities = selectedMunicipalities;
     });
   };
+
+  initializeCitationCriteria();
 });

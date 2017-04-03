@@ -16,8 +16,7 @@
 }
 
 .navbar{
-  margin:20px 0;
-  height:$navbar-height - 40px !important;
+  margin:20px 0px 0px 0px !important;
   border:none !important;
 }
 
@@ -44,9 +43,52 @@
   margin-right: 0px !important;
 }
 
+@media screen and (min-width:768px){
+  .navbar-collapse.collapse{
+    height: 10px !important; /* when not in mobile view this needs to be small */
+  }
+}
+
 @media screen and (max-width:767px) {
   .navbar-collapse {
     background-color: $navbarCollapseMenuColor;
+  }
+
+  .navbar{
+    height:54px !important;
+    margin-bottom:20px !important;
+    min-height:0px !important;
+  }
+
+  .navbar-toggle{
+    margin:9px 0px 0px 0px !important;
+  }
+}
+@media screen and (min-width:901px){
+  .navbar-nav{
+    font-size: .9em;
+  }
+
+  .navbar-nav{
+    position:absolute;
+    right:0px;
+    top:35px;
+  }
+
+  .navbar-default .navbar-nav > li > a{
+    padding-bottom:0px;
+  }
+
+  .navbar{
+    height:auto !important;
+    margin-bottom:20px !important;
+    min-height:0px !important;
+  }
+}
+
+@media screen and (min-width:1025px){
+  .navbar-nav{
+    font-size: 1.1em;
   }
 }
 
@@ -61,7 +103,7 @@
   .navbar-brand{
     display:block;
     float:none;
-    height: 40px !important;
+    height: 65px !important;
   }
 
   #navbar{
@@ -71,6 +113,16 @@
   .navbar-nav{
     float:none !important;
     display:inline-block;
+    font-size: .9em;
+  }
+  .navbar{
+    margin-bottom:5px !important;
+    height:90px;
+  }
+
+  .navbar-default .navbar-nav > li > a{
+    padding-top:10px;
+    padding-bottom:0px;
   }
 }
 

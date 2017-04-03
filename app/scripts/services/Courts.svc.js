@@ -5,16 +5,17 @@ angular.module('yourStlCourts').factory('Courts', function ($resource, $q) {
   var courts;
 
   function findById(id){
-    return CourtResource.get({id: id}).$promise;
+    return !!courts ? $q.when(_.cloneDeep(_.find(courts, {id: id}))) : CourtResource.get({id: id}).$promise;
   }
 
   function findAll() {
-    if(courts) {
-      return $q.when(courts);
-    }
-    return CourtResource.query().$promise.then(function(response){
-      courts = response;
-      return courts;
+    var courtPromise = !!courts ? $q.when(courts) : CourtResource.query().$promise;
+
+    return courtPromise.then(function(response){
+      if(!courts) {
+        courts = response;
+      }
+      return _.cloneDeep(courts);
     });
   }
 
