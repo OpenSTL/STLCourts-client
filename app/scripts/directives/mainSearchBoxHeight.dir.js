@@ -14,7 +14,8 @@ angular.module('yourStlCourts').directive('mainSearchBox', function ($window) {
       resizeMainSearchBox(); //call it for initial setup
 
       function resizeMainSearchBox(){
-        var IMAGE_RATIO = 0.3125; //ratio of height to width of main banner image;
+        //var IMAGE_RATIO = 0.3125; //ratio of height to width of main banner image;
+        var IMAGE_RATIO = 0.208; //ratio of height to width of main banner image;
         var newHeight = $(window).width()*IMAGE_RATIO;
         $(element).height(Number(newHeight));
       }
