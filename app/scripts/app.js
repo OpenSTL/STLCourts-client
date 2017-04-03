@@ -103,10 +103,8 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
             return data.data;
           });
         },
-        paymentData: function ($http) {
-          return $http.get('data/paymentWebsites.json').then(function (data) {
-            return data.data;
-          });
+        municipalities: function (Municipalities) {
+          return Municipalities.findAll();
         }
       }
     })
