@@ -99,6 +99,16 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     return total.toFixed(2);
   };
 
+  ctrl.canPayOnline = function(citation){
+    var canPayOnline = true;
+    citation.violations.forEach(function(violation){
+      if (!violation.can_pay_online)
+        canPayOnline = false;
+    });
+
+    return canPayOnline;
+  };
+
   ctrl.hasViolations = function(citation) {
     return citation.violations.length > 0;
   };
