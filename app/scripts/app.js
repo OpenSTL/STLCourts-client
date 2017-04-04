@@ -24,7 +24,12 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     .state('about', {
       url: '/about',
       templateUrl: 'views/about.html',
-      controller: 'AboutCtrl as ctrl'
+      controller: 'AboutCtrl as ctrl',
+      resolve: {
+        textPhoneNumber: function (TextMessageMessage) {
+          return TextMessageMessage.getPhoneNumber();
+        }
+      }
     })
     .state('help', {
       url: '/help',
@@ -40,7 +45,8 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     })
     .state('info', {
       url: '/info',
-      templateUrl: 'views/info.html'
+      templateUrl: 'views/info.html',
+      controller: 'InfoCtrl as ctrl'
     })
     .state('legal', {
       url: '/legal',
@@ -122,7 +128,8 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     })
     .state('communityService', {
       url: '/communityService',
-      templateUrl: 'views/communityService.html'
+      templateUrl: 'views/communityService.html',
+      controller: 'CommunityServiceCtrl as ctrl'
     })
     .state('sponsorLogin', {
       url: '/sponsorLogin',

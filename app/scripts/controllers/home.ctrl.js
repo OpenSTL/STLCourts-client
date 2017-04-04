@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $state, municipalities, courts, PageMessage) {
+angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $state, municipalities, courts, PageMessage, TextMessageMessage) {
   var ctrl = this;
-  PageMessage.setMessage('Get Court Date Reminders on your<br>phone. Text "HELP" to <b>(314) 254-8050</b>');
+  PageMessage.setMessage(TextMessageMessage.getTextMessageMessage());
   ctrl.citySearchGroups = [];
   ctrl.municipalities = municipalities;
   ctrl.selectedCitySearchGroup = null;

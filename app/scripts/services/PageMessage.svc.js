@@ -34,6 +34,9 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope) {
       setMessage("");
       stateLink = "";
     });
+    $rootScope.$on('newPageMessage', function(evt,msg){
+      setMessage(msg);
+    });
   }
 
   var svc = {

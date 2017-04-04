@@ -72,6 +72,7 @@ describe('CitationInfoCtrl', function () {
     inject(function ($rootScope, $httpBackend, $controller, $state, $window, Courts) {
       $httpBackend.whenGET(/municipalities/).respond(200, '');
       $httpBackend.whenGET(/courts/).respond(200, '');
+      $httpBackend.whenGET(/phoneNumber/).respond(200, '');
 
       CitationInfoCtrl = $controller('CitationInfoCtrl', {
         faqData: faqData,
