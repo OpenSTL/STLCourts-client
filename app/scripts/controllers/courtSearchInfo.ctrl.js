@@ -1,9 +1,8 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court,leafletData,PageMessage,TextMessageMessage){
+angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court,leafletData){
   var ctrl = this;
 
-  PageMessage.setMessage(TextMessageMessage.getTextMessageMessage());
   ctrl.courtInfo = court;
 
   ctrl.courtOnMap = {

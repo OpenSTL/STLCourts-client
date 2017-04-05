@@ -10,6 +10,7 @@ describe('Courts', function() {
       Courts = _Courts_;
       $httpBackend = _$httpBackend_;
     });
+    $httpBackend.whenGET(/info/).respond(200, '');
   });
 
   it('finds a court by id', function() {

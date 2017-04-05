@@ -13,7 +13,7 @@ describe('PageMessage', function() {
     expect(PageMessage.getMessage()).toEqual("");
     expect(PageMessage.getLink()).toEqual("");
     PageMessage.set("Hello","MyLink");
-    PageMessage.start();
+    PageMessage.start(true);
     $rootScope.$broadcast('$stateChangeStart');
     expect(PageMessage.getMessage()).toEqual("");
     expect(PageMessage.getLink()).toEqual("");

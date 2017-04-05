@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('AboutCtrl', function (Contact,PageMessage,TextMessageMessage,textPhoneNumber) {
+angular.module('yourStlCourts').controller('AboutCtrl', function (Contact,smsPhoneNumber) {
   var ctrl = this;
   ctrl.email = Contact.email;
-  ctrl.textPhoneNumber = textPhoneNumber;
-  PageMessage.setMessage(TextMessageMessage.getTextMessageMessage());
+  ctrl.textPhoneNumber = smsPhoneNumber;
 });

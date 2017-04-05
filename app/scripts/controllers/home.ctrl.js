@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $state, municipalities, courts, PageMessage, TextMessageMessage) {
+angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $state, municipalities, courts) {
   var ctrl = this;
-  PageMessage.setMessage(TextMessageMessage.getTextMessageMessage());
   ctrl.citySearchGroups = [];
   ctrl.municipalities = municipalities;
   ctrl.selectedCitySearchGroup = null;

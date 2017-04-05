@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts,Session,moment,PageMessage,TextMessageMessage) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,paymentData,$state, $window, citations, Courts,Session,moment) {
   var ctrl = this;
-  PageMessage.setMessage(TextMessageMessage.getTextMessageMessage());
   ctrl.faqData = faqData;
   ctrl.paymentData = paymentData;
   ctrl.selectedCitation = null;

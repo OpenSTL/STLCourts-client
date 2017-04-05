@@ -13,7 +13,7 @@ describe('AboutCtrl', function() {
     inject(function($controller){
       AboutCtrl = $controller('AboutCtrl',{
         Contact:contact,
-        textPhoneNumber:"someNumber"
+        smsPhoneNumber:"someNumber"
       });
 
     });

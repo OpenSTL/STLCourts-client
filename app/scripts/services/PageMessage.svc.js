@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('yourStlCourts').factory('PageMessage', function ($rootScope) {
+angular.module('yourStlCourts').factory('PageMessage', function ($rootScope, SMSInfo) {
   var message = "";
   var stateLink = "";
+  var hideMessage = false;
 
   function setMessage(messageHtml){
     message = messageHtml;
@@ -11,6 +12,17 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope) {
   function set(messageHtml,stateToGoTo){
     setMessage(messageHtml);
     stateLink = stateToGoTo;
+  }
+
+  function setSMSInformationalMessage(){
+    SMSInfo.getPhoneNumber().then(function(phoneNumber){
+      var message = 'Get Court Date Reminders on your<br>phone. Text "HELP" to <b>'+phoneNumber+'</b>';
+      setMessage(message);
+    });
+  }
+
+  function hideGlobalMessage(){
+    hideMessage = true;
   }
 
   function getMessage(){
@@ -22,21 +34,30 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope) {
   }
 
   function hasMessage(){
-    return !!message;
+    if (hideMessage){
+      return false;
+    }else {
+      return !!message;
+    }
   }
 
   function hasLink(){
     return !!stateLink;
   }
 
-  function start(){
-    $rootScope.$on('$stateChangeStart',function(){
-      setMessage("");
-      stateLink = "";
-    });
-    $rootScope.$on('newPageMessage', function(evt,msg){
-      setMessage(msg);
-    });
+  function start(useLocalMessages){
+
+    if (useLocalMessages) {
+      $rootScope.$on('$stateChangeStart', function () {
+        setMessage("");
+        stateLink = "";
+      });
+    }else{
+      //using global message so allow page to hide message
+      $rootScope.$on('$stateChangeStart', function () {
+        hideMessage = false;
+      });
+    }
   }
 
   var svc = {
@@ -46,7 +67,9 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope) {
     getMessage: getMessage,
     getLink: getLink,
     hasMessage:hasMessage,
-    hasLink:hasLink
+    hasLink:hasLink,
+    setSMSInformationalMessage:setSMSInformationalMessage,
+    hideGlobalMessage:hideGlobalMessage
   };
 
   return svc;

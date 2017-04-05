@@ -26,8 +26,8 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
       templateUrl: 'views/about.html',
       controller: 'AboutCtrl as ctrl',
       resolve: {
-        textPhoneNumber: function (TextMessageMessage) {
-          return TextMessageMessage.getPhoneNumber();
+        smsPhoneNumber: function (SMSInfo) {
+          return SMSInfo.getPhoneNumber();
         }
       }
     })
@@ -45,8 +45,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     })
     .state('info', {
       url: '/info',
-      templateUrl: 'views/info.html',
-      controller: 'InfoCtrl as ctrl'
+      templateUrl: 'views/info.html'
     })
     .state('legal', {
       url: '/legal',
@@ -128,8 +127,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     })
     .state('communityService', {
       url: '/communityService',
-      templateUrl: 'views/communityService.html',
-      controller: 'CommunityServiceCtrl as ctrl'
+      templateUrl: 'views/communityService.html'
     })
     .state('sponsorLogin', {
       url: '/sponsorLogin',
@@ -176,6 +174,7 @@ angular.module('yourStlCourts').run(function ($rootScope, validator, validationE
     $rootScope.$on('$stateChangeSuccess', function () {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-    PageMessage.start();
+    PageMessage.start(false);
+    PageMessage.setSMSInformationalMessage();
   }
 );

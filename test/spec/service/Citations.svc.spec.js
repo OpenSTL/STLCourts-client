@@ -3,6 +3,7 @@ describe('Citations', function() {
   var httpRoot = '//localhost:8080/api';
   var querySpy = jasmine.createSpy('querySpy');
 
+
   var citation = {
     id: 5,
     citation_date: "2001-04-23",
@@ -26,8 +27,23 @@ describe('Citations', function() {
   };
 
   var citations = [citation,citation2];
+  var getPhoneNumberSpy = jasmine.createSpy('getPhoneNumberSpy');
 
   beforeEach(module('yourStlCourts'));
+
+   beforeEach(function(){
+   module(function($provide) {
+   $provide.factory('SMSInfo', function () {
+   return function SMSInfo() {
+   return {getPhoneNumber: getPhoneNumberSpy};
+   }
+   });
+
+   });
+
+   });
+
+
 
   beforeEach(function(){
     module(function($provide){
@@ -37,13 +53,22 @@ describe('Citations', function() {
         }
       });
     });
+    /*module(function($provide){
+      $provide.factory('SMSInfo',function(){
+        return function SMSInfo() {
+          return {getPhoneNumber: function(){return ""}};
+        }
+      });
+    });*/
   });
 
-  beforeEach(inject(function(_Citations_){
+  beforeEach(inject(function(_Citations_,$q){
     Citations = _Citations_;
+    getPhoneNumberSpy.andReturn({$promise:$q.when("someNumber")});
   }));
 
   it ('test a basic promise in $resource',inject(function($q,$rootScope){
+    //spyOn(SMSInfo.getPhoneNumber).and.returnValue($.when("(314) 123-4567"));
     var defer = $q.defer();
     defer.resolve(citations);
 
