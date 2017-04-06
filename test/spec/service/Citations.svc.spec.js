@@ -27,23 +27,19 @@ describe('Citations', function() {
   };
 
   var citations = [citation,citation2];
-  var getPhoneNumberSpy = jasmine.createSpy('getPhoneNumberSpy');
 
   beforeEach(module('yourStlCourts'));
 
    beforeEach(function(){
-   module(function($provide) {
-   $provide.factory('SMSInfo', function () {
-   return function SMSInfo() {
-   return {getPhoneNumber: getPhoneNumberSpy};
-   }
+     module(function($provide) {
+      $provide.value('PageMessage',
+        {
+          setSMSInformationalMessage: function () {},
+          start: function () {}
+        });
+
+     });
    });
-
-   });
-
-   });
-
-
 
   beforeEach(function(){
     module(function($provide){
@@ -53,18 +49,11 @@ describe('Citations', function() {
         }
       });
     });
-    /*module(function($provide){
-      $provide.factory('SMSInfo',function(){
-        return function SMSInfo() {
-          return {getPhoneNumber: function(){return ""}};
-        }
-      });
-    });*/
+
   });
 
   beforeEach(inject(function(_Citations_,$q){
     Citations = _Citations_;
-    getPhoneNumberSpy.andReturn({$promise:$q.when("someNumber")});
   }));
 
   it ('test a basic promise in $resource',inject(function($q,$rootScope){

@@ -3,9 +3,20 @@ describe('Courts', function() {
   var $httpBackend;
   var httpRoot = '//localhost:8080/api';
 
-  beforeEach(function() {
-    module('yourStlCourts');
+  beforeEach(module('yourStlCourts'));
 
+  beforeEach(function(){
+    module(function($provide) {
+      $provide.value('PageMessage',
+        {
+          setSMSInformationalMessage: function () {},
+          start: function () {}
+        });
+
+    });
+  });
+
+  beforeEach(function() {
     inject(function(_Courts_, _$httpBackend_) {
       Courts = _Courts_;
       $httpBackend = _$httpBackend_;

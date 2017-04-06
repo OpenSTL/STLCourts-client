@@ -2,24 +2,21 @@ describe('Municipalities', function() {
   var Municipalities;
   var $httpBackend;
   var httpRoot = '//localhost:8080/api';
-  var getPhoneNumberSpy = jasmine.createSpy('getPhoneNumberSpy');
 
- /* beforeEach(function(){
+  beforeEach(module('yourStlCourts'));
+
+  beforeEach(function(){
     module(function($provide) {
-      $provide.factory('SMSInfo', function () {
-        return function SMSInfo() {
-          return {getPhoneNumber: getPhoneNumberSpy};
-        }
-      });
+      $provide.value('PageMessage',
+        {
+          setSMSInformationalMessage: function () {},
+          start: function () {}
+        });
 
-      getPhoneNumberSpy.andReturn("somePhoneNumber");
     });
-
   });
-*/
-  beforeEach(function() {
-    module('yourStlCourts');
 
+  beforeEach(function() {
     inject(function(_Municipalities_, _$httpBackend_) {
       Municipalities = _Municipalities_;
       $httpBackend = _$httpBackend_;

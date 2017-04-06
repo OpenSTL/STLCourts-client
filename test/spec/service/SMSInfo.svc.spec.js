@@ -8,6 +8,17 @@ describe('SMSInfo', function() {
   beforeEach(module('yourStlCourts'));
 
   beforeEach(function(){
+    module(function($provide) {
+      $provide.value('PageMessage',
+        {
+          setSMSInformationalMessage: function () {},
+          start: function () {}
+        });
+
+    });
+  });
+
+  beforeEach(function(){
     module(function($provide){
       $provide.factory('$resource',function(){
         return function $resource() {
