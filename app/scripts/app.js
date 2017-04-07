@@ -166,7 +166,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,PageMessage) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,PageMessage, SMSInfo) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
@@ -174,7 +174,9 @@ angular.module('yourStlCourts').run(function ($rootScope, validator, validationE
     $rootScope.$on('$stateChangeSuccess', function () {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-    PageMessage.start(false);
-    PageMessage.setSMSInformationalMessage();
+    SMSInfo.getPhoneNumber().then(function(phoneNumber){
+      var message = 'Get Court Date Reminders on your<br>phone. Text "HELP" to <b>'+phoneNumber+'</b>';
+      PageMessage.start(message);
+    });
   }
 );

@@ -7,12 +7,14 @@ describe('Municipalities', function() {
 
   beforeEach(function(){
     module(function($provide) {
-      $provide.value('PageMessage',
+      $provide.value('SMSInfo',
         {
-          setSMSInformationalMessage: function () {},
-          start: function () {}
+          getPhoneNumber: function () {
+            return {
+              then:function(){}
+            };
+          }
         });
-
     });
   });
 

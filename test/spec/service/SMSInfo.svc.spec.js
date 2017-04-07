@@ -1,22 +1,8 @@
 describe('SMSInfo', function() {
   var SMSInfo;
-  var $httpBackend;
-  var httpRoot = '//localhost:8080/api';
   var getSpy = jasmine.createSpy('getSpy');
-  var resource;
 
   beforeEach(module('yourStlCourts'));
-
-  beforeEach(function(){
-    module(function($provide) {
-      $provide.value('PageMessage',
-        {
-          setSMSInformationalMessage: function () {},
-          start: function () {}
-        });
-
-    });
-  });
 
   beforeEach(function(){
     module(function($provide){
@@ -26,12 +12,22 @@ describe('SMSInfo', function() {
         }
       });
     });
+    //This part handles the SMSInfo that is called in the app.run
+    //the spy then gets redefined in the individual test to actually test functionality
+    getSpy.and.returnValue({
+      $promise:{
+        then: function(){
+          return {
+            then: function(){}
+          }
+        }
+      }
+    });
   });
 
   beforeEach(function() {
-    inject(function(_SMSInfo_,_$httpBackend_) {
+    inject(function(_SMSInfo_) {
       SMSInfo = _SMSInfo_;
-      $httpBackend = _$httpBackend_;
     });
   });
 

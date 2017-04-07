@@ -13,7 +13,7 @@ describe('PageMessage', function() {
     expect(PageMessage.getMessage()).toEqual("");
     expect(PageMessage.getLink()).toEqual("");
     PageMessage.set("Hello","MyLink");
-    PageMessage.start(true);
+    PageMessage.start();
     $rootScope.$broadcast('$stateChangeStart');
     expect(PageMessage.getMessage()).toEqual("");
     expect(PageMessage.getLink()).toEqual("");
@@ -21,7 +21,7 @@ describe('PageMessage', function() {
 
   it('sets and gets Messages', inject(function($rootScope) {
     spyOn($rootScope,'$broadcast');
-    PageMessage.setMessage("Hello");
+    PageMessage.message("Hello");
     expect(PageMessage.getMessage()).toEqual("Hello");
     expect(PageMessage.hasMessage()).toBe(true);
   }));

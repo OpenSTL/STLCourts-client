@@ -2,31 +2,36 @@
 
 angular.module('yourStlCourts').factory('PageMessage', function ($rootScope, SMSInfo) {
   var message = "";
+  var pageMessage = "";
   var stateLink = "";
-  var hideMessage = false;
+  var hidden = false;
 
-  function setMessage(messageHtml){
-    message = messageHtml;
+  function setPageMessage(messageHtml){
+    pageMessage = messageHtml;
   }
 
   function set(messageHtml,stateToGoTo){
-    setMessage(messageHtml);
+    setPageMessage(messageHtml);
     stateLink = stateToGoTo;
   }
 
   function setSMSInformationalMessage(){
     SMSInfo.getPhoneNumber().then(function(phoneNumber){
       var message = 'Get Court Date Reminders on your<br>phone. Text "HELP" to <b>'+phoneNumber+'</b>';
-      setMessage(message);
+      setPageMessage(message);
     });
   }
 
-  function hideGlobalMessage(){
-    hideMessage = true;
+  function hide(){
+    hidden = true;
   }
 
   function getMessage(){
-    return message;
+    if (pageMessage) {
+      return pageMessage;
+    }else{
+      return message;
+    }
   }
 
   function getLink(){
@@ -34,10 +39,10 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope, SMS
   }
 
   function hasMessage(){
-    if (hideMessage){
+    if (hidden){
       return false;
     }else {
-      return !!message;
+      return !!message || !!pageMessage;
     }
   }
 
@@ -45,31 +50,27 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope, SMS
     return !!stateLink;
   }
 
-  function start(useLocalMessages){
-
-    if (useLocalMessages) {
-      $rootScope.$on('$stateChangeStart', function () {
-        setMessage("");
-        stateLink = "";
-      });
-    }else{
-      //using global message so allow page to hide message
-      $rootScope.$on('$stateChangeStart', function () {
-        hideMessage = false;
-      });
+  function start(defaultMessage){
+    if (defaultMessage){
+      message = defaultMessage;
     }
+    $rootScope.$on('$stateChangeStart', function () {
+      hidden = false;
+      setPageMessage("");
+      stateLink = "";
+    });
   }
 
   var svc = {
     start: start,
-    setMessage: setMessage,
+    message: setPageMessage,
     set:set,
     getMessage: getMessage,
     getLink: getLink,
     hasMessage:hasMessage,
     hasLink:hasLink,
     setSMSInformationalMessage:setSMSInformationalMessage,
-    hideGlobalMessage:hideGlobalMessage
+    hide:hide
   };
 
   return svc;

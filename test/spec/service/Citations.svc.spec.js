@@ -32,14 +32,17 @@ describe('Citations', function() {
 
    beforeEach(function(){
      module(function($provide) {
-      $provide.value('PageMessage',
+      $provide.value('SMSInfo',
         {
-          setSMSInformationalMessage: function () {},
-          start: function () {}
+          getPhoneNumber: function () {
+            return {
+              then:function(){}
+            };
+          }
         });
-
      });
    });
+
 
   beforeEach(function(){
     module(function($provide){
@@ -52,12 +55,11 @@ describe('Citations', function() {
 
   });
 
-  beforeEach(inject(function(_Citations_,$q){
+  beforeEach(inject(function(_Citations_){
     Citations = _Citations_;
   }));
 
   it ('test a basic promise in $resource',inject(function($q,$rootScope){
-    //spyOn(SMSInfo.getPhoneNumber).and.returnValue($.when("(314) 123-4567"));
     var defer = $q.defer();
     defer.resolve(citations);
 
