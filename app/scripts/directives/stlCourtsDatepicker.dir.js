@@ -41,7 +41,7 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
       });
 
       element.on('keypress',function(event){
-        var keyCode = event.keyCode;
+        var keyCode = (typeof event.which == "number") ? event.which : event.keyCode;
         event.preventDefault();
         if (keyCode >= keys.zero && keyCode <= keys.nine){
           var maxLength = $(event.target).attr("maxlength");
