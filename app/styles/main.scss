@@ -412,6 +412,11 @@ label {
   }
 }
 
+@media only screen and (max-width: 601px) {
+  #mainSearchBox h1{
+    font-size:1.4em;
+  }
+}
 @media only screen and (max-width: 451px) {
   #mainSearchBox{
     height: 94px;
