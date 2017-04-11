@@ -4,6 +4,42 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
   ctrl.faqName = camelize(ctrl.groupTitle);
   ctrl.autolinker = new Autolinker({stripPrefix:false});
 
+  for(var faqSection in ctrl.sourceData){
+    for(var faq in ctrl.sourceData[faqSection]){
+      var fillIn = ctrl.sourceData[faqSection][faq]["fill-in"];
+      switch(fillIn){
+        case "supportedMunicipalities":
+          var additionalData = findAdditionalData("supportedMunicipalities");
+          if (additionalData) {
+            var supportedMuniList = "Participating municipalities: ";
+            for (var municipalityCount in additionalData) {
+              if (municipalityCount > 0) {
+                supportedMuniList += ", ";
+              }
+              supportedMuniList += additionalData[municipalityCount].name;
+            }
+            ctrl.sourceData[faqSection][faq]["a"] += "<br><br>" + supportedMuniList;
+          }
+          break;
+      }
+    }
+  }
+
+  function findAdditionalData(dataLabel){
+    var foundData = null;
+    if (ctrl.additionalData){
+      for(var dataCount in ctrl.additionalData){
+        for(var label in ctrl.additionalData[dataCount]){
+          if (label == dataLabel){
+            foundData = ctrl.additionalData[dataCount][label];
+            break;
+          }
+        }
+      }
+    }
+    return foundData;
+  }
+
   ctrl.keywordFilter = function(faqItem){
       var found = false;
       if (ctrl.keywords){

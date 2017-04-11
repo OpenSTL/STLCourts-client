@@ -41,7 +41,7 @@ angular.module('yourStlCourts').factory('Municipalities', function ($resource, $
     findById: findById,
     findByCourtId: findByCourtId,
     findAll: findAll,
-    fomdSupported: findSupported
+    findSupported: findSupported
   };
 
   return svc;
