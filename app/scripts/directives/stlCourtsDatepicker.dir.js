@@ -36,29 +36,42 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
 
       $scope.ctrl.dateString = "";
 
-     $(element).find(".stl-courts-datepicker-date-group").on('click',function(event){
+      $(element).find(".stl-courts-datepicker-date-group").on('click',function(event){
         $scope.ctrl.openCloseDateCalendar("close");
       });
 
-      element.on('keypress',function(event){
-        var keyCode = event.keyCode;
-        event.preventDefault();
-        if (keyCode >= keys.zero && keyCode <= keys.nine){
-          var maxLength = $(event.target).attr("maxlength");
-          var numberOfExistingDigits = $(event.target).val().length;
-          if (numberOfExistingDigits < maxLength){
-            $(event.target).val($(event.target).val()+String.fromCharCode(keyCode));
+      $(element).find("input").each(function(index){
+        var inputElement = this;
+
+        $(inputElement).on('click',function(event){
+          clearInputElement(inputElement);
+        });
+
+        $(inputElement).on('input',function(event){
+          var inputString = $(inputElement).val();
+          var keyCode = inputString.charCodeAt(inputString.length-1);
+          if (keyCode >= keys.zero && keyCode <= keys.nine){
+            var maxLength = $(event.target).attr("maxlength");
+            var numberOfExistingDigits = $(event.target).val().length;
             updateDateString();
-            numberOfExistingDigits++;
-          }
-          if (numberOfExistingDigits == maxLength){
-            //tab to the next field
-            if ($(event.target).next("span") != $()){
-              $(event.target).next().next().focus();
+            if (numberOfExistingDigits === maxLength){
+              //tab to the next field
+              if ($(event.target).next("span") !== $()){
+                clearInputElement($(event.target).next().next());
+                $(event.target).next().next().focus();
+              }
             }
+          }else{
+            //remove invalid key from display
+            $(inputElement).val($(inputElement).val().slice(0,$(inputElement).val().length-1));
           }
-        }
+        });
       });
+
+      function clearInputElement(inputElement){
+        $(inputElement).val("");
+        updateDateString();
+      }
 
       function updateDateString(){
         $timeout(function(){
@@ -182,7 +195,7 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
 
       element.on('$destroy',function(){
         $(element).find(".stl-courts-datepicker-date-group").off("click");
-        element.off('keypress');
+        $(element).find("input").off("input").off("click");
       });
     }
   }
