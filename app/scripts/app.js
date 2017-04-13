@@ -37,7 +37,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
           });
         },
         supportedMunicipalities: function (Municipalities) {
-          return Municipalities.findSupported();
+          return Municipalities.findAll(Municipalities.MUNICIPALITIES_TO_GET.SUPPORTED);
         }
       }
     })

@@ -12,7 +12,7 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
           var additionalData = findAdditionalData("supportedMunicipalities");
           if (additionalData) {
             var supportedMuniList = "Participating municipalities: ";
-            for (var municipalityCount in additionalData) {
+            for (var municipalityCount = 0; municipalityCount < additionalData.length; municipalityCount++) {
               if (municipalityCount > 0) {
                 supportedMuniList += ", ";
               }
