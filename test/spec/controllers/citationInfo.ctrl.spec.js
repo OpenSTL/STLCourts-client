@@ -12,14 +12,17 @@ describe('CitationInfoCtrl', function () {
       }]
   };
 
-  var paymentData = {
-    "apple": "banana",
-    "pear": "peach"
+  var municipality = {
+    id: 5,
+    paymentUrl: "someUrl"
   };
+
+  var municipalities = [municipality];
 
   var violation = {
     id: 10,
-    warrant_status: true
+    warrant_status: true,
+    can_pay_online:false
   };
 
   var violationWithFees = {
@@ -32,19 +35,22 @@ describe('CitationInfoCtrl', function () {
   var citation = {
     id: 2,
     court_id: 5,
-    violations: []
+    violations: [],
+    municipality_id:5
   };
 
   var citationWithViolations = {
     id: 4,
     court_id: 11,
-    violations: [violation]
+    violations: [violation],
+    municipality_id:5
   };
 
   var citationWithViolationsAndFees = {
     id: 4,
     court_id: 11,
-    violations: [violationWithFees]
+    violations: [violationWithFees],
+    municipality_id:5
   };
 
   var citations = [
@@ -75,7 +81,7 @@ describe('CitationInfoCtrl', function () {
 
       CitationInfoCtrl = $controller('CitationInfoCtrl', {
         faqData: faqData,
-        paymentData: paymentData,
+        municipalities: municipalities,
         $state: $state,
         $window: $window,
         citations: citations,
@@ -85,9 +91,8 @@ describe('CitationInfoCtrl', function () {
     });
   });
 
-  it('correctly sets faqData and paymentData', inject(function () {
+  it('correctly sets faqData', inject(function () {
     expect(CitationInfoCtrl.faqData).toEqual(faqData);
-    expect(CitationInfoCtrl.paymentData).toEqual(paymentData);
   }));
 
   it('correctly sets selected citation', inject(function (Courts, $q, $rootScope,Session) {
@@ -104,6 +109,17 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.selectedCitation.courtDirectionLink).toEqual(expectedAddress);
   }));
 
+  it('correctly sets selected paymentUrl', inject(function (Courts, $q, $rootScope,Session) {
+    var deferred = $q.defer();
+    deferred.resolve(court);
+    spyOn(Courts, 'findById').and.returnValue(deferred.promise);
+
+    CitationInfoCtrl.selectCitation(citation);
+    $rootScope.$apply();
+
+    expect(CitationInfoCtrl.paymentUrl).toEqual(municipality.paymentUrl);
+  }));
+
   it('correctly sets selected citation when citation is null', inject(function () {
     CitationInfoCtrl.selectCitation(null);
 
@@ -116,15 +132,9 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.hasWarrant()).toBe(true);
   }));
 
-  it('correctly returns paymentWebsite', inject(function () {
-    CitationInfoCtrl.selectedCitation = {
-      id: 5,
-      court: {
-        id: 6,
-        paymentSystem: "pear"
-      }
-    };
-    expect(CitationInfoCtrl.paymentWebsite()).toEqual("peach");
+  it('returns correct result for canPayOnline', inject(function () {
+    CitationInfoCtrl.selectedCitation = citationWithViolations;
+    expect(CitationInfoCtrl.canPayOnline(CitationInfoCtrl.selectedCitation)).toBe(false);
   }));
 
   it('goes to home page if no citations', inject(function ($controller, $state, $window, Courts) {
@@ -132,7 +142,7 @@ describe('CitationInfoCtrl', function () {
 
     var CitationInfoCtrl = $controller('CitationInfoCtrl', {
       faqData: faqData,
-      paymentData: paymentData,
+      municipalities: municipalities,
       $state: $state,
       $window: $window,
       citations: null,
@@ -155,7 +165,7 @@ describe('CitationInfoCtrl', function () {
 
     CitationInfoCtrl = $controller('CitationInfoCtrl', {
       faqData: faqData,
-      paymentData: paymentData,
+      municipalities: municipalities,
       $state: $state,
       $window: $window,
       citations: [citation],
@@ -193,13 +203,6 @@ describe('CitationInfoCtrl', function () {
     spyOn($state, 'go');
     CitationInfoCtrl.goToCommunityService();
     expect($state.go).toHaveBeenCalledWith('communityService');
-  }));
-
-  it('goes to payment options', inject(function ($state) {
-    spyOn($state, 'go');
-    CitationInfoCtrl.selectedCitation = citation;
-    CitationInfoCtrl.goToPaymentOptions();
-    expect($state.go).toHaveBeenCalledWith('paymentOptions', {citationId: 2});
   }));
 
   it('goes to prints ticket', inject(function ($window) {

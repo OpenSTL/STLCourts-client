@@ -103,10 +103,8 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
             return data.data;
           });
         },
-        paymentData: function ($http) {
-          return $http.get('data/paymentWebsites.json').then(function (data) {
-            return data.data;
-          });
+        municipalities: function (Municipalities) {
+          return Municipalities.findAll();
         }
       }
     })
@@ -123,24 +121,6 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     .state('communityService', {
       url: '/communityService',
       templateUrl: 'views/communityService.html'
-    })
-    .state('sponsorLogin', {
-      url: '/sponsorLogin',
-      templateUrl: 'views/sponsorLogin.html',
-      controller: 'SponsorLoginCtrl as ctrl'
-    })
-    .state('sponsorMgmt', {
-      url: '/sponsorMgmt',
-      templateUrl: 'views/sponsorManagement.html',
-      controller: 'SponsorMgmtCtrl as ctrl',
-      resolve: {
-        opportunities: function (Opportunities, Auth) {
-          return Opportunities.findBySponsorId(Auth.getAuthenticatedSponsor().id);
-        },
-        courts: function (Courts) {
-          return Courts.findAll();
-        }
-      }
     });
 
   $httpProvider.interceptors.push(function () {
