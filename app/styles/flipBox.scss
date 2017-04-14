@@ -1,0 +1,42 @@
+@import "_colors";
+@import "_constants";
+
+.flip-box-front{
+  border: solid 2px #000000;
+  border-radius: 10px;
+  padding:5px;
+  margin:5px;
+}
+/*
+.flip {
+  float: left;
+  overflow: hidden;
+  width: {{width}};
+  height: {{height}};
+}
+
+.Panel {
+  position: absolute;
+  width: {{width}};
+  height: {{height}};
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  -webkit-transform: perspective( 800px ) rotateX( 0deg );
+  transform: perspective( 800px ) rotateX( 0deg );
+}
+
+.HideBack {
+  -webkit-transform:  perspective(800px) rotateX( 180deg );
+  transform:  perspective(800px) rotateX( 180deg );
+}
+
+.HideFront {
+  -webkit-transform:  perspective(800px) rotateX( -180deg );
+  transform:  perspective(800px) rotateX( -180deg );
+}
+
+*/
+
+
