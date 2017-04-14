@@ -1,12 +1,32 @@
 @import "_colors";
 @import "_constants";
 
-.flip-box-front{
+flip-box,
+.flip-box-container,
+.flip-box-front,
+.flip-box-back{
+  height:50px;
+}
+
+.flip-box-front, .flip-box-back{
   border: solid 2px #000000;
   border-radius: 10px;
   padding:5px;
   margin:5px;
 }
+
+.flip-box-front,
+.flip-box-back{
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  -webkit-transform: perspective( 800px ) rotateX( 0deg );
+  transform: perspective( 800px ) rotateX( 0deg );
+}
+
+
 /*
 .flip {
   float: left;

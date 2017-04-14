@@ -1,15 +1,13 @@
 <a class="anchor" name="{{ctrl.faqName}}"></a>
-<h2 ng-if="ctrl.noTitle != 'true'">{{ctrl.groupTitle}}</h2>
+<h2 class="topMargin" ng-if="ctrl.noTitle != 'true'">{{ctrl.groupTitle}}</h2>
 
 <div class="row" ng-repeat="item in ctrl.sourceData[ctrl.arrayName] track by $index" ng-if="$index % 2 == 0">
-  <div class="row-eq-height">
+  <div class="row-eq-height topMargin">
     <div class="col-sm-6"
          ng-repeat="i in [$index, $index + 1]"
          ng-if="ctrl.sourceData[ctrl.arrayName][i] != null">
-      <div class="col-height">
         <flip-box front="ctrl.sourceData[ctrl.arrayName][i].q"
                   back="ctrl.sourceData[ctrl.arrayName][i].a"></flip-box>
-      </div>
     </div>
   </div>
 </div>
