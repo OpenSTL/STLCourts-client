@@ -1,62 +1,80 @@
 @import "_colors";
 @import "_constants";
 
+$flipBoxMargin: 5px;
+$flipBoxWidth: 90%;
+
+.flip-box-container{
+  position:relative;
+}
+
 flip-box,
 .flip-box-container,
-.flip-box-front,
-.flip-box-back{
-  height:50px;
+.flip-box-front{
+  height:100%;
 }
 
 .flip-box-front, .flip-box-back{
-  border: solid 2px #000000;
+  border: solid 2px $scheme_primary_color;
   border-radius: 10px;
   padding:5px;
-  margin:5px;
+  margin: $flipBoxMargin;
+  background-color: white;
 }
 
-.flip-box-front,
+.flip-box-front{
+  transition: -webkit-transform 2s;
+  transition: transform 2s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: perspective( 800px ) rotateX( 0deg );
+  transform: perspective( 800px ) rotateX( 0deg );
+}
+
 .flip-box-back{
-  position: absolute;
+  height:auto;
+  transition: -webkit-transform 2s;
+  transition: transform 2s, height 2s;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  transition: -webkit-transform .5s;
-  transition: transform .5s;
   -webkit-transform: perspective( 800px ) rotateX( 0deg );
   transform: perspective( 800px ) rotateX( 0deg );
 }
 
-
-/*
-.flip {
-  float: left;
-  overflow: hidden;
-  width: {{width}};
-  height: {{height}};
+.flip-box-front{
+  position: relative;
+  width:$flipBoxWidth;
+  z-index: 2;
+}
+.flip-box-back{
+  position:absolute;
+  top:-($flipBoxMargin);
+  left:0px;
+  width:$flipBoxWidth;
+  z-index: 1;
 }
 
-.Panel {
-  position: absolute;
-  width: {{width}};
-  height: {{height}};
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transition: -webkit-transform .5s;
-  transition: transform .5s;
-  -webkit-transform: perspective( 800px ) rotateX( 0deg );
-  transform: perspective( 800px ) rotateX( 0deg );
+.flipContainerShowingBack{
+  z-index: 100;
+  height:auto;
 }
 
 .HideBack {
+  transition: -webkit-transform 2s;
+  transition: transform 2s, height 4s, overflow 2s;
   -webkit-transform:  perspective(800px) rotateX( 180deg );
   transform:  perspective(800px) rotateX( 180deg );
+  height:100%;
+  overflow: hidden;
 }
 
 .HideFront {
+  transition: -webkit-transform 2s;
+  transition: transform 2s;
   -webkit-transform:  perspective(800px) rotateX( -180deg );
   transform:  perspective(800px) rotateX( -180deg );
 }
 
-*/
+
 
 
