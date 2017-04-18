@@ -98,14 +98,10 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
               Session.setLatestCitations(citations);
             }
 
-            for(var citationCount in citations){
+            for(var citationCount = 0; citationCount < citations.length; citationCount++){
               var courtId = citations[citationCount].court_id;
-              for(var courtCount in courts){
-                if (courts[courtCount].id == courtId){
-                  citations[citationCount].courtName = courts[courtCount].name;
-                  break;
-                }
-              }
+              var foundCourt = _.find(courts, {id: courtId});
+              citations[citationCount].courtName = foundCourt.name;
             }
             return citations;
           });
