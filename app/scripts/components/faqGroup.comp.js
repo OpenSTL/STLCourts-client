@@ -17,6 +17,7 @@ angular.module('yourStlCourts').component('faqGroup', {
       groupTitle:"@",
       arrayName:"@",
       sourceData:"<",
+      additionalData:"<",
       keywords:"@",
       noTitle:"@"
     }

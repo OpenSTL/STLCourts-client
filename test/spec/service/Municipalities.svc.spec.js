@@ -49,4 +49,20 @@ describe('Municipalities', function() {
 
     $httpBackend.flush();
   });
+
+  it('finds supported municipalities from server', function() {
+    $httpBackend.expectGET(httpRoot + '/municipalities?supported=true').respond(200);
+
+    Municipalities.findSupported(true);
+
+    $httpBackend.flush();
+  });
+
+  it('finds non-supported municipalities from server', function() {
+    $httpBackend.expectGET(httpRoot + '/municipalities?supported=false').respond(200);
+
+    Municipalities.findSupported(false);
+
+    $httpBackend.flush();
+  });
 });

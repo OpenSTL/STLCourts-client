@@ -40,6 +40,9 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
           return $http.get('data/questionAnswers.json').then(function (data) {
             return data.data;
           });
+        },
+        supportedMunicipalities: function (Municipalities) {
+          return Municipalities.findSupported(true);
         }
       }
     })
