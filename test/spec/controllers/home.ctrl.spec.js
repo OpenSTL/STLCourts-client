@@ -4,7 +4,6 @@ describe('HomeCtrl', function() {
   var HomeCtrl;
   var municipalities;
   var courts;
-  var pageMessage = jasmine.createSpyObj('pageMessage',['setMessage']);
 
 
   beforeEach(function() {
@@ -18,8 +17,7 @@ describe('HomeCtrl', function() {
         $state: $state,
         municipalities: municipalities,
         courts: courts,
-        TicketFinder: TicketFinder,
-        PageMessage:pageMessage
+        TicketFinder: TicketFinder
       });
 
       $httpBackend.whenGET(/municipalities/).respond(200, '');
@@ -35,7 +33,6 @@ describe('HomeCtrl', function() {
       ]);
     expect(HomeCtrl.municipalities).toEqual(municipalities);
     expect(HomeCtrl.finderSelected).toEqual(TicketFinder.TicketFinderToSelect.NONE);
-    expect(pageMessage.setMessage).toHaveBeenCalled();
 
   }));
 

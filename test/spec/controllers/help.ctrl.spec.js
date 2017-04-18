@@ -12,15 +12,13 @@ describe('HelpCtrl', function() {
     }
   ];
 
-  var pageMessage = jasmine.createSpyObj('pageMessage',['setMessage']);
 
   beforeEach(function() {
     module('yourStlCourts');
     inject(function($controller){
       HelpCtrl = $controller('HelpCtrl',{
-        faqData:faqData,
+        faqData:faqData
         supportedMunicipalities: supportedMunicipalities,
-        PageMessage:pageMessage
       });
     });
   });
@@ -33,7 +31,4 @@ describe('HelpCtrl', function() {
     expect(HelpCtrl.additionalData).toEqual([{supportedMunicipalities:supportedMunicipalities}]);
   });
 
-  it('sets pageMessage', inject(function () {
-    expect(pageMessage.setMessage).toHaveBeenCalled();
-  }));
 });

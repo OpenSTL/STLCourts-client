@@ -3,17 +3,31 @@ describe('Municipalities', function() {
   var $httpBackend;
   var httpRoot = '//localhost:8080/api';
 
-  beforeEach(function() {
-    module('yourStlCourts');
+  beforeEach(module('yourStlCourts'));
 
+  beforeEach(function(){
+    module(function($provide) {
+      $provide.value('SMSInfo',
+        {
+          getPhoneNumber: function () {
+            return {
+              then:function(){}
+            };
+          }
+        });
+    });
+  });
+
+  beforeEach(function() {
     inject(function(_Municipalities_, _$httpBackend_) {
       Municipalities = _Municipalities_;
       $httpBackend = _$httpBackend_;
     });
+    $httpBackend.whenGET(/info/).respond(200);
   });
 
   it('finds a municipality by id', function() {
-    $httpBackend.expectGET(httpRoot + '/municipalities/5').respond(200);
+    $httpBackend.expectGET('//localhost:8080/api/municipalities/5').respond(200,'');
 
     Municipalities.findById(5);
 
