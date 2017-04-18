@@ -26,18 +26,14 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
   }
 
   function findAdditionalData(dataLabel){
-    var foundData = null;
     if (ctrl.additionalData){
-      for(var dataCount in ctrl.additionalData){
-        for(var label in ctrl.additionalData[dataCount]){
-          if (label == dataLabel){
-            foundData = ctrl.additionalData[dataCount][label];
-            break;
-          }
-        }
-      }
+      var foundData = _.find(ctrl.additionalData,function(obj){
+        return (dataLabel in obj);
+      });
+      return foundData[dataLabel];
+    }else{
+      return null;
     }
-    return foundData;
   }
 
   ctrl.keywordFilter = function(faqItem){
