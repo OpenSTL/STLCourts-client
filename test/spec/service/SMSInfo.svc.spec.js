@@ -1,6 +1,7 @@
 describe('SMSInfo', function() {
   var SMSInfo;
   var getSpy = jasmine.createSpy('getSpy');
+  var phoneNumberFilterSpy = jasmine.createSpy('phoneNumberFilterSpy');
 
   beforeEach(module('yourStlCourts'));
 
@@ -25,6 +26,8 @@ describe('SMSInfo', function() {
     });
   });
 
+  beforeEach(module({phoneNumberFilter:phoneNumberFilterSpy}));
+
   beforeEach(function() {
     inject(function(_SMSInfo_) {
       SMSInfo = _SMSInfo_;
@@ -32,6 +35,7 @@ describe('SMSInfo', function() {
   });
 
   it('formats a phone number correctly',inject(function($q, $rootScope){
+    phoneNumberFilterSpy.and.returnValue("somePhoneNumber");
     var defer = $q.defer();
     defer.resolve({phoneNumber:'2345678977'});
 
@@ -44,7 +48,7 @@ describe('SMSInfo', function() {
     });
     $rootScope.$apply();
 
-    expect(result).toEqual("(234) 567-8977");
+    expect(result).toEqual("somePhoneNumber");
   }));
 
 });
