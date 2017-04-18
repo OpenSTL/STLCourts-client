@@ -24,7 +24,12 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     .state('about', {
       url: '/about',
       templateUrl: 'views/about.html',
-      controller: 'AboutCtrl as ctrl'
+      controller: 'AboutCtrl as ctrl',
+      resolve: {
+        smsPhoneNumber: function (SMSInfo) {
+          return SMSInfo.getPhoneNumber();
+        }
+      }
     })
     .state('help', {
       url: '/help',
@@ -141,7 +146,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,$location,PageMessage) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,PageMessage, SMSInfo) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
@@ -155,6 +160,9 @@ angular.module('yourStlCourts').run(function ($rootScope, validator, validationE
     $rootScope.$on('$stateChangeSuccess', function (event) {
       $window.ga('send', 'pageview', $location.path());
     });
-    PageMessage.start();
+    SMSInfo.getPhoneNumber().then(function(phoneNumber){
+      var message = 'Get Court Date Reminders on your<br>phone. Text "HELP" to <b>'+phoneNumber+'</b>';
+      PageMessage.start(message);
+    });
   }
 );

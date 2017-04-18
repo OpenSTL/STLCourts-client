@@ -1,20 +1,37 @@
 'use strict';
 
-angular.module('yourStlCourts').factory('PageMessage', function ($rootScope) {
+angular.module('yourStlCourts').factory('PageMessage', function ($rootScope, SMSInfo) {
   var message = "";
+  var pageMessage = "";
   var stateLink = "";
+  var hidden = false;
 
-  function setMessage(messageHtml){
-    message = messageHtml;
+  function setPageMessage(messageHtml){
+    pageMessage = messageHtml;
   }
 
   function set(messageHtml,stateToGoTo){
-    setMessage(messageHtml);
+    setPageMessage(messageHtml);
     stateLink = stateToGoTo;
   }
 
+  function setSMSInformationalMessage(){
+    SMSInfo.getPhoneNumber().then(function(phoneNumber){
+      var message = 'Get Court Date Reminders on your<br>phone. Text "HELP" to <b>'+phoneNumber+'</b>';
+      setPageMessage(message);
+    });
+  }
+
+  function hide(){
+    hidden = true;
+  }
+
   function getMessage(){
-    return message;
+    if (pageMessage) {
+      return pageMessage;
+    }else{
+      return message;
+    }
   }
 
   function getLink(){
@@ -22,28 +39,38 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope) {
   }
 
   function hasMessage(){
-    return !!message;
+    if (hidden){
+      return false;
+    }else {
+      return !!message || !!pageMessage;
+    }
   }
 
   function hasLink(){
     return !!stateLink;
   }
 
-  function start(){
-    $rootScope.$on('$stateChangeStart',function(){
-      setMessage("");
+  function start(defaultMessage){
+    if (defaultMessage){
+      message = defaultMessage;
+    }
+    $rootScope.$on('$stateChangeStart', function () {
+      hidden = false;
+      setPageMessage("");
       stateLink = "";
     });
   }
 
   var svc = {
     start: start,
-    setMessage: setMessage,
+    message: setPageMessage,
     set:set,
     getMessage: getMessage,
     getLink: getLink,
     hasMessage:hasMessage,
-    hasLink:hasLink
+    hasLink:hasLink,
+    setSMSInformationalMessage:setSMSInformationalMessage,
+    hide:hide
   };
 
   return svc;

@@ -3,6 +3,7 @@ describe('Citations', function() {
   var httpRoot = '//localhost:8080/api';
   var querySpy = jasmine.createSpy('querySpy');
 
+
   var citation = {
     id: 5,
     citation_date: "2001-04-23",
@@ -29,6 +30,20 @@ describe('Citations', function() {
 
   beforeEach(module('yourStlCourts'));
 
+   beforeEach(function(){
+     module(function($provide) {
+      $provide.value('SMSInfo',
+        {
+          getPhoneNumber: function () {
+            return {
+              then:function(){}
+            };
+          }
+        });
+     });
+   });
+
+
   beforeEach(function(){
     module(function($provide){
       $provide.factory('$resource',function(){
@@ -37,6 +52,7 @@ describe('Citations', function() {
         }
       });
     });
+
   });
 
   beforeEach(inject(function(_Citations_){
