@@ -21,7 +21,7 @@ describe('PageMessage', function() {
 
   it('sets and gets Messages', inject(function($rootScope) {
     spyOn($rootScope,'$broadcast');
-    PageMessage.setMessage("Hello");
+    PageMessage.message("Hello");
     expect(PageMessage.getMessage()).toEqual("Hello");
     expect(PageMessage.hasMessage()).toBe(true);
   }));

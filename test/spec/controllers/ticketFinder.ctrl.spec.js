@@ -40,6 +40,7 @@ describe('TicketFinderCtrl', function() {
       };
       $httpBackend.whenGET(/municipalities/).respond(200, '');
       $httpBackend.whenGET(/courts/).respond(200, '');
+      $httpBackend.whenGET(/info/).respond(200, '');
     });
   });
 
