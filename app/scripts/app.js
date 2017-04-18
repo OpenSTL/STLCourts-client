@@ -90,13 +90,25 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         citations: {value: undefined}
       },
       resolve: {
-        citations: function ($stateParams,Session) {
-          var citations = Session.getLatestCitations();
-          if ($stateParams.citations){
-            citations = $stateParams.citations;
-            Session.setLatestCitations(citations);
-          }
-          return citations;
+        citations: function ($stateParams,Session,Courts) {
+          return Courts.findAll().then(function(courts){
+            var citations = Session.getLatestCitations();
+            if ($stateParams.citations){
+              citations = $stateParams.citations;
+              Session.setLatestCitations(citations);
+            }
+
+            for(var citationCount in citations){
+              var courtId = citations[citationCount].court_id;
+              for(var courtCount in courts){
+                if (courts[courtCount].id == courtId){
+                  citations[citationCount].courtName = courts[courtCount].name;
+                  break;
+                }
+              }
+            }
+            return citations;
+          });
         },
         faqData: function ($http) {
           return $http.get('data/questionAnswers.json').then(function (data) {

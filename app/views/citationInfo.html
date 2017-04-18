@@ -20,7 +20,7 @@
             <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></span></td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_dateTime)}}</td>
-            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{citation.court_location}}</td>
+            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{citation.courtName}}</td>
             <td class="hide-border-when-small">
               <span class="label-for-small-screen table-item-label">Violations</span>
               <span ng-repeat="violation in citation.violations" ng-if="ctrl.hasViolations(citation)">
