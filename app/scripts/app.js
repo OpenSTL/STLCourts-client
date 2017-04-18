@@ -146,7 +146,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,PageMessage, SMSInfo) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,PageMessage, SMSInfo) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
