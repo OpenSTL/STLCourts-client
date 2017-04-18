@@ -334,6 +334,7 @@ faq-group.no-margin .panel-group{
 
 .parenthesis-list li{
   list-style: none;
+  display:table-row;
 }
 
 .parenthesis-list{
@@ -341,11 +342,14 @@ faq-group.no-margin .panel-group{
   padding:0px;
   margin:10px ($subPageMargin + 1);
   font-size: $standard_font_size !important;
+  display:table;
 }
 
 .parenthesis-list li:before{
   content: counter(parenthisis-counter) ") ";
   counter-increment: parenthisis-counter;
+  display:table-cell;
+  padding-right:5px;
 }
 
 .payment-options-date-picker{
