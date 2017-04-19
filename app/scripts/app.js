@@ -98,7 +98,10 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         citations: {value: undefined}
       },
       resolve: {
-        citations: function ($stateParams,Session) {
+        courts: function (Courts) {
+          return Courts.findAll();
+        },
+        citations: function ($stateParams,Session,Courts) {
           var citations = Session.getLatestCitations();
           if ($stateParams.citations){
             citations = $stateParams.citations;
@@ -149,7 +152,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,PageMessage, SMSInfo) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,$location,PageMessage, SMSInfo) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
