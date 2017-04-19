@@ -17,8 +17,8 @@ describe('HelpCtrl', function() {
     module('yourStlCourts');
     inject(function($controller){
       HelpCtrl = $controller('HelpCtrl',{
-        faqData:faqData
-        supportedMunicipalities: supportedMunicipalities,
+        faqData:faqData,
+        supportedMunicipalities: supportedMunicipalities
       });
     });
   });
