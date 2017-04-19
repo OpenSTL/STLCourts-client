@@ -24,7 +24,12 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     .state('about', {
       url: '/about',
       templateUrl: 'views/about.html',
-      controller: 'AboutCtrl as ctrl'
+      controller: 'AboutCtrl as ctrl',
+      resolve: {
+        smsPhoneNumber: function (SMSInfo) {
+          return SMSInfo.getPhoneNumber();
+        }
+      }
     })
     .state('help', {
       url: '/help',
@@ -35,6 +40,9 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
           return $http.get('data/questionAnswers.json').then(function (data) {
             return data.data;
           });
+        },
+        supportedMunicipalities: function (Municipalities) {
+          return Municipalities.findSupported(true);
         }
       }
     })
@@ -103,10 +111,8 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
             return data.data;
           });
         },
-        paymentData: function ($http) {
-          return $http.get('data/paymentWebsites.json').then(function (data) {
-            return data.data;
-          });
+        municipalities: function (Municipalities) {
+          return Municipalities.findAll();
         }
       }
     })
@@ -123,24 +129,6 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     .state('communityService', {
       url: '/communityService',
       templateUrl: 'views/communityService.html'
-    })
-    .state('sponsorLogin', {
-      url: '/sponsorLogin',
-      templateUrl: 'views/sponsorLogin.html',
-      controller: 'SponsorLoginCtrl as ctrl'
-    })
-    .state('sponsorMgmt', {
-      url: '/sponsorMgmt',
-      templateUrl: 'views/sponsorManagement.html',
-      controller: 'SponsorMgmtCtrl as ctrl',
-      resolve: {
-        opportunities: function (Opportunities, Auth) {
-          return Opportunities.findBySponsorId(Auth.getAuthenticatedSponsor().id);
-        },
-        courts: function (Courts) {
-          return Courts.findAll();
-        }
-      }
     });
 
   $httpProvider.interceptors.push(function () {
@@ -161,7 +149,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,PageMessage) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,PageMessage, SMSInfo) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
@@ -169,6 +157,15 @@ angular.module('yourStlCourts').run(function ($rootScope, validator, validationE
     $rootScope.$on('$stateChangeSuccess', function () {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-    PageMessage.start();
+    // initialise google analytics
+    $window.ga('create', 'UA-94092304-1', 'auto');
+    // track pageview on state change
+    $rootScope.$on('$stateChangeSuccess', function (event) {
+      $window.ga('send', 'pageview', $location.path());
+    });
+    SMSInfo.getPhoneNumber().then(function(phoneNumber){
+      var message = 'Get Court Date Reminders on your<br>phone. Text "HELP" to <b>'+phoneNumber+'</b>';
+      PageMessage.start(message);
+    });
   }
 );

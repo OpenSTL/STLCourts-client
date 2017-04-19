@@ -4,14 +4,21 @@ describe('HelpCtrl', function() {
   var HelpCtrl;
 
   var faqData = "mydata";
-  var pageMessage = jasmine.createSpyObj('pageMessage',['setMessage']);
+  var supportedMunicipalities = [
+    {
+      id:"ABC",
+      name:"muniName",
+      courts:[]
+    }
+  ];
+
 
   beforeEach(function() {
     module('yourStlCourts');
     inject(function($controller){
       HelpCtrl = $controller('HelpCtrl',{
         faqData:faqData,
-        PageMessage:pageMessage
+        supportedMunicipalities: supportedMunicipalities
       });
     });
   });
@@ -20,7 +27,8 @@ describe('HelpCtrl', function() {
     expect(HelpCtrl.faqData).toEqual(faqData);
   }));
 
-  it('sets pageMessage', inject(function () {
-    expect(pageMessage.setMessage).toHaveBeenCalled();
-  }));
+  it('sets additionalData on initialization',function(){
+    expect(HelpCtrl.additionalData).toEqual([{supportedMunicipalities:supportedMunicipalities}]);
+  });
+
 });
