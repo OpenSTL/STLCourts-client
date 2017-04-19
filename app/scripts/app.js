@@ -98,21 +98,16 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         citations: {value: undefined}
       },
       resolve: {
+        courts: function (Courts) {
+          return Courts.findAll();
+        },
         citations: function ($stateParams,Session,Courts) {
-          return Courts.findAll().then(function(courts){
-            var citations = Session.getLatestCitations();
-            if ($stateParams.citations){
-              citations = $stateParams.citations;
-              Session.setLatestCitations(citations);
-            }
-
-            for(var citationCount = 0; citationCount < citations.length; citationCount++){
-              var courtId = citations[citationCount].court_id;
-              var foundCourt = _.find(courts, {id: courtId});
-              citations[citationCount].courtName = foundCourt.name;
-            }
-            return citations;
-          });
+          var citations = Session.getLatestCitations();
+          if ($stateParams.citations){
+            citations = $stateParams.citations;
+            Session.setLatestCitations(citations);
+          }
+          return citations;
         },
         faqData: function ($http) {
           return $http.get('data/questionAnswers.json').then(function (data) {
@@ -157,7 +152,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,PageMessage, SMSInfo) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,$location,PageMessage, SMSInfo) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);

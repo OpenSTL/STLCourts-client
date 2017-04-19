@@ -59,11 +59,24 @@ describe('CitationInfoCtrl', function () {
 
   var court = {
     id: 6,
+    name: "courtName6",
     address: "123 Anystreet",
     city: "anyCity",
     state: "MO",
     zip: "12345"
   };
+
+  var court2 = {
+    id: 5,
+    name: "courtName5"
+  };
+
+  var court3 = {
+    id: 11,
+    name: "courtName11"
+  };
+
+  var courts = [court,court2,court3];
 
   var session = {
     getLastSelectedCitation:function(){return null},
@@ -75,7 +88,7 @@ describe('CitationInfoCtrl', function () {
   beforeEach(function () {
     module('yourStlCourts');
 
-    inject(function ($rootScope, $httpBackend, $controller, $state, $window, Courts) {
+    inject(function ($rootScope, $httpBackend, $controller, $state, $window, Courts, moment) {
       $httpBackend.whenGET(/municipalities/).respond(200, '');
       $httpBackend.whenGET(/courts/).respond(200, '');
       $httpBackend.whenGET(/info/).respond(200, '');
@@ -87,7 +100,9 @@ describe('CitationInfoCtrl', function () {
         $window: $window,
         citations: citations,
         Courts: Courts,
-        Session: session
+        Session: session,
+        courts: courts,
+        moment: moment
       });
     });
   });
@@ -147,7 +162,8 @@ describe('CitationInfoCtrl', function () {
       $state: $state,
       $window: $window,
       citations: null,
-      Courts: Courts
+      Courts: Courts,
+      courts: courts
     });
 
     expect($state.go).toHaveBeenCalledWith('home');
@@ -170,7 +186,8 @@ describe('CitationInfoCtrl', function () {
       $state: $state,
       $window: $window,
       citations: [citation],
-      Courts: Courts
+      Courts: Courts,
+      courts: courts
     });
 
     $rootScope.$apply();
@@ -218,4 +235,9 @@ describe('CitationInfoCtrl', function () {
     isoDate = null;
     expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("");
   }));
+
+  it('correctly sets citationCourtLocations', function(){
+    expect(CitationInfoCtrl.citationCourtLocations[5]).toEqual("courtName5");
+    expect(CitationInfoCtrl.citationCourtLocations[11]).toEqual("courtName11");
+  });
 });
