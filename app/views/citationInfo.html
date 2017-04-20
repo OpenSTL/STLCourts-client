@@ -15,7 +15,7 @@
             <th>Violations</th>
           </thead>
           <tbody>
-          <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation)">
+          <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation); ctrl.scrollTo('selectedCitationInfo');">
             <td class="hide-when-small-screen center-block"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view</button></td>
             <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></span></td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>

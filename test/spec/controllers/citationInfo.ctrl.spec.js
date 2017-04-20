@@ -2,6 +2,7 @@
 
 describe('CitationInfoCtrl', function () {
   var CitationInfoCtrl;
+  var $anchorScroll = jasmine.createSpy("anchorScroll");
 
   var faqData = {
     "dataLabel": [
@@ -102,7 +103,8 @@ describe('CitationInfoCtrl', function () {
         Courts: Courts,
         Session: session,
         courts: courts,
-        moment: moment
+        moment: moment,
+        $anchorScroll:$anchorScroll
       });
     });
   });
@@ -110,6 +112,11 @@ describe('CitationInfoCtrl', function () {
   it('correctly sets faqData', inject(function () {
     expect(CitationInfoCtrl.faqData).toEqual(faqData);
   }));
+
+  it('calls $anchorScroll', function(){
+    CitationInfoCtrl.scrollTo("someId");
+    expect($anchorScroll).toHaveBeenCalledWith("someId");
+  });
 
   it('correctly sets selected citation', inject(function (Courts, $q, $rootScope,Session) {
     var deferred = $q.defer();

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities,courts,Courts,Session,moment) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities,courts,Courts,Session,moment,$anchorScroll) {
   var ctrl = this;
   ctrl.faqData = faqData;
   ctrl.selectedCitation = null;
@@ -142,6 +142,10 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     }else{
       return "";
     }
+  };
+
+  ctrl.scrollTo = function(idToScrollTo){
+    $anchorScroll(idToScrollTo);
   };
 
 });
