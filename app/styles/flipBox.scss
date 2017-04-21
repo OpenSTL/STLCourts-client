@@ -6,6 +6,7 @@ $flipBoxWidth: 90%;
 
 .flip-box-container{
   position:relative;
+  cursor: pointer;
 }
 
 flip-box,
@@ -22,23 +23,9 @@ flip-box,
   background-color: white;
 }
 
-.flip-box-front{
-  transition: -webkit-transform 2s;
-  transition: transform 2s;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform: perspective( 800px ) rotateX( 0deg );
-  transform: perspective( 800px ) rotateX( 0deg );
-}
-
+.flip-box-front,
 .flip-box-back{
-  height:auto;
-  transition: -webkit-transform 2s;
-  transition: transform 2s, height 2s;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform: perspective( 800px ) rotateX( 0deg );
-  transform: perspective( 800px ) rotateX( 0deg );
 }
 
 .flip-box-front{
@@ -46,6 +33,7 @@ flip-box,
   width:$flipBoxWidth;
   z-index: 2;
 }
+
 .flip-box-back{
   position:absolute;
   top:-($flipBoxMargin);
@@ -54,26 +42,191 @@ flip-box,
   z-index: 1;
 }
 
-.flipContainerShowingBack{
-  z-index: 100;
-  height:auto;
+.flip-box-front-start{
+  transform: perspective( 800px ) rotateX( 0deg ) rotateY(0deg);
 }
 
-.HideBack {
-  transition: -webkit-transform 2s;
-  transition: transform 2s, height 4s, overflow 2s;
-  -webkit-transform:  perspective(800px) rotateX( 180deg );
-  transform:  perspective(800px) rotateX( 180deg );
+.flip-box-back-start{
+  transform: perspective( 800px ) rotateX( 180deg ) rotateY(0deg);
   height:100%;
   overflow: hidden;
 }
 
-.HideFront {
-  transition: -webkit-transform 2s;
-  transition: transform 2s;
-  -webkit-transform:  perspective(800px) rotateX( -180deg );
-  transform:  perspective(800px) rotateX( -180deg );
+.flip-box-front-end{
+  transform: perspective( 800px ) rotateX( -180deg ) rotateY( -360deg );
 }
+
+.flip-box-back-end{
+  transform: perspective( 800px ) rotateX( 0deg ) rotateY( 360deg );
+}
+
+.flipContainerShowingBack{
+  z-index: 100;
+  height:auto;
+  animation: containerMoveToCenter 2s forwards;
+  animation-timing-function: linear;
+}
+
+.flipContainerShowingFront{
+  z-index: 1;
+  height:100%;
+  animation: containerMoveBack 10s forwards;
+  animation-timing-function: linear;
+}
+
+.showBack {
+  animation: backOpenUp 2s forwards;
+  animation-timing-function: linear;
+}
+
+.hideFront{
+  animation: frontRotateAway 2s forwards;
+  animation-timing-function: linear;
+}
+
+.showFront {
+  animation: frontOpenUp 10s forwards;
+  animation-timing-function: linear;
+}
+
+.hideBack{
+  animation: backRotateAway 10s forwards;
+  animation-timing-function: linear;
+}
+
+/* Show BackSide */
+
+@keyframes containerMoveToCenter{
+  0%{
+    position:relative;
+  }
+
+  100%{
+    position:fixed;
+    top:300px;
+    left: 50%;
+    transform: translate(-50%,0);
+    width:50%;
+  }
+}
+
+@keyframes backOpenUp {
+  0% {
+    position:absolute;
+    top:-($flipBoxMargin);
+    left:0px;
+    width:$flipBoxWidth;
+    transform:  perspective(800px) rotateX( 180deg ) rotateY( 0deg );
+    height:100%;
+    overflow: hidden;
+  }
+
+ /* 50%{
+    transform: perspective( 800px ) rotateX( 90deg ) rotateY( 180deg );
+    height:auto;
+    overflow: auto;
+  } */
+
+  100%{
+    position:absolute;
+    top:-($flipBoxMargin);
+    left:0px;
+    width:$flipBoxWidth;
+    transform: perspective( 800px ) rotateX( 0deg ) rotateY( 360deg );
+    height:auto;
+    overflow: auto;
+  }
+}
+
+@keyframes frontRotateAway {
+  0% {
+    transform: perspective( 800px ) rotateX( 0deg ) rotateY( 0deg );
+
+    height: 100%;
+    overflow: hidden;
+  }
+
+ /* 50%{
+    transform: perspective( 800px ) rotateX(-90deg) rotateY( -180deg );
+  } */
+
+  100% {
+    transform: perspective(800px) rotateX(-180deg) rotateY( -360deg );
+  }
+}
+
+/**********************************/
+/* Show Frontside */
+@keyframes containerMoveBack{
+  0%{
+    position:fixed;
+    top:300px;
+    left: 50%;
+    transform: translate(-50%,0);
+    width:50%;
+  }
+
+  90%{ position:relative;}
+
+  100%{
+    position:relative;
+    top:0px;
+    left:0px;
+    transform: translate(0,0);
+    width:auto;
+  }
+}
+
+@keyframes backRotateAway {
+  0%{
+    position:absolute;
+    top:-($flipBoxMargin);
+    left:0px;
+    width:$flipBoxWidth;
+    transform: perspective( 800px ) rotateX( 0deg ) rotateY( 0deg );
+    height:auto;
+    overflow: auto;
+  }
+
+ /* 50%{
+    transform: perspective( 800px ) rotateX( 90deg ) rotateY( 180deg );
+    height:auto;
+    overflow: auto;
+  } */
+
+  100% {
+    position:absolute;
+    top:-($flipBoxMargin);
+    left:0px;
+    width:$flipBoxWidth;
+    transform:  perspective(800px) rotateX( 180deg ) rotateY( 0deg );
+    height:100%;
+    overflow: hidden;
+  }
+}
+
+
+
+@keyframes frontOpenUp {
+  0% {
+    transform: perspective(800px) rotateX(-180deg) rotateY( 0deg );
+  }
+
+ /* 50%{
+    transform: perspective( 800px ) rotateX(-90deg) rotateY( -180deg );
+  } */
+
+  100% {
+    transform: perspective( 800px ) rotateX( 0deg ) rotateY( 0deg );
+
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+
+
+
 
 
 

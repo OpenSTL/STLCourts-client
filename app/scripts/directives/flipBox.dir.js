@@ -30,22 +30,18 @@ angular.module('yourStlCourts').directive('flipBox', function ($window,$rootScop
         flipContainer = this;
       });
 
-
-
       $(element).on('click',function(){
         if (scope.ctrl.frontShowing){
           scope.ctrl.frontShowing = false;
-          $(frontElement).addClass("HideFront");
-          $(backElement).removeClass("HideBack");
-          $(flipContainer).addClass("flipContainerShowingBack");
+          $(flipContainer).removeClass("flipContainerShowingFront").addClass("flipContainerShowingBack");
+          $(frontElement).removeClass("showFront").addClass("hideFront").removeClass("flip-box-front-start");
+          $(backElement).removeClass("hideBack").addClass("showBack").removeClass("flip-box-back-start");
         }else{
           scope.ctrl.frontShowing = true;
-          $(frontElement).removeClass("HideFront");
-          $(backElement).addClass("HideBack");
-          $(flipContainer).removeClass("flipContainerShowingBack");
+          $(frontElement).removeClass("hideFront").addClass("showFront");
+          $(backElement).removeClass("showBack").addClass("hideBack");
+          $(flipContainer).removeClass("flipContainerShowingBack").addClass("flipContainerShowingFront");
         }
-
-
       });
 
       element.on('$destroy',function(){
