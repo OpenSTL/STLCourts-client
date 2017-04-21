@@ -33,6 +33,11 @@ describe('CitationInfoCtrl', function () {
     court_cost: 2.0
   };
 
+  var violationPayableOnline = {
+    id:20,
+    can_pay_online:true
+  };
+
   var citation = {
     id: 2,
     court_id: 5,
@@ -51,6 +56,13 @@ describe('CitationInfoCtrl', function () {
     id: 4,
     court_id: 11,
     violations: [violationWithFees],
+    municipality_id:5
+  };
+
+  var citationPayableOnline = {
+    id: 13,
+    court_id:11,
+    violations: [violationPayableOnline],
     municipality_id:5
   };
 
@@ -132,7 +144,7 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.selectedCitation.courtDirectionLink).toEqual(expectedAddress);
   }));
 
-  it('correctly sets selected paymentUrl', inject(function (Courts, $q, $rootScope,Session) {
+  it('correctly sets selected paymentUrl', inject(function (Courts, $q, $rootScope) {
     var deferred = $q.defer();
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
@@ -141,6 +153,31 @@ describe('CitationInfoCtrl', function () {
     $rootScope.$apply();
 
     expect(CitationInfoCtrl.paymentUrl).toEqual(municipality.paymentUrl);
+  }));
+
+  it('correctly shows or hides payment button', inject(function(Courts, $q, $rootScope){
+    var deferred = $q.defer();
+    deferred.resolve(court);
+    spyOn(Courts, 'findById').and.returnValue(deferred.promise);
+
+    CitationInfoCtrl.selectCitation(null);
+    $rootScope.$apply();
+    expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
+
+    CitationInfoCtrl.selectCitation(citationWithViolations);
+    CitationInfoCtrl.paymentUrl = "someUrl";
+    $rootScope.$apply();
+    expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
+
+    CitationInfoCtrl.selectCitation(citationPayableOnline);
+    CitationInfoCtrl.paymentUrl = "someUrl";
+    $rootScope.$apply();
+    expect (CitationInfoCtrl.showPaymentButton()).toBe(true);
+
+    CitationInfoCtrl.selectCitation(citationPayableOnline);
+    CitationInfoCtrl.paymentUrl = "";
+    $rootScope.$apply();
+    expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
   }));
 
   it('correctly sets selected citation when citation is null', inject(function () {

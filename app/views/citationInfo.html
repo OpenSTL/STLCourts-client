@@ -62,10 +62,14 @@
               <span ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation)">
                 ${{ctrl.getFineTotal(ctrl.selectedCitation)}}
               </span>
+              <span id="fine-warning" ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation)">
+                Note: this is the amount of your fine only.  Your total will also include court fees.
+              </span>
               <span class="italic" ng-if="ctrl.isMissingFineInfo(ctrl.selectedCitation)">
                 Fine Info Unavailable
               </span>
             </dd>
+            <!--  This section will be implemented at a later date
             <dt>Total Court Fee</dt>
             <dd>
               <span ng-if="!ctrl.isMissingFeeInfo(ctrl.selectedCitation)">
@@ -75,6 +79,7 @@
                 Fee Info Unavailable
               </span>
             </dd>
+            -->
           </dl>
         </div>
       </div>
@@ -124,8 +129,8 @@
         </div>
         <div class="col-sm-6 alignColumnsToPage no-print">
           <h2 class="no-indent">I Want To...</h2>
-          <p>
-            <a ng-if="ctrl.paymentUrl != '' && ctrl.canPayOnline(ctrl.selectedCitation)" href="{{ctrl.paymentUrl}}" target="_blank">
+          <p ng-if="ctrl.showPaymentButton()">
+            <a href="{{ctrl.paymentUrl}}" target="_blank">
               <button type="button" class="btn btn-scheme-primary btn-autosize" ng-click=""><i class="fa fa-dollar"></i>&nbsp;PAY MY TICKET</button>
             </a>
             <span id="payment-warning">Note: paying your ticket is considered an admission of guilt. If you do not wish to plead guilty, you must appear in court to meet with the judge.</span>
