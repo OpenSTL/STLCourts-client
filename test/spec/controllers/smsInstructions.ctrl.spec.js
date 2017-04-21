@@ -15,7 +15,7 @@ describe('SMSInstructionsCtrl', function() {
   });
 
   it('sets textPhoneNumber on intitialization',inject(function(){
-    expect(AboutCtrl.textPhoneNumber).toEqual("someNumber");
+    expect(SMSInstructionsCtrl.textPhoneNumber).toEqual("someNumber");
   }));
 
 });
