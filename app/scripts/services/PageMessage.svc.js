@@ -2,6 +2,7 @@
 
 angular.module('yourStlCourts').factory('PageMessage', function ($rootScope, SMSInfo) {
   var message = "";
+  var link = "";
   var pageMessage = "";
   var stateLink = "";
   var hidden = false;
@@ -35,7 +36,11 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope, SMS
   }
 
   function getLink(){
-    return stateLink;
+    if (stateLink) {
+      return stateLink;
+    }else{
+      return link;
+    }
   }
 
   function hasMessage(){
@@ -47,12 +52,15 @@ angular.module('yourStlCourts').factory('PageMessage', function ($rootScope, SMS
   }
 
   function hasLink(){
-    return !!stateLink;
+    return !!link || !!stateLink;
   }
 
-  function start(defaultMessage){
+  function start(defaultMessage,defaultLink){
     if (defaultMessage){
       message = defaultMessage;
+    }
+    if (defaultLink){
+      link = defaultLink;
     }
     $rootScope.$on('$stateChangeStart', function () {
       hidden = false;
