@@ -116,6 +116,14 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     return canPayOnline;
   };
 
+  ctrl.showPaymentButton = function(){
+    if (ctrl.selectedCitation) {
+      return (ctrl.paymentUrl != '' && ctrl.canPayOnline(ctrl.selectedCitation));
+    }else{
+      return false;
+    }
+  };
+
   ctrl.hasViolations = function(citation) {
     return citation.violations.length > 0;
   };
