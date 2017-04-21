@@ -17,7 +17,6 @@ flip-box,
 
 .flip-box-front, .flip-box-back{
   border: solid 2px $scheme_primary_color;
-  border-radius: 10px;
   padding:5px;
   margin: $flipBoxMargin;
   background-color: white;
@@ -40,6 +39,9 @@ flip-box,
   left:0px;
   width:$flipBoxWidth;
   z-index: 1;
+  background-color: $scheme_primary_color;
+  border-color: black;
+  color: white;
 }
 
 .flip-box-front-start{
@@ -63,15 +65,20 @@ flip-box,
 .flipContainerShowingBack{
   z-index: 100;
   height:auto;
-  animation: containerMoveToCenter 2s forwards;
-  animation-timing-function: linear;
+ /* animation: containerMoveToCenter 2s forwards;
+  animation-timing-function: linear; */
+  position:fixed;
+  top:30%;
+  left: 50%;
+  transform: translate(-50%,0);
+  width:50%;
 }
 
 .flipContainerShowingFront{
   z-index: 1;
   height:100%;
-  animation: containerMoveBack 10s forwards;
-  animation-timing-function: linear;
+  /*animation: containerMoveBack 10s forwards;
+  animation-timing-function: linear; */
 }
 
 .showBack {
@@ -85,12 +92,12 @@ flip-box,
 }
 
 .showFront {
-  animation: frontOpenUp 10s forwards;
+  animation: frontOpenUp 1s forwards;
   animation-timing-function: linear;
 }
 
 .hideBack{
-  animation: backRotateAway 10s forwards;
+  animation: backRotateAway 1s forwards;
   animation-timing-function: linear;
 }
 
