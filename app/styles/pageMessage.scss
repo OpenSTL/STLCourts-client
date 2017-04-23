@@ -40,7 +40,7 @@
   z-index: 9;
   margin:0 auto 10px auto;
   background-color: $scheme_limeGreen;
-  width:80%;
+  width:90%;
 }
 
 @media only screen and (max-width: 767px) {
@@ -61,8 +61,8 @@
   }
 }
 
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 367px) {
   .page-message-message{
-    font-size: .8em;
+    font-size: .9em;
   }
 }
