@@ -62,11 +62,14 @@
               <span ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation)">
                 ${{ctrl.getFineTotal(ctrl.selectedCitation)}}
               </span>
-              <span id="fine-warning" ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation)">
-                Note: this is the amount of your fine only.  Your total will also include court fees.
-              </span>
               <span class="italic" ng-if="ctrl.isMissingFineInfo(ctrl.selectedCitation)">
                 Fine Info Unavailable
+              </span>
+              <span id="fine-warning" class="citation-info-warning-note" ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation) && !ctrl.isMissingFineInfo(ctrl.selectedCitation)">
+                Note: this is the amount of your fine only.  Your total will also include court fees.
+              </span>
+              <span id="mandatory-appearance-note" class="citation-info-warning-note warning-red-text" ng-if="!ctrl.showPaymentButton()">
+                Note: you must appear in court and speak with the judge to pay this citation.
               </span>
             </dd>
             <!--  This section will be implemented at a later date
@@ -133,7 +136,7 @@
             <a href="{{ctrl.paymentUrl}}" target="_blank">
               <button type="button" class="btn btn-scheme-primary btn-autosize" ng-click=""><i class="fa fa-dollar"></i>&nbsp;PAY MY TICKET</button>
             </a>
-            <span id="payment-warning">Note: paying your ticket is considered an admission of guilt. If you do not wish to plead guilty, you must appear in court to meet with the judge.</span>
+            <span id="payment-warning" class="citation-info-warning-note">Note: paying your ticket is considered an admission of guilt. If you do not wish to plead guilty, you must appear in court to meet with the judge.</span>
           </p>
           <p>
             <button type="button" class="btn btn-scheme-primary btn-autosize" ng-click="ctrl.goToCommunityService()">EXPLORE COMMUNITY SERVICE OPTIONS</button>
