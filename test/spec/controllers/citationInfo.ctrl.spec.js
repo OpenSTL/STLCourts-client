@@ -2,6 +2,7 @@
 
 describe('CitationInfoCtrl', function () {
   var CitationInfoCtrl;
+  var $anchorScroll = jasmine.createSpy("anchorScroll");
 
   var faqData = {
     "dataLabel": [
@@ -114,7 +115,8 @@ describe('CitationInfoCtrl', function () {
         Courts: Courts,
         Session: session,
         courts: courts,
-        moment: moment
+        moment: moment,
+        $anchorScroll:$anchorScroll
       });
     });
   });
@@ -123,12 +125,23 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.faqData).toEqual(faqData);
   }));
 
-  it('correctly sets selected citation', inject(function (Courts, $q, $rootScope,Session) {
+  it('calls $anchorScroll', inject(function(Courts, $q, $rootScope){
     var deferred = $q.defer();
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
 
-    CitationInfoCtrl.selectCitation(citation);
+    CitationInfoCtrl.selectCitation(citation,'someId');
+    $rootScope.$apply();
+
+    expect($anchorScroll).toHaveBeenCalledWith("someId");
+  }));
+
+  it('correctly sets selected citation', inject(function (Courts, $q, $rootScope) {
+    var deferred = $q.defer();
+    deferred.resolve(court);
+    spyOn(Courts, 'findById').and.returnValue(deferred.promise);
+
+    CitationInfoCtrl.selectCitation(citation,'someId');
     $rootScope.$apply();
 
     expect(CitationInfoCtrl.selectedCitation).toEqual(citation);
@@ -142,7 +155,7 @@ describe('CitationInfoCtrl', function () {
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
 
-    CitationInfoCtrl.selectCitation(citation);
+    CitationInfoCtrl.selectCitation(citation,'someId');
     $rootScope.$apply();
 
     expect(CitationInfoCtrl.paymentUrl).toEqual(municipality.paymentUrl);
@@ -157,17 +170,17 @@ describe('CitationInfoCtrl', function () {
     $rootScope.$apply();
     expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
 
-    CitationInfoCtrl.selectCitation(citationWithViolations);
+    CitationInfoCtrl.selectCitation(citationWithViolations,'someId');
     CitationInfoCtrl.paymentUrl = "someUrl";
     $rootScope.$apply();
     expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
 
-    CitationInfoCtrl.selectCitation(citationPayableOnline);
+    CitationInfoCtrl.selectCitation(citationPayableOnline,'someId');
     CitationInfoCtrl.paymentUrl = "someUrl";
     $rootScope.$apply();
     expect (CitationInfoCtrl.showPaymentButton()).toBe(true);
 
-    CitationInfoCtrl.selectCitation(citationPayableOnline);
+    CitationInfoCtrl.selectCitation(citationPayableOnline,'someId');
     CitationInfoCtrl.paymentUrl = "";
     $rootScope.$apply();
     expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
