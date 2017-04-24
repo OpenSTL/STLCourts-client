@@ -20,6 +20,10 @@ angular.module('yourStlCourts').directive('flipBox', function ($window,$rootScop
       var backElement;
       var flipContainer;
 
+      if ($('#answerBox').length === 0){
+        $('body').prepend('<div id="answerBox"></div>');
+      }
+
       $(element).find(".flip-box-front").each(function(){
         frontElement = this;
       });

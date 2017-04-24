@@ -5,5 +5,9 @@
   <div class="flip-box-front flip-box-front-start">
     {{ctrl.faqBoxFront}}
   </div>
-  <div class="flip-box-back flip-box-back-start" ng-bind-html="ctrl.autolinker.link(ctrl.faqBoxBack)"></div>
+  <div class="flip-box-back flip-box-back-start">
+    <div>Q: {{ctrl.faqBoxFront}}</div>
+    <br>
+    <div ng-bind-html="'A: '+ctrl.autolinker.link(ctrl.faqBoxBack)"></div>
+  </div>
 </div>
