@@ -49,12 +49,12 @@ describe('CitationsCtrl', function () {
     spyOn(toaster,'pop');
 
     var homeLink = '<a href="/"><u>clicking here</u></a>';
-    var noTicketsFoundMsg = 'We could not find any results for the  information you provided. It\'s possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
+    var noTicketsFoundMsg = 'We could not find any results for the information you provided. Because only recent court dates are in our system, you may still have pending court cases, please contact the court for more information.<br>It\'s also possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
     var toasterBody = {
       type: 'error',
       body: noTicketsFoundMsg,
       bodyOutputType: 'trustedHtml',
-      timeout:7000
+      timeout:10000
     };
 
     CitationsCtrl.dobValid = true;
