@@ -54,7 +54,7 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
             var maxLength = $(event.target).attr("maxlength");
             var numberOfExistingDigits = $(event.target).val().length;
             updateDateString();
-            if (numberOfExistingDigits === maxLength){
+            if (numberOfExistingDigits === Number(maxLength)){
               //tab to the next field
               if ($(event.target).next("span") !== $()){
                 clearInputElement($(event.target).next().next());
