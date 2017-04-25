@@ -6,8 +6,8 @@
     <div class="col-sm-6"
          ng-repeat="i in [$index, $index + 1]"
          ng-if="ctrl.sourceData[ctrl.arrayName][i] != null">
-        <flip-box front="ctrl.sourceData[ctrl.arrayName][i].q"
-                  back="ctrl.sourceData[ctrl.arrayName][i].a"></flip-box>
+        <faq-question-box question="ctrl.sourceData[ctrl.arrayName][i].q"
+                  answer="ctrl.sourceData[ctrl.arrayName][i].a"></faq-question-box>
     </div>
   </div>
 </div>
