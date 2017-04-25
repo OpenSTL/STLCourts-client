@@ -48,10 +48,12 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     })
     .state('info', {
       url: '/info',
+      controller: 'AnchorScrollCtrl as ctrl',
       templateUrl: 'views/info.html'
     })
     .state('goingToCourt', {
       url: '/goingToCourt',
+      controller: 'AnchorScrollCtrl as ctrl',
       templateUrl: 'views/goingToCourt.html'
     })
     .state('legal', {
