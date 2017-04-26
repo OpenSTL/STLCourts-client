@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').directive('faqQuestionBox', function ($window,$rootScope) {
+angular.module('yourStlCourts').directive('faqQuestionBox', function ($window,$rootScope,FaqAnswerBox) {
   return {
     restrict: 'E',
     scope:{
@@ -16,7 +16,7 @@ angular.module('yourStlCourts').directive('faqQuestionBox', function ($window,$r
       scope.ctrl.answer = scope.question;
 
       $(element).on('click',function(){
-
+        FaqAnswerBox.set(scope.ctrl.question,scope.ctrl.answer);
       });
      /* var frontElement;
       var backElement;

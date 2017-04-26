@@ -15,6 +15,11 @@ angular.module('yourStlCourts').directive('faqAnswerBox', function ($window,$roo
       scope.ctrl.question = scope.question;
       scope.ctrl.answer = scope.answer;
 
+      $rootScope.$on('faqAnswerBoxReveal',function(evt,question,answer){
+        scope.ctrl.question = question;
+        scope.ctrl.answer = answer;
+      });
+
       $(element).on('click',function(){
 
       });

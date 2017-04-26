@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').directive('faqGroup', function ($window,$rootScope) {
+angular.module('yourStlCourts').directive('faqGroup', function ($window,$rootScope,$compile) {
   return {
     restrict: 'E',
     scope:{
@@ -24,7 +24,9 @@ angular.module('yourStlCourts').directive('faqGroup', function ($window,$rootSco
       scope.ctrl.noTitle = scope.noTitle;
 
       if ($('#faqAnswerBox').length === 0){
-        $('body').prepend('<faq-answer-box id="faqAnswerBox"></faq-answer-box>');
+        var faqAnswerEl = $compile('<faq-answer-box id="faqAnswerBox"></faq-answer-box>')($scope);
+        //$('body').prepend('<faq-answer-box id="faqAnswerBox"></faq-answer-box>');
+        $('body').prepend(faqAnswerEl);
       }
     }
   };
