@@ -7,6 +7,7 @@ $flipBoxWidth: 90%;
 .faq-question-box-container{
   position:relative;
   cursor: pointer;
+  width:100%;
 }
 
 faq-question-box,
@@ -30,6 +31,10 @@ faq-question-box,
   position: relative;
   width:$flipBoxWidth;
   z-index: 2;
+}
+
+#faq-answer-box-close-button{
+  color:black !important;
 }
 
 /******/
@@ -57,14 +62,14 @@ faq-question-box,
 }
 
 .faq-answer-back{
-  background-color: $scheme_limeGreen;
-  color: white;
+  background-color: white;
   padding:20px;
-  border: $scheme_magenta 4px solid;
+  border: black 4px solid;
+  width:100%;
 }
 
 .faq-answer-back a{
-  color: $scheme_magenta;
+  color: $scheme_blue;
 }
 
 .faq-answer-front{
