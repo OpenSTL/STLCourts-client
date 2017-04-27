@@ -21,10 +21,10 @@ angular.module('yourStlCourts').directive('faqAnswerBox', function ($window,$roo
         var a = answer;
         if (!frontShowing){
           $(".faq-answer-back").removeClass("showBack").addClass("hideBack");
-          $(".faq-answer-front").removeClass("hideFront").addClass("showFront");
+          //$(".faq-answer-front").removeClass("hideFront").addClass("showFront");
           $timeout(function(){
             flipToBack(q,a);
-          },1500);
+          },1000);
         }else{
           flipToBack(q,a);
         }
@@ -37,12 +37,12 @@ angular.module('yourStlCourts').directive('faqAnswerBox', function ($window,$roo
         scope.$apply();
 
         $(".faq-answer-back").addClass("showBack").removeClass("hideBack");
-        $(".faq-answer-front").addClass("hideFront").removeClass("showFront");
+       // $(".faq-answer-front").addClass("hideFront").removeClass("showFront");
       }
 
       $("#faq-answer-box-close-button").on('click',function(){
         $(".faq-answer-back").removeClass("showBack").addClass("hideBack");
-        $(".faq-answer-front").removeClass("hideFront").addClass("showFront");
+       // $(".faq-answer-front").removeClass("hideFront").addClass("showFront");
         frontShowing = true;
       });
 
