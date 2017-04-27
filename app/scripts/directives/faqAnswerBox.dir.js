@@ -1,62 +1,55 @@
 'use strict';
 
-angular.module('yourStlCourts').directive('faqAnswerBox', function ($window,$rootScope) {
+angular.module('yourStlCourts').directive('faqAnswerBox', function ($window,$rootScope,$timeout) {
   return {
     restrict: 'E',
     scope:{
-      question:'<',
-      answer: '<'
+      question:'=',
+      answer:'='
     },
     templateUrl: 'views/faqAnswerBox.html',
     controller: 'FaqAnswerBoxCtrl as ctrl',
 
     link: function ($scope, element) {
       var scope = $scope;
-      scope.ctrl.question = scope.question;
-      scope.ctrl.answer = scope.answer;
+      scope.ctrl.question = "";
+      scope.ctrl.answer = "";
+      var frontShowing = true;
 
       $rootScope.$on('faqAnswerBoxReveal',function(evt,question,answer){
-        scope.ctrl.question = question;
-        scope.ctrl.answer = answer;
-      });
-
-      $(element).on('click',function(){
-
-      });
-     /* var frontElement;
-      var backElement;
-      var flipContainer;
-
-      if ($('#answerBox').length === 0){
-        $('body').prepend('<div id="answerBox"></div>');
-      }
-
-      $(element).find(".flip-box-front").each(function(){
-        frontElement = this;
-      });
-      $(element).find(".flip-box-back").each(function(){
-        backElement = this;
-      });
-      $(element).find(".flip-box-container").each(function(){
-        flipContainer = this;
-      });
-
-      $(element).on('click',function(){
-        if (scope.ctrl.frontShowing){
-          scope.ctrl.frontShowing = false;
-          $(flipContainer).removeClass("flipContainerShowingFront").addClass("flipContainerShowingBack");
-          $(frontElement).removeClass("showFront").addClass("hideFront").removeClass("flip-box-front-start");
-          $(backElement).removeClass("hideBack").addClass("showBack").removeClass("flip-box-back-start");
+        var q = question;
+        var a = answer;
+        if (!frontShowing){
+          $(".faq-answer-back").removeClass("showBack").addClass("hideBack");
+          $(".faq-answer-front").removeClass("hideFront").addClass("showFront");
+          $timeout(function(){
+            flipToBack(q,a);
+          },1500);
         }else{
-          scope.ctrl.frontShowing = true;
-          $(frontElement).removeClass("hideFront").addClass("showFront");
-          $(backElement).removeClass("showBack").addClass("hideBack");
-          $(flipContainer).removeClass("flipContainerShowingBack").addClass("flipContainerShowingFront");
+          flipToBack(q,a);
         }
       });
-*/
+
+      function flipToBack(question,answer){
+        frontShowing = false;
+        scope.ctrl.question = question;
+        scope.ctrl.answer = answer;
+        scope.$apply();
+
+        $(".faq-answer-back").addClass("showBack").removeClass("hideBack");
+        $(".faq-answer-front").addClass("hideFront").removeClass("showFront");
+      }
+
+      $("#faq-answer-box-close-button").on('click',function(){
+        $(".faq-answer-back").removeClass("showBack").addClass("hideBack");
+        $(".faq-answer-front").removeClass("hideFront").addClass("showFront");
+        frontShowing = true;
+      });
+
+
       element.on('$destroy',function(){
-        element.off('click');
+        $rootScope.$off('faqAnswerBoxReveal');
+        $("#faq-answer-box-close-button").off('click');
       });
     }
   };

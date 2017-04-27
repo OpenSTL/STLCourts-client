@@ -13,7 +13,7 @@ angular.module('yourStlCourts').directive('faqQuestionBox', function ($window,$r
     link: function ($scope, element) {
       var scope = $scope;
       scope.ctrl.question = scope.question;
-      scope.ctrl.answer = scope.question;
+      scope.ctrl.answer = scope.answer;
 
       $(element).on('click',function(){
         FaqAnswerBox.set(scope.ctrl.question,scope.ctrl.answer);
