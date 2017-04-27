@@ -4,16 +4,26 @@ describe('CitationsCtrl', function () {
 
   var CitationsCtrl;
   var citationId = 5;
+  var Errors = {
+    makeError: function(){
+      return "someError";
+    },
+    ERROR_CODE:{
+      NO_CITATIONS_FOUND: "dummy"
+    }
+  };
 
   beforeEach(function() {
     module('yourStlCourts');
 
-    inject(function($controller, toaster,$state,Citations,$httpBackend) {
+    inject(function($controller, toaster,$state,Citations,$httpBackend,$rootScope) {
       CitationsCtrl = $controller('CitationsCtrl', {
         Citations:Citations,
         citationId:citationId,
         $state:$state,
-        toaster: toaster
+        toaster: toaster,
+        $rootScope: $rootScope,
+        Errors:Errors
       });
       $httpBackend.whenGET(/municipalities/).respond(200, '');
       $httpBackend.whenGET(/courts/).respond(200, '');
@@ -42,20 +52,11 @@ describe('CitationsCtrl', function () {
     expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}]});
   }));
 
-  it('should toast an error when no citations are found',inject(function(toaster,Citations,$rootScope,$q){
+  it('should broadcast an error when no citations are found',inject(function(Citations,$rootScope,$q){
     var deferred = $q.defer();
     deferred.resolve([]);
     spyOn(Citations,'find').and.returnValue(deferred.promise);
-    spyOn(toaster,'pop');
-
-    var homeLink = '<a href="/"><u>clicking here</u></a>';
-    var noTicketsFoundMsg = 'We could not find any results for the information you provided. Because only recent court dates are in our system, you may still have pending court cases, please contact the court for more information.<br>It\'s also possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
-    var toasterBody = {
-      type: 'error',
-      body: noTicketsFoundMsg,
-      bodyOutputType: 'trustedHtml',
-      timeout:10000
-    };
+    spyOn($rootScope,'$broadcast').and.callThrough();
 
     CitationsCtrl.dobValid = true;
     CitationsCtrl.dobOver18 = true;
@@ -63,7 +64,8 @@ describe('CitationsCtrl', function () {
 
     CitationsCtrl.viewCitation();
     $rootScope.$apply();
-    expect(toaster.pop).toHaveBeenCalledWith(toasterBody);
+    expect($rootScope.$broadcast).toHaveBeenCalledWith('stlCourtsCustomError',"someError");
+
   }));
 
   it('shows error when saving invalid date', inject(function(toaster) {

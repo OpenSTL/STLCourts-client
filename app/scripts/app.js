@@ -129,6 +129,16 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
           }
         }
     })
+    .state('noCitationsFound',{
+      url: '/citations/error/notFound',
+      templateUrl: 'views/citationsNotFound.html',
+      controller: 'NoCitationsFoundCtrl as ctrl',
+      resolve: {
+        supportedMunicipalities: function (Municipalities) {
+          return Municipalities.findSupported(true);
+        }
+      }
+    })
     .state('communityService', {
       url: '/communityService',
       templateUrl: 'views/communityService.html'
