@@ -35,11 +35,11 @@
   ],
   "courts-faq":[
     {"q":"What are my rights in court?",
-      "a":"Search your rights in court on the <a href=\"\\info#rights\">Your Rights</a> tab.",
+      "a":"Visit the <a href=\"\\info\">Your Legal Rights</a> page.",
       "keywords":[],
       "fill-in":""},
     {"q":"What can I expect when I go to court?",
-      "a":"Each court has its own hours of operation. You must follow their dress code and procedures, which is outlined <a href=\"\\info#dressCode\">here.</a>",
+      "a":"Each court has its own hours of operation. You must follow their dress code and procedures, which is outlined <a href=\"\\goingToCourt#dressCode\">here.</a>",
       "keywords":[],
       "fill-in":""},
     {"q":"What do I do if I don’t own clothes that comply with the court’s dress code?",
