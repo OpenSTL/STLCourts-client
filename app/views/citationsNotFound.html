@@ -23,8 +23,10 @@
   </p>
   <p>
     Currently the following municipalities are supported by this site:
-    <br>
-    {{ctrl.getSupportedMunicipalitiesList()}}
+    <p ng-repeat="municipality in ctrl.supportedMunicipalities">
+      <span ng-if="$first">{{municipality.name}}</span>
+      <span ng-if="!$first">, {{municipality.name}}</span>
+    </p>
   </p>
   <p>
     If you believe you have a ticket from a non-supported municipality, you may look the associated court up on our site by clicking <a href="\">here</a>.

@@ -21,9 +21,7 @@ describe('NoCitationsFoundCtrl', function () {
     });
   });
 
-  it('initializes creates a supported municipalities list',function(){
-    var list = NoCitationsFoundCtrl.getSupportedMunicipalitiesList();
-    expect(list).toEqual("muni1, muni2");
+  it('initializes correctly',function(){
+    expect(NoCitationsFoundCtrl.supportedMunicipalities).toEqual(supportedMunicipalities);
   });
-
 });
