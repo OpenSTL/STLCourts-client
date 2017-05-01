@@ -1,0 +1,67 @@
+@import "_colors";
+@import "_constants";
+
+.stl-courts-datepicker-date-group{
+  display:inline-block;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  background-color: white;
+  background-color: -moz-field;
+  border: 1px solid darkgray;
+}
+
+.stl-courts-datepicker-MM,
+.stl-courts-datepicker-DD{
+  width: 35px;
+  text-align: center;
+  border: none;
+}
+
+.stl-courts-datepicker-YYYY{
+  width: 50px;
+  text-align: center;
+  border: none;
+}
+
+.stl-courts-datepicker-input {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  background-color: white;
+  background-color: -moz-field;
+  border: 1px solid darkgray;
+  box-shadow: 1px 1px 1px 0 lightgray inset;
+  font: -moz-field;
+  font: -webkit-small-control;
+  margin-top: 5px;
+  padding: 2px 3px;
+  margin-left:auto;
+  margin-right:auto;
+  display:inline-block;
+}
+
+.stl-courts-datepicker-input span.dim{
+  color:#cccccc;
+}
+
+.stl-courts-datepicker-input span.underline{
+  text-decoration: underline;
+}
+
+.stl-courts-datepicker-input span.noShow{
+  opacity:0;
+}
+
+.stl-courts-datepicker-hidden{
+  display:none;
+}
+
+.stl-courts-datepicker-calendar > div:first-child{
+  display:none;
+}
+
+.stl-courts-datepicker-input-line{
+  margin-bottom:10px;
+}
+
+
+

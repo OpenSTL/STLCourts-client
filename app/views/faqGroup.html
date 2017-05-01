@@ -1,0 +1,14 @@
+<a class="anchor" name="{{ctrl.faqName}}"></a>
+<h2 ng-if="ctrl.noTitle != 'true'">{{ctrl.groupTitle}}</h2>
+<div class="panel-group" id="{{ctrl.faqName}}-FAQ-accordion">
+  <div ng-repeat="item in ctrl.sourceData[ctrl.arrayName] | filter:ctrl.keywordFilter" class="panel panel-default">
+    <div class="panel-heading">
+      <a class="helpPage-Question" data-toggle="collapse" data-target="#help-{{ctrl.faqName}}-A{{$index}}" data-parent="#{{ctrl.faqName}}-FAQ-accordion">
+        Q: {{item.q}}
+      </a>
+    </div>
+    <div id="help-{{ctrl.faqName}}-A{{$index}}" class="answer-panel panel-collapse collapse">
+      <div class="panel-body small white-space-pre-line"><p ng-bind-html="'A: '+ctrl.autolinker.link(item.a)"></p></div>
+    </div>
+  </div>
+</div>

@@ -1,24 +1,30 @@
 {
-  "name": "gh-angular",
-  "version": "0.1.0",
+  "name": "yourSTLCourts-client",
+  "version": "0.9.0",
   "dependencies": {
-    "angular": "~1.5.0",
-    "bootstrap-sass-official": "^3.2.0",
-    "angular-resource": "^1.3.0",
-    "angular-sanitize": "^1.3.0",
-    "angular-touch": "^1.3.0",
-    "angular-ui-router": "^0.2.15",
-    "angular-esri-map": "~1.1.4",
-    "components-font-awesome": "~4.4.0",
-    "angularjs-toaster": "~0.4.15",
-    "angular-bootstrap": "~0.13.4",
-    "angular-ui-select": "~0.16.0"
+    "angular": "1.5.9",
+    "angular-animate": "1.5.9",
+    "bootstrap-sass-official": "3.2.0",
+    "angular-resource": "1.5.9",
+    "angular-sanitize": "1.3.0",
+    "angular-touch": "1.3.0",
+    "angular-ui-router": "0.2.15",
+    "angularjs-toaster": "0.4.15",
+    "angular-bootstrap": "1.3.2",
+    "angular-ui-select": "0.19.4",
+    "jquery": "2.2.4",
+    "moment": "2.14.1",
+    "leaflet": "1.0.2",
+    "angular-simple-logger": "0.1.7",
+    "angular-moment": "1.0.1",
+    "lodash": "4.17.4",
+    "Autolinker.js": "1.4.2"
   },
   "devDependencies": {
-    "angular-mocks": "~1.5.0"
+    "angular-mocks": "1.5.0"
   },
   "appPath": "app",
-  "moduleName": "ghAngularApp",
+  "moduleName": "yourStlCourts",
   "overrides": {
     "bootstrap": {
       "main": [
@@ -27,5 +33,8 @@
         "dist/js/bootstrap.js"
       ]
     }
+  },
+  "resolutions": {
+    "angular": "1.5.9"
   }
 }

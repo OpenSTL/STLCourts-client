@@ -1,62 +1,156 @@
 'use strict';
 
-/* global esri */
-angular.module('ghAngularApp').controller('locationPickerMapCtrl', function ($scope, esriRegistry, $modalInstance, municipalities) {
+angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($scope, $http, $uibModalInstance, municipalities, leafletData) {
   var ctrl = this;
+  ctrl.mousedOverMunicipality = null;
   ctrl.selectedMunicipalities = [];
+  var selectedMapMunicipalityIds = [];
+  var unincorporatedCount = 0;
 
-  ctrl.map = {
-    options: {
-      basemap: 'streets',
-      center: [-90.381801, 38.668909],
-      zoom: 10,
-      sliderStyle: 'small'
-    }
+    ctrl.center = {
+    lat:38.62775,
+    lng:-90.381801,
+    zoom: 10
   };
 
-  function onMapClick(map, evt) {
-    ctrl.selectedMunicipalities = [];
+  var geoJson;
+  var highlightStyle = {
+    weight: 3,
+    color: 'blue',
+    fillColor:'blue',
+    dashArray: '',
+    fillOpacity: 0.5
+  };
 
-    var selectionQuery = new esri.tasks.Query();
-    console.log(selectionQuery);
-    var tol = map.extent.getWidth()/map.width * 5;
-    var x = evt.mapPoint.x;
-    var y = evt.mapPoint.y;
-    var queryExtent = new esri.geometry.Extent(x - tol, y - tol, x + tol, y + tol, evt.mapPoint.spatialReference);
-    selectionQuery.geometry = queryExtent;
-    var layer = map.getLayer(map.graphicsLayerIds[0]);
-    layer.queryFeatures(selectionQuery, function(queryResult){
-      queryResult.features.forEach(function(feature){
-        if (feature.attributes && feature.attributes.MUNICIPALITY)
-        {
-          municipalities.every(function (realMunicip) {
-            if (realMunicip.municipality.toLowerCase() === feature.attributes.MUNICIPALITY.toLowerCase()) {
-              ctrl.selectedMunicipalities.push(realMunicip);
-              return false;
-            }
+  var outlineStyle = {
+    weight: 3,
+    color: 'blue',
+    fillColor:'',
+    dashArray: '',
+    fillOpacity: 0
+  };
 
-            return true;
-          });
-        }
-        else
-        {
-          console.log('Received a map feature with the incorrect attributes. Something is wrong with the ESRI configuration.');
-        }
-      });
+  function highlightFeature(e) {
+    var mapMunicipalityId = e.target.feature.id;
+    var municipality = getMunicipalityFromMapName(e.target.feature.properties.municipality);
+    if(!isMunicipalitySelected(mapMunicipalityId)) {
+      var layer = e.target;
+      layer.setStyle(outlineStyle);
+
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
+    }
+    ctrl.mousedOverMunicipality = municipality;
+  }
+
+  function resetHighlight(e) {
+    var mapMunicipalityId = e.target.feature.id;
+    if(!isMunicipalitySelected(mapMunicipalityId)) {
+      geoJson.resetStyle(e.target);
+    }
+    ctrl.mousedOverMunicipality = null;
+  }
+
+  function selectMunicipality(e) {
+    var mapMunicipalityId = e.target.feature.id;
+    var municipality = getMunicipalityFromMapName(e.target.feature.properties.municipality);
+    if(isMunicipalitySelected(mapMunicipalityId)) {
+      removeMuncipality(municipality, mapMunicipalityId);
+      geoJson.resetStyle(e.target);
+    } else {
+      addMunicipality(municipality, mapMunicipalityId);
+      var layer = e.target;
+      layer.setStyle(highlightStyle);
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
+    }
+  }
+
+  function onEachFeature(feature, layer) {
+    layer.on({
+      mouseover: highlightFeature,
+      mouseout: resetHighlight,
+      click: selectMunicipality
     });
   }
 
-  esriRegistry.get('stlMap').then(function(map){
-    map.on('click', function(e) {
-      $scope.$apply(onMapClick.bind(null, map, e));
+  leafletData.getMap("municipalityMap").then(function(map){
+    $http.get('data/stlCountyMunicipalBoundaries.json').success(function(geoJsonData){
+      geoJson = L.geoJSON(geoJsonData,{
+        style: function(feature) {
+          return {
+            fillColor: "",
+            weight: 1,
+            opacity: 1,
+            color: 'blue',
+            dashArray: '',
+            fillOpacity: 0
+          }
+        },
+        onEachFeature: onEachFeature
+      }).addTo(map);
     });
   });
 
+  function getMunicipalityFromMapName(muniMapName){
+    function getName(nameString){
+      if (nameString.toLowerCase() == "unincorporated"){
+        nameString = "St. Louis County - Unincorporated";
+      }
+
+      return nameString.replace("&", "and");
+    }
+
+    return _.find(municipalities, function(municipality) {
+      return municipality.name.toLowerCase() === getName(muniMapName).toLowerCase();
+    });
+  }
+
+  function isMunicipalitySelected(mapMunicipalityId) {
+    return _.includes(selectedMapMunicipalityIds, mapMunicipalityId);
+  }
+
+  function addMunicipality(municipality, mapMunicipalityId) {
+    updateUnincorporatedCount(municipality, true);
+    if(!_.find(ctrl.selectedMunicipalities, {id: municipality.id})) {
+      ctrl.selectedMunicipalities.push(municipality);
+    }
+    selectedMapMunicipalityIds.push(mapMunicipalityId);
+  }
+
+  function removeMuncipality(municipality, mapMunicipalityId) {
+    updateUnincorporatedCount(municipality, false);
+
+    var unincorporated = isUnincorporated(municipality);
+    var shouldRemove = unincorporated ? unincorporatedCount === 0 : true;
+    if(shouldRemove) {
+      _.pull(ctrl.selectedMunicipalities, municipality);
+    }
+
+    _.pull(selectedMapMunicipalityIds, mapMunicipalityId);
+  }
+
+  function updateUnincorporatedCount(municipality, isAdded) {
+    if(isUnincorporated(municipality)) {
+      if(isAdded) {
+        unincorporatedCount++;
+      } else {
+        unincorporatedCount--;
+      }
+    }
+  }
+
+  function isUnincorporated(municipality) {
+    return municipality.name.toLowerCase().indexOf('unincorporated') >= 0;
+  }
+
   ctrl.selectLocation = function(){
-    $modalInstance.close(ctrl.selectedMunicipalities);
+    $uibModalInstance.close(ctrl.selectedMunicipalities);
   };
 
   ctrl.cancel = function() {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 });

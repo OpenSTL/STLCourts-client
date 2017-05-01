@@ -1,23 +1,58 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, $window, citations, Courts) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities,courts,Courts,Session,moment,$anchorScroll) {
   var ctrl = this;
+  ctrl.faqData = faqData;
+  ctrl.selectedCitation = null;
+  ctrl.paymentUrl = "";
+  ctrl.citationCourtLocations = {};
 
-  ctrl.selectCitation = function(citation){
+  ctrl.selectCitation = function(citation,idToScrollTo){
     ctrl.selectedCitation = citation;
-    Courts.findById(citation.court_id).then(function(court){
-      ctrl.selectedCitation.court = court;
-      ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
-    });
+    Session.setSelectedCitation(ctrl.selectedCitation);
+    if (ctrl.selectedCitation) {
+      Courts.findById(citation.court_id).then(function (court) {
+        ctrl.selectedCitation.court = court;
+        ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
+      });
+      for(var municipality in municipalities){
+        if (ctrl.selectedCitation.municipality_id == municipalities[municipality].id){
+          ctrl.paymentUrl = municipalities[municipality].paymentUrl;
+          break;
+        }
+      }
+      if (citations.length > 1) {
+        $anchorScroll(idToScrollTo);
+      }
+    }
+  };
+
+  ctrl.hasWarrant = function(){
+    var hasWarrant = false;
+    if (ctrl.selectedCitation && ctrl.hasViolations(ctrl.selectedCitation)){
+     for(var violationIndex in ctrl.selectedCitation.violations){
+       if (ctrl.selectedCitation.violations[violationIndex].warrant_status){
+         hasWarrant = true;
+         break;
+       }
+     }
+    }
+    return hasWarrant;
   };
 
   if(!citations) {
     $state.go('home');
   } else {
     ctrl.citations = citations;
-    ctrl.selectedCitation = null;
+    for(var citationCount = 0; citationCount < citations.length; citationCount++){
+      var courtId = citations[citationCount].court_id;
+      var foundCourt = _.find(courts, {id: courtId});
+      ctrl.citationCourtLocations[courtId] = foundCourt.name;
+    }
     if(ctrl.citations.length === 1) {
       ctrl.selectCitation(ctrl.citations[0]);
+    }else{
+      ctrl.selectCitation(Session.getLastSelectedCitation());
     }
   }
 
@@ -25,7 +60,7 @@ angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, 
     var address = citation.court.address.replace(' ', '+');
     var city = citation.court.city;
     var state = citation.court.state;
-    var zip = citation.court.zip_code;
+    var zip = citation.court.zip;
     var addressParts = [address, city, state, zip];
     return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
   }
@@ -74,15 +109,50 @@ angular.module('ghAngularApp').controller('citationInfoCtrl', function ($state, 
     return total.toFixed(2);
   };
 
+  ctrl.canPayOnline = function(citation){
+    var canPayOnline = true;
+    citation.violations.forEach(function(violation){
+      if (!violation.can_pay_online)
+        canPayOnline = false;
+    });
+
+    return canPayOnline;
+  };
+
+  ctrl.showPaymentButton = function(){
+    if (ctrl.selectedCitation) {
+      return (ctrl.paymentUrl != '' && ctrl.canPayOnline(ctrl.selectedCitation));
+    }else{
+      return false;
+    }
+  };
+
   ctrl.hasViolations = function(citation) {
     return citation.violations.length > 0;
   };
 
-  ctrl.goToPaymentOptions = function() {
-    $state.go('paymentOptions', { citationId: ctrl.selectedCitation.id });
+  ctrl.goToCommunityService = function() {
+    $state.go('communityService');
   };
 
   ctrl.printTicket = function () {
     $window.print();
   };
+
+  ctrl.formatDate = function(dateObjToFormat){
+    if (dateObjToFormat) {
+      return moment(dateObjToFormat).format("MM/DD/YYYY");
+    }else {
+      return "";
+    }
+  };
+
+  ctrl.formatTime = function(dateTimeObjToFormat) {
+    if (dateTimeObjToFormat){
+      return moment(dateTimeObjToFormat).format("hh:mm A");
+    }else{
+      return "";
+    }
+  };
+
 });

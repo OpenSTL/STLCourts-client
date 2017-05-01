@@ -6,6 +6,8 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+var modRewrite = require('connect-modrewrite');
+
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -46,6 +48,13 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         }
       },
+      json: {
+        files: ['<%= yeoman.app %>/data/{,*/}*.json'],
+        tasks: ['newer:jshint:all'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
@@ -64,7 +73,8 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}',
+          '<%= yeoman.app %>/data/{,*/}*.json',
         ]
       }
     },
@@ -82,9 +92,12 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
+              modRewrite(['^[^\\.]*$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use('/bower_components', connect.static('./bower_components')),
+              connect().use('/node_modules', connect.static('./node_modules')),
               connect().use('/app/styles', connect.static('./app/styles')),
+              connect().use('/data', connect.static('./data')),
               connect.static(appConfig.app)
             ];
           }
@@ -235,7 +248,7 @@ module.exports = function (grunt) {
         src: [
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}',
           '<%= yeoman.dist %>/styles/fonts/*'
         ]
       }
@@ -272,8 +285,8 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/styles'
         ],
         patterns: {
-          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
-        }
+          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg|ico))/g, 'Replacing references to images']]
+       }
       }
     },
 
@@ -308,7 +321,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: '{,*/}*.{png,jpg,jpeg,gif,ico}',
           dest: '<%= yeoman.dist %>/images'
         }]
       }
@@ -342,10 +355,22 @@ module.exports = function (grunt) {
       }
     },
 
+    // replace the font file path
+    replace: {
+      dist: {
+        src: ['<%= yeoman.dist %>/styles//*.css','<%= yeoman.dist %>/scripts//*.js'],
+        overwrite: true,                 // overwrite matched source files
+        replacements: [{
+          from: '../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/',
+          to: '../fonts/'
+        }]
+      }
+    },
+
     ngtemplates: {
       dist: {
         options: {
-          module: 'ghAngularApp',
+          module: 'yourStlCourts',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
@@ -388,18 +413,14 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'data/*.json'
           ]
         }, {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        }, {
-          expand: true,
-          cwd: 'bower_components/components-font-awesome',
-          src: ['fonts/*.*'],
-          dest: '<%= yeoman.dist %>'
         }]
       },
       styles: {
@@ -407,6 +428,14 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      fonts: {
+        expand: true,
+        flatten: true,
+        cwd: '.',
+        src: ['bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*'],
+        dest: '<%= yeoman.dist %>/fonts',
+        filter: 'isFile'
       }
     },
 
@@ -428,7 +457,7 @@ module.exports = function (grunt) {
     // Test settings
     karma: {
       unit: {
-        configFile: 'test/karma.conf.js',
+        configFile: 'karma.conf.js',
         singleRun: true
       }
     },
@@ -450,6 +479,19 @@ module.exports = function (grunt) {
           ENV: {
             name: 'Local',
             apiEndpoint: '//localhost:8080/api/'
+          }
+        }
+      },
+      envLocalWithRemoteServices: {
+        // This should point to the machine running debuggable services
+        options: {
+          name: 'envConfig',
+          dest: '<%= yeoman.app %>/scripts/envConfig.js'
+        },
+        constants: {
+          ENV: {
+            name: 'Local',
+            apiEndpoint: '//test.yourstlcourts.com/api/'
           }
         }
       },
@@ -486,6 +528,9 @@ module.exports = function (grunt) {
     if (targetEnvironment === 'Local' || targetEnvironment === 'local')
     {
       targetEnvironment = 'envLocal';
+    }
+    else if (targetEnvironment === 'uionly') {
+      targetEnvironment = 'envLocalWithRemoteServices';
     }
     else if (targetEnvironment === 'Production' || targetEnvironment === 'production' ||
       targetEnvironment === 'Prod'       || targetEnvironment === 'prod')
@@ -526,6 +571,7 @@ module.exports = function (grunt) {
       'clean:dist',
       'ngconstant:' + buildOptions[0],
       'wiredep',
+      'copy:fonts',
       'useminPrepare',
       'copy:styles',
       'concurrent:dist',
@@ -539,7 +585,8 @@ module.exports = function (grunt) {
       'uglify',
       'filerev',
       'usemin',
-      'htmlmin'
+      'htmlmin',
+      'replace:dist'
     ]);
   });
 

@@ -1,10 +1,10 @@
 'use strict';
 
 /* jshint ignore:start */
-angular.module('ghAngularApp').factory('DateFormatter', function () {
+angular.module('yourStlCourts').factory('DateFormatter', function () {
   var dateFormat = {
     masks : {
-      "default":      "ddd mmm dd yyyy HH:MM:ss",
+      "default":      "mm/dd/yyyy",
       shortDate:      "m/d/yy",
       mediumDate:     "mmm d, yyyy",
       longDate:       "mmmm d, yyyy",
@@ -52,7 +52,7 @@ angular.module('ghAngularApp').factory('DateFormatter', function () {
     date = date ? new Date(date) : new Date;
     if (isNaN(date)) throw SyntaxError("invalid date");
 
-    mask = String(dF.masks[mask] || mask || dF.masks["default"]);
+    mask = String(dF.masks[mask] || mask || dF.masks[shortDate]);
 
     // Allow setting the utc argument via the mask
     if (mask.slice(0, 4) === "UTC:") {

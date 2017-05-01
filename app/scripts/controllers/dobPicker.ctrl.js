@@ -1,31 +1,27 @@
 'use strict';
 
-angular.module('ghAngularApp').controller('dobPickerCtrl', function ($modalInstance, DateFormatter, toaster) {
+angular.module('yourStlCourts').controller('dobPickerCtrl', function ($uibModalInstance, toaster) {
   var ctrl = this;
 
   ctrl.dob = null;
-  ctrl.minDate = new Date(1900, 0, 1);
-  ctrl.maxDate = new Date();
-  ctrl.status = {
-    opened : false
-  };
+  ctrl.dobValid = false;
+  ctrl.dobOver18 = false;
 
-  ctrl.open = function() {
-    ctrl.status.opened = true;
-  };
-
-  ctrl.save = function(form) {
-    if (form.$valid)
-    {
-      $modalInstance.close(DateFormatter.format(ctrl.dob, 'mm/dd/yyyy'));
-    }
-    else
-    {
-      toaster.pop('error', 'Invalid date of birth.');
+  ctrl.save = function(){
+    if (ctrl.dobValid && ctrl.dobOver18){
+      $uibModalInstance.close(ctrl.dob);
+    }else{
+      if (!ctrl.dobValid){
+        toaster.pop('error', 'Invalid date of birth.');
+      }else{
+        if (!ctrl.dobOver18){
+          toaster.pop('error', 'Sorry, you must be at least 18 years old to use this site.');
+        }
+      }
     }
   };
 
   ctrl.cancel = function() {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 });

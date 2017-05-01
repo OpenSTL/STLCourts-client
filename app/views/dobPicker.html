@@ -1,19 +1,13 @@
 <div>
-  <form id="dobFrm" name="dobFrm" novalidate ng-submit="ctrl.save(dobFrm)" ng-submit-force="true">
+  <form id="dobFrm" name="dobFrm" novalidate ng-submit="ctrl.save()" ng-submit-force="true">
     <div class="modal-header">
       <h3 class="modal-title">Date of Birth</h3>
     </div>
     <div class="modal-body">
       <label>In order to protect privacy, please provide your date of birth</label>
-
-      <form-field required>
-        <p class="input-group">
-          <input displayName="Date of Birth" type="date" class="form-control" datepicker-popup ng-model="ctrl.dob" is-open="ctrl.status.opened" min-date="ctrl.minDate" max-date="ctrl.maxDate" ng-required="true" close-text="Close" format="MM/dd/yyyy" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="ctrl.open($event)"><i class="fa fa-calendar"></i></button>
-          </span>
-        </p>
-      </form-field>
+      <div class="dob-date-picker-modal">
+        <stl-courts-datepicker iso-date-string="ctrl.dob" date-valid="ctrl.dobValid" date-over-18="ctrl.dobOver18"></stl-courts-datepicker>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-primary" type="submit">Find Ticket</button>

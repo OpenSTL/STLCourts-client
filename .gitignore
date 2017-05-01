@@ -3,8 +3,12 @@
 /.sass-cache
 
 /bower_components
+/dist
+/coverage
 
+#IntelliJ/WebStorm
 /.idea
 *.iml
 
 app/scripts/envConfig.js
+coverage/

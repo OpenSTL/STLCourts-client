@@ -1,0 +1,13 @@
+@import "_colors";
+@import "_constants";
+
+footer .container, footer ul{
+  padding: 0px;
+}
+
+footer li {
+    display: inline;
+    padding: 0px 5px 5px 0px;
+    line-height: 1em;
+}
+
