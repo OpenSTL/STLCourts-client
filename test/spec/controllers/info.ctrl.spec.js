@@ -1,8 +1,8 @@
 'use strict';
 
-describe('CitationInfoCtrl', function () {
-  var AnchorScrollCtrl;
-  var $anchorScroll = "myAnchorScroll"
+describe('InfoCtrl', function () {
+  var InfoCtrl;
+  var anchorScrollSpy = jasmine.createSpy('anchorScroll');
 
   beforeEach(function () {
     module('yourStlCourts');
@@ -12,13 +12,14 @@ describe('CitationInfoCtrl', function () {
       $httpBackend.whenGET(/courts/).respond(200, '');
       $httpBackend.whenGET(/info/).respond(200, '');
 
-      AnchorScrollCtrl = $controller('AnchorScrollCtrl', {
-        $anchorScroll:$anchorScroll
+      InfoCtrl = $controller('InfoCtrl', {
+        $anchorScroll:anchorScrollSpy
       });
     });
   });
 
   it('correctly initializes', inject(function () {
-    expect(AnchorScrollCtrl.anchorScroll).toEqual("myAnchorScroll");
+    InfoCtrl.scrollTo("hi");
+    expect(anchorScrollSpy).toHaveBeenCalledWith("hi");
   }));
 });
