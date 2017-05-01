@@ -97,7 +97,7 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   function getMunicipalityFromMapName(muniMapName){
     function getName(nameString){
       if (nameString.toLowerCase() == "unincorporated"){
-        nameString += " St. Louis County";
+        nameString = "St. Louis County - Unincorporated";
       }
 
       return nameString.replace("&", "and");

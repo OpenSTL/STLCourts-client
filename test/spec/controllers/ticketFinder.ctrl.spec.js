@@ -7,6 +7,14 @@ describe('TicketFinderCtrl', function() {
   var citationCriteria;
   var ticketFinder;
   var citationCriteria;
+  var Errors = {
+    makeError: function(){
+      return "someError";
+    },
+    ERROR_CODE:{
+      NO_CITATIONS_FOUND: "dummy"
+    }
+  };
 
   beforeEach(function() {
     module('yourStlCourts');
@@ -32,7 +40,9 @@ describe('TicketFinderCtrl', function() {
         toaster: toaster,
         Citations: Citations,
         TicketFinder: TicketFinder,
-        $scope:$rootScope.$new()
+        $scope:$rootScope.$new(),
+        $rootScope: $rootScope,
+        Errors:Errors
       });
 
       TicketFinderCtrl.selectFinder = function (someValue) {
@@ -116,27 +126,20 @@ describe('TicketFinderCtrl', function() {
     expect($state.go).toHaveBeenCalledWith('citationInfo',{citations: [{},{}]});
   }));
 
-  it('should toast message if no citations were found',inject(function(Citations,$rootScope,$q,toaster){
+  it('should broadcast an error when no citations are found',inject(function(Citations,$rootScope,$q){
     var deferred = $q.defer();
     deferred.resolve({citations:[]});
     spyOn(Citations,'find').and.returnValue(deferred.promise);
 
-    spyOn(toaster, 'pop');
+    spyOn($rootScope, '$broadcast').and.callThrough();
 
-    var homeLink = '<a href="/"><u>clicking here</u></a>';
-    var noTicketsFoundMsg = 'We could not find any results for the  information you provided. It\'s possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
-    var toasterBody = {
-      type: 'error',
-      body: noTicketsFoundMsg,
-      bodyOutputType: 'trustedHtml',
-      timeout:7000
-    };
     TicketFinderCtrl.citationCriteria = {dob: "dob"};
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect(toaster.pop).toHaveBeenCalledWith(toasterBody);
+    expect($rootScope.$broadcast).toHaveBeenCalledWith('stlCourtsCustomError',"someError");
 
   }));
+
 
   it('should toast message if citations are unable to be looked up',inject(function(Citations,$rootScope,$q,toaster){
     var deferred = $q.defer();

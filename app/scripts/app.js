@@ -58,10 +58,12 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     })
     .state('info', {
       url: '/info',
+      controller: 'InfoCtrl as ctrl',
       templateUrl: 'views/info.html'
     })
     .state('goingToCourt', {
       url: '/goingToCourt',
+      controller: 'GoingToCourtCtrl as ctrl',
       templateUrl: 'views/goingToCourt.html'
     })
     .state('legal', {
@@ -142,6 +144,16 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
             return $stateParams.citationId;
           }
         }
+    })
+    .state('noCitationsFound',{
+      url: '/citations/error/notFound',
+      templateUrl: 'views/citationsNotFound.html',
+      controller: 'NoCitationsFoundCtrl as ctrl',
+      resolve: {
+        supportedMunicipalities: function (Municipalities) {
+          return Municipalities.findSupported(true);
+        }
+      }
     })
     .state('communityService', {
       url: '/communityService',
