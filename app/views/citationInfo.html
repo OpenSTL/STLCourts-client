@@ -15,12 +15,12 @@
             <th>Violations</th>
           </thead>
           <tbody>
-          <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation)">
+          <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation,'selectedCitationInfo')">
             <td class="hide-when-small-screen center-block"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view</button></td>
             <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></span></td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>
             <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_dateTime)}}</td>
-            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{citation.court_location}}</td>
+            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{ctrl.citationCourtLocations[citation.court_id]}}</td>
             <td class="hide-border-when-small">
               <span class="label-for-small-screen table-item-label">Violations</span>
               <span ng-repeat="violation in citation.violations" ng-if="ctrl.hasViolations(citation)">
@@ -65,7 +65,14 @@
               <span class="italic" ng-if="ctrl.isMissingFineInfo(ctrl.selectedCitation)">
                 Fine Info Unavailable
               </span>
+              <span id="fine-warning" class="citation-info-warning-note" ng-if="!ctrl.isMissingFineInfo(ctrl.selectedCitation)">
+                Note: this is the amount of your fine only.  Your total will also include court fees.
+              </span>
+              <span id="mandatory-appearance-note" class="citation-info-warning-note warning-red-text" ng-if="!ctrl.showPaymentButton()">
+                Note: you must appear in court and speak with the judge to pay this citation.
+              </span>
             </dd>
+            <!--  This section will be implemented at a later date
             <dt>Total Court Fee</dt>
             <dd>
               <span ng-if="!ctrl.isMissingFeeInfo(ctrl.selectedCitation)">
@@ -75,6 +82,7 @@
                 Fee Info Unavailable
               </span>
             </dd>
+            -->
           </dl>
         </div>
       </div>
@@ -124,11 +132,11 @@
         </div>
         <div class="col-sm-6 alignColumnsToPage no-print">
           <h2 class="no-indent">I Want To...</h2>
-          <p>
-            <a ng-if="ctrl.paymentUrl != '' && ctrl.canPayOnline(ctrl.selectedCitation)" href="{{ctrl.paymentUrl}}" target="_blank">
+          <p ng-if="ctrl.showPaymentButton()">
+            <a href="{{ctrl.paymentUrl}}" target="_blank">
               <button type="button" class="btn btn-scheme-primary btn-autosize" ng-click=""><i class="fa fa-dollar"></i>&nbsp;PAY MY TICKET</button>
             </a>
-            <span id="payment-warning">Note: paying your ticket is considered an admission of guilt. If you do not wish to plead guilty, you must appear in court to meet with the judge.</span>
+            <span id="payment-warning" class="citation-info-warning-note">Note: paying your ticket is considered an admission of guilt. If you do not wish to plead guilty, you must appear in court to meet with the judge.</span>
           </p>
           <p>
             <button type="button" class="btn btn-scheme-primary btn-autosize" ng-click="ctrl.goToCommunityService()">EXPLORE COMMUNITY SERVICE OPTIONS</button>

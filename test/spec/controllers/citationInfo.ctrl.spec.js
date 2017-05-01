@@ -2,6 +2,7 @@
 
 describe('CitationInfoCtrl', function () {
   var CitationInfoCtrl;
+  var $anchorScroll = jasmine.createSpy("anchorScroll");
 
   var faqData = {
     "dataLabel": [
@@ -32,6 +33,11 @@ describe('CitationInfoCtrl', function () {
     court_cost: 2.0
   };
 
+  var violationPayableOnline = {
+    id:20,
+    can_pay_online:true
+  };
+
   var citation = {
     id: 2,
     court_id: 5,
@@ -53,17 +59,37 @@ describe('CitationInfoCtrl', function () {
     municipality_id:5
   };
 
+  var citationPayableOnline = {
+    id: 13,
+    court_id:11,
+    violations: [violationPayableOnline],
+    municipality_id:5
+  };
+
   var citations = [
     citation, citationWithViolations
   ];
 
   var court = {
     id: 6,
+    name: "courtName6",
     address: "123 Anystreet",
     city: "anyCity",
     state: "MO",
     zip: "12345"
   };
+
+  var court2 = {
+    id: 5,
+    name: "courtName5"
+  };
+
+  var court3 = {
+    id: 11,
+    name: "courtName11"
+  };
+
+  var courts = [court,court2,court3];
 
   var session = {
     getLastSelectedCitation:function(){return null},
@@ -75,7 +101,7 @@ describe('CitationInfoCtrl', function () {
   beforeEach(function () {
     module('yourStlCourts');
 
-    inject(function ($rootScope, $httpBackend, $controller, $state, $window, Courts) {
+    inject(function ($rootScope, $httpBackend, $controller, $state, $window, Courts, moment) {
       $httpBackend.whenGET(/municipalities/).respond(200, '');
       $httpBackend.whenGET(/courts/).respond(200, '');
       $httpBackend.whenGET(/info/).respond(200, '');
@@ -87,7 +113,10 @@ describe('CitationInfoCtrl', function () {
         $window: $window,
         citations: citations,
         Courts: Courts,
-        Session: session
+        Session: session,
+        courts: courts,
+        moment: moment,
+        $anchorScroll:$anchorScroll
       });
     });
   });
@@ -96,12 +125,23 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.faqData).toEqual(faqData);
   }));
 
-  it('correctly sets selected citation', inject(function (Courts, $q, $rootScope,Session) {
+  it('calls $anchorScroll', inject(function(Courts, $q, $rootScope){
     var deferred = $q.defer();
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
 
-    CitationInfoCtrl.selectCitation(citation);
+    CitationInfoCtrl.selectCitation(citation,'someId');
+    $rootScope.$apply();
+
+    expect($anchorScroll).toHaveBeenCalledWith("someId");
+  }));
+
+  it('correctly sets selected citation', inject(function (Courts, $q, $rootScope) {
+    var deferred = $q.defer();
+    deferred.resolve(court);
+    spyOn(Courts, 'findById').and.returnValue(deferred.promise);
+
+    CitationInfoCtrl.selectCitation(citation,'someId');
     $rootScope.$apply();
 
     expect(CitationInfoCtrl.selectedCitation).toEqual(citation);
@@ -110,15 +150,40 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.selectedCitation.courtDirectionLink).toEqual(expectedAddress);
   }));
 
-  it('correctly sets selected paymentUrl', inject(function (Courts, $q, $rootScope,Session) {
+  it('correctly sets selected paymentUrl', inject(function (Courts, $q, $rootScope) {
     var deferred = $q.defer();
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
 
-    CitationInfoCtrl.selectCitation(citation);
+    CitationInfoCtrl.selectCitation(citation,'someId');
     $rootScope.$apply();
 
     expect(CitationInfoCtrl.paymentUrl).toEqual(municipality.paymentUrl);
+  }));
+
+  it('correctly shows or hides payment button', inject(function(Courts, $q, $rootScope){
+    var deferred = $q.defer();
+    deferred.resolve(court);
+    spyOn(Courts, 'findById').and.returnValue(deferred.promise);
+
+    CitationInfoCtrl.selectCitation(null);
+    $rootScope.$apply();
+    expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
+
+    CitationInfoCtrl.selectCitation(citationWithViolations,'someId');
+    CitationInfoCtrl.paymentUrl = "someUrl";
+    $rootScope.$apply();
+    expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
+
+    CitationInfoCtrl.selectCitation(citationPayableOnline,'someId');
+    CitationInfoCtrl.paymentUrl = "someUrl";
+    $rootScope.$apply();
+    expect (CitationInfoCtrl.showPaymentButton()).toBe(true);
+
+    CitationInfoCtrl.selectCitation(citationPayableOnline,'someId');
+    CitationInfoCtrl.paymentUrl = "";
+    $rootScope.$apply();
+    expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
   }));
 
   it('correctly sets selected citation when citation is null', inject(function () {
@@ -147,7 +212,8 @@ describe('CitationInfoCtrl', function () {
       $state: $state,
       $window: $window,
       citations: null,
-      Courts: Courts
+      Courts: Courts,
+      courts: courts
     });
 
     expect($state.go).toHaveBeenCalledWith('home');
@@ -170,7 +236,8 @@ describe('CitationInfoCtrl', function () {
       $state: $state,
       $window: $window,
       citations: [citation],
-      Courts: Courts
+      Courts: Courts,
+      courts: courts
     });
 
     $rootScope.$apply();
@@ -218,4 +285,9 @@ describe('CitationInfoCtrl', function () {
     isoDate = null;
     expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("");
   }));
+
+  it('correctly sets citationCourtLocations', function(){
+    expect(CitationInfoCtrl.citationCourtLocations[5]).toEqual("courtName5");
+    expect(CitationInfoCtrl.citationCourtLocations[11]).toEqual("courtName11");
+  });
 });

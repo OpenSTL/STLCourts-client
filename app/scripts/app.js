@@ -31,6 +31,16 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         }
       }
     })
+    .state('smsInstructions', {
+      url: '/smsInstructions',
+      templateUrl: 'views/smsInstructions.html',
+      controller: 'SMSInstructionsCtrl as ctrl',
+      resolve: {
+        smsPhoneNumber: function (SMSInfo) {
+          return SMSInfo.getPhoneNumber();
+        }
+      }
+    })
     .state('help', {
       url: '/help',
       templateUrl: 'views/help.html',
@@ -49,6 +59,10 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     .state('info', {
       url: '/info',
       templateUrl: 'views/info.html'
+    })
+    .state('goingToCourt', {
+      url: '/goingToCourt',
+      templateUrl: 'views/goingToCourt.html'
     })
     .state('legal', {
       url: '/legal',
@@ -98,7 +112,10 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         citations: {value: undefined}
       },
       resolve: {
-        citations: function ($stateParams,Session) {
+        courts: function (Courts) {
+          return Courts.findAll();
+        },
+        citations: function ($stateParams,Session,Courts) {
           var citations = Session.getLatestCitations();
           if ($stateParams.citations){
             citations = $stateParams.citations;
@@ -149,7 +166,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
   uiSelectConfig.searchEnabled = true;
 });
 
-angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,PageMessage, SMSInfo) {
+angular.module('yourStlCourts').run(function ($rootScope, validator, validationElementModifier, errorMessageResolver,$window,$location,PageMessage, SMSInfo) {
     validator.registerDomModifier(validationElementModifier.key, validationElementModifier);
     validator.setDefaultElementModifier(validationElementModifier.key);
     validator.setValidElementStyling(false);
@@ -164,8 +181,8 @@ angular.module('yourStlCourts').run(function ($rootScope, validator, validationE
       $window.ga('send', 'pageview', $location.path());
     });
     SMSInfo.getPhoneNumber().then(function(phoneNumber){
-      var message = 'Get Court Date Reminders on your<br>phone. Text "HELP" to <b>'+phoneNumber+'</b>';
-      PageMessage.start(message);
+      var message = 'Get Court Date Reminders on your<br>phone. Text "Ticket" to <b>'+phoneNumber+'</b>';
+      PageMessage.start(message,"smsInstructions");
     });
   }
 );

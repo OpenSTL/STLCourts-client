@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities, Courts,Session,moment) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities,courts,Courts,Session,moment,$anchorScroll) {
   var ctrl = this;
   ctrl.faqData = faqData;
   ctrl.selectedCitation = null;
   ctrl.paymentUrl = "";
+  ctrl.citationCourtLocations = {};
 
-  ctrl.selectCitation = function(citation){
+  ctrl.selectCitation = function(citation,idToScrollTo){
     ctrl.selectedCitation = citation;
     Session.setSelectedCitation(ctrl.selectedCitation);
     if (ctrl.selectedCitation) {
@@ -19,6 +20,9 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
           ctrl.paymentUrl = municipalities[municipality].paymentUrl;
           break;
         }
+      }
+      if (citations.length > 1) {
+        $anchorScroll(idToScrollTo);
       }
     }
   };
@@ -40,6 +44,11 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     $state.go('home');
   } else {
     ctrl.citations = citations;
+    for(var citationCount = 0; citationCount < citations.length; citationCount++){
+      var courtId = citations[citationCount].court_id;
+      var foundCourt = _.find(courts, {id: courtId});
+      ctrl.citationCourtLocations[courtId] = foundCourt.name;
+    }
     if(ctrl.citations.length === 1) {
       ctrl.selectCitation(ctrl.citations[0]);
     }else{
@@ -108,6 +117,14 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     });
 
     return canPayOnline;
+  };
+
+  ctrl.showPaymentButton = function(){
+    if (ctrl.selectedCitation) {
+      return (ctrl.paymentUrl != '' && ctrl.canPayOnline(ctrl.selectedCitation));
+    }else{
+      return false;
+    }
   };
 
   ctrl.hasViolations = function(citation) {
