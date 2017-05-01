@@ -60,6 +60,10 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
       url: '/info',
       templateUrl: 'views/info.html'
     })
+    .state('goingToCourt', {
+      url: '/goingToCourt',
+      templateUrl: 'views/goingToCourt.html'
+    })
     .state('legal', {
       url: '/legal',
       templateUrl: 'views/legal.html'
