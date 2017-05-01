@@ -21,13 +21,15 @@
   <p>
     This site is for St. Louis County tickets.  Both the unincorporated areas and the municipalities that are part of the county.
   </p>
-  <p>
-    Currently the following municipalities are supported by this site:
-    <p ng-repeat="municipality in ctrl.supportedMunicipalities">
-      <span ng-if="$first">{{municipality.name}}</span>
-      <span ng-if="!$first">, {{municipality.name}}</span>
+  <div>
+    <p>
+      Currently the following municipalities are supported by this site:
     </p>
-  </p>
+    <p ng-repeat="municipality in ctrl.supportedMunicipalities">
+      <span ng-if="!$first">, </span>
+      {{municipality.name}}
+    </p>
+  </div>
   <p>
     If you believe you have a ticket from a non-supported municipality, you may look the associated court up on our site by clicking <a href="\">here</a>.
     <br>
