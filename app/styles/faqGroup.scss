@@ -34,7 +34,7 @@ faq-question-box,
 }
 
 #faq-answer-box-close-button{
-  color:black !important;
+  color:$scheme_blue !important;
 }
 
 /******/
@@ -64,7 +64,7 @@ faq-question-box,
 .faq-answer-back{
   background-color: white;
   padding:20px;
-  border: black 4px solid;
+  border: $scheme_blue 4px solid;
   width:100%;
 }
 
