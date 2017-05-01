@@ -22,4 +22,19 @@ describe('Errors', function() {
     $rootScope.$broadcast("$stateChangeError","","","","",error);
     expect($state.go).toHaveBeenCalledWith('error',{error:error});
   }));
+
+  it('goes to noCitationsFound page when customError is called with correct Error code', inject(function($rootScope, $state){
+    spyOn($state,'go');
+    var error = {code:Errors.ERROR_CODE.NO_CITATIONS_FOUND,message:""};
+    $rootScope.$broadcast("stlCourtsCustomError",error);
+    expect($state.go).toHaveBeenCalledWith('noCitationsFound');
+  }));
+
+  it('does nothing page when customError is called with incorrect Error code', inject(function($rootScope, $state){
+    spyOn($state,'go');
+    var error = {code:"InvalidError",message:""};
+    $rootScope.$broadcast("stlCourtsCustomError",error);
+    expect($state.go).toHaveBeenCalledTimes(0);
+  }));
+
 });

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
@@ -81,14 +81,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
       if(result.length > 0) {
         $state.go('citationInfo', {citations: result  });
       } else {
-        var homeLink = '<a href="/"><u>clicking here</u></a>';
-        var noTicketsFoundMsg = 'We could not find any results for the  information you provided. It\'s possible that the municipality that issued your citation does not participate in YourSTLCourts. You may obtain information for any municipality via '+homeLink+'. Mention you\'d like them to participate in YourSTLCourts.';
-        toaster.pop({
-          type: 'error',
-          body: noTicketsFoundMsg,
-          bodyOutputType: 'trustedHtml',
-          timeout:7000
-        });
+        $rootScope.$broadcast('stlCourtsCustomError',Errors.makeError(Errors.ERROR_CODE.NO_CITATIONS_FOUND,"No tickets found."));
       }
     }, function(){
       toaster.pop('error', 'Oh no! We couldn\'t get your ticket information!');
