@@ -31,6 +31,16 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         }
       }
     })
+    .state('smsInstructions', {
+      url: '/smsInstructions',
+      templateUrl: 'views/smsInstructions.html',
+      controller: 'SMSInstructionsCtrl as ctrl',
+      resolve: {
+        smsPhoneNumber: function (SMSInfo) {
+          return SMSInfo.getPhoneNumber();
+        }
+      }
+    })
     .state('help', {
       url: '/help',
       templateUrl: 'views/help.html',
@@ -49,6 +59,10 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
     .state('info', {
       url: '/info',
       templateUrl: 'views/info.html'
+    })
+    .state('goingToCourt', {
+      url: '/goingToCourt',
+      templateUrl: 'views/goingToCourt.html'
     })
     .state('legal', {
       url: '/legal',
@@ -167,8 +181,8 @@ angular.module('yourStlCourts').run(function ($rootScope, validator, validationE
       $window.ga('send', 'pageview', $location.path());
     });
     SMSInfo.getPhoneNumber().then(function(phoneNumber){
-      var message = 'Get Court Date Reminders on your<br>phone. Text "HELP" to <b>'+phoneNumber+'</b>';
-      PageMessage.start(message);
+      var message = 'Get Court Date Reminders on your<br>phone. Text "Ticket" to <b>'+phoneNumber+'</b>';
+      PageMessage.start(message,"smsInstructions");
     });
   }
 );
