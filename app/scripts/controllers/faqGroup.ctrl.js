@@ -1,6 +1,7 @@
 'use strict';
-angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
+angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
   var ctrl = this;
+  var scope = $scope;
   ctrl.faqName = camelize(ctrl.groupTitle);
   ctrl.autolinker = new Autolinker({stripPrefix:false});
 
