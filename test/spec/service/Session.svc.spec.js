@@ -31,4 +31,11 @@ describe('Session', function() {
     expect(returnedCitation).toEqual(citations[1]);
   });
 
+  it('correctly clears last selected citation', function(){
+    Session.setSelectedCitation(citations[1]);
+    Session.setLatestCitations(citations);
+    var returnedCitation = Session.getLastSelectedCitation();
+    expect(returnedCitation).toBe(null);
+  });
+
 });

@@ -9,6 +9,7 @@ angular.module('yourStlCourts').factory('Session', function () {
 
   function setLatestCitations(citations){
     latestCitations = citations;
+    clearLastSelectedCitation();
   }
 
   function getLastSelectedCitation(){
@@ -17,6 +18,10 @@ angular.module('yourStlCourts').factory('Session', function () {
 
   function setSelectedCitation(citation){
     lastSelectedCitation = citation;
+  }
+
+  function clearLastSelectedCitation(){
+    lastSelectedCitation = null;
   }
 
   var svc = {
