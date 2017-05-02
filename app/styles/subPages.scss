@@ -50,7 +50,8 @@
   padding:0px;
 }
 
-.sub-page-container p{
+.sub-page-container p,
+.sub-page-container .commaListDiv{
   margin:10px $subPageMargin;
   font-size: $standard_font_size !important;
 }
@@ -369,6 +370,10 @@ faq-group.no-margin .panel-group{
 
 .warning-red-text{
   color: red;
+}
+
+.supportedMunicipalitiesDiv{
+  display: inline-block;
 }
 
 
