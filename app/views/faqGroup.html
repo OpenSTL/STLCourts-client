@@ -4,7 +4,7 @@
 <div class="row" ng-repeat="item in ctrl.sourceData[ctrl.arrayName] track by $index" ng-if="$index % 2 == 0">
   <div class="row-eq-height topMargin">
     <div class="col-sm-6"
-         ng-repeat="i in [$index, $index + 1]"
+         ng-repeat="i in [$index, $index + 1] | filter:ctrl.keywordFilter"
          ng-if="ctrl.sourceData[ctrl.arrayName][i] != null">
         <faq-question-box question="ctrl.sourceData[ctrl.arrayName][i].q"
                   answer="ctrl.sourceData[ctrl.arrayName][i].a"></faq-question-box>

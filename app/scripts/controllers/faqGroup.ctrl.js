@@ -1,13 +1,12 @@
 'use strict';
 angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
   var ctrl = this;
-  var scope = $scope;
-  ctrl.faqName = camelize(ctrl.groupTitle);
+  ctrl.faqName = camelize($scope.groupTitle);
   ctrl.autolinker = new Autolinker({stripPrefix:false});
 
-  for(var faqSection in ctrl.sourceData){
-    for(var faq in ctrl.sourceData[faqSection]){
-      var fillIn = ctrl.sourceData[faqSection][faq]["fill-in"];
+  for(var faqSection in $scope.sourceData){
+    for(var faq in $scope.sourceData[faqSection]){
+      var fillIn = $scope.sourceData[faqSection][faq]["fill-in"];
       switch(fillIn){
         case "supportedMunicipalities":
           var additionalData = findAdditionalData("supportedMunicipalities");
@@ -19,7 +18,7 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
               }
               supportedMuniList += additionalData[municipalityCount].name;
             }
-            ctrl.sourceData[faqSection][faq]["a"] += "<br><br>" + supportedMuniList;
+            $scope.sourceData[faqSection][faq]["a"] += "<br><br>" + supportedMuniList;
           }
           break;
       }
@@ -27,8 +26,8 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
   }
 
   function findAdditionalData(dataLabel){
-    if (ctrl.additionalData){
-      var foundData = _.find(ctrl.additionalData,function(obj){
+    if ($scope.additionalData){
+      var foundData = _.find($scope.additionalData,function(obj){
         return (dataLabel in obj);
       });
       return foundData[dataLabel];
@@ -39,8 +38,8 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
 
   ctrl.keywordFilter = function(faqItem){
       var found = false;
-      if (ctrl.keywords){
-        var keywordArray = ctrl.keywords.split(",");
+      if ($scope.keywords){
+        var keywordArray = $scope.keywords.split(",");
         for (var keywordIndex in keywordArray){
           if (faqItem.keywords.indexOf(keywordArray[keywordIndex]) != -1){
             found = true;
