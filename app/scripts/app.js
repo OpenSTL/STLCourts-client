@@ -146,7 +146,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         }
     })
     .state('noCitationsFound',{
-      url: '/citations/error/notFound',
+      url: '/tickets/error/notFound',
       templateUrl: 'views/citationsNotFound.html',
       controller: 'NoCitationsFoundCtrl as ctrl',
       resolve: {
