@@ -3,6 +3,12 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
   var ctrl = this;
   ctrl.faqName = camelize($scope.groupTitle);
   ctrl.autolinker = new Autolinker({stripPrefix:false});
+  var questionCount = 0;
+
+  ctrl.getQuestionCount = function(){
+    return 0;
+    //return ++questionCount;
+  };
 
   for(var faqSection in $scope.sourceData){
     for(var faq in $scope.sourceData[faqSection]){
@@ -41,7 +47,7 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
       if ($scope.keywords){
         var keywordArray = $scope.keywords.split(",");
         for (var keywordIndex in keywordArray){
-          if (faqItem.keywords.indexOf(keywordArray[keywordIndex]) != -1){
+          if ($scope.sourceData[$scope.arrayName][faqItem].keywords.indexOf(keywordArray[keywordIndex]) != -1){
             found = true;
             break;
           }

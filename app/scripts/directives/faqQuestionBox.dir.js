@@ -4,6 +4,8 @@ angular.module('yourStlCourts').directive('faqQuestionBox', function ($window,$r
   return {
     restrict: 'E',
     scope:{
+      noTitle:'@',
+      questionCount:'<',
       question:'<',
       answer: '<'
     },
@@ -14,6 +16,15 @@ angular.module('yourStlCourts').directive('faqQuestionBox', function ($window,$r
       var scope = $scope;
       scope.ctrl.question = scope.question;
       scope.ctrl.answer = scope.answer;
+
+      /*
+        we want spacing between rows
+          if there is a group title
+          And if there is no title and we are not on the first row
+       */
+      if (scope.noTitle !== 'true' || (scope.noTitle === 'true' && scope.questionCount !== 1 && scope.questionCount !== 2)){
+        $(element).parentsUntil(".row-eq-height").parent().addClass("topMargin");
+      }
 
       $(element).on('click',function(){
         FaqAnswerBox.set(scope.ctrl.question,scope.ctrl.answer);

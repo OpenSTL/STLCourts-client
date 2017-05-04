@@ -27,6 +27,7 @@ angular.module('yourStlCourts').directive('faqGroup', function ($window,$rootSco
         var faqAnswerEl = $compile('<faq-answer-box id="faqAnswerBox"></faq-answer-box>')($scope);
         $('body').prepend(faqAnswerEl);
       }
+
     }
   };
 });
