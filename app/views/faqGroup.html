@@ -2,37 +2,13 @@
 <h2 class="topMargin" ng-if="ctrl.noTitle != 'true'">{{ctrl.groupTitle}}</h2>
 
 <div class="row" ng-repeat="item in ctrl.sourceData[ctrl.arrayName] track by $index" ng-if="$index % 2 == 0">
-  <div class="row-eq-height" ng-class="{indentThis: ctrl.noTitle != 'true'}">
+  <div class="row-eq-height" ng-class="{indentThis: ctrl.noTitle != 'true',topMargin: ctrl.addTopMargin($index)}">
     <div class="col-sm-6"
          ng-repeat="i in [$index, $index + 1] | filter:ctrl.keywordFilter"
          ng-if="ctrl.sourceData[ctrl.arrayName][i] != null">
-        <faq-question-box question-count="ctrl.getQuestionCount()" no-title="{{ctrl.noTitle}}"
+        <faq-question-box no-title="{{ctrl.noTitle}}"
                   question="ctrl.sourceData[ctrl.arrayName][i].q"
                   answer="ctrl.sourceData[ctrl.arrayName][i].a"></faq-question-box>
     </div>
   </div>
 </div>
-<!--
-<div id="{{ctrl.faqName}}-FAQ-grid" class="container-fluid topMargin alignContainerToPage">
-  <div class="row alignRowToPage">
-    <div class="col-sm-6 alignColumnsToPage">
-    </div>
-    <div class="col-sm-6 alignColumnsToPage">
-    </div>
-  </div>
-</div>
-
-
-<div class="panel-group" id="{{ctrl.faqName}}-FAQ-accordion">
-  <div ng-repeat="item in ctrl.sourceData[ctrl.arrayName] | filter:ctrl.keywordFilter" class="panel panel-default">
-    <div class="panel-heading">
-      <a class="helpPage-Question" data-toggle="collapse" data-target="#help-{{ctrl.faqName}}-A{{$index}}" data-parent="#{{ctrl.faqName}}-FAQ-accordion">
-        Q: {{item.q}}
-      </a>
-    </div>
-    <div id="help-{{ctrl.faqName}}-A{{$index}}" class="answer-panel panel-collapse collapse">
-      <div class="panel-body small white-space-pre-line"><p ng-bind-html="'A: '+ctrl.autolinker.link(item.a)"></p></div>
-    </div>
-  </div>
-</div>
--->

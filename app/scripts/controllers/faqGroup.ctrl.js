@@ -3,12 +3,28 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
   var ctrl = this;
   ctrl.faqName = camelize($scope.groupTitle);
   ctrl.autolinker = new Autolinker({stripPrefix:false});
-  var questionCount = 0;
+  var rowCount = 0;
 
-  ctrl.getQuestionCount = function(){
-    return 0;
-    //return ++questionCount;
+  ctrl.addTopMargin = function(index){
+    if ($scope.noTitle !== 'true'){
+      return true;
+    }else{
+      if (rowWillBeFiltered(index)) {
+        rowCount++;
+        if (rowCount == 1){
+          return true;
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+    }
   };
+
+  function rowWillBeFiltered(index){
+    return (ctrl.keywordFilter(index) || ctrl.keywordFilter(index+1));
+  }
 
   for(var faqSection in $scope.sourceData){
     for(var faq in $scope.sourceData[faqSection]){
@@ -42,12 +58,12 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
     }
   }
 
-  ctrl.keywordFilter = function(faqItem){
+  ctrl.keywordFilter = function(faqIndex){
       var found = false;
       if ($scope.keywords){
         var keywordArray = $scope.keywords.split(",");
         for (var keywordIndex in keywordArray){
-          if ($scope.sourceData[$scope.arrayName][faqItem].keywords.indexOf(keywordArray[keywordIndex]) != -1){
+          if ($scope.sourceData[$scope.arrayName][faqIndex].keywords.indexOf(keywordArray[keywordIndex]) != -1){
             found = true;
             break;
           }
