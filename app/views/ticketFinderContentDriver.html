@@ -1,5 +1,5 @@
 <form-field label="License #" required>
-  <input type="text" ng-model="ctrl.citationCriteria.licenseNumber" required ng-maxlength="12" displayName="License #" />
+  <input type="text" ng-model="ctrl.citationCriteria.licenseNumber" required ng-maxlength="12" displayName="License #" ticket-finder-focus-on="DRIVER_INFO"/>
 </form-field>
 <form-field label="License State" required>
   <ui-select id="selectedState" name="selectedState" register-custom-form-control displayName="License State" ng-model="ctrl.citationCriteria.licenseState" required>

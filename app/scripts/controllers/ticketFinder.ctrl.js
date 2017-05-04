@@ -1,5 +1,5 @@
 'use strict';
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors, TicketFinderFocus) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
@@ -33,6 +33,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
       if (!isBoxOpened) { //if the box is opened already, then it has scrolled. don't keep scrolling
         isBoxOpened = true;
         $scope.$broadcast('scrollToLocation',openScrollToId,true);
+        TicketFinderFocus.focus(ctrl.finderSelected);
       }
       return true;
     }else{
