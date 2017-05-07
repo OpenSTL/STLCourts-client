@@ -6,7 +6,7 @@
     <ui-select-choices group-by="ctrl.groupCourts" repeat="searchGroup in ctrl.citySearchGroups | filter: $select.search">
       <div ng-switch="searchGroup.municipalityCourtCount > 1">
         <span ng-switch-when="true">
-          <span ng-bind-html="searchGroup.court.name | highlight: $select.search"></span>&nbsp;Court</span>
+          <span ng-bind-html="searchGroup.court.name | highlight: $select.search"></span>&nbsp;Division</span>
         </span>
         <span ng-switch-when="false">
           <span ng-bind-html="searchGroup.municipalityName | highlight: $select.search"></span>&nbsp;
