@@ -66,6 +66,36 @@ describe('CitationInfoCtrl', function () {
     municipality_id:5
   };
 
+  var citationDuplicate1 = {
+    id:20,
+    court_id:11,
+    violations: [violationPayableOnline],
+    municipality_id:5,
+    drivers_license_number: "1234",
+    drivers_license_state: "MO"
+  };
+
+  var citationDuplicate2 = {
+    id:21,
+    court_id:11,
+    violations: [violationPayableOnline],
+    municipality_id:5,
+    drivers_license_number: "1235",
+    drivers_license_state: "MO"
+  };
+
+  var citationDuplicate3 = {
+    id:21,
+    court_id:11,
+    violations: [violationPayableOnline],
+    municipality_id:5,
+    drivers_license_number: "1234",
+    drivers_license_state: "MO"
+  };
+
+  var citationsDuplicate = [citationDuplicate1,citationDuplicate2];
+  var citationsNonDuplicate = [citationDuplicate1,citationDuplicate3];
+
   var citations = [
     citation, citationWithViolations
   ];
@@ -289,5 +319,33 @@ describe('CitationInfoCtrl', function () {
   it('correctly sets citationCourtLocations', function(){
     expect(CitationInfoCtrl.citationCourtLocations[5]).toEqual("courtName5");
     expect(CitationInfoCtrl.citationCourtLocations[11]).toEqual("courtName11");
+  });
+
+  it('catches citations with different people', function(){
+    var CitationInfoCtrl = $controller('CitationInfoCtrl', {
+      faqData: faqData,
+      municipalities: municipalities,
+      $state: $state,
+      $window: $window,
+      citations: citationsDuplicate,
+      Courts: Courts,
+      courts: courts
+    });
+
+    expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(true);
+  });
+
+  it('catches citations with different people and does not return false positive', function(){
+    var CitationInfoCtrl = $controller('CitationInfoCtrl', {
+      faqData: faqData,
+      municipalities: municipalities,
+      $state: $state,
+      $window: $window,
+      citations: citationsNonDuplicate,
+      Courts: Courts,
+      courts: courts
+    });
+
+    expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(false);
   });
 });

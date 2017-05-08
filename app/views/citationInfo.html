@@ -3,6 +3,7 @@
 </div>
 <div class="sub-page-container">
   <div class="ticket-results-container container-fluid topMargin alignContainerToPage">
+    <div class="well well-sm warning-red-text" ng-if="ctrl.issueMultiplePeopleWarning()">Multiple people may have been returned for the tickets.  Please make sure you check that you are looking at the correct ticket.</div>
     <div class="row alignRowToPage">
       <div class="col-sm-12 alignColumnsToPageToPage">
         <table class="table table-condensed table-bordered table-hover" ng-if="ctrl.citations.length > 1">

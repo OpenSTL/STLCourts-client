@@ -7,6 +7,24 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.paymentUrl = "";
   ctrl.citationCourtLocations = {};
 
+  ctrl.issueMultiplePeopleWarning = function(){
+    var issueWarning = false;
+    var dlNum = "";
+    var dlState = "";
+    for(var citationIndex in citations){
+      if (dlNum == ""){
+        dlNum = citations[citationIndex].drivers_license_number;
+        dlState = citations[citationIndex].drivers_license_state;
+      }else{
+        if (!(dlNum == citations[citationIndex].drivers_license_number && dlState == citations[citationIndex].drivers_license_state)){
+          issueWarning = true;
+        }
+      }
+    }
+
+    return issueWarning;
+  };
+
   ctrl.selectCitation = function(citation,idToScrollTo){
     ctrl.selectedCitation = citation;
     Session.setSelectedCitation(ctrl.selectedCitation);
