@@ -321,7 +321,7 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.citationCourtLocations[11]).toEqual("courtName11");
   });
 
-  it('catches citations with different people', function(){
+  it('catches citations with different people', inject(function ($controller, $state, $window, Courts) {
     var CitationInfoCtrl = $controller('CitationInfoCtrl', {
       faqData: faqData,
       municipalities: municipalities,
@@ -333,9 +333,9 @@ describe('CitationInfoCtrl', function () {
     });
 
     expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(true);
-  });
+  }));
 
-  it('catches citations with different people and does not return false positive', function(){
+  it('catches citations with different people and does not return false positive', inject(function ($controller, $state, $window, Courts) {
     var CitationInfoCtrl = $controller('CitationInfoCtrl', {
       faqData: faqData,
       municipalities: municipalities,
@@ -347,5 +347,5 @@ describe('CitationInfoCtrl', function () {
     });
 
     expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(false);
-  });
+  }));
 });
