@@ -1,0 +1,272 @@
+@import "_colors";
+@import "_constants";
+
+$flipBoxMargin: 5px;
+$flipBoxWidth: 90%;
+
+.flip-box-container{
+  position:relative;
+  cursor: pointer;
+}
+
+flip-box,
+.flip-box-container,
+.flip-box-front{
+  height:100%;
+}
+
+.flip-box-front, .flip-box-back{
+  border: solid 2px $scheme_primary_color;
+  padding:5px;
+  margin: $flipBoxMargin;
+  background-color: white;
+}
+
+.flip-box-front,
+.flip-box-back{
+  backface-visibility: hidden;
+}
+
+.flip-box-front{
+  position: relative;
+  width:$flipBoxWidth;
+  z-index: 2;
+}
+
+.flip-box-back{
+  position:absolute;
+  top:-($flipBoxMargin);
+  left:0px;
+  width:$flipBoxWidth;
+  z-index: 1;
+  background-color: $scheme_primary_color;
+  border-color: black;
+  color: white;
+}
+
+.flip-box-front-start{
+  transform: perspective( 800px ) rotateX( 0deg );
+}
+
+.flip-box-back-start{
+  transform: perspective( 800px ) rotateX( 180deg );
+  height:100%;
+  overflow: hidden;
+}
+
+.flip-box-front-end{
+  transform: perspective( 800px ) rotateX( -180deg );
+}
+
+.flip-box-back-end{
+  transform: perspective( 800px ) rotateX( 0deg );
+}
+
+.flipContainerShowingBack{
+  z-index: 100;
+  height:auto;
+ /* animation: containerMoveToCenter 2s forwards;
+  animation-timing-function: linear; */
+  position:fixed;
+  top:30%;
+  left: 50%;
+  transform: translate(-50%,0);
+  width:50%;
+}
+
+.flipContainerShowingFront{
+  z-index: 1;
+  height:100%;
+  /*animation: containerMoveBack 10s forwards;
+  animation-timing-function: linear; */
+}
+
+.showBack {
+  animation: backOpenUp 2s forwards;
+  animation-timing-function: linear;
+}
+
+.hideFront{
+  animation: frontRotateAway 2s forwards;
+  animation-timing-function: linear;
+}
+
+.showFront {
+  animation: frontOpenUp 1s forwards;
+  animation-timing-function: linear;
+}
+
+.hideBack{
+  animation: backRotateAway 1s forwards;
+  animation-timing-function: linear;
+}
+
+/* Show BackSide */
+
+@keyframes containerMoveToCenter{
+  0%{
+    position:relative;
+  }
+
+  100%{
+    position:fixed;
+    top:300px;
+    left: 50%;
+    transform: translate(-50%,0);
+    width:90%;
+  }
+}
+
+@keyframes backOpenUp {
+  0% {
+    position:absolute;
+    top:-($flipBoxMargin);
+    left:0px;
+    width:$flipBoxWidth;
+    transform:  perspective(800px) rotateX( 180deg );
+    height:100%;
+    overflow: hidden;
+  }
+
+ /* 50%{
+    transform: perspective( 800px ) rotateX( 90deg ) rotateY( 180deg );
+    height:auto;
+    overflow: auto;
+  } */
+
+  100%{
+    position:absolute;
+    top:-($flipBoxMargin);
+    left:0px;
+    width:100%;
+    transform: perspective( 800px ) rotateX( 0deg );
+    height:auto;
+    overflow: auto;
+  }
+}
+
+@keyframes frontRotateAway {
+  0% {
+    transform: perspective( 800px ) rotateX( 0deg );
+
+    height: 100%;
+    overflow: hidden;
+  }
+
+ /* 50%{
+    transform: perspective( 800px ) rotateX(-90deg) rotateY( -180deg );
+  } */
+
+  100% {
+    transform: perspective(800px) rotateX(-180deg);
+  }
+}
+
+/**********************************/
+/* Show Frontside */
+@keyframes containerMoveBack{
+  0%{
+    position:fixed;
+    top:300px;
+    left: 50%;
+    transform: translate(-50%,0);
+    width:90%;
+  }
+
+  90%{ position:relative;}
+
+  100%{
+    position:relative;
+    top:0px;
+    left:0px;
+    transform: translate(0,0);
+    width:auto;
+  }
+}
+
+@keyframes backRotateAway {
+  0%{
+    position:absolute;
+    top:-($flipBoxMargin);
+    left:0px;
+    width:$flipBoxWidth;
+    transform: perspective( 800px ) rotateX( 0deg );
+    height:auto;
+    overflow: auto;
+  }
+
+ /* 50%{
+    transform: perspective( 800px ) rotateX( 90deg ) rotateY( 180deg );
+    height:auto;
+    overflow: auto;
+  } */
+
+  100% {
+    position:absolute;
+    top:-($flipBoxMargin);
+    left:0px;
+    width:$flipBoxWidth;
+    transform:  perspective(800px) rotateX( 180deg );
+    height:100%;
+    overflow: hidden;
+  }
+}
+
+
+
+@keyframes frontOpenUp {
+  0% {
+    transform: perspective(800px) rotateX(-180deg);
+  }
+
+ /* 50%{
+    transform: perspective( 800px ) rotateX(-90deg) rotateY( -180deg );
+  } */
+
+  100% {
+    transform: perspective( 800px ) rotateX( 0deg );
+
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+
+#answerBox{
+  position:fixed;
+  top:300px;
+  left: 50%;
+  transform: translate(-50%,0);
+  width:50%;
+  z-index: 200;
+}
+
+@media only screen and (max-width: 750px) {
+  #answerBox{
+    position:fixed;
+    top:300px;
+    left: 30%;
+    transform: translate(-30%,0);
+    width:70%;
+    z-index: 200;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #answerBox{
+    position:fixed;
+    top:300px;
+    left: 10%;
+    transform: translate(-10%,0);
+    width:90%;
+    z-index: 200;
+  }
+}
+
+
+
+
+
+
+
+

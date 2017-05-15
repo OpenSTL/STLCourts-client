@@ -1,0 +1,153 @@
+@import "_colors";
+@import "_constants";
+
+$flipBoxMargin: 5px;
+$flipBoxWidth: 90%;
+
+.faq-question-box-container{
+  position:relative;
+  cursor: pointer;
+  width:100%;
+}
+
+faq-question-box,
+.faq-question-box-container,
+.faq-question{
+  height:100%;
+}
+
+.faq-question{
+  border: solid 2px $scheme_primary_color;
+  padding:5px;
+  margin: $flipBoxMargin;
+  background-color: white;
+}
+
+.faq-question{
+  backface-visibility: hidden;
+}
+
+.faq-question{
+  position: relative;
+  width:$flipBoxWidth;
+  z-index: 2;
+}
+
+#faq-answer-box-close-button{
+  color:$scheme_blue !important;
+}
+
+/******/
+
+#faqAnswerBox{
+  position:fixed;
+  top:150px;
+  left: 50%;
+  transform: translate(-50%,0);
+  width:50%;
+  z-index: 200;
+}
+
+.faq-answer-front{
+  background-color: $scheme_limeGreen;
+  color: $scheme_limeGreen;
+  padding:20px;
+  border: $scheme_magenta 4px solid;
+  overflow: hidden;
+  max-height: 300px;
+}
+
+.faq-answer-front a{
+  color: $scheme_limeGreen;
+}
+
+.faq-answer-back{
+  background-color: white;
+  padding:20px;
+  border: $scheme_blue 4px solid;
+  width:100%;
+}
+
+.faq-answer-back a{
+  color: $scheme_blue;
+}
+
+.faq-answer-front{
+  position:relative;
+  backface-visibility: hidden;
+}
+
+.faq-answer-back{
+  position:absolute;
+  top:0;
+  left:0;
+  backface-visibility: hidden;
+}
+
+.faq-answer-box-container{
+  position: relative;
+}
+
+.showBack{
+  transform: perspective( 800px ) rotateX( 0deg );
+  transition: transform 1s;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.hideBack{
+  transform: perspective( 800px ) rotateX( -180deg );
+  transition: transform 1s;
+}
+
+.showFront{
+  transform: perspective( 800px ) rotateX( 0deg );
+  max-height: 0px;
+  padding:0px;
+  border-width: 0px;
+  transition-property: transform, max-height, padding, border;
+  transition-duration: 1s, .5s, .5s, .5s;
+  transition-timing-function: linear, linear, ease-in, ease-in;
+  transition-delay: 0s, 1s, 1s, 1s;
+}
+.hideFront{
+  transform: perspective( 800px ) rotateX( 180deg );
+  transition: transform 1s;
+}
+
+
+.growFront{
+  height:100%;
+  transition: height .5s;
+}
+
+@media only screen and (max-width: 750px) {
+  #faqAnswerBox{
+    position:fixed;
+    top:150px;
+    left: 30%;
+    transform: translate(-30%,0);
+    width:70%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #faqAnswerBox{
+    position:fixed;
+    top:150px;
+    left: 10%;
+    transform: translate(-10%,0);
+    width:90%;
+  }
+
+  #faq-answer-box-close-button{
+    right:10px;
+  }
+}
+
+
+
+
+
+
+
+

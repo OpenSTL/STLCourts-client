@@ -1,12 +1,34 @@
 'use strict';
-angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
+angular.module('yourStlCourts').controller('FaqGroupCtrl', function ($scope) {
   var ctrl = this;
-  ctrl.faqName = camelize(ctrl.groupTitle);
+  ctrl.faqName = camelize($scope.groupTitle);
   ctrl.autolinker = new Autolinker({stripPrefix:false});
+  var rowCount = 0;
 
-  for(var faqSection in ctrl.sourceData){
-    for(var faq in ctrl.sourceData[faqSection]){
-      var fillIn = ctrl.sourceData[faqSection][faq]["fill-in"];
+  ctrl.addTopMargin = function(index){
+    if ($scope.noTitle !== 'true'){
+      return true;
+    }else{
+      if (rowWillBeFiltered(index)) {
+        rowCount++;
+        if (rowCount == 1){
+          return true;
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+    }
+  };
+
+  function rowWillBeFiltered(index){
+    return (ctrl.keywordFilter(index) || ctrl.keywordFilter(index+1));
+  }
+
+  for(var faqSection in $scope.sourceData){
+    for(var faq in $scope.sourceData[faqSection]){
+      var fillIn = $scope.sourceData[faqSection][faq]["fill-in"];
       switch(fillIn){
         case "supportedMunicipalities":
           var additionalData = findAdditionalData("supportedMunicipalities");
@@ -18,7 +40,7 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
               }
               supportedMuniList += additionalData[municipalityCount].name;
             }
-            ctrl.sourceData[faqSection][faq]["a"] += "<br><br>" + supportedMuniList;
+            $scope.sourceData[faqSection][faq]["a"] += "<br><br>" + supportedMuniList;
           }
           break;
       }
@@ -26,8 +48,8 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
   }
 
   function findAdditionalData(dataLabel){
-    if (ctrl.additionalData){
-      var foundData = _.find(ctrl.additionalData,function(obj){
+    if ($scope.additionalData){
+      var foundData = _.find($scope.additionalData,function(obj){
         return (dataLabel in obj);
       });
       return foundData[dataLabel];
@@ -36,12 +58,12 @@ angular.module('yourStlCourts').controller('FaqGroupCtrl', function () {
     }
   }
 
-  ctrl.keywordFilter = function(faqItem){
+  ctrl.keywordFilter = function(faqIndex){
       var found = false;
-      if (ctrl.keywords){
-        var keywordArray = ctrl.keywords.split(",");
+      if ($scope.keywords){
+        var keywordArray = $scope.keywords.split(",");
         for (var keywordIndex in keywordArray){
-          if (faqItem.keywords.indexOf(keywordArray[keywordIndex]) != -1){
+          if ($scope.sourceData[$scope.arrayName][faqIndex].keywords.indexOf(keywordArray[keywordIndex]) != -1){
             found = true;
             break;
           }
