@@ -332,6 +332,7 @@ describe('CitationInfoCtrl', function () {
       courts: courts
     });
 
+    expect(CitationInfoCtrl.groupedCitations.length).toBe(2);
     expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(true);
   }));
 
@@ -346,6 +347,7 @@ describe('CitationInfoCtrl', function () {
       courts: courts
     });
 
+    expect(CitationInfoCtrl.groupedCitations.length).toBe(1);
     expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(false);
   }));
 });

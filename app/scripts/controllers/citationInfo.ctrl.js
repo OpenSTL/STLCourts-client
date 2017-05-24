@@ -7,22 +7,36 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.paymentUrl = "";
   ctrl.citationCourtLocations = {};
 
-  ctrl.issueMultiplePeopleWarning = function(){
-    var issueWarning = false;
+  ctrl.groupCitationsByDL = function(){
     var dlNum = "";
     var dlState = "";
-    for(var citationIndex in citations){
-      if (dlNum == ""){
-        dlNum = citations[citationIndex].drivers_license_number;
-        dlState = citations[citationIndex].drivers_license_state;
-      }else{
-        if (!(dlNum == citations[citationIndex].drivers_license_number && dlState == citations[citationIndex].drivers_license_state)){
-          issueWarning = true;
-        }
+    var groupedCitations = new Array();
+
+    for(var citationIndex = 0; citationIndex < citations.length; citationIndex++){
+      var groupedCitation = citations[citationIndex];
+      dlNum = groupedCitation.drivers_license_number;
+      dlState = groupedCitation.drivers_license_state;
+      if (dlNum === ""){
+        //in the event the defendant does not have a DL Num assign one so the array has an index
+        dlNum = "A1";
       }
+      if (!groupedCitations[dlNum+dlState]){
+        groupedCitations[dlNum+dlState] = new Array();
+      }
+      groupedCitations[dlNum+dlState].push(groupedCitation);
     }
 
-    return issueWarning;
+    //re-index array so it uses ints as index
+    var indexGroupedCitations = new Array();
+    for(var i in groupedCitations){
+      indexGroupedCitations.push(groupedCitations[i]);
+    }
+
+    return indexGroupedCitations;
+  };
+
+  ctrl.issueMultiplePeopleWarning = function(){
+    return (ctrl.groupedCitations.length > 1);
   };
 
   ctrl.selectCitation = function(citation,idToScrollTo){
@@ -62,6 +76,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     $state.go('home');
   } else {
     ctrl.citations = citations;
+    ctrl.groupedCitations = ctrl.groupCitationsByDL();
     for(var citationCount = 0; citationCount < citations.length; citationCount++){
       var courtId = citations[citationCount].court_id;
       var foundCourt = _.find(courts, {id: courtId});
