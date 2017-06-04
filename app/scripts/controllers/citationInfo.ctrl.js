@@ -27,9 +27,6 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
       }
       groupedCitations[dlNum+dlState].push(citation);
     });
-    //for(var citationIndex = 0; citationIndex < citations.length; citationIndex++){
-
-    //}
 
     //re-index array so it uses ints as index
     var indexGroupedCitations = [];

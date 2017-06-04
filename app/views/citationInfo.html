@@ -7,7 +7,7 @@
     <div class="row alignRowToPage">
       <div class="col-sm-12 alignColumnsToPageToPage">
         <span ng-repeat="citationGrouping in ctrl.groupedCitations">
-          <h3 class="no-indent" ng-if="ctrl.groupedCitations.length > 1">
+          <h3 class="no-indent">
             {{citationGrouping[0].first_name + " " + citationGrouping[0].last_name}}
           </h3>
           <table class="table table-condensed table-bordered table-hover" ng-if="ctrl.citations.length > 1">
