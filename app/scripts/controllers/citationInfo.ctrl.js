@@ -2,6 +2,8 @@
 
 angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities,courts,Courts,Session,moment,$anchorScroll) {
   var ctrl = this;
+  var PLACEHOLDER_DL_NUM = "NO_DL_NUM";
+
   ctrl.faqData = faqData;
   ctrl.selectedCitation = null;
   ctrl.paymentUrl = "";
@@ -10,24 +12,27 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.groupCitationsByDL = function(){
     var dlNum = "";
     var dlState = "";
-    var groupedCitations = new Array();
+    var groupedCitations = [];
 
-    for(var citationIndex = 0; citationIndex < citations.length; citationIndex++){
-      var groupedCitation = citations[citationIndex];
-      dlNum = groupedCitation.drivers_license_number;
-      dlState = groupedCitation.drivers_license_state;
+    citations.forEach(function(citation){
+      //var groupedCitation = citations[citationIndex];
+      dlNum = citation.drivers_license_number;
+      dlState = citation.drivers_license_state;
       if (dlNum === ""){
         //in the event the defendant does not have a DL Num assign one so the array has an index
-        dlNum = "A1";
+        dlNum = PLACEHOLDER_DL_NUM;
       }
       if (!groupedCitations[dlNum+dlState]){
-        groupedCitations[dlNum+dlState] = new Array();
+        groupedCitations[dlNum+dlState] = [];
       }
-      groupedCitations[dlNum+dlState].push(groupedCitation);
-    }
+      groupedCitations[dlNum+dlState].push(citation);
+    });
+    //for(var citationIndex = 0; citationIndex < citations.length; citationIndex++){
+
+    //}
 
     //re-index array so it uses ints as index
-    var indexGroupedCitations = new Array();
+    var indexGroupedCitations = [];
     for(var i in groupedCitations){
       indexGroupedCitations.push(groupedCitations[i]);
     }
