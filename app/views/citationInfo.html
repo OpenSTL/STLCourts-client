@@ -3,36 +3,42 @@
 </div>
 <div class="sub-page-container">
   <div class="ticket-results-container container-fluid topMargin alignContainerToPage">
+    <div class="well well-sm warning-red-text" ng-if="ctrl.issueMultiplePeopleWarning()">Ticket results may be shown for multiple people.</div>
     <div class="row alignRowToPage">
       <div class="col-sm-12 alignColumnsToPageToPage">
-        <table class="table table-condensed table-bordered table-hover" ng-if="ctrl.citations.length > 1">
-          <thead>
-            <th class="hide-when-small-screen"></th>
-            <th>Ticket #</th>
-            <th>Name</th>
-            <th>Court Date</th>
-            <th>Court Location</th>
-            <th>Violations</th>
-          </thead>
-          <tbody>
-          <tr class="selectableRow" ng-repeat="citation in ctrl.citations" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation,'selectedCitationInfo')">
-            <td class="hide-when-small-screen center-block"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view</button></td>
-            <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></span></td>
-            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>
-            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_dateTime)}}</td>
-            <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{ctrl.citationCourtLocations[citation.court_id]}}</td>
-            <td class="hide-border-when-small">
-              <span class="label-for-small-screen table-item-label">Violations</span>
-              <span ng-repeat="violation in citation.violations" ng-if="ctrl.hasViolations(citation)">
-                {{violation.violation_description}}<span ng-if="$index < citation.violations.length - 1">, </span>
-              </span>
-              <span class="noViolations" ng-if="!ctrl.hasViolations(citation)">
-                Violation data unavailable. Please contact your court.
-              </span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <div ng-repeat="citationGrouping in ctrl.groupedCitations">
+          <h3 class="no-indent">
+            {{citationGrouping[0].first_name + " " + citationGrouping[0].last_name}}
+          </h3>
+          <table class="table table-condensed table-bordered table-hover" ng-if="ctrl.citations.length > 1">
+            <thead>
+              <th class="hide-when-small-screen"></th>
+              <th>Ticket #</th>
+              <th>Name</th>
+              <th>Court Date</th>
+              <th>Court Location</th>
+              <th>Violations</th>
+            </thead>
+            <tbody>
+              <tr class="selectableRow" ng-repeat="citation in citationGrouping" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation,'selectedCitationInfo')">
+                <td class="hide-when-small-screen center-block"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view</button></td>
+                <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></div></td>
+                <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>
+                <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_dateTime)}}</td>
+                <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{ctrl.citationCourtLocations[citation.court_id]}}</td>
+                <td class="hide-border-when-small">
+                  <span class="label-for-small-screen table-item-label">Violations</span>
+                  <span ng-repeat="violation in citation.violations" ng-if="ctrl.hasViolations(citation)">
+                    {{violation.violation_description}}<span ng-if="$index < citation.violations.length - 1">, </span>
+                  </span>
+                  <span class="noViolations" ng-if="!ctrl.hasViolations(citation)">
+                    Violation data unavailable. Please contact your court.
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

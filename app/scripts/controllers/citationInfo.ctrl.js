@@ -2,10 +2,37 @@
 
 angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities,courts,Courts,Session,moment,$anchorScroll) {
   var ctrl = this;
+  var PLACEHOLDER_DL_NUM = "NO_DL_NUM";
+
   ctrl.faqData = faqData;
   ctrl.selectedCitation = null;
   ctrl.paymentUrl = "";
   ctrl.citationCourtLocations = {};
+
+  ctrl.groupCitationsByDL = function(){
+    var dlNum = "";
+    var dlState = "";
+    var groupedCitations = {};
+
+    citations.forEach(function(citation){
+      dlNum = citation.drivers_license_number;
+      dlState = citation.drivers_license_state;
+      if (dlNum === ""){
+        //in the event the defendant does not have a DL Num assign one so the object has a key
+        dlNum = PLACEHOLDER_DL_NUM;
+      }
+      if (!groupedCitations[dlNum+dlState]){
+        groupedCitations[dlNum+dlState] = [];
+      }
+      groupedCitations[dlNum+dlState].push(citation);
+    });
+
+    return groupedCitations;
+  };
+
+  ctrl.issueMultiplePeopleWarning = function(){
+    return (ctrl.groupedCitations.length > 1);
+  };
 
   ctrl.selectCitation = function(citation,idToScrollTo){
     ctrl.selectedCitation = citation;
@@ -44,6 +71,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     $state.go('home');
   } else {
     ctrl.citations = citations;
+    ctrl.groupedCitations = ctrl.groupCitationsByDL();
     for(var citationCount = 0; citationCount < citations.length; citationCount++){
       var courtId = citations[citationCount].court_id;
       var foundCourt = _.find(courts, {id: courtId});
