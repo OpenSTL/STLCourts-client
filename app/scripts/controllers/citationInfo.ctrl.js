@@ -12,14 +12,13 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.groupCitationsByDL = function(){
     var dlNum = "";
     var dlState = "";
-    var groupedCitations = [];
+    var groupedCitations = {};
 
     citations.forEach(function(citation){
-      //var groupedCitation = citations[citationIndex];
       dlNum = citation.drivers_license_number;
       dlState = citation.drivers_license_state;
       if (dlNum === ""){
-        //in the event the defendant does not have a DL Num assign one so the array has an index
+        //in the event the defendant does not have a DL Num assign one so the object has a key
         dlNum = PLACEHOLDER_DL_NUM;
       }
       if (!groupedCitations[dlNum+dlState]){
@@ -28,13 +27,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
       groupedCitations[dlNum+dlState].push(citation);
     });
 
-    //re-index array so it uses ints as index
-    var indexGroupedCitations = [];
-    for(var i in groupedCitations){
-      indexGroupedCitations.push(groupedCitations[i]);
-    }
-
-    return indexGroupedCitations;
+    return groupedCitations;
   };
 
   ctrl.issueMultiplePeopleWarning = function(){

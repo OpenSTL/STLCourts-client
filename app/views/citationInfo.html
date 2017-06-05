@@ -6,7 +6,7 @@
     <div class="well well-sm warning-red-text" ng-if="ctrl.issueMultiplePeopleWarning()">Ticket results may be shown for multiple people.</div>
     <div class="row alignRowToPage">
       <div class="col-sm-12 alignColumnsToPageToPage">
-        <span ng-repeat="citationGrouping in ctrl.groupedCitations">
+        <div ng-repeat="citationGrouping in ctrl.groupedCitations">
           <h3 class="no-indent">
             {{citationGrouping[0].first_name + " " + citationGrouping[0].last_name}}
           </h3>
@@ -22,7 +22,7 @@
             <tbody>
               <tr class="selectableRow" ng-repeat="citation in citationGrouping" ng-class="{'selectedRow' : ctrl.citationSelected(citation)}" ng-click="ctrl.selectCitation(citation,'selectedCitationInfo')">
                 <td class="hide-when-small-screen center-block"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view</button></td>
-                <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></span></td>
+                <td class="hide-border-when-small"><div class="inline-div"><span class="label-for-small-screen table-item-label">Ticket #</span>{{citation.citation_number}}</div><span class="small-screen-view-button"><button class="btn btn-scheme-primary-invert" type="button" ng-click="ctrl.selectCitation(citation)">view this ticket</button></span></div></td>
                 <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Name</span>{{citation.first_name}} {{citation.last_name}}</td>
                 <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label">Court Date</span>{{ctrl.formatDate(citation.court_dateTime)}}</td>
                 <td class="hide-border-when-small"><span class="label-for-small-screen table-item-label ">Court Location</span>{{ctrl.citationCourtLocations[citation.court_id]}}</td>
@@ -38,7 +38,7 @@
               </tr>
             </tbody>
           </table>
-        </span>
+        </div>
       </div>
     </div>
   </div>
