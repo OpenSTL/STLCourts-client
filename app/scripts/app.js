@@ -136,7 +136,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
       }
     })
     .state('citations', {
-      url: '/citations/{citationId}',
+      url: '/tickets/{citationId}/info',
       templateUrl: 'views/citations.html',
       controller: 'CitationsCtrl as ctrl',
       resolve: {

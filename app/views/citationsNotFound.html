@@ -26,14 +26,11 @@
       Currently the following municipalities are supported by this site:
     </span>
     <br>
-    <span ng-repeat="municipality in ctrl.supportedMunicipalities">
-      <span ng-if="!$first">, </span>
-      {{municipality.name}}
-    </span>
+    <span ng-repeat="municipality in ctrl.supportedMunicipalities"><span ng-if="!$first">, </span>{{municipality.name}}</span>
   </p>
   <p>
     If you believe you have a ticket from a non-supported municipality, you may look the associated court up on our site by clicking <a href="\">here</a>.
     <br>
     When you contact your court, please tell them that you'd like them to participate in YourStlCourts.
   </p>
-</p>
+</div>

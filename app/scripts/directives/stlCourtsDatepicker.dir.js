@@ -12,11 +12,13 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
       dateObject:'=?',  //returns javascript Date
       dateField:'=?',  //returns date String formatted to "MM/dd/yyyy"
       dateValid:'=?',
-      dateOver18:'=?'
+      dateOver18:'=?',
+      okButtonId:'@'
     },
     templateUrl: 'views/stlCourtsDatepicker.html',
     controller: 'StlCourtsDatepicker as ctrl',
     link: function($scope,element,attrs){
+      var scope = $scope;
       var keys = {
         backspace:8,
         delete:46,
@@ -56,9 +58,14 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
             updateDateString();
             if (numberOfExistingDigits === Number(maxLength)){
               //tab to the next field
-              if ($(event.target).next("span") !== $()){
+              if ($(event.target).next("span").length !== 0){
                 clearInputElement($(event.target).next().next());
                 $(event.target).next().next().focus();
+              }else{
+                if (scope.okButtonId) {
+                  //last date field is filled in go to OK button
+                  $("#" + scope.okButtonId).focus();
+                }
               }
             }
           }else{
@@ -152,6 +159,10 @@ angular.module('yourStlCourts').directive('stlCourtsDatepicker', function($timeo
             uibDatePickerDateJustChangedDateString = true;
             $scope.ctrl.dateString = formatDateObjToDateFormat();
             loadDateStringToElement();
+            if (scope.okButtonId) {
+              //user just selected a date from the datePicker and it filled in the whole date
+              $("#" + scope.okButtonId).focus();
+            }
           }else{
             initialDTSet = false;
           }

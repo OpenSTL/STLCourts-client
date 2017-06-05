@@ -232,14 +232,14 @@ $homepageTileHeight : 75px;
   color:inherit;
 }
 
-.close{
+.homepageTileClose.close{
   position:absolute;
   top:5px;
   right:5px;
   color:$white !important;
   opacity: 1.0;
 }
-.close:hover{
+.homepageTileClose.close:hover{
   color:$white !important;
 }
 

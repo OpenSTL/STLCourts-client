@@ -105,6 +105,7 @@ describe('TicketFinderCtrl', function() {
     $rootScope.$apply();
 
     var expectedModalOptions = {
+      animation:false,
       templateUrl: 'views/dobPicker.html',
       controller: 'dobPickerCtrl as ctrl',
       size: 'sm'
