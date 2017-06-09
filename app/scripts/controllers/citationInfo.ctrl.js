@@ -8,6 +8,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.selectedCitation = null;
   ctrl.paymentUrl = "";
   ctrl.citationCourtLocations = {};
+  ctrl.groupedCitations = {};
 
   ctrl.groupCitationsByDL = function(){
     var dlNum = "";
@@ -31,7 +32,8 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   };
 
   ctrl.issueMultiplePeopleWarning = function(){
-    return (ctrl.groupedCitations.length > 1);
+
+    return (_.size(ctrl.groupedCitations) > 1);
   };
 
   ctrl.selectCitation = function(citation,idToScrollTo){
