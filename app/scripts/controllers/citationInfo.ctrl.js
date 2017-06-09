@@ -28,10 +28,8 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
       groupedCitations[dlNum+dlState].push(citation);
     });
 
-    ctrl.groupedCitationCount = 0;
-    for(var groupedCitation in groupedCitations){
-      ctrl.groupedCitationCount++;
-    }
+    ctrl.groupedCitationCount = _.size(groupedCitations);
+
     return groupedCitations;
   };
 
