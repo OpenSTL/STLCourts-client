@@ -8,6 +8,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
   ctrl.selectedCitation = null;
   ctrl.paymentUrl = "";
   ctrl.citationCourtLocations = {};
+  ctrl.groupedCitationCount = 0;
 
   ctrl.groupCitationsByDL = function(){
     var dlNum = "";
@@ -27,11 +28,16 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
       groupedCitations[dlNum+dlState].push(citation);
     });
 
+    ctrl.groupedCitationCount = 0;
+    for(var groupedCitation in groupedCitations){
+      ctrl.groupedCitationCount++;
+    }
     return groupedCitations;
   };
 
   ctrl.issueMultiplePeopleWarning = function(){
-    return (ctrl.groupedCitations.length > 1);
+
+    return (ctrl.groupedCitationCount > 1);
   };
 
   ctrl.selectCitation = function(citation,idToScrollTo){
