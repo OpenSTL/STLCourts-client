@@ -44,6 +44,7 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.getDOB = function(){
     if(ctrl.ticketForm.$valid) {
       var modalInstance = $uibModal.open({
+        animation:false, //allows focus cursor to stay in input box on edge & IE browsers
         templateUrl: 'views/dobPicker.html',
         controller: 'dobPickerCtrl as ctrl',
         size: 'sm'

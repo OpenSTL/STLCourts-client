@@ -7,9 +7,9 @@
     <div class="row alignRowToPage">
       <div class="col-sm-12 alignColumnsToPageToPage">
         <div class="payment-options-date-picker">
-          <stl-courts-datepicker iso-date-string="ctrl.dob" date-valid="ctrl.dobValid" date-over-18="ctrl.dobOver18" date-format="MM/DD/YYYY"></stl-courts-datepicker>
+          <stl-courts-datepicker ok-button-id="viewTicketButton" iso-date-string="ctrl.dob" date-valid="ctrl.dobValid" date-over-18="ctrl.dobOver18" date-format="MM/DD/YYYY"></stl-courts-datepicker>
           <div class="text-center">
-            <button type="button" class="btn btn-default" ng-click="ctrl.viewCitation()">View Ticket</button>
+            <button id="viewTicketButton" type="button" class="btn btn-default" ng-click="ctrl.viewCitation()">View Ticket</button>
           </div>
         </div>
       </div>

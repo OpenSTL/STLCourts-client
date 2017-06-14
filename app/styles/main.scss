@@ -52,6 +52,19 @@ footer {
   line-height: $footer-height;
 }
 
+@media screen and (max-width:767px){
+  footer {
+    text-align: center;
+    background-color: #333;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+    overflow:hidden;
+  }
+}
+
 p.address1{
   padding-top:0px;
   padding-bottom:0px;
@@ -219,14 +232,14 @@ $homepageTileHeight : 75px;
   color:inherit;
 }
 
-.close{
+.homepageTileClose.close{
   position:absolute;
   top:5px;
   right:5px;
   color:$white !important;
   opacity: 1.0;
 }
-.close:hover{
+.homepageTileClose.close:hover{
   color:$white !important;
 }
 
