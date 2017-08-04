@@ -8,9 +8,9 @@
       <div class="dob-date-picker-modal">
         <stl-courts-datepicker ok-button-id="securityLastName" iso-date-string="ctrl.dob" date-valid="ctrl.dobValid" date-over-18="ctrl.dobOver18"></stl-courts-datepicker>
       </div>
-      <div class="securityInputLine">
-        <input id="securityLastName" class="securityLastNameInput" type="text" ng-model="ctrl.lastName" required ng-maxlength="20" placeholder="last name"/>
-      </div>
+      <form-field class="securityInputLine">
+          <input id="securityLastName" class="securityLastNameInput" type="text" ng-model="ctrl.lastName" ng-maxlength="20" placeholder="last name"/>
+        </form-field>
     </div>
     <div class="modal-footer">
       <button id="findTicketButton" class="btn btn-primary" type="submit">Find Ticket</button>
