@@ -106,8 +106,8 @@ describe('TicketFinderCtrl', function() {
 
     var expectedModalOptions = {
       animation:false,
-      templateUrl: 'views/dobPicker.html',
-      controller: 'dobPickerCtrl as ctrl',
+      templateUrl: 'views/lookupSecurity.html',
+      controller: 'lookupSecurityCtrl as ctrl',
       size: 'sm'
     };
 
@@ -166,14 +166,14 @@ describe('TicketFinderCtrl', function() {
       licenseNumber: null,
       licenseState: 'MO',
       firstName: null,
-      lastName: null,
+      lastName: 'myLastName',
       municipalityNames: null,
       dob: '03/17/1990'
     };
 
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',citationNumber:'123'});
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',lastName: 'myLastName', citationNumber:'123'});
   }));
 
   it('should set params.licenseNumber and params.licenseState correctly',inject(function(Citations,$rootScope,$q){
@@ -188,17 +188,17 @@ describe('TicketFinderCtrl', function() {
       licenseNumber: 'ABC',
       licenseState: 'MO',
       firstName: null,
-      lastName: null,
+      lastName: 'myLastName',
       municipalityNames: null,
       dob: '03/17/1990'
     };
 
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',licenseNumber: 'ABC',licenseState: 'MO'});
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',lastName: 'myLastName',licenseNumber: 'ABC',licenseState: 'MO'});
   }));
 
-  it('should set params.municipalityNames and params.lastName correctly',inject(function(Citations,$q,$rootScope){
+  it('should set params.municipalityNames correctly',inject(function(Citations,$q,$rootScope){
     var deferred = $q.defer();
     deferred.resolve({citations:[]});
     spyOn(Citations,'find').and.returnValue(deferred.promise);

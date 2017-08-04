@@ -4,10 +4,13 @@
       <h3 class="modal-title">Date of Birth</h3>
     </div>
     <div class="modal-body">
-      <label>In order to protect privacy, please provide your date of birth</label>
+      <label>In order to protect privacy, please provide your date of birth and last name</label>
       <div class="dob-date-picker-modal">
-        <stl-courts-datepicker ok-button-id="findTicketButton" iso-date-string="ctrl.dob" date-valid="ctrl.dobValid" date-over-18="ctrl.dobOver18"></stl-courts-datepicker>
+        <stl-courts-datepicker ok-button-id="securityLastName" iso-date-string="ctrl.dob" date-valid="ctrl.dobValid" date-over-18="ctrl.dobOver18"></stl-courts-datepicker>
       </div>
+      <form-field class="securityInputLine">
+        <input id="securityLastName" class="securityLastNameInput" type="text" ng-model="ctrl.lastName" ng-maxlength="20" placeholder="last name"/>
+      </form-field>
     </div>
     <div class="modal-footer">
       <button id="findTicketButton" class="btn btn-primary" type="submit">Find Ticket</button>
