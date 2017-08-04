@@ -45,13 +45,14 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
     if(ctrl.ticketForm.$valid) {
       var modalInstance = $uibModal.open({
         animation:false, //allows focus cursor to stay in input box on edge & IE browsers
-        templateUrl: 'views/dobPicker.html',
-        controller: 'dobPickerCtrl as ctrl',
+        templateUrl: 'views/lookupSecurity.html',
+        controller: 'lookupSecurityCtrl as ctrl',
         size: 'sm'
       });
 
-      modalInstance.result.then(function (dob) {
+      modalInstance.result.then(function (dob,lastName) {
         ctrl.citationCriteria.dob = dob;
+        ctrl.citationCriteria.lastName = lastName;
         ctrl.findTicket();
       });
     } else {
@@ -61,7 +62,8 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
 
   ctrl.findTicket = function() {
     var params = {
-      dob: ctrl.citationCriteria.dob
+      dob: ctrl.citationCriteria.dob,
+      lastName: ctrl.citationCriteria.lastName
     };
 
     switch(ctrl.finderSelected){
@@ -74,7 +76,6 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
         break;
       case ctrl.TicketFinderToSelect.LOCATION:
         params.municipalityIds = _.map(ctrl.citationCriteria.municipalities, 'id');
-        params.lastName = ctrl.citationCriteria.lastName;
         break;
     }
 
