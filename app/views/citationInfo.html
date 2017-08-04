@@ -53,7 +53,7 @@
             <p class="address">{{ctrl.selectedCitation.defendant_address}}</p>
             <p class="address">{{ctrl.selectedCitation.defendant_city}}, {{ctrl.selectedCitation.defendant_state}}</p>
           </div>
-          <p class="zeroAboveBelow">Driver's License #: {{ctrl.selectedCitation.drivers_license_number}} - {{ctrl.selectedCitation.drivers_license_state}}</p>
+          <p class="zeroAboveBelow" ng-if="ctrl.selectedCitation.drivers_license_number">Driver's License #: {{ctrl.selectedCitation.drivers_license_number}} - {{ctrl.selectedCitation.drivers_license_state}}</p>
           <br>
         </div>
         <div class="col-sm-6 alignColumnsToPage">
@@ -85,7 +85,7 @@
           <ul ng-if="ctrl.hasViolations(ctrl.selectedCitation)">
             <li ng-repeat="violation in ctrl.selectedCitation.violations">
               {{violation.violation_description}}
-              <span ng-if="violation.warrant_status" class="badge" style="background-color: red">WARRANT ISSUED: {{violation.warrant_number}}</span>
+              <span ng-if="violation.warrant_status" class="badge" style="background-color: red">WARRANT ISSUED<span ng-if="violation.warrant_number">: {{violation.warrant_number}}</span></span>
             </li>
           </ul>
           <span class="noViolations" ng-if="!ctrl.hasViolations(ctrl.selectedCitation)">
