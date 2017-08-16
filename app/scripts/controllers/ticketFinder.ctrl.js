@@ -50,9 +50,9 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
         size: 'sm'
       });
 
-      modalInstance.result.then(function (dob,lastName) {
-        ctrl.citationCriteria.dob = dob;
-        ctrl.citationCriteria.lastName = lastName;
+      modalInstance.result.then(function (result) {
+        ctrl.citationCriteria.dob = result.dob;
+        ctrl.citationCriteria.lastName = result.lastName;
         ctrl.findTicket();
       });
     } else {
