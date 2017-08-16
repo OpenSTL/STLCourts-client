@@ -88,7 +88,7 @@ describe('TicketFinderCtrl', function() {
   //reference: http://stackoverflow.com/questions/21214868/mocking-modal-in-angularjs-unit-tests
     var dob = "03/17/1945";
     var modalDefer = $q.defer();
-    modalDefer.resolve(dob);
+    modalDefer.resolve({dob:dob,lastName:"someName"});
     var modalInstance = {
       result: modalDefer.promise
     };
@@ -113,6 +113,7 @@ describe('TicketFinderCtrl', function() {
 
     expect($uibModal.open).toHaveBeenCalledWith(expectedModalOptions);
     expect(TicketFinderCtrl.citationCriteria.dob).toEqual(dob);
+    expect(TicketFinderCtrl.citationCriteria.lastName).toEqual("someName");
     expect(TicketFinderCtrl.findTicket).toHaveBeenCalled();
   }));
 
