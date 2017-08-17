@@ -10,7 +10,8 @@ angular.module('yourStlCourts').controller('lookupSecurityCtrl', function ($uibM
 
   ctrl.save = function(){
     if (ctrl.dobValid && ctrl.dobOver18 && ctrl.lastName){
-      $uibModalInstance.close(ctrl.dob, ctrl.lastName);
+      $uibModalInstance.close({dob:ctrl.dob, lastName:ctrl.lastName});
+      //$uibModalInstance.close(ctrl.dob, ctrl.lastName);
     }else{
       if (!ctrl.dobValid){
         toaster.pop('error', 'Invalid date of birth.');

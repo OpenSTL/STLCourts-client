@@ -33,7 +33,7 @@ describe('LookupSecurityCtrl', function () {
     LookupSecurityCtrl.dob = "myDate";
     LookupSecurityCtrl.lastName = "myName";
     LookupSecurityCtrl.save();
-    expect(modalInstance.close).toHaveBeenCalledWith(LookupSecurityCtrl.dob, LookupSecurityCtrl.lastName);
+    expect(modalInstance.close).toHaveBeenCalledWith({dob:LookupSecurityCtrl.dob, lastName:LookupSecurityCtrl.lastName});
   });
 
   it('shows error when saving invalid date', inject(function(toaster) {
