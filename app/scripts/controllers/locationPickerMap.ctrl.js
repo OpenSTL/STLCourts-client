@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($scope, $http, $uibModalInstance, municipalities, leafletData) {
+angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($scope, $http, $uibModalInstance, municipalities, leafletData, toaster) {
   var ctrl = this;
   ctrl.mousedOverMunicipality = null;
   ctrl.selectedMunicipalities = [];
@@ -59,11 +59,12 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
       removeMuncipality(municipality, mapMunicipalityId);
       geoJson.resetStyle(e.target);
     } else {
-      addMunicipality(municipality, mapMunicipalityId);
-      var layer = e.target;
-      layer.setStyle(highlightStyle);
-      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
+      if (addMunicipality(municipality, mapMunicipalityId)) {
+        var layer = e.target;
+        layer.setStyle(highlightStyle);
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+          layer.bringToFront();
+        }
       }
     }
   }
@@ -113,11 +114,17 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   }
 
   function addMunicipality(municipality, mapMunicipalityId) {
-    updateUnincorporatedCount(municipality, true);
-    if(!_.find(ctrl.selectedMunicipalities, {id: municipality.id})) {
-      ctrl.selectedMunicipalities.push(municipality);
+    if (ctrl.selectedMunicipalities.length < 5) {
+      updateUnincorporatedCount(municipality, true);
+      if (!_.find(ctrl.selectedMunicipalities, {id: municipality.id})) {
+        ctrl.selectedMunicipalities.push(municipality);
+      }
+      selectedMapMunicipalityIds.push(mapMunicipalityId);
+      return true;
+    }else{
+      toaster.pop('info', 'A maximum of 5 municipalities can be selected at a time.');
+      return false;
     }
-    selectedMapMunicipalityIds.push(mapMunicipalityId);
   }
 
   function removeMuncipality(municipality, mapMunicipalityId) {

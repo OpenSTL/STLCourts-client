@@ -15,13 +15,14 @@ describe('LocationPickerMapCtrl', function() {
   beforeEach(function() {
     module('yourStlCourts');
 
-    inject(function($controller, $rootScope, $http, leafletData) {
+    inject(function($controller, $rootScope, $http, leafletData,toaster) {
       LocationPickerMapCtrl = $controller('LocationPickerMapCtrl',{
         $scope: $rootScope.$new(),
         $http: $http,
         $uibModalInstance: fakeModal,
         municipalities: municipalities,
-        leafletData: leafletData
+        leafletData: leafletData,
+        toaster: toaster
       });
     });
   });

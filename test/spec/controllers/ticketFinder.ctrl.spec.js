@@ -221,6 +221,14 @@ describe('TicketFinderCtrl', function() {
     expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990', lastName: 'someLastName', municipalityIds: [9, 11]});
   }));
 
+  it('should limit municipalities to 5 or less', inject(function(toaster){
+     TicketFinderCtrl.citationCriteria.municipalities = [{id:1},{id:2},{id:3},{id:4},{id:5},{id:6}];
+     spyOn(toaster,'pop');
+     TicketFinderCtrl.municipalityAdded({id:6});
+     expect(toaster.pop).toHaveBeenCalledWith('info','A maximum of 5 municipalities can be selected at a time.');
+     expect(TicketFinderCtrl.citationCriteria.municipalities.length).toEqual(5);
+  }));
+
   it('opens locationPicker Modal and selects municipality names',inject(function($uibModal,$q, $rootScope){
     var modalDefer = $q.defer();
     modalDefer.resolve(['a','b']);

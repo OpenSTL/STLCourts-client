@@ -60,6 +60,16 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
     }
   };
 
+  ctrl.municipalityAdded = function(itemAdded){
+    if (ctrl.citationCriteria.municipalities.length > 5){
+      toaster.pop('info', 'A maximum of 5 municipalities can be selected at a time.');
+      _.remove(ctrl.citationCriteria.municipalities, function(item){
+        return (item.id == itemAdded.id);
+      });
+    }
+
+  };
+
   ctrl.findTicket = function() {
     var params = {
       dob: ctrl.citationCriteria.dob,
