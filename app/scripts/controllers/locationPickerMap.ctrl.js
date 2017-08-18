@@ -59,7 +59,11 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
       removeMuncipality(municipality, mapMunicipalityId);
       geoJson.resetStyle(e.target);
     } else {
-      if (addMunicipality(municipality, mapMunicipalityId)) {
+      try{
+        addMunicipality(municipality, mapMunicipalityId);
+
+      }catch(err){
+        toaster.pop('info', err.message);
         var layer = e.target;
         layer.setStyle(highlightStyle);
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -120,10 +124,9 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
         ctrl.selectedMunicipalities.push(municipality);
       }
       selectedMapMunicipalityIds.push(mapMunicipalityId);
-      return true;
+      return;
     }else{
-      toaster.pop('info', 'A maximum of 5 municipalities can be selected at a time.');
-      return false;
+      throw new Error("A maximum of 5 municipalities can be selected at a time.");
     }
   }
 
