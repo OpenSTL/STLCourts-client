@@ -51,4 +51,25 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
   ctrl.printCourtInfo = function () {
     $window.print();
   };
+
+  function legalRightsLink() {
+    var rightsLink = "";
+    if (ctrl.courtInfo.rights_type == "PDF"){
+      if (ctrl.courtInfo.rights_value) {
+        rightsLink += "/data/court_rights/" + ctrl.courtInfo.rights_value;
+      }else{
+        rightsLink += "/data/court_rights/Default.pdf";
+      }
+    }else{
+      rightsLink = ctrl.courtInfo.rights_value;
+    }
+
+    return rightsLink;
+  }
+
+  ctrl.openLegalRightsLink = function(){
+    $window.open(legalRightsLink());
+  }
+
+
 });
