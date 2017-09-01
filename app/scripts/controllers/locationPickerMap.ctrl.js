@@ -59,16 +59,13 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
       removeMuncipality(municipality, mapMunicipalityId);
       geoJson.resetStyle(e.target);
     } else {
-      try{
-        addMunicipality(municipality, mapMunicipalityId);
-
-      }catch(err){
-        toaster.pop('info', err.message);
-        var layer = e.target;
-        layer.setStyle(highlightStyle);
-        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-          layer.bringToFront();
-        }
+      updateUnincorporatedCount(municipality, true);
+      if (!_.find(ctrl.selectedMunicipalities, {id: municipality.id})) {
+        ctrl.selectedMunicipalities.push(municipality);
+      }
+      selectedMapMunicipalityIds.push(mapMunicipalityId);
+      if (ctrl.selectedMunicipalities.length > 5){
+        toaster.pop('info','A maximum of 5 municipalities can be selected at a time.');
       }
     }
   }
@@ -117,19 +114,6 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
     return _.includes(selectedMapMunicipalityIds, mapMunicipalityId);
   }
 
-  function addMunicipality(municipality, mapMunicipalityId) {
-    if (ctrl.selectedMunicipalities.length < 5) {
-      updateUnincorporatedCount(municipality, true);
-      if (!_.find(ctrl.selectedMunicipalities, {id: municipality.id})) {
-        ctrl.selectedMunicipalities.push(municipality);
-      }
-      selectedMapMunicipalityIds.push(mapMunicipalityId);
-      return;
-    }else{
-      throw new Error("A maximum of 5 municipalities can be selected at a time.");
-    }
-  }
-
   function removeMuncipality(municipality, mapMunicipalityId) {
     updateUnincorporatedCount(municipality, false);
 
@@ -157,7 +141,11 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
   }
 
   ctrl.selectLocation = function(){
-    $uibModalInstance.close(ctrl.selectedMunicipalities);
+    if (ctrl.selectedMunicipalities.length > 5){
+      toaster.pop('error','A maximum of 5 municipalities can be selected at a time.');
+    }else {
+      $uibModalInstance.close(ctrl.selectedMunicipalities);
+    }
   };
 
   ctrl.cancel = function() {
