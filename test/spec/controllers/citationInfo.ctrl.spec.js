@@ -350,4 +350,59 @@ describe('CitationInfoCtrl', function () {
     expect(_.size(CitationInfoCtrl.groupedCitations)).toBe(1);
     expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(false);
   }));
+
+  it('opens Legal Rights Link', inject(function($controller, $state, Courts, $q, $rootScope){
+    var fakeWindow = {
+      open: jasmine.createSpy('windowOpen')
+    };
+
+    var court = {
+      id: 6,
+      name: "courtName6",
+      address: "123 Anystreet",
+      city: "anyCity",
+      state: "MO",
+      zip: "12345",
+      rights_type: "PDF",
+      rights_value: "me.pdf"
+    };
+
+    var CitationInfoCtrl = $controller('CitationInfoCtrl', {
+      faqData: faqData,
+      municipalities: municipalities,
+      $state: $state,
+      $window: fakeWindow,
+      citations: citations,
+      Courts: Courts,
+      Session: session,
+      courts: courts,
+      moment: moment,
+      $anchorScroll:$anchorScroll
+    });
+
+    var deferred = $q.defer();
+    deferred.resolve(court);
+    spyOn(Courts, 'findById').and.returnValue(deferred.promise);
+
+    CitationInfoCtrl.selectCitation(citation,'someId');
+    $rootScope.$apply();
+
+    CitationInfoCtrl.openLegalRightsLink();
+    expect(fakeWindow.open).toHaveBeenCalledWith("/data/court_rights/me.pdf");
+
+    court.rights_value = "";
+    CitationInfoCtrl.selectCitation(citation,'someId');
+    $rootScope.$apply();
+
+    CitationInfoCtrl.openLegalRightsLink();
+    expect(fakeWindow.open).toHaveBeenCalledWith("/data/court_rights/Default.pdf");
+
+    court.rights_type = "LINK";
+    court.rights_value = "someLink";
+    CitationInfoCtrl.selectCitation(citation,'someId');
+    $rootScope.$apply();
+
+    CitationInfoCtrl.openLegalRightsLink();
+    expect(fakeWindow.open).toHaveBeenCalledWith("someLink");
+  }));
 });

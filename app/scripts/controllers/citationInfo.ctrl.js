@@ -185,4 +185,23 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     }
   };
 
+  function legalRightsLink() {
+    var rightsLink = "";
+    if (ctrl.selectedCitation.court.rights_type == "PDF"){
+      if (ctrl.selectedCitation.court.rights_value) {
+        rightsLink += "/data/court_rights/" + ctrl.selectedCitation.court.rights_value;
+      }else{
+        rightsLink += "/data/court_rights/Default.pdf";
+      }
+    }else{
+      rightsLink = ctrl.selectedCitation.court.rights_value;
+    }
+
+    return rightsLink;
+  }
+
+  ctrl.openLegalRightsLink = function(){
+    $window.open(legalRightsLink());
+  }
+
 });

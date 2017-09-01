@@ -75,4 +75,31 @@ describe('CourtSearchInfoCtrl', function() {
     expect(CourtSearchInfoCtrl.courtDirectionLink).toEqual(directionString);
   }));
 
+  it('opens Legal Rights Link', inject(function($controller, $state){
+    var fakeWindow = {
+      open: jasmine.createSpy('windowOpen')
+    };
+
+    var CourtSearchInfoCtrl = $controller('CourtSearchInfoCtrl',{
+      $state: $state,
+      $window: fakeWindow,
+      court:sample_court
+    });
+
+    CourtSearchInfoCtrl.courtInfo.rights_type = "PDF";
+    CourtSearchInfoCtrl.courtInfo.rights_value = "me.pdf";
+    CourtSearchInfoCtrl.openLegalRightsLink();
+    expect(fakeWindow.open).toHaveBeenCalledWith("/data/court_rights/me.pdf");
+
+    CourtSearchInfoCtrl.courtInfo.rights_type = "PDF";
+    CourtSearchInfoCtrl.courtInfo.rights_value = "";
+    CourtSearchInfoCtrl.openLegalRightsLink();
+    expect(fakeWindow.open).toHaveBeenCalledWith("/data/court_rights/Default.pdf");
+
+    CourtSearchInfoCtrl.courtInfo.rights_type = "LINK";
+    CourtSearchInfoCtrl.courtInfo.rights_value = "someLink";
+    CourtSearchInfoCtrl.openLegalRightsLink();
+    expect(fakeWindow.open).toHaveBeenCalledWith("someLink");
+  }));
+
 });
