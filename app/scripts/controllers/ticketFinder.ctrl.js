@@ -1,9 +1,10 @@
 'use strict';
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors, MaxMapMunicipalities) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
   ctrl.citationCriteria = {};
+  ctrl.maxMapMunicipalities = MaxMapMunicipalities;
   var openScrollToId = ctrl.openScrollToId?ctrl.openScrollToId:"footer";
   var closeScrollToId = ctrl.closeScrollToId?ctrl.closeScrollToId:"top";
   var isBoxOpened = false;
@@ -42,33 +43,22 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   };
 
   ctrl.getDOB = function(){
-    if (!numberOfMunicipalitiesSelectedIsValid()){
-      toaster.pop('error', 'Only 5 municipalities can be selected at any one time.  Please remove some municipalities.');
-    }else {
-      if (ctrl.ticketForm.$valid) {
-        var modalInstance = $uibModal.open({
-          animation: false, //allows focus cursor to stay in input box on edge & IE browsers
-          templateUrl: 'views/lookupSecurity.html',
-          controller: 'lookupSecurityCtrl as ctrl',
-          size: 'sm'
-        });
+    if (ctrl.ticketForm.$valid) {
+      var modalInstance = $uibModal.open({
+        animation: false, //allows focus cursor to stay in input box on edge & IE browsers
+        templateUrl: 'views/lookupSecurity.html',
+        controller: 'lookupSecurityCtrl as ctrl',
+        size: 'sm'
+      });
 
-        modalInstance.result.then(function (result) {
-          ctrl.citationCriteria.dob = result.dob;
-          ctrl.citationCriteria.lastName = result.lastName;
-          ctrl.findTicket();
-        });
-      } else {
-        toaster.pop('error', 'Please provide the required information');
-      }
+      modalInstance.result.then(function (result) {
+        ctrl.citationCriteria.dob = result.dob;
+        ctrl.citationCriteria.lastName = result.lastName;
+        ctrl.findTicket();
+      });
+    } else {
+      toaster.pop('error', 'Please provide the required information');
     }
-  };
-
-  ctrl.municipalityAdded = function(itemAdded){
-    if (ctrl.citationCriteria.municipalities.length > 5){
-      toaster.pop('info', 'A maximum of 5 municipalities can be selected at a time.');
-    }
-
   };
 
   function numberOfMunicipalitiesSelectedIsValid(){

@@ -1,5 +1,5 @@
 <form-field required>
-  <ui-select id="selectedMunicipality" multiple name="selectedMunicipality" register-custom-form-control required displayName="Municipality" on-select="ctrl.municipalityAdded($item)" ng-model="ctrl.citationCriteria.municipalities">
+  <ui-select id="selectedMunicipality" multiple name="selectedMunicipality" register-custom-form-control required restrict-number-of-municipalities="{{ctrl.maxMapMunicipalities}}" displayName="Municipality"  ng-model="ctrl.citationCriteria.municipalities">
     <ui-select-match placeholder="Select a City">{{$item.name}}</ui-select-match>
     <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search track by municipality.id">
       <div ng-bind-html="municipality.name | highlight: $select.search"></div>

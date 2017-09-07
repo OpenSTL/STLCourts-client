@@ -42,7 +42,8 @@ describe('TicketFinderCtrl', function() {
         TicketFinder: TicketFinder,
         $scope:$rootScope.$new(),
         $rootScope: $rootScope,
-        Errors:Errors
+        Errors:Errors,
+        MaxMapMunicipalities: 5
       });
 
       TicketFinderCtrl.selectFinder = function (someValue) {
@@ -219,24 +220,6 @@ describe('TicketFinderCtrl', function() {
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
     expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990', lastName: 'someLastName', municipalityIds: [9, 11]});
-  }));
-
-  it('should toast a warning message when more than 5 municipalities have been added', inject(function(toaster){
-    spyOn(toaster,'pop');
-    TicketFinderCtrl.citationCriteria.municipalities = [{id:1},{id:2},{id:3},{id:4},{id:5},{id:6}];
-    TicketFinderCtrl.municipalityAdded({id:6});
-    expect(toaster.pop).toHaveBeenCalledWith('info','A maximum of 5 municipalities can be selected at a time.');
-  }));
-
-  it('should toast an error and not open dob lastname dialog when municipalities are more than 5', inject(function(toaster,$uibModal){
-    spyOn(toaster,'pop');
-    spyOn($uibModal, 'open');
-    TicketFinderCtrl.citationCriteria.municipalities = [{id:1},{id:2},{id:3},{id:4},{id:5},{id:6}];
-    TicketFinderCtrl.finderSelected = TicketFinderCtrl.TicketFinderToSelect.LOCATION;
-    TicketFinderCtrl.getDOB();
-    expect(toaster.pop).toHaveBeenCalledWith('error','Only 5 municipalities can be selected at any one time.  Please remove some municipalities.');
-    expect($uibModal.open.calls.count()).toEqual(0);
-
   }));
 
   it('opens locationPicker Modal and selects municipality names',inject(function($uibModal,$q, $rootScope){

@@ -22,7 +22,8 @@ describe('LocationPickerMapCtrl', function() {
         $uibModalInstance: fakeModal,
         municipalities: municipalities,
         leafletData: leafletData,
-        toaster: toaster
+        toaster: toaster,
+        MaxMapMunicipalities:5
       });
     });
   });
@@ -31,18 +32,15 @@ describe('LocationPickerMapCtrl', function() {
     expect(LocationPickerMapCtrl.mousedOverMunicipality).toBeNull();
   }));
 
-  it ('toasts an error message instead of selecting locations if more than 5 municipalities are selected', inject(function(toaster){
-    spyOn(toaster,'pop');
-    LocationPickerMapCtrl.selectedMunicipalities = [{id:1},{id:2},{id:3},{id:4},{id:5},{id:6}];
-    LocationPickerMapCtrl.selectLocation();
-    expect(toaster.pop).toHaveBeenCalledWith('error', 'A maximum of 5 municipalities can be selected at a time.');
+  it ('It does not close dialog if form is invalid', inject(function(toaster){
+    LocationPickerMapCtrl.selectLocation({$valid:false});
     expect(fakeModal.close.calls.count()).toEqual(0);
   }));
 
   it('selects locations', function() {
     LocationPickerMapCtrl.selectedMunicipalities = [municipalities[0]];
 
-    LocationPickerMapCtrl.selectLocation();
+    LocationPickerMapCtrl.selectLocation({$valid:true});
 
     expect(fakeModal.close).toHaveBeenCalledWith(LocationPickerMapCtrl.selectedMunicipalities);
   });
