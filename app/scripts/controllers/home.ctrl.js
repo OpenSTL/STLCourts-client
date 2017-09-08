@@ -1,6 +1,6 @@
 'use strict';
 
-  angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $state, municipalities, courts) {
+angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $state, municipalities, courts) {
   var ctrl = this;
   ctrl.citySearchGroups = [];
   ctrl.municipalities = municipalities;

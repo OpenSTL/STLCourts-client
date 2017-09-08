@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court,leafletData){
+angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court, leafletData, LegalRights){
   var ctrl = this;
 
   ctrl.courtInfo = court;
@@ -52,23 +52,8 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
     $window.print();
   };
 
-  function legalRightsLink() {
-    var rightsLink = "";
-    if (ctrl.courtInfo.rights_type == "PDF"){
-      if (ctrl.courtInfo.rights_value) {
-        rightsLink += "/data/court_rights/" + ctrl.courtInfo.rights_value;
-      }else{
-        rightsLink += "/data/court_rights/Default.pdf";
-      }
-    }else{
-      rightsLink = ctrl.courtInfo.rights_value;
-    }
-
-    return rightsLink;
-  }
-
   ctrl.openLegalRightsLink = function(){
-    $window.open(legalRightsLink());
+    LegalRights.openLegalRightsLink(ctrl.courtInfo);
   }
 
 

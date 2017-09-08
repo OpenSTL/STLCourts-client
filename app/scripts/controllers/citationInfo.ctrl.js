@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities,courts,Courts,Session,moment,$anchorScroll) {
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData,$state, $window, citations,municipalities,courts,Courts,Session,moment,$anchorScroll,LegalRights) {
   var ctrl = this;
   var PLACEHOLDER_DL_NUM = "NO_DL_NUM";
 
@@ -185,23 +185,8 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     }
   };
 
-  function legalRightsLink() {
-    var rightsLink = "";
-    if (ctrl.selectedCitation.court.rights_type == "PDF"){
-      if (ctrl.selectedCitation.court.rights_value) {
-        rightsLink += "/data/court_rights/" + ctrl.selectedCitation.court.rights_value;
-      }else{
-        rightsLink += "/data/court_rights/Default.pdf";
-      }
-    }else{
-      rightsLink = ctrl.selectedCitation.court.rights_value;
-    }
-
-    return rightsLink;
-  }
-
   ctrl.openLegalRightsLink = function(){
-    $window.open(legalRightsLink());
+    LegalRights.openLegalRightsLink(ctrl.selectedCitation.court);
   }
 
 });

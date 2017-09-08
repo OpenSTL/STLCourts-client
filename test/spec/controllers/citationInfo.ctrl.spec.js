@@ -128,6 +128,10 @@ describe('CitationInfoCtrl', function () {
 
   var expectedAddress = "https://maps.google.com?saddr=Current+Location&daddr=" + "123+Anystreet+anyCity+MO+12345";
 
+  var legalRights = {
+    openLegalRightsLink: jasmine.createSpy('openLegalRightsLink')
+  };
+
   beforeEach(function () {
     module('yourStlCourts');
 
@@ -146,7 +150,8 @@ describe('CitationInfoCtrl', function () {
         Session: session,
         courts: courts,
         moment: moment,
-        $anchorScroll:$anchorScroll
+        $anchorScroll:$anchorScroll,
+        LegalRights: legalRights
       });
     });
   });
@@ -351,35 +356,7 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(false);
   }));
 
-  it('opens Legal Rights Link', inject(function($controller, $state, Courts, $q, $rootScope){
-    var fakeWindow = {
-      open: jasmine.createSpy('windowOpen')
-    };
-
-    var court = {
-      id: 6,
-      name: "courtName6",
-      address: "123 Anystreet",
-      city: "anyCity",
-      state: "MO",
-      zip: "12345",
-      rights_type: "PDF",
-      rights_value: "me.pdf"
-    };
-
-    var CitationInfoCtrl = $controller('CitationInfoCtrl', {
-      faqData: faqData,
-      municipalities: municipalities,
-      $state: $state,
-      $window: fakeWindow,
-      citations: citations,
-      Courts: Courts,
-      Session: session,
-      courts: courts,
-      moment: moment,
-      $anchorScroll:$anchorScroll
-    });
-
+  it('calls LegalRights svc', inject(function($q, Courts, $rootScope){
     var deferred = $q.defer();
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
@@ -387,22 +364,7 @@ describe('CitationInfoCtrl', function () {
     CitationInfoCtrl.selectCitation(citation,'someId');
     $rootScope.$apply();
 
-    CitationInfoCtrl.openLegalRightsLink();
-    expect(fakeWindow.open).toHaveBeenCalledWith("/data/court_rights/me.pdf");
-
-    court.rights_value = "";
-    CitationInfoCtrl.selectCitation(citation,'someId');
-    $rootScope.$apply();
-
-    CitationInfoCtrl.openLegalRightsLink();
-    expect(fakeWindow.open).toHaveBeenCalledWith("/data/court_rights/Default.pdf");
-
-    court.rights_type = "LINK";
-    court.rights_value = "someLink";
-    CitationInfoCtrl.selectCitation(citation,'someId');
-    $rootScope.$apply();
-
-    CitationInfoCtrl.openLegalRightsLink();
-    expect(fakeWindow.open).toHaveBeenCalledWith("someLink");
+    CitationInfoCtrl.openLegalRightsLink({});
+    expect(legalRights.openLegalRightsLink).toHaveBeenCalledWith(court);
   }));
 });
