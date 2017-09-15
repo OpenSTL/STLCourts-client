@@ -23,7 +23,7 @@ describe('LocationPickerMapCtrl', function() {
         municipalities: municipalities,
         leafletData: leafletData,
         toaster: toaster,
-        MaxMapMunicipalities:5
+        MAX_SEARCH_MUNICIPALITIES:5
       });
     });
   });

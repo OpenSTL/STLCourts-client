@@ -43,7 +43,7 @@ describe('TicketFinderCtrl', function() {
         $scope:$rootScope.$new(),
         $rootScope: $rootScope,
         Errors:Errors,
-        MaxMapMunicipalities: 5
+        MAX_SEARCH_MUNICIPALITIES: 5
       });
 
       TicketFinderCtrl.selectFinder = function (someValue) {
@@ -80,8 +80,8 @@ describe('TicketFinderCtrl', function() {
 
   it('should toast an error if form not valid',inject(function(toaster){
     spyOn(toaster,'pop');
-    TicketFinderCtrl.ticketForm = {$valid: false};
-    TicketFinderCtrl.getDOB();
+    var ticketForm = {$valid: false};
+    TicketFinderCtrl.getDOB(ticketForm);
     expect(toaster.pop).toHaveBeenCalledWith('error', 'Please provide the required information');
   }));
 
@@ -97,11 +97,11 @@ describe('TicketFinderCtrl', function() {
     spyOn($uibModal, 'open').and.returnValue(modalInstance);
     spyOn(TicketFinderCtrl, 'findTicket');
 
-    TicketFinderCtrl.ticketForm = {
+    var ticketForm = {
       $valid: true
     };
 
-    TicketFinderCtrl.getDOB();
+    TicketFinderCtrl.getDOB(ticketForm);
 
     $rootScope.$apply();
 

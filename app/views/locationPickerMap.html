@@ -11,7 +11,7 @@
     <div style="margin-top: 20px;" ng-if="ctrl.selectedMunicipalities.length > 0">
       <label>Select Cities</label><br/>
       <form-field>
-        <ui-select id="selectedMunicipalityFromMap" ng-disabled="true" multiple name="selectedMunicipality" register-custom-form-control required restrict-number-of-municipalities="{{ctrl.maxMapMunicipalities}}" displayName="Municipality"  ng-model="ctrl.selectedMunicipalities">
+        <ui-select id="selectedMunicipalityFromMap" ng-disabled="true" multiple name="selectedMunicipality" register-custom-form-control required restrict-number-of-municipalities="{{ctrl.maxSearchMunicipalities}}" displayName="Municipality"  ng-model="ctrl.selectedMunicipalities">
         <ui-select-match>{{$item.name}}</ui-select-match>
         <ui-select-choices repeat="municipality in ctrl.municipalities | filter: $select.search track by municipality.id">
           <div ng-bind-html="municipality.name | highlight: $select.search"></div>

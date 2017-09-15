@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($scope, $http, $uibModalInstance, municipalities, leafletData, toaster, MaxMapMunicipalities) {
+angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($scope, $http, $uibModalInstance, municipalities, leafletData, toaster, MAX_SEARCH_MUNICIPALITIES) {
   var ctrl = this;
   ctrl.mousedOverMunicipality = null;
   ctrl.selectedMunicipalities = [];
   ctrl.municipalities = municipalities;
   var selectedMapMunicipalityIds = [];
   var unincorporatedCount = 0;
-  ctrl.maxMapMunicipalities = MaxMapMunicipalities;
+  ctrl.maxSearchMunicipalities = MAX_SEARCH_MUNICIPALITIES;
 
     ctrl.center = {
     lat:38.62775,
@@ -120,8 +120,8 @@ angular.module('yourStlCourts').controller('LocationPickerMapCtrl', function ($s
       ctrl.selectedMunicipalities.push(municipality);
     }
     selectedMapMunicipalityIds.push(mapMunicipalityId);
-    if (ctrl.selectedMunicipalities.length > ctrl.maxMapMunicipalities){
-      toaster.pop('info','A maximum of '+ctrl.maxMapMunicipalities+' municipalities can be selected at a time.');
+    if (ctrl.selectedMunicipalities.length > ctrl.maxSearchMunicipalities){
+      toaster.pop('info','A maximum of '+ctrl.maxSearchMunicipalities+' municipalities can be selected at a time.');
     }
   }
 
