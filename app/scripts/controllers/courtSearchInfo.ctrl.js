@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court,leafletData){
+angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($state, $window, court, leafletData, LegalRights){
   var ctrl = this;
 
   ctrl.courtInfo = court;
@@ -51,4 +51,10 @@ angular.module('yourStlCourts').controller('CourtSearchInfoCtrl', function ($sta
   ctrl.printCourtInfo = function () {
     $window.print();
   };
+
+  ctrl.openLegalRightsLink = function(){
+    LegalRights.openLegalRightsLink(ctrl.courtInfo);
+  }
+
+
 });

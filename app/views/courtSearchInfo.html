@@ -18,6 +18,13 @@
           <h2 class="no-indent">Website</h2>
           <p class="website no-indent" ng-bind-html="ctrl.courtWebsite | linky"></p>
         </div>
+
+        <div class="topMargin bottomMargin">
+          <h2 class="no-indent">Your Legal Rights</h2>
+          <p class="legalRights no-indent">
+            <a ng-click="ctrl.openLegalRightsLink()">{{ctrl.courtName}} Legal Rights</a>
+          </p>
+        </div>
       </div>
       <div class="col-sm-6 alignColumnsToPageToPage">
         <leaflet id="mapid" lf-center="ctrl.courtOnMap" markers="ctrl.courtMarkers"></leaflet>
