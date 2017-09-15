@@ -24,6 +24,9 @@ describe('CourtSearchInfoCtrl', function() {
     name: "someMuni"
   };
 
+  var legalRights = {
+    openLegalRightsLink: jasmine.createSpy('openLegalRightsLink')
+  };
 
 
   beforeEach(function() {
@@ -34,7 +37,8 @@ describe('CourtSearchInfoCtrl', function() {
       CourtSearchInfoCtrl = $controller('CourtSearchInfoCtrl',{
         $state: $state,
         $window: $window,
-        court:sample_court
+        court:sample_court,
+        LegalRights: legalRights
       });
 
       $httpBackend.whenGET(/courts/).respond(200, '');
@@ -73,6 +77,11 @@ describe('CourtSearchInfoCtrl', function() {
   it('gets correct directions',(function(){
     var directionString = "https://maps.google.com?saddr=Current+Location&daddr=12500+Old Jamestown Road+St. Louis+MO+63033";
     expect(CourtSearchInfoCtrl.courtDirectionLink).toEqual(directionString);
+  }));
+
+  it('calls LegalRights svc', inject(function(){
+    CourtSearchInfoCtrl.openLegalRightsLink({});
+    expect(legalRights.openLegalRightsLink).toHaveBeenCalledWith(sample_court);
   }));
 
 });
