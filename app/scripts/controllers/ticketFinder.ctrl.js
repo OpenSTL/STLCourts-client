@@ -1,9 +1,10 @@
 'use strict';
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors, MAX_SEARCH_MUNICIPALITIES) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
   ctrl.citationCriteria = {};
+  ctrl.maxSearchMunicipalities = MAX_SEARCH_MUNICIPALITIES;
   var openScrollToId = ctrl.openScrollToId?ctrl.openScrollToId:"footer";
   var closeScrollToId = ctrl.closeScrollToId?ctrl.closeScrollToId:"top";
   var isBoxOpened = false;
@@ -41,10 +42,10 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
     }
   };
 
-  ctrl.getDOB = function(){
-    if(ctrl.ticketForm.$valid) {
+  ctrl.getDOB = function(form){
+    if (form.$valid) {
       var modalInstance = $uibModal.open({
-        animation:false, //allows focus cursor to stay in input box on edge & IE browsers
+        animation: false, //allows focus cursor to stay in input box on edge & IE browsers
         templateUrl: 'views/lookupSecurity.html',
         controller: 'lookupSecurityCtrl as ctrl',
         size: 'sm'
@@ -59,6 +60,14 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
       toaster.pop('error', 'Please provide the required information');
     }
   };
+
+  function numberOfMunicipalitiesSelectedIsValid(){
+    if (ctrl.finderSelected == ctrl.TicketFinderToSelect.LOCATION){
+      return  (ctrl.citationCriteria.municipalities.length <= 5);
+    }else{
+      return true;
+    }
+  }
 
   ctrl.findTicket = function() {
     var params = {

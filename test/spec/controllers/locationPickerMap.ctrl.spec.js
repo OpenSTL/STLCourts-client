@@ -15,13 +15,15 @@ describe('LocationPickerMapCtrl', function() {
   beforeEach(function() {
     module('yourStlCourts');
 
-    inject(function($controller, $rootScope, $http, leafletData) {
+    inject(function($controller, $rootScope, $http, leafletData,toaster) {
       LocationPickerMapCtrl = $controller('LocationPickerMapCtrl',{
         $scope: $rootScope.$new(),
         $http: $http,
         $uibModalInstance: fakeModal,
         municipalities: municipalities,
-        leafletData: leafletData
+        leafletData: leafletData,
+        toaster: toaster,
+        MAX_SEARCH_MUNICIPALITIES:5
       });
     });
   });
@@ -30,10 +32,15 @@ describe('LocationPickerMapCtrl', function() {
     expect(LocationPickerMapCtrl.mousedOverMunicipality).toBeNull();
   }));
 
+  it ('It does not close dialog if form is invalid', inject(function(toaster){
+    LocationPickerMapCtrl.selectLocation({$valid:false});
+    expect(fakeModal.close.calls.count()).toEqual(0);
+  }));
+
   it('selects locations', function() {
     LocationPickerMapCtrl.selectedMunicipalities = [municipalities[0]];
 
-    LocationPickerMapCtrl.selectLocation();
+    LocationPickerMapCtrl.selectLocation({$valid:true});
 
     expect(fakeModal.close).toHaveBeenCalledWith(LocationPickerMapCtrl.selectedMunicipalities);
   });
