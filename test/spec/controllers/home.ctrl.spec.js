@@ -4,7 +4,17 @@ describe('HomeCtrl', function() {
   var HomeCtrl;
   var municipalities;
   var courts;
+  var mockWindow;
 
+
+  beforeEach(function() {
+    module(function ($provide) {
+      $provide.service('$window', function () {
+        this.open = jasmine.createSpy('open');
+        this.ga = jasmine.createSpy('ga');
+      })
+    });
+  });
 
   beforeEach(function() {
     module('yourStlCourts');
@@ -12,9 +22,10 @@ describe('HomeCtrl', function() {
     municipalities = [{id: "XYZ", name: 'Black Jack', courts: ["ABC"]}, {id: "MNO", name: 'Beverly Hills', courts: ["ABC", "DEF"]}];
     courts = [{id: "ABC", name: 'Black Jack Court'}, {id: "DEF", name: 'Beverly Hills Court'}];
 
-    inject(function($controller, $state, $httpBackend, TicketFinder){
+    inject(function($controller, $state, $httpBackend, TicketFinder, $window){
       HomeCtrl = $controller('HomeCtrl',{
         $state: $state,
+        $window: $window,
         municipalities: municipalities,
         courts: courts,
         TicketFinder: TicketFinder
@@ -42,13 +53,13 @@ describe('HomeCtrl', function() {
     expect(HomeCtrl.finderSelected).toEqual(TicketFinder.TicketFinderToSelect.DUMMY);
   }));
 
-  it('goes to court search results page',inject(function($state){
-    spyOn($state,'go');
+  it('goes to court search results page in a new window',inject(function($window, $state){
+    spyOn($state,'href');
     HomeCtrl.selectedCitySearchGroup = { municipalityName:"someMuni", court: {id: "HIJ"} };
 
     HomeCtrl.onCitySearchGroupSelected();
-
-    expect($state.go).toHaveBeenCalledWith('courtSearchInfo',{courtId:HomeCtrl.selectedCitySearchGroup.court.id});
+    expect($state.href).toHaveBeenCalledWith('courtSearchInfo', {courtId : 'HIJ'});
+    expect($window.open).toHaveBeenCalled();
   }));
 
   it('clears TicketFinderToSelect',inject(function(TicketFinder){
