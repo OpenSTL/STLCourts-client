@@ -45,6 +45,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
+    "start": "grunt serve:uionly",
+    "start-local": "grunt serve:local",
     "test": "grunt test:local",
     "test-watch": "karma start --auto-watch --no-single-run"
   },

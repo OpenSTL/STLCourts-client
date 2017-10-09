@@ -5,8 +5,8 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
   ctrl.citationCriteria = {};
   ctrl.maxSearchMunicipalities = MAX_SEARCH_MUNICIPALITIES;
-  var openScrollToId = ctrl.openScrollToId?ctrl.openScrollToId:"footer";
-  var closeScrollToId = ctrl.closeScrollToId?ctrl.closeScrollToId:"top";
+  var openScrollToId = ctrl.openScrollToId ? ctrl.openScrollToId : 'footer';
+  var closeScrollToId = ctrl.closeScrollToId ? ctrl.closeScrollToId : 'top';
   var isBoxOpened = false;
 
   function initializeCitationCriteria() {
@@ -24,16 +24,16 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.selectTicketFinder = function(TicketFinderToSelect){
     initializeCitationCriteria();
     ctrl.selectFinder(TicketFinderToSelect);
-    if (TicketFinderToSelect == TicketFinder.TicketFinderToSelect.NONE) {
+    if (TicketFinderToSelect === TicketFinder.TicketFinderToSelect.NONE) {
       $scope.$broadcast('scrollToLocation',closeScrollToId,false);
     }
   };
 
   ctrl.isSelected = function(){
-    if (ctrl.finderSelected == ctrl.currentTicketFinder){
+    if (ctrl.finderSelected === ctrl.currentTicketFinder){
       if (!isBoxOpened) { //if the box is opened already, then it has scrolled. don't keep scrolling
         isBoxOpened = true;
-        $scope.$broadcast('scrollToLocation',openScrollToId,true);
+        $scope.$broadcast('scrollToLocation', openScrollToId, true);
       }
       return true;
     }else{
@@ -61,14 +61,6 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
     }
   };
 
-  function numberOfMunicipalitiesSelectedIsValid(){
-    if (ctrl.finderSelected == ctrl.TicketFinderToSelect.LOCATION){
-      return  (ctrl.citationCriteria.municipalities.length <= 5);
-    }else{
-      return true;
-    }
-  }
-
   ctrl.findTicket = function() {
     var params = {
       dob: ctrl.citationCriteria.dob,
@@ -90,9 +82,9 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
 
     Citations.find(params).then(function(result){
       if(result.length > 0) {
-        $state.go('citationInfo', {citations: result  });
+        $state.go('citationInfo', {citations: result});
       } else {
-        $rootScope.$broadcast('stlCourtsCustomError',Errors.makeError(Errors.ERROR_CODE.NO_CITATIONS_FOUND,"No tickets found."));
+        $rootScope.$broadcast('stlCourtsCustomError',Errors.makeError(Errors.ERROR_CODE.NO_CITATIONS_FOUND,'No tickets found.'));
       }
     }, function(){
       toaster.pop('error', 'Oh no! We couldn\'t get your ticket information!');
