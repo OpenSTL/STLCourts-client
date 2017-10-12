@@ -25,7 +25,7 @@ describe('LegalRights', function() {
     };
 
     LegalRights.openLegalRightsLink(court);
-    expect(mockWindow.open).toHaveBeenCalledWith("/data/court_rights/me.pdf");
+    expect(mockWindow.open).toHaveBeenCalledWith("/data/court_rights/me.pdf","_blank");
 
     court = {
       rights_type: "PDF",
@@ -33,7 +33,7 @@ describe('LegalRights', function() {
     };
 
     LegalRights.openLegalRightsLink(court);
-    expect(mockWindow.open).toHaveBeenCalledWith("/data/court_rights/Default.pdf");
+    expect(mockWindow.open).toHaveBeenCalledWith("/data/court_rights/Default.pdf","_blank");
 
     court = {
       rights_type: "LINK",
@@ -41,7 +41,7 @@ describe('LegalRights', function() {
     };
 
     LegalRights.openLegalRightsLink(court);
-    expect(mockWindow.open).toHaveBeenCalledWith("someLink");
+    expect(mockWindow.open).toHaveBeenCalledWith("someLink","_blank");
 
   }));
 });

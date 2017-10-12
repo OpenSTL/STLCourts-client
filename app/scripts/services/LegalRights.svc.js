@@ -2,7 +2,7 @@
 
 angular.module('yourStlCourts').factory('LegalRights', function ($window) {
   function openLegalRightsLink(court){
-    $window.open(legalRightsLink(court));
+    $window.open(legalRightsLink(court),'_blank');
   }
 
   function legalRightsLink(court) {
