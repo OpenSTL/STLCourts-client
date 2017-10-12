@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $state, municipalities, courts, $window) {
+angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $state, municipalities, courts) {
   var ctrl = this;
   ctrl.citySearchGroups = [];
   ctrl.municipalities = municipalities;
@@ -16,8 +16,7 @@ angular.module('yourStlCourts').controller('HomeCtrl', function (TicketFinder, $
   };
 
   ctrl.onCitySearchGroupSelected  = function(){
-    var url = $state.href('courtSearchInfo', {courtId : ctrl.selectedCitySearchGroup.court.id});
-    $window.open(url,'_blank');
+    $state.go('courtSearchInfo', {courtId : ctrl.selectedCitySearchGroup.court.id});
   };
 
   ctrl.groupCourts = function(citySearchGroup) {
