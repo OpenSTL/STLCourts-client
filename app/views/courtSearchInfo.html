@@ -16,7 +16,7 @@
 
         <div class="topMargin bottomMargin" ng-if="ctrl.courtWebsite">
           <h2 class="no-indent">Website</h2>
-          <p class="website no-indent" ng-bind-html="ctrl.courtWebsite | linky"></p>
+          <p class="website no-indent" ng-bind-html="ctrl.courtWebsite | linky:'_blank'"></p>
         </div>
 
         <div class="topMargin bottomMargin">
