@@ -185,6 +185,10 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.selectedCitation.courtDirectionLink).toEqual(expectedAddress);
   }));
 
+  it('does not set selected citation when multiple and not stored in session', function () {
+    expect(CitationInfoCtrl.selectedCitation).toBeNull();
+  });
+
   it('correctly sets selected paymentUrl', inject(function (Courts, $q, $rootScope) {
     var deferred = $q.defer();
     deferred.resolve(court);
@@ -201,10 +205,6 @@ describe('CitationInfoCtrl', function () {
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
 
-    CitationInfoCtrl.selectCitation(null);
-    $rootScope.$apply();
-    expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
-
     CitationInfoCtrl.selectCitation(citationWithViolations,'someId');
     CitationInfoCtrl.paymentUrl = "someUrl";
     $rootScope.$apply();
@@ -219,12 +219,6 @@ describe('CitationInfoCtrl', function () {
     CitationInfoCtrl.paymentUrl = "";
     $rootScope.$apply();
     expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
-  }));
-
-  it('correctly sets selected citation when citation is null', inject(function () {
-    CitationInfoCtrl.selectCitation(null);
-
-    expect(CitationInfoCtrl.selectedCitation).toBe(null);
   }));
 
   it('returns correct result for hasWarrant', inject(function () {

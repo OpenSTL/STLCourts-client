@@ -112,7 +112,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         courts: function (Courts) {
           return Courts.findAll();
         },
-        citations: function ($stateParams,Session,Courts) {
+        citations: function ($stateParams, Session) {
           var citations = Session.getLatestCitations();
           if ($stateParams.citations){
             citations = $stateParams.citations;
