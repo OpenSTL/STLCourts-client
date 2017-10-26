@@ -414,7 +414,8 @@ module.exports = function (grunt) {
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*',
-            'data/*.json'
+            'data/*.json',
+            'data/court_rights/*.pdf'
           ]
         }, {
           expand: true,
