@@ -128,6 +128,10 @@ describe('CitationInfoCtrl', function () {
 
   var expectedAddress = "https://maps.google.com?saddr=Current+Location&daddr=" + "123+Anystreet+anyCity+MO+12345";
 
+  var legalRights = {
+    openLegalRightsLink: jasmine.createSpy('openLegalRightsLink')
+  };
+
   beforeEach(function () {
     module('yourStlCourts');
 
@@ -146,7 +150,8 @@ describe('CitationInfoCtrl', function () {
         Session: session,
         courts: courts,
         moment: moment,
-        $anchorScroll:$anchorScroll
+        $anchorScroll:$anchorScroll,
+        LegalRights: legalRights
       });
     });
   });
@@ -180,6 +185,10 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.selectedCitation.courtDirectionLink).toEqual(expectedAddress);
   }));
 
+  it('does not set selected citation when multiple and not stored in session', function () {
+    expect(CitationInfoCtrl.selectedCitation).toBeNull();
+  });
+
   it('correctly sets selected paymentUrl', inject(function (Courts, $q, $rootScope) {
     var deferred = $q.defer();
     deferred.resolve(court);
@@ -196,10 +205,6 @@ describe('CitationInfoCtrl', function () {
     deferred.resolve(court);
     spyOn(Courts, 'findById').and.returnValue(deferred.promise);
 
-    CitationInfoCtrl.selectCitation(null);
-    $rootScope.$apply();
-    expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
-
     CitationInfoCtrl.selectCitation(citationWithViolations,'someId');
     CitationInfoCtrl.paymentUrl = "someUrl";
     $rootScope.$apply();
@@ -214,12 +219,6 @@ describe('CitationInfoCtrl', function () {
     CitationInfoCtrl.paymentUrl = "";
     $rootScope.$apply();
     expect (CitationInfoCtrl.showPaymentButton()).toBe(false);
-  }));
-
-  it('correctly sets selected citation when citation is null', inject(function () {
-    CitationInfoCtrl.selectCitation(null);
-
-    expect(CitationInfoCtrl.selectedCitation).toBe(null);
   }));
 
   it('returns correct result for hasWarrant', inject(function () {
@@ -349,5 +348,17 @@ describe('CitationInfoCtrl', function () {
 
     expect(_.size(CitationInfoCtrl.groupedCitations)).toBe(1);
     expect(CitationInfoCtrl.issueMultiplePeopleWarning()).toBe(false);
+  }));
+
+  it('calls LegalRights svc', inject(function($q, Courts, $rootScope){
+    var deferred = $q.defer();
+    deferred.resolve(court);
+    spyOn(Courts, 'findById').and.returnValue(deferred.promise);
+
+    CitationInfoCtrl.selectCitation(citation,'someId');
+    $rootScope.$apply();
+
+    CitationInfoCtrl.openLegalRightsLink({});
+    expect(legalRights.openLegalRightsLink).toHaveBeenCalledWith(court);
   }));
 });

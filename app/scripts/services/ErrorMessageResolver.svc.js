@@ -12,6 +12,10 @@ angular.module('yourStlCourts').factory('errorMessageResolver', function ($q) {
     };
   }
 
+  function dasherizeFromCamel(camelString){
+      return camelString.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+  }
+
   var errorMessages = {
       defaultMsg: 'This field is invalid',
       email: 'Email address is not valid',
@@ -23,7 +27,8 @@ angular.module('yourStlCourts').factory('errorMessageResolver', function ($q) {
       date: 'Date is invalid',
       pattern: '{0} format is invalid',
       number: '{0} must be a valid number',
-      url: '{0} must be a valid URL in the format of http(s)://wwww.google.com'
+      url: '{0} must be a valid URL in the format of http(s)://wwww.google.com',
+      restrictNumberOfMunicipalities: 'A maximum of {1} municipalities may be selected at any one time.'
     },
 
     resolve = function (errorType, el) {
@@ -40,7 +45,7 @@ angular.module('yourStlCourts').factory('errorMessageResolver', function ($q) {
 
           var validationParam = el.attr('ng-' + errorType);
           if (validationParam === undefined) {
-            validationParam = el.attr('data-ng-' + errorType) || el.attr(errorType);
+            validationParam = el.attr('data-ng-' + errorType) || el.attr(errorType) || el.attr(dasherizeFromCamel(errorType));
           }
 
           errMsg = errMsg.errorFormat(name, validationParam);

@@ -47,7 +47,6 @@ describe('HomeCtrl', function() {
     HomeCtrl.selectedCitySearchGroup = { municipalityName:"someMuni", court: {id: "HIJ"} };
 
     HomeCtrl.onCitySearchGroupSelected();
-
     expect($state.go).toHaveBeenCalledWith('courtSearchInfo',{courtId:HomeCtrl.selectedCitySearchGroup.court.id});
   }));
 

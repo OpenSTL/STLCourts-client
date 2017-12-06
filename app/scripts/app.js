@@ -56,11 +56,6 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         }
       }
     })
-    .state('info', {
-      url: '/info',
-      controller: 'InfoCtrl as ctrl',
-      templateUrl: 'views/info.html'
-    })
     .state('goingToCourt', {
       url: '/goingToCourt',
       controller: 'GoingToCourtCtrl as ctrl',
@@ -117,7 +112,7 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
         courts: function (Courts) {
           return Courts.findAll();
         },
-        citations: function ($stateParams,Session,Courts) {
+        citations: function ($stateParams, Session) {
           var citations = Session.getLatestCitations();
           if ($stateParams.citations){
             citations = $stateParams.citations;

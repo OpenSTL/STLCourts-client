@@ -1,11 +1,12 @@
 'use strict';
-angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors) {
+angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketFinder, Citations, States, Municipalities, $uibModal, toaster, $state, $scope,$rootScope, Errors, MAX_SEARCH_MUNICIPALITIES) {
   var ctrl = this;
   ctrl.states = States;
   ctrl.TicketFinderToSelect = TicketFinder.TicketFinderToSelect;
   ctrl.citationCriteria = {};
-  var openScrollToId = ctrl.openScrollToId?ctrl.openScrollToId:"footer";
-  var closeScrollToId = ctrl.closeScrollToId?ctrl.closeScrollToId:"top";
+  ctrl.maxSearchMunicipalities = MAX_SEARCH_MUNICIPALITIES;
+  var openScrollToId = ctrl.openScrollToId ? ctrl.openScrollToId : 'footer';
+  var closeScrollToId = ctrl.closeScrollToId ? ctrl.closeScrollToId : 'top';
   var isBoxOpened = false;
 
   function initializeCitationCriteria() {
@@ -23,16 +24,16 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
   ctrl.selectTicketFinder = function(TicketFinderToSelect){
     initializeCitationCriteria();
     ctrl.selectFinder(TicketFinderToSelect);
-    if (TicketFinderToSelect == TicketFinder.TicketFinderToSelect.NONE) {
+    if (TicketFinderToSelect === TicketFinder.TicketFinderToSelect.NONE) {
       $scope.$broadcast('scrollToLocation',closeScrollToId,false);
     }
   };
 
   ctrl.isSelected = function(){
-    if (ctrl.finderSelected == ctrl.currentTicketFinder){
+    if (ctrl.finderSelected === ctrl.currentTicketFinder){
       if (!isBoxOpened) { //if the box is opened already, then it has scrolled. don't keep scrolling
         isBoxOpened = true;
-        $scope.$broadcast('scrollToLocation',openScrollToId,true);
+        $scope.$broadcast('scrollToLocation', openScrollToId, true);
       }
       return true;
     }else{
@@ -41,17 +42,18 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
     }
   };
 
-  ctrl.getDOB = function(){
-    if(ctrl.ticketForm.$valid) {
+  ctrl.getDOB = function(form){
+    if (form.$valid) {
       var modalInstance = $uibModal.open({
-        animation:false, //allows focus cursor to stay in input box on edge & IE browsers
-        templateUrl: 'views/dobPicker.html',
-        controller: 'dobPickerCtrl as ctrl',
+        animation: false, //allows focus cursor to stay in input box on edge & IE browsers
+        templateUrl: 'views/lookupSecurity.html',
+        controller: 'lookupSecurityCtrl as ctrl',
         size: 'sm'
       });
 
-      modalInstance.result.then(function (dob) {
-        ctrl.citationCriteria.dob = dob;
+      modalInstance.result.then(function (result) {
+        ctrl.citationCriteria.dob = result.dob;
+        ctrl.citationCriteria.lastName = result.lastName;
         ctrl.findTicket();
       });
     } else {
@@ -61,7 +63,8 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
 
   ctrl.findTicket = function() {
     var params = {
-      dob: ctrl.citationCriteria.dob
+      dob: ctrl.citationCriteria.dob,
+      lastName: ctrl.citationCriteria.lastName
     };
 
     switch(ctrl.finderSelected){
@@ -74,15 +77,14 @@ angular.module('yourStlCourts').controller('TicketFinderCtrl', function (TicketF
         break;
       case ctrl.TicketFinderToSelect.LOCATION:
         params.municipalityIds = _.map(ctrl.citationCriteria.municipalities, 'id');
-        params.lastName = ctrl.citationCriteria.lastName;
         break;
     }
 
     Citations.find(params).then(function(result){
       if(result.length > 0) {
-        $state.go('citationInfo', {citations: result  });
+        $state.go('citationInfo', {citations: result});
       } else {
-        $rootScope.$broadcast('stlCourtsCustomError',Errors.makeError(Errors.ERROR_CODE.NO_CITATIONS_FOUND,"No tickets found."));
+        $rootScope.$broadcast('stlCourtsCustomError',Errors.makeError(Errors.ERROR_CODE.NO_CITATIONS_FOUND,'No tickets found.'));
       }
     }, function(){
       toaster.pop('error', 'Oh no! We couldn\'t get your ticket information!');

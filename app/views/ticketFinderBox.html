@@ -1,4 +1,4 @@
-<form scrollable name="ctrl.ticketForm" ng-submit="ctrl.getDOB()" novalidate ng-submit-force="true">
+<form scrollable name="ticketForm" ng-submit="ctrl.getDOB(ticketForm)" novalidate ng-submit-force="true">
 <a class="showFullTileBox">
   <div class="thumbnail homepageTile centered" ng-if="!ctrl.isSelected()" ng-class="{'unselected' : !ctrl.isSelected()}" ng-click="ctrl.selectTicketFinder(ctrl.currentTicketFinder)">
     <div>
@@ -22,7 +22,7 @@
   </div>
   <div class="row" style="margin-top: 20px;" ng-if="ctrl.isSelected()">
     <div class="col-sm-12" style="text-align: center;">
-      <button class="ticket-finder-find-ticket-button btn btn-lg" style="margin-bottom: 20px" ng-disabled="!ctrl.ticketForm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
+      <button class="ticket-finder-find-ticket-button btn btn-lg" style="margin-bottom: 20px" ng-disabled="!ticketForm.$valid" type="submit"><i class="fa fa-search"></i>&nbsp;&nbsp;FIND TICKET</button>
     </div>
   </div>
 </a>

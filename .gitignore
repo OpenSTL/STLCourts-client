@@ -12,3 +12,5 @@
 
 app/scripts/envConfig.js
 coverage/
+package-lock.json
+.project

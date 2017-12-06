@@ -42,7 +42,8 @@ describe('TicketFinderCtrl', function() {
         TicketFinder: TicketFinder,
         $scope:$rootScope.$new(),
         $rootScope: $rootScope,
-        Errors:Errors
+        Errors:Errors,
+        MAX_SEARCH_MUNICIPALITIES: 5
       });
 
       TicketFinderCtrl.selectFinder = function (someValue) {
@@ -79,8 +80,8 @@ describe('TicketFinderCtrl', function() {
 
   it('should toast an error if form not valid',inject(function(toaster){
     spyOn(toaster,'pop');
-    TicketFinderCtrl.ticketForm = {$valid: false};
-    TicketFinderCtrl.getDOB();
+    var ticketForm = {$valid: false};
+    TicketFinderCtrl.getDOB(ticketForm);
     expect(toaster.pop).toHaveBeenCalledWith('error', 'Please provide the required information');
   }));
 
@@ -88,7 +89,7 @@ describe('TicketFinderCtrl', function() {
   //reference: http://stackoverflow.com/questions/21214868/mocking-modal-in-angularjs-unit-tests
     var dob = "03/17/1945";
     var modalDefer = $q.defer();
-    modalDefer.resolve(dob);
+    modalDefer.resolve({dob:dob,lastName:"someName"});
     var modalInstance = {
       result: modalDefer.promise
     };
@@ -96,23 +97,24 @@ describe('TicketFinderCtrl', function() {
     spyOn($uibModal, 'open').and.returnValue(modalInstance);
     spyOn(TicketFinderCtrl, 'findTicket');
 
-    TicketFinderCtrl.ticketForm = {
+    var ticketForm = {
       $valid: true
     };
 
-    TicketFinderCtrl.getDOB();
+    TicketFinderCtrl.getDOB(ticketForm);
 
     $rootScope.$apply();
 
     var expectedModalOptions = {
       animation:false,
-      templateUrl: 'views/dobPicker.html',
-      controller: 'dobPickerCtrl as ctrl',
+      templateUrl: 'views/lookupSecurity.html',
+      controller: 'lookupSecurityCtrl as ctrl',
       size: 'sm'
     };
 
     expect($uibModal.open).toHaveBeenCalledWith(expectedModalOptions);
     expect(TicketFinderCtrl.citationCriteria.dob).toEqual(dob);
+    expect(TicketFinderCtrl.citationCriteria.lastName).toEqual("someName");
     expect(TicketFinderCtrl.findTicket).toHaveBeenCalled();
   }));
 
@@ -166,14 +168,14 @@ describe('TicketFinderCtrl', function() {
       licenseNumber: null,
       licenseState: 'MO',
       firstName: null,
-      lastName: null,
+      lastName: 'myLastName',
       municipalityNames: null,
       dob: '03/17/1990'
     };
 
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',citationNumber:'123'});
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',lastName: 'myLastName', citationNumber:'123'});
   }));
 
   it('should set params.licenseNumber and params.licenseState correctly',inject(function(Citations,$rootScope,$q){
@@ -188,17 +190,17 @@ describe('TicketFinderCtrl', function() {
       licenseNumber: 'ABC',
       licenseState: 'MO',
       firstName: null,
-      lastName: null,
+      lastName: 'myLastName',
       municipalityNames: null,
       dob: '03/17/1990'
     };
 
     TicketFinderCtrl.findTicket();
     $rootScope.$apply();
-    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',licenseNumber: 'ABC',licenseState: 'MO'});
+    expect(Citations.find).toHaveBeenCalledWith({dob:'03/17/1990',lastName: 'myLastName',licenseNumber: 'ABC',licenseState: 'MO'});
   }));
 
-  it('should set params.municipalityNames and params.lastName correctly',inject(function(Citations,$q,$rootScope){
+  it('should set params.municipalityNames correctly',inject(function(Citations,$q,$rootScope){
     var deferred = $q.defer();
     deferred.resolve({citations:[]});
     spyOn(Citations,'find').and.returnValue(deferred.promise);
