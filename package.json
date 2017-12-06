@@ -1,6 +1,6 @@
 {
   "name": "yourSTLCourts-client",
-  "version": "0.9.0",
+  "version": "1.2.0",
   "private": true,
   "devDependencies": {
     "connect-modrewrite": "0.9.0",
