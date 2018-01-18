@@ -14,7 +14,7 @@ angular.module('yourStlCourts').controller('CitationsCtrl', function (Citations,
       };
       return Citations.find(params).then(function(result){
         if(result.length > 0) {
-          $state.go('citationInfo', {citations: result  });
+          $state.go('citationInfo', {citations: result, dob: params.dob});
         } else {
           $rootScope.$broadcast('stlCourtsCustomError',Errors.makeError(Errors.ERROR_CODE.NO_CITATIONS_FOUND,"No tickets found."));
         }

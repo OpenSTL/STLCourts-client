@@ -38,4 +38,9 @@ describe('Session', function() {
     expect(returnedCitation).toBe(null);
   });
 
+  it('correctly returns and formats latest dob', function(){
+    Session.setLatestDOB('2005-05-06');
+    expect(Session.getLatestDOB()).toEqual('05/06/2005');
+  });
+
 });
