@@ -312,7 +312,7 @@ describe('CitationInfoCtrl', function () {
     var isoDate = new Date("2016/02/16");
     expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("02/16/2016");
     isoDate = null;
-    expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("");
+    expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("Please contact the court for further information regarding your case.");
   }));
 
   it('correctly sets citationCourtLocations', function(){
