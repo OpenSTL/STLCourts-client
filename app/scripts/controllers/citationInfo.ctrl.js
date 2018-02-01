@@ -145,7 +145,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
     if (dateObjToFormat) {
       return moment(dateObjToFormat).format('MM/DD/YYYY');
     } else {
-      return '';
+      return 'Please contact the court for further information regarding your case.';
     }
   };
 
