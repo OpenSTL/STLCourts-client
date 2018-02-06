@@ -106,7 +106,8 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
       templateUrl: 'views/citationInfo.html',
       controller: 'CitationInfoCtrl as ctrl',
       params: {
-        citations: {value: undefined}
+        citations: {value: undefined},
+        dob: {value: undefined}
       },
       resolve: {
         courts: function (Courts) {
@@ -119,6 +120,12 @@ angular.module('yourStlCourts').config(function ($stateProvider, $urlRouterProvi
             Session.setLatestCitations(citations);
           }
           return citations;
+        },
+        dob: function ($stateParams, Session) {
+          if ($stateParams.dob){
+            Session.setLatestDOB($stateParams.dob);
+          }
+          return Session.getLatestDOB();
         },
         faqData: function ($http) {
           return $http.get('data/questionAnswers.json').then(function (data) {

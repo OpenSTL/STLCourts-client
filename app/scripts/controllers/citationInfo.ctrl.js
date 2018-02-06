@@ -1,11 +1,12 @@
 'use strict';
 
-angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData, $state, $window, citations, municipalities, courts, Courts, Session,
+angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData, $state, $window, citations, dob, municipalities, courts, Courts, Session,
                                                                          moment, $anchorScroll, LegalRights) {
   var ctrl = this;
   var PLACEHOLDER_DL_NUM = 'NO_DL_NUM';
 
   ctrl.faqData = faqData;
+  ctrl.dob = dob;
   ctrl.selectedCitation = null;
   ctrl.paymentUrl = '';
   ctrl.citationCourtLocations = {};
