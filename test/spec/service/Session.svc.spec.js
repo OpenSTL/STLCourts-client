@@ -38,9 +38,11 @@ describe('Session', function() {
     expect(returnedCitation).toBe(null);
   });
 
-  it('correctly returns and formats latest dob', function(){
+  it('correctly returns and date object', function(){
     Session.setLatestDOB('2005-05-06');
-    expect(Session.getLatestDOB()).toEqual('05/06/2005');
+    expect(Session.getLatestDOB().getFullYear()).toEqual(2005);
+    expect(Session.getLatestDOB().getDate()).toEqual(6);
+    expect(Session.getLatestDOB().getMonth()).toEqual(4);
   });
 
 });

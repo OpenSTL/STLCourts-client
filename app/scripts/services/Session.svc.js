@@ -27,21 +27,23 @@ angular.module('yourStlCourts').factory('Session', function () {
   }
 
   function setLatestDOB(dob){
-    latestDOB = formatDOB(dob);
+    //expects dob to be in form yyyy-mm-dd
+    latestDOB = convertDobToDate(dob);
   }
 
   function getLatestDOB(){
     return latestDOB;
   }
 
-  function formatDOB(dob){
-    //takes a date of form yyyy-mm-dd and converts to mm/dd/yyyy
+  function convertDobToDate(dob){
+    //takes a date of form yyyy-mm-dd
+
     var dobParts = dob.split('-');
     if (dobParts.length == 3){
-      return dobParts[1] + '/' + dobParts[2] + '/' + dobParts[0];
-
+      return new Date(dobParts[0], Number(dobParts[1])-1, dobParts[2]);
+      //return dobParts[1] + '/' + dobParts[2] + '/' + dobParts[0];
     }else{
-      return dob;
+      return new Date();
     }
   }
 
