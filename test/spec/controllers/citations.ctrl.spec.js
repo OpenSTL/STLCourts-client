@@ -49,7 +49,7 @@ describe('CitationsCtrl', function () {
     CitationsCtrl.viewCitation();
     $rootScope.$apply();
 
-    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}]});
+    expect($state.go).toHaveBeenCalledWith('citationInfo',{citations:[{},{}], dob: 'myDate'});
   }));
 
   it('should broadcast an error when no citations are found',inject(function(Citations,$rootScope,$q){

@@ -132,6 +132,8 @@ describe('CitationInfoCtrl', function () {
     openLegalRightsLink: jasmine.createSpy('openLegalRightsLink')
   };
 
+  var dob = '02/18/1950';
+
   beforeEach(function () {
     module('yourStlCourts');
 
@@ -146,6 +148,7 @@ describe('CitationInfoCtrl', function () {
         $state: $state,
         $window: $window,
         citations: citations,
+        dob: dob,
         Courts: Courts,
         Session: session,
         courts: courts,
@@ -159,6 +162,10 @@ describe('CitationInfoCtrl', function () {
   it('correctly sets faqData', inject(function () {
     expect(CitationInfoCtrl.faqData).toEqual(faqData);
   }));
+
+  it('correctly sets dob', function(){
+    expect(CitationInfoCtrl.dob).toEqual(dob);
+  });
 
   it('calls $anchorScroll', inject(function(Courts, $q, $rootScope){
     var deferred = $q.defer();
@@ -241,6 +248,7 @@ describe('CitationInfoCtrl', function () {
       $state: $state,
       $window: $window,
       citations: null,
+      dob: dob,
       Courts: Courts,
       courts: courts
     });
@@ -265,6 +273,7 @@ describe('CitationInfoCtrl', function () {
       $state: $state,
       $window: $window,
       citations: [citation],
+      dob: dob,
       Courts: Courts,
       courts: courts
     });
@@ -312,7 +321,7 @@ describe('CitationInfoCtrl', function () {
     var isoDate = new Date("2016/02/16");
     expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("02/16/2016");
     isoDate = null;
-    expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("");
+    expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("Please contact the court for further information regarding your case.");
   }));
 
   it('correctly sets citationCourtLocations', function(){
@@ -327,6 +336,7 @@ describe('CitationInfoCtrl', function () {
       $state: $state,
       $window: $window,
       citations: citationsDuplicate,
+      dob: dob,
       Courts: Courts,
       courts: courts
     });
@@ -342,6 +352,7 @@ describe('CitationInfoCtrl', function () {
       $state: $state,
       $window: $window,
       citations: citationsNonDuplicate,
+      dob: dob,
       Courts: Courts,
       courts: courts
     });
