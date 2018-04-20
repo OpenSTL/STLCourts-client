@@ -19,7 +19,7 @@ describe('Citations', function() {
     id: 6,
     citation_date: null,
     date_of_birth: "2004-02-28",
-    court_dateTime: "2006-04-10T12:30",
+    court_dateTime: "2006-04-10T12:30-5:00",
     violations: [{
       id:1,
       status_date: "2005-03-15"
