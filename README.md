@@ -1,32 +1,27 @@
-# Your STL Courts Response Web Application
+# STLCourts
 
-This project contains the source code for the Angular application at yourstlcourts.com (does not currently work with SSL due to ArcGIS Ajax calls)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
-## Build & development
+## Development server
 
-* Download & Install NodeJS (v4.x) w/ npm
-* Download & Install Ruby
-* Install grunt-cli `npm install -g grunt-cli`
-* Install bower `npm install -g bower`
-* Install app dependencies `npm install && bower install`
-* Install compass `gem install compass`
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-### Configs
-* local = use local API
-* uionly = use test API
-* production = use API at /api/ (presumably proxied)
+## Code scaffolding
 
-### Build
-Run `grunt build:(local|uionly|production)` for building and `grunt serve:(local|uionly|production)` for preview.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-### Development
-`grunt serve:local` - Runs the webapp, expecting a local copy of the services
-`grunt serve:uionly` - Runs the webapp, using the test.yourstlcourts.com web api
-`grunt serve:prod` - Runs the webapp, using the /api/ path for services expecting a proxy redirect
+## Build
 
-## Testing
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-* Install karma `npm install -g karma-cli`
-* Running `karma start test\karma.conf.js` will run the unit tests and re-run on file changes.
-... Alternatively, `cd test` and `karma start`
-* Running `grunt test:local` will run the unit tests a single time with karma.
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
