@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:/api/*
+Noindex: /api/*
+Sitemap: http://http://yourstlcourts.com/api/sitemap.xml
