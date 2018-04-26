@@ -152,7 +152,7 @@ angular.module('yourStlCourts').controller('CitationInfoCtrl', function (faqData
 
   ctrl.formatTime = function (dateTimeObjToFormat) {
     if (dateTimeObjToFormat) {
-      return moment(dateTimeObjToFormat).format('hh:mm A');
+      return moment.tz(dateTimeObjToFormat, ctrl.selectedCitation.court.zone_id).format('hh:mm A z');
     } else {
       return '';
     }

@@ -48,6 +48,7 @@ module.exports = function(config) {
       'bower_components/lodash/lodash.js',
       'bower_components/Autolinker.js/dist/Autolinker.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/moment-timezone/builds/moment-timezone-with-data-2012-2022.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/vendor/ui-leaflet.js',

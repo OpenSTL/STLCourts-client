@@ -106,7 +106,8 @@ describe('CitationInfoCtrl', function () {
     address: "123 Anystreet",
     city: "anyCity",
     state: "MO",
-    zip: "12345"
+    zip: "12345",
+    zone_id: "America/Chicago"
   };
 
   var court2 = {
@@ -322,6 +323,22 @@ describe('CitationInfoCtrl', function () {
     expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("02/16/2016");
     isoDate = null;
     expect(CitationInfoCtrl.formatDate(isoDate)).toEqual("Please contact the court for further information regarding your case.");
+  }));
+
+  it('correctlyFormatsTime', inject(function (Courts, $q, $rootScope) {
+    var deferred = $q.defer();
+    deferred.resolve(court);
+    spyOn(Courts, 'findById').and.returnValue(deferred.promise);
+
+    CitationInfoCtrl.selectCitation(citation,'someId');
+    $rootScope.$apply();
+
+    var isoDate = new Date("2018-04-20T22:46:49-05:00");
+    expect(CitationInfoCtrl.formatTime(isoDate)).toEqual("10:46 PM CDT");
+    CitationInfoCtrl.selectedCitation.court.zone_id = "America/New_York";
+    expect(CitationInfoCtrl.formatTime(isoDate)).toEqual("11:46 PM EDT");
+    isoDate = null;
+    expect(CitationInfoCtrl.formatTime(isoDate)).toEqual("");
   }));
 
   it('correctly sets citationCourtLocations', function(){

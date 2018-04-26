@@ -51,8 +51,8 @@
     "test-watch": "karma start --auto-watch --no-single-run"
   },
   "dependencies": {
-    "express": "^4.13.3",
-    "gzippo": "^0.2.0",
-    "morgan": "^1.6.1"
+    "express": "4.13.3",
+    "gzippo": "0.2.0",
+    "morgan": "1.6.1"
   }
 }
