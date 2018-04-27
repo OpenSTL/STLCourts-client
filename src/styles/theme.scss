@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+@import 'custom-palettes';
+@include mat-core();
+
+$stlcourt-app-primary: mat-palette($mat-stlcourts-green);
+$stlcourt-app-accent: mat-palette($mat-stlcourts-blue);
+$stlcourt-app-warn: mat-palette($mat-stlcourts-red);
+
+$stlcourt-app-theme: mat-light-theme($stlcourt-app-primary, $stlcourt-app-accent, $stlcourt-app-warn);
+
+@include angular-material-theme($stlcourt-app-theme);
+
