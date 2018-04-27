@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FooterComponent } from './footer/footer.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AppRoutingModule
   ],
   providers: [
     Title
