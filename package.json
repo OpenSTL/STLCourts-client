@@ -7,6 +7,7 @@
     "prod": "ng serve --env=prod",
     "dev": "ng serve --env=dev",
     "local": "ng serve --env=local",
+    "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
