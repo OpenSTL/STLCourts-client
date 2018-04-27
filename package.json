@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "prod": "ng serve --env=prod",
-    "test": "ng serve --env=dev",
+    "dev": "ng serve --env=dev",
     "local": "ng serve --env=local",
     "build": "ng build --prod",
     "test": "ng test",
