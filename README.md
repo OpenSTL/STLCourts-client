@@ -2,6 +2,9 @@
 
 ## Development server
 To Run the project, type the following in the console and navigate to 'http://localhost:4200' The app will automatically reload if you change any of the source files.
+Run 'npm start -- --env=[local|dev|prod]'
+
+Optionally the following are available as shortcuts:
 Run 'npm run local'  - this will use a local copy of the server
 Run 'npm run dev' - this will use a copy of the server from the test/development server
 Run 'npm run prod' - this will use a copy of the server from the production server
