@@ -5,10 +5,9 @@
   "scripts": {
     "ng": "ng",
     "prod": "ng serve --env=prod",
-    "test": "ng serve --env=dev",
+    "test": "ng test",
     "local": "ng serve --env=local",
     "build": "ng build --prod",
-    "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "g": "ng g"
@@ -16,11 +15,13 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "5.2.0",
+    "@angular/cdk": "5.2.5",
     "@angular/common": "5.2.0",
     "@angular/compiler": "5.2.0",
     "@angular/core": "5.2.0",
     "@angular/forms": "5.2.0",
     "@angular/http": "5.2.0",
+    "@angular/material": "5.2.5",
     "@angular/platform-browser": "5.2.0",
     "@angular/platform-browser-dynamic": "5.2.0",
     "@angular/router": "5.2.0",
