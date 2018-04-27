@@ -5,9 +5,10 @@
   "scripts": {
     "ng": "ng",
     "prod": "ng serve --env=prod",
-    "test": "ng test",
+    "dev": "ng serve --env=dev",
     "local": "ng serve --env=local",
     "build": "ng build --prod",
+    "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "g": "ng g"
