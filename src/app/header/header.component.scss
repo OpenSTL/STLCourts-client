@@ -1,0 +1,40 @@
+@import '../../styles/theme';
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+#stlHeaderInner{
+  padding: 1em;
+}
+img{
+  width: 200px;
+}
+
+.headerMenuLink{
+  text-decoration: none;
+  margin-left: 1em;
+  font-weight: bold;
+  color:$primary;
+  &:hover{
+    color:$accent;
+  }
+  &.active{
+    border-bottom: $accent solid 3px;
+  }
+}
+
+.headerMenuLinkCentered{
+  margin-top: 1em;
+}
+
+.headerMobileMenuButton{
+  color: $primary;
+  font-weight: bold;
+  &:hover{
+    color: $accent;
+    border-left: $primary solid 3px;
+  }
+}
+
+.headerMenuButton mat-icon{
+  @include icon-size-mixin(45px);
+}

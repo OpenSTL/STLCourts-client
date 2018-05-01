@@ -1,0 +1,61 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+#homeMainImage {
+  height: 400px;
+  background-image: url('../../assets/images/main-image-1920x400.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 1367px) {
+  #homeMainImage {
+    height: 285px;
+    background-image: url('../../assets/images/main-image-1366x285.jpg');
+  }
+}
+
+@media only screen and (max-width: 1095px) {
+  #homeMainImage {
+    height: 228px;
+  }
+}
+
+@media only screen and (max-width: 1025px) {
+  #homeMainImage {
+    height: 214px;
+    background-image: url('../../assets/images/main-image-1024x214.jpg');
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  #homeMainImage {
+    height: 161px;
+    background-image: url('../../assets/images/main-image-768x161.jpg');
+  }
+}
+
+@media only screen and (max-width: 451px) {
+  #homeMainImage {
+    height: 94px;
+    background-image: url('../../assets/images/main-image-450x94.jpg');
+  }
+}
+
+@media only screen and (max-width: 351px) {
+  #homeMainImage {
+    height: 67px;
+    background-image: url('../../assets/images/main-image-320x67.jpg');
+  }
+}
+
+#taskSelectionBoxes{
+  margin-top: 1.5em;
+}
+
+.taskSelectionBox{
+  padding: 1em;
+  text-align: center;
+  height: 300px;
+}
+

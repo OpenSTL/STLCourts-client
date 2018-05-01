@@ -1,3 +1,11 @@
-<p>
-  footer works!
-</p>
+<div id="stlFooter" fxLayout="row">
+  <div fxLayout.gt-md="row" fxLayout.lt-md="column">
+    <a fxHide.lt-md="true" class="firstFooterLink stlFooterLink fontSizeNormal" routerLink="">Home</a>
+    <a fxHide.lt-md="true" class="stlFooterLink fontSizeNormal" routerLink="/about">About</a>
+    <a class="stlFooterLink fontSizeNormal" routerLink="/legal">Legal Info</a>
+    <a class="stlFooterLink fontSizeNormal" routerLink="/privacy">Privacy Policy</a>
+    <a class="stlFooterLink fontSizeNormal" href="mailto:{{getContactEmail()}}">Contact</a>
+  </div>
+  <div class="fill-remaining-space"></div>
+  <div class="fontSizeNormal">&copy;{{copyRightYears()}} CivTech St. Louis</div>
+</div>

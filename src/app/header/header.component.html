@@ -1,3 +1,29 @@
-<p>
-  header works!
-</p>
+<div id="stlHeaderOuter">
+  <!-- insert text message component here -->
+  <div id="stlHeaderInner" fxLayout="row" fxLayout.md="column" fxLayoutAlign.md="center center">
+    <div>
+      <a routerLink="/">
+        <img src="assets/images/ystlc-logo.png"/>
+      </a>
+    </div>
+    <span class="fill-remaining-space"></span>
+
+    <div fxShow fxHide.lt-md="true" fxLayout="row" fxLayoutAlign="space-between end" ngClass.md="headerMenuLinkCentered">
+      <a class="headerMenuLink fontSizeMedium" routerLink="" routerLinkActive="active">Find Tickets/Courts</a>
+      <a class="headerMenuLink fontSizeMedium" routerLink="/goingToCourt" routerLinkActive="active">Going To Court</a>
+      <a class="headerMenuLink fontSizeMedium" routerLink="/communityService" routerLinkActive="active">Community Service</a>
+      <a class="headerMenuLink fontSizeMedium lastMenuLink" routerLink="/help" routerLinkActive="active">Help</a>
+    </div>
+
+    <div fxHide fxShow.lt-md="true" fxLayoutAlign="center center">
+      <button mat-button [matMenuTriggerFor]="menu" color="primary" class="headerMenuButton"><mat-icon>menu</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button class="headerMobileMenuButton" mat-menu-item>Find Tickets/Courts</button>
+        <button class="headerMobileMenuButton" mat-menu-item>Going To Court</button>
+        <button class="headerMobileMenuButton" mat-menu-item>Community Service</button>
+        <button class="headerMobileMenuButton" mat-menu-item>Help</button>
+      </mat-menu>
+    </div>
+
+  </div>
+</div>

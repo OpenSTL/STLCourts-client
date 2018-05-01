@@ -1,0 +1,20 @@
+@import '../../styles/theme';
+@import '../../styles/_sizes';
+
+#stlFooter {
+  min-height: 2em;
+  background-color: $primary;
+  padding: 1em;
+}
+
+.stlFooterLink {
+  text-decoration: none;
+  margin-left: 1em;
+  color: #000000;
+  &:hover{
+    color: $accent;
+  }
+  &:first-child{
+    margin-left: 0em !important;
+  }
+}

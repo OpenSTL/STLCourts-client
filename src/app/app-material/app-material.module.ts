@@ -12,6 +12,7 @@ import { MatButtonModule,
 
 import { MatChipsModule } from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -27,7 +28,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTooltipModule,
     MatAutocompleteModule,
     MatDialogModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCardModule
   ],
   exports: [
     MatButtonModule,
@@ -39,7 +41,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTooltipModule,
     MatAutocompleteModule,
     MatDialogModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCardModule
   ],
   declarations: []
 })
