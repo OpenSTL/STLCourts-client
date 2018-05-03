@@ -5,16 +5,25 @@
 #stlHeaderInner{
   padding: 1em;
 }
-img{
-  width: 200px;
+
+#logo{
+  a:focus,
+  a:active{
+    border: 1px solid $accent;
+  }
+  img{
+    width: 200px;
+  }
 }
 
 .headerMenuLink{
   text-decoration: none;
-  margin-left: 1em;
   font-weight: bold;
+  font-size: $fontSizeMedium;
   color:$primary;
-  &:hover{
+  &:hover,
+  &:focus,
+  &:active{
     color:$accent;
   }
   &.active{
@@ -29,7 +38,9 @@ img{
 .headerMobileMenuButton{
   color: $primary;
   font-weight: bold;
-  &:hover{
+  &:hover,
+  &:focus,
+  &:active{
     color: $accent;
     border-left: $primary solid 3px;
   }

@@ -1,29 +1,33 @@
-<div id="stlHeaderOuter">
+<header id="stlHeaderOuter">
   <!-- insert text message component here -->
   <div id="stlHeaderInner" fxLayout="row" fxLayout.md="column" fxLayoutAlign.md="center center">
-    <div>
-      <a routerLink="/">
-        <img src="assets/images/ystlc-logo.png"/>
-      </a>
-    </div>
+
+    <a id="logo" routerLink="/">
+      <img alt="Your STL Courts Log" role="link" src="assets/images/ystlc-logo.png"/>
+    </a>
+
     <span class="fill-remaining-space"></span>
 
-    <div fxShow fxHide.lt-md="true" fxLayout="row" fxLayoutAlign="space-between end" ngClass.md="headerMenuLinkCentered">
-      <a class="headerMenuLink fontSizeMedium" routerLink="" routerLinkActive="active">Find Tickets/Courts</a>
-      <a class="headerMenuLink fontSizeMedium" routerLink="/goingToCourt" routerLinkActive="active">Going To Court</a>
-      <a class="headerMenuLink fontSizeMedium" routerLink="/communityService" routerLinkActive="active">Community Service</a>
-      <a class="headerMenuLink fontSizeMedium lastMenuLink" routerLink="/help" routerLinkActive="active">Help</a>
-    </div>
+    <nav role="navigation" fxShow fxHide.lt-md="true" fxLayout="row" fxLayoutAlign="space-between end" ngClass.md="headerMenuLinkCentered" fxLayoutGap="1em ">
+      <a class="headerMenuLink" routerLink="" routerLinkActive="active">Home</a>
+      <a class="headerMenuLink" routerLink="/findCourts" routerLinkActive="active">Find Courts</a>
+      <a class="headerMenuLink" routerLink="/findTickets" routerLinkActive="active">Find Tickets</a>
+      <a class="headerMenuLink" routerLink="/goingToCourt" routerLinkActive="active">Going To Court</a>
+      <a class="headerMenuLink" routerLink="/communityService" routerLinkActive="active">Community Service</a>
+      <a class="headerMenuLink" routerLink="/help" routerLinkActive="active">Help</a>
+    </nav>
 
-    <div fxHide fxShow.lt-md="true" fxLayoutAlign="center center">
+    <nav role="navigation" fxHide fxShow.lt-md="true" fxLayoutAlign="center center">
       <button mat-button [matMenuTriggerFor]="menu" color="primary" class="headerMenuButton"><mat-icon>menu</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button class="headerMobileMenuButton" mat-menu-item>Find Tickets/Courts</button>
+        <button class="headerMobileMenuButton" mat-menu-item>Home</button>
+        <button class="headerMobileMenuButton" mat-menu-item>Find Courts</button>
+        <button class="headerMobileMenuButton" mat-menu-item>Find Tickets</button>
         <button class="headerMobileMenuButton" mat-menu-item>Going To Court</button>
         <button class="headerMobileMenuButton" mat-menu-item>Community Service</button>
         <button class="headerMobileMenuButton" mat-menu-item>Help</button>
       </mat-menu>
-    </div>
+    </nav>
 
   </div>
-</div>
+</header>

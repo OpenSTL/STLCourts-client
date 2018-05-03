@@ -2,19 +2,22 @@
 @import '../../styles/_sizes';
 
 #stlFooter {
-  min-height: 2em;
-  background-color: $primary;
+  min-height: 4em;
+  background-color: black;
   padding: 1em;
-}
+  color: $primary;
 
-.stlFooterLink {
-  text-decoration: none;
-  margin-left: 1em;
-  color: #000000;
-  &:hover{
-    color: $accent;
-  }
-  &:first-child{
-    margin-left: 0em !important;
+  .stlFooterLink {
+    text-decoration: none;
+    margin-left: 1em;
+    color: $primary;
+    &:hover,
+    &:focus,
+    &:active {
+      color: $accent;
+    }
+    &:first-child {
+      margin-left: 0em !important;
+    }
   }
 }

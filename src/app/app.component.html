@@ -1,5 +1,7 @@
-<app-header></app-header>
-
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>
+<div fxLayout="column" fxFlexFill>
+  <app-header></app-header>
+  <div fxFlex fxLayout="column">
+    <router-outlet hidden-router></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</div>
