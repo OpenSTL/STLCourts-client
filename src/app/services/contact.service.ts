@@ -5,6 +5,6 @@ export class ContactService {
 
   constructor() { }
 
-  email:string = "info@civtechstl.com";
+  email = 'info@civtechstl.com';
 
 }

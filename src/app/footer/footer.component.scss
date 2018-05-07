@@ -9,15 +9,11 @@
 
   .stlFooterLink {
     text-decoration: none;
-    margin-left: 1em;
     color: $primary;
     &:hover,
     &:focus,
     &:active {
       color: $accent;
-    }
-    &:first-child {
-      margin-left: 0em !important;
     }
   }
 }

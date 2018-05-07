@@ -8,7 +8,7 @@
 
     <span class="fill-remaining-space"></span>
 
-    <nav role="navigation" fxShow fxHide.lt-md="true" fxLayout="row" fxLayoutAlign="space-between end" ngClass.md="headerMenuLinkCentered" fxLayoutGap="1em ">
+    <nav id="dtMenu" role="navigation" fxShow fxHide.lt-md="true" fxLayout="row" fxLayoutAlign="space-between end" ngClass.md="headerMenuLinkCentered" fxLayoutGap="1em">
       <a class="headerMenuLink" routerLink="" routerLinkActive="active">Home</a>
       <a class="headerMenuLink" routerLink="/findCourts" routerLinkActive="active">Find Courts</a>
       <a class="headerMenuLink" routerLink="/findTickets" routerLinkActive="active">Find Tickets</a>
@@ -17,15 +17,15 @@
       <a class="headerMenuLink" routerLink="/help" routerLinkActive="active">Help</a>
     </nav>
 
-    <nav role="navigation" fxHide fxShow.lt-md="true" fxLayoutAlign="center center">
+    <nav id="mobileMenu" role="navigation" fxHide fxShow.lt-md="true" fxLayoutAlign="center center">
       <button mat-button [matMenuTriggerFor]="menu" color="primary" class="headerMenuButton"><mat-icon>menu</mat-icon></button>
-      <mat-menu #menu="matMenu">
-        <button class="headerMobileMenuButton" mat-menu-item>Home</button>
-        <button class="headerMobileMenuButton" mat-menu-item>Find Courts</button>
-        <button class="headerMobileMenuButton" mat-menu-item>Find Tickets</button>
-        <button class="headerMobileMenuButton" mat-menu-item>Going To Court</button>
-        <button class="headerMobileMenuButton" mat-menu-item>Community Service</button>
-        <button class="headerMobileMenuButton" mat-menu-item>Help</button>
+      <mat-menu id="mobileMenuButtons" #menu="matMenu">
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="">Home</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/findCourts">Find Courts</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/findTickets">Find Tickets</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/goingToCourt">Going To Court</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/communityService">Community Service</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/help">Help</button>
       </mat-menu>
     </nav>
 

@@ -8,15 +8,16 @@ import {ContactService} from '../services/contact.service';
 })
 export class FooterComponent {
 
-  constructor( private contactService:ContactService) { }
+  constructor( private contactService: ContactService) { }
 
-  copyRightYears = function(){
-    const startingYear:string = new Date(2016,0,1).getFullYear().toString();
-    let crStmt:string = startingYear;
+  copyRightYears = function() {
+    const startingYear: string = new Date(2016, 0, 1).getFullYear().toString();
+    let crStmt: string = startingYear;
     const today = new Date();
-    const year:number = today.getFullYear();
-    if (Number(year) > Number(startingYear))
-      crStmt = startingYear + "-" + year;
+    const year: number = today.getFullYear();
+    if (Number(year) > Number(startingYear)) {
+      crStmt = startingYear + '-' + year;
+    }
     return crStmt;
   };
 
