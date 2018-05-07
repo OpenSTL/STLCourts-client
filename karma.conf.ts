@@ -13,7 +13,6 @@ module.exports = function (config) {
       require('@angular/cli/plugins/karma'),
       require('karma-viewport')
     ],
-    types: 'karma-viewport',
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
