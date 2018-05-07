@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import {ContactService} from './services/contact.service';
+import { FindCourtsComponent } from './find-courts/find-courts.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {ContactService} from './services/contact.service';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    FindCourtsComponent
   ],
   imports: [
     BrowserModule,
