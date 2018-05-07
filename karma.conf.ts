@@ -13,8 +13,8 @@ module.exports = function (config) {
       require('@angular/cli/plugins/karma'),
       require('karma-viewport')
     ],
-
-    client:{
+    types: 'karma-viewport',
+    client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
@@ -27,21 +27,21 @@ module.exports = function (config) {
     viewport: {
       breakpoints: [
         {
-          name: "mobile",
+          name: 'mobile',
           size: {
             width: 320,
             height: 480
           }
         },
         {
-          name: "tablet",
+          name: 'tablet',
           size: {
             width: 768,
             height: 1024
           }
         },
         {
-          name: "screen",
+          name: 'screen',
           size: {
             width: 1440,
             height: 900

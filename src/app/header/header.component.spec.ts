@@ -83,7 +83,8 @@ describe('HeaderComponent', () => {
     expect(link.navigatedTo).toBe('/help');
   });
 
-  xit('should have mobileNavMenu link to correct urls', () => {
+  it('should have mobileNavMenu link to correct urls', () => {
+    viewport.set('mobile');
     const linkDes = fixture.debugElement.queryAll(By.css('#mobileMenuButtons button'));
     const links = linkDes.map(del => del.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
 
