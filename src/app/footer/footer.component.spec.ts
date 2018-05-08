@@ -70,11 +70,18 @@ describe('FooterComponent', () => {
     expect(aLinks[4].nativeElement.href).toBe('mailto:ContactMe');
   });
 
-  it('should return the correct copyright text', () => {
+  it('should return the correct copyright text in HTML', () => {
     const today = new Date();
     const todayYear = today.getFullYear().toString();
     const expected = '©2016-' + todayYear + ' CivTech St. Louis';
     const copyrightDiv = fixture.debugElement.query(By.css('#copyright')).nativeElement;
     expect(copyrightDiv.innerHTML).toEqual(expected);
+  });
+  it('should return the correct copyright text', () => {
+    const today = new Date();
+    const todayYear = today.getFullYear().toString();
+    const expected = '2016-' + todayYear;
+    const copyrightResult = component.copyRightYears();
+    expect(copyrightResult).toEqual(expected);
   });
 });
