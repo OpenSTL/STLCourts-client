@@ -2,8 +2,17 @@
 @import '../../styles/_sizes';
 
 #findCourtsPageTitle{
+  position: relative;
   font-size: 3vw;
   margin-bottom: .4em;
+  padding: 2em 0;
+  span {
+    color: white;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+  }
+  width: 100%;
 };
 
 #findCourtsPage {
@@ -20,21 +29,15 @@
   background-size:100% 100%;
   opacity: .3;
   z-index: 1;
-  background-image: url('../../assets/images/mainPage/court/court_7_4.jpg');
+  background-image: url('../../assets/images/mainPage/court/court_3_1.jpg');
 }
 
 form {
   text-align: center;
   z-index: 100;
   font-size: $fontSizeMedium;
-  * {
-    color: white !important;
-  }
+
   mat-form-field {
     width: 90%;
   }
-}
-
-.test {
-  z-index: 100;
 }
