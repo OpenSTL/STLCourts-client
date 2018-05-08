@@ -1,0 +1,19 @@
+@import '../../styles/theme';
+@import '../../styles/_sizes';
+
+#stlFooter {
+  min-height: 4em;
+  background-color: black;
+  padding: 1em;
+  color: $primary;
+
+  .stlFooterLink {
+    text-decoration: none;
+    color: $primary;
+    &:hover,
+    &:focus,
+    &:active {
+      color: $accent;
+    }
+  }
+}

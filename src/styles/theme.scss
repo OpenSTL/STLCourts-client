@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+@import '_colors';
+@include mat-core();
+
+$stlcourt-app-theme: mat-light-theme($stlcourt-app-primary, $stlcourt-app-accent, $stlcourt-app-warn);
+
+@include angular-material-theme($stlcourt-app-theme);

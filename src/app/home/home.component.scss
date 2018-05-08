@@ -1,0 +1,153 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+#homePageTitle{
+  font-size: 3vw;
+  margin-bottom: .4em;
+};
+
+mat-icon{
+  @include icon-size-mixin(10vw);
+  z-index: 100;
+}
+
+.homePageSelectionTileText{
+  font-size: 3vw;
+  z-index: 100;
+}
+
+/* fine tune page title and icon size for smaller screen size */
+@media screen and (max-width: 940px){
+  #homePageTitle{
+    font-size: 4vw;
+  };
+
+  mat-icon{
+    @include icon-size-mixin(12vw);
+  }
+
+  .homePageSelectionTileText{
+    font-size: 4vw;
+  }
+}
+
+.homePageSelector{
+  position: relative;
+  text-decoration: none;
+  &:hover,
+  &:focus,
+  &:active{
+    #courtSelector, #ticketSelector{
+      opacity: .8;
+    }
+  }
+}
+
+%basicSelector{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  opacity: .3;
+  z-index: 1;
+  ~ *{
+    color: white;
+  }
+  ~ span{
+    text-shadow: .3vw .3vw .5vw black;
+  }
+}
+
+#courtSelector {
+  @extend %basicSelector;
+  background-image: url('../../assets/images/mainPage/court/court_1_2.jpg');
+}
+
+#ticketSelector {
+  @extend %basicSelector;
+  background-image: url('../../assets/images/mainPage/ticket/ticket_1_2.jpg');
+}
+
+@media (min-aspect-ratio: 7/10) { //.7
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_1_2.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_1_2.jpg');
+  }
+}
+
+@media (min-aspect-ratio: 85/100) { //.85
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_3_4.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_3_4.jpg');
+  }
+}
+
+@media (min-aspect-ratio: 1/1) {
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_1_1.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_1_1.jpg');
+  }
+}
+
+@media (min-aspect-ratio: 11/10) { //1.1
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_3_4.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_3_4.jpg');
+  }
+}
+
+@media (min-aspect-ratio: 5/4) { //1.25
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_1_1.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_1_1.jpg');
+  }
+}
+
+@media (min-aspect-ratio: 3/2) { //1.5
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_3_2.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_3_2.jpg');
+  }
+}
+
+@media (min-aspect-ratio: 7/4) { //1.75
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_7_4.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_7_4.jpg');
+  }
+}
+
+@media (min-aspect-ratio: 5/2) { //2.5
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_5_2.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_5_2.jpg');
+  }
+}
+
+@media (min-aspect-ratio: 3/1) { //3
+  #ticketSelector {
+    background-image: url('../../assets/images/mainPage/ticket/ticket_3_1.jpg');
+  }
+  #courtSelector {
+    background-image: url('../../assets/images/mainPage/court/court_3_1.jpg');
+  }
+}

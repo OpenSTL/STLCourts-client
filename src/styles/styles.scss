@@ -1,0 +1,27 @@
+html {
+  height: 100%;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body{
+  position: relative;
+  margin:0px;
+  height: 100%;
+  font-size:16px;
+}
+
+.fill-remaining-space {
+  /* This fills the remaining sp  ace, by using flexbox. */
+  flex: 1 1 auto;
+}
+
+
+router-outlet + * { flex: 1 1 auto ; display: flex ; flex-direction: column ; }

@@ -1,0 +1,49 @@
+@import '~@angular/material/theming';
+@import 'custom-palettes';
+
+/* CHANGE THIS to change the theme colors */
+$stlcourt-app-primary: mat-palette($mat-stlcourts-blue);
+$stlcourt-app-accent: mat-palette($mat-stlcourts-green);
+$stlcourt-app-warn: mat-palette($mat-stlcourts-red);
+
+// Create your Sass color vars (will be available in all the project)
+$primary: mat-color($stlcourt-app-primary);
+$accent: mat-color($stlcourt-app-accent);
+$warn: mat-color($stlcourt-app-warn);
+
+.primary {
+  color: $primary;
+}
+.accent {
+  color:$accent;
+}
+.warn {
+  color:$warn;
+}
+
+$primary-contrast: mat-contrast($stlcourt-app-primary,500);
+$accent-contrast: mat-contrast($stlcourt-app-accent,500);
+$warn-contrast: mat-contrast($stlcourt-app-warn,500);
+
+.primary-contrast {
+  color: $primary-contrast;
+}
+.accent-contrast {
+  color:$accent-contrast;
+}
+.warn-contrast {
+  color:$warn-contrast;
+}
+
+.bkcolor-primary {
+  background-color: $primary;
+  color: $primary-contrast;
+}
+.bkcolor-accent {
+  background-color: $accent;
+  color: $accent-contrast;
+}
+.bkcolor-warn {
+  background-color: $warn;
+  color: $warn-contrast;
+}

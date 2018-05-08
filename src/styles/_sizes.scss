@@ -1,0 +1,17 @@
+/* Font Sizes */
+$fontSizeLarge: 2.5em;
+$fontSizeMedium: 1.5em;
+$fontSizeNormal: 1em;
+$fontSizeSmall: .8em;
+
+.fontSizeLarge{ font-size: $fontSizeLarge };
+.fontSizeMedium{ font-size: $fontSizeMedium };
+.fontSizeNormal{ font-size: $fontSizeNormal };
+.fontSizeSmall{ font-size: $fontSizeSmall };
+
+
+@mixin icon-size-mixin($size){
+  font-size: $size;
+  height: $size;
+  width: $size;
+}

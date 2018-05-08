@@ -1,0 +1,11 @@
+<footer id="stlFooter" fxLayout="row">
+  <nav role="navigation" fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1em">
+    <a fxHide.lt-md class="stlFooterLink fontSizeNormal" routerLink="">Home</a>
+    <a fxHide.lt-md class="stlFooterLink fontSizeNormal" routerLink="/about">About</a>
+    <a class="stlFooterLink fontSizeNormal" routerLink="/legal">Legal Info</a>
+    <a class="stlFooterLink fontSizeNormal" routerLink="/privacy">Privacy Policy</a>
+    <a class="stlFooterLink fontSizeNormal" href="mailto:{{getContactEmail()}}">Contact</a>
+  </nav>
+  <div class="fill-remaining-space"></div>
+  <div id="copyright" class="fontSizeNormal">&copy;{{copyRightYears()}} CivTech St. Louis</div>
+</footer>

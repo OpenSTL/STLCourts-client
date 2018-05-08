@@ -1,0 +1,32 @@
+<header id="stlHeaderOuter">
+  <!-- TODO: insert text message component here -->
+  <div id="stlHeaderInner" fxLayout="row" fxLayout.md="column" fxLayoutAlign.md="center center">
+
+    <a id="logo" routerLink="/">
+      <img alt="Your STL Courts Logo" role="link" src="assets/images/ystlc-logo.png"/>
+    </a>
+
+    <span class="fill-remaining-space"></span>
+
+    <nav id="dtMenu" role="navigation" fxShow fxHide.lt-md="true" fxLayout="row" fxLayoutAlign="space-between end" ngClass.md="headerMenuLinkCentered" fxLayoutGap="1em">
+      <a class="headerMenuLink" routerLink="" routerLinkActive="active">Home</a>
+      <a class="headerMenuLink" routerLink="/findCourts" routerLinkActive="active">Find Courts</a>
+      <a class="headerMenuLink" routerLink="/findTickets" routerLinkActive="active">Find Tickets</a>
+      <a class="headerMenuLink" routerLink="/goingToCourt" routerLinkActive="active">Going To Court</a>
+      <a class="headerMenuLink" routerLink="/communityService" routerLinkActive="active">Community Service</a>
+      <a class="headerMenuLink" routerLink="/help" routerLinkActive="active">Help</a>
+    </nav>
+
+    <nav id="mobileMenu" role="navigation" fxHide fxShow.lt-md="true" fxLayoutAlign="center center">
+      <button mat-button [matMenuTriggerFor]="menu" color="primary" class="headerMenuButton"><mat-icon>menu</mat-icon></button>
+      <mat-menu id="mobileMenuButtons" #menu="matMenu">
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="">Home</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/findCourts">Find Courts</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/findTickets">Find Tickets</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/goingToCourt">Going To Court</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/communityService">Community Service</button>
+        <button class="headerMobileMenuButton" mat-menu-item routerLink="/help">Help</button>
+      </mat-menu>
+    </nav>
+  </div>
+</header>
