@@ -1,7 +1,7 @@
 import {Judge} from './judge';
 
 export class Court {
-  id: number;
+  id: string;
   name: string;
   phone: string;
   website: string;

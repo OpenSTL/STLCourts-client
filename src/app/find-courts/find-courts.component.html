@@ -4,5 +4,15 @@
 
 <div  id="findCourtsPage" fxFlex="1" fxLayout="column" class="bkcolor-primary">
   <div id="findCourtsPageBackground"></div>
-  <div>Hi There</div>
+  <div fxFlex=".3 1 100%"></div>
+  <form fxFlex>
+    <mat-form-field>
+      <input id="selectCourtInput" matInput [placeholder]="courtSelectorPlaceholder" [formControl]="courtCtrl" [matAutocomplete]="auto" color="warn">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCourtSelected($event)">
+        <mat-option *ngFor="let court of courts" [value]="court.name">
+          <span>{{ court.name }}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 </div>

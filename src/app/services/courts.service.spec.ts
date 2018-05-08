@@ -20,14 +20,14 @@ describe('CourtsService', () => {
 
   });
 
-  it('should be created', inject([CourtsService], (service: CourtsService) => {
+  it('should be created', inject([CourtsService], () => {
     expect(service).toBeTruthy();
   }));
 
   it('should find all', () => {
     const dummyCourtData = [
-      { id: 1, name: 'One Court'},
-      { id: 2, name: 'Two Court'}
+      { id: '1', name: 'One Court'},
+      { id: '2', name: 'Two Court'}
     ];
 
     service.findAll().subscribe(courts => {
@@ -42,17 +42,17 @@ describe('CourtsService', () => {
 
   it('should findById', () => {
     const dummyCourtData = [
-      { id: 1, name: 'One Court'},
-      { id: 2, name: 'Two Court'}
+      { id: '1', name: 'One Court'},
+      { id: '2', name: 'Two Court'}
     ];
 
-    service.findById(2).subscribe(court => {
+    service.findById('2').subscribe(court => {
       expect(court.name).toEqual('Two Court');
     });
 
     const req = httpMock.expectOne(environment.baseUrl + '/courts/2');
     expect(req.request.method).toBe('GET');
-    req.flush(dummyCourtData);
+    req.flush(dummyCourtData[1]);
   });
 
 });

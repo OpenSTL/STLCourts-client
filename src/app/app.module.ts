@@ -12,6 +12,10 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import {ContactService} from './services/contact.service';
 import { FindCourtsComponent } from './find-courts/find-courts.component';
+import {CourtsService} from './services/courts.service';
+import {MunicipalitiesService} from './services/municipalities.service';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -27,11 +31,16 @@ import { FindCourtsComponent } from './find-courts/find-courts.component';
     BrowserAnimationsModule,
     AppMaterialModule,
     FlexLayoutModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title,
-    ContactService
+    ContactService,
+    CourtsService,
+    MunicipalitiesService
   ],
   bootstrap: [AppComponent]
 })

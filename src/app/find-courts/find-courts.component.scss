@@ -22,3 +22,19 @@
   z-index: 1;
   background-image: url('../../assets/images/mainPage/court/court_7_4.jpg');
 }
+
+form {
+  text-align: center;
+  z-index: 100;
+  font-size: $fontSizeMedium;
+  * {
+    color: white !important;
+  }
+  mat-form-field {
+    width: 90%;
+  }
+}
+
+.test {
+  z-index: 100;
+}
