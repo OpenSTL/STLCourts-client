@@ -6,6 +6,7 @@ import {MatAutocompleteSelectedEvent} from '@angular/material';
 import {Court} from '../models/court';
 import {CourtsService} from '../services/courts.service';
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-find-courts',
@@ -16,48 +17,57 @@ export class FindCourtsComponent implements OnInit {
 
   municipalities: Municipality[];
   courts: Court[];
-  courtSelectorPlaceholder: String = 'Find municipal court information...';
   courtCtrl: FormControl = new FormControl();
-  citySearchGroups: any = [];
+  muniSearchGroups: any = [];
 
   constructor( private muniService: MunicipalitiesService,
-               private courtService: CourtsService) { }
+               private courtService: CourtsService,
+               private router: Router) { }
 
   onCourtSelected(event: MatAutocompleteSelectedEvent) {
-    // this.court = find(this.courts, {'name': event.option.value});
+    this.router.navigate(['courts/' + event.option.value.id]);
   }
 
-  groupCourts(citySearchGroup) {
-    // undefined causes no group to be made
-    return citySearchGroup.municipalityCourtCount > 1 ? citySearchGroup.municipalityName : undefined;
-  }
-
-  populateCitySearchGroups() {
+  populateMuniSearchGroups() {
     const groups = [];
     const self = this;
     this.municipalities.forEach(function(municipality) {
+      const courts = [];
       municipality.courts.forEach(function(courtId) {
-        groups.push({
-          municipalityName: municipality.name,
-          municipalityCourtCount: municipality.courts.length,
-          court: self.courts.find(foundCourt => foundCourt.id === courtId )
-        });
+        courts.push(self.courts.find(foundCourt => foundCourt.id === courtId ));
+      });
+      groups.push({
+        municipalityName: municipality.name,
+        municipalityCourtCount: municipality.courts.length,
+        courts: courts
       });
     });
+    this.muniSearchGroups = groups;
+  }
 
-    this.citySearchGroups = groups;
+  getGroupLabel(muniGroup) {
+    return muniGroup.municipalityName;
+   /* if (muniGroup.municipalityCourtCount > 1) {
+      return muniGroup.municipalityName;
+    } else {
+      return '';
+    } */
+  }
+
+  getAutoCompleteDisplay(court?: Court): string | undefined {
+    return court ? court.name : undefined;
   }
 
 
   ngOnInit() {
-    const muniObs$ = this.muniService.findSupported(true);
+    const muniObs$ = this.muniService.findAll();
     const courtObs$ = this.courtService.findAll();
 
     Observable.zip( muniObs$, courtObs$, (munis: Municipality[], courts: Court[]) => ({munis, courts}))
     .subscribe(result => {
       this.municipalities = result.munis;
       this.courts = result.courts;
-      this.populateCitySearchGroups();
+      this.populateMuniSearchGroups();
     });
   }
 

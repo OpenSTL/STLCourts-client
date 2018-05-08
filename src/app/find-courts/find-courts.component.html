@@ -8,11 +8,17 @@
   <div fxFlex=".3 1 100%"></div>
   <form fxFlex>
     <mat-form-field>
-      <input id="selectCourtInput" matInput [placeholder]="courtSelectorPlaceholder" [formControl]="courtCtrl" [matAutocomplete]="auto" color="warn">
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCourtSelected($event)">
-        <mat-option *ngFor="let court of courts" [value]="court.name">
-          <span>{{ court.name }}</span>
-        </mat-option>
+      <input id="selectCourtInput" matInput placeholder="Find municipal court information..." [formControl]="courtCtrl" [matAutocomplete]="auto" color="warn">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCourtSelected($event)" [displayWith]="getAutoCompleteDisplay">
+        <mat-optgroup *ngFor="let muniGroup of muniSearchGroups" [class.muniAutoCompleteGroups]="true" [label]="getGroupLabel(muniGroup)">
+          <mat-option *ngFor="let court of muniGroup.courts" [value]="court">
+            <span class="muniAutoCompleteMuniName">{{ muniGroup.municipalityName }} </span>
+            <span class="muniAutoCompleteCourtName">({{court.name }})</span>
+          </mat-option>
+        </mat-optgroup>
+    <!--    <mat-option *ngFor="let searchGroup of citySearchGroups" [value]="searchGroup.court.name">
+          <span>{{ searchGroup.municipalityName }} ({{searchGroup.court.name }})</span>
+        </mat-option> -->
       </mat-autocomplete>
     </mat-form-field>
   </form>
