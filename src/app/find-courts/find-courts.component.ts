@@ -17,7 +17,8 @@ export class FindCourtsComponent implements OnInit {
 
   municipalities: Municipality[];
   courts: Court[];
-  courtCtrl: FormControl = new FormControl();
+  filteredMuniGroups: Observable<any[]>;
+  muniGroupCtrl: FormControl = new FormControl();
   muniSearchGroups: any = [];
 
   constructor( private muniService: MunicipalitiesService,
@@ -43,21 +44,41 @@ export class FindCourtsComponent implements OnInit {
       });
     });
     this.muniSearchGroups = groups;
+    this.assignFilteredMuniGroups();
   }
 
   getGroupLabel(muniGroup) {
-    return muniGroup.municipalityName;
-   /* if (muniGroup.municipalityCourtCount > 1) {
+    if (muniGroup.municipalityCourtCount > 1) {
       return muniGroup.municipalityName;
     } else {
       return '';
-    } */
+    }
   }
 
   getAutoCompleteDisplay(court?: Court): string | undefined {
     return court ? court.name : undefined;
   }
 
+  assignFilteredMuniGroups() {
+    this.filteredMuniGroups = this.muniGroupCtrl.valueChanges
+      .startWith(null)
+      .map(muniGroup => muniGroup ? this.filterAutoComplete(muniGroup) : this.muniSearchGroups.slice());
+  }
+
+  filterAutoComplete(typing: any) {
+    if (typeof typing === 'string') {
+      return this.muniSearchGroups.filter(muniGroup => {
+        if (muniGroup.municipalityName.toLowerCase().indexOf(typing.toLowerCase()) >= 0 ||
+          muniGroup.courts.find(court => court.name.toLowerCase().indexOf(typing.toLowerCase()) >= 0)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } else {
+      return true;
+    }
+  }
 
   ngOnInit() {
     const muniObs$ = this.muniService.findAll();

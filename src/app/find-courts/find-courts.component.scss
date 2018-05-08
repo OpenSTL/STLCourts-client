@@ -32,7 +32,7 @@
   background-image: url('../../assets/images/mainPage/court/court_3_1.jpg');
 }
 
-form {
+form {  //note styling for dropdown autocomplete is located in styles.scss under the class: .muniAutoCompleteGroups
   text-align: center;
   z-index: 100;
   font-size: $fontSizeMedium;
@@ -40,8 +40,4 @@ form {
   mat-form-field {
     width: 90%;
   }
-}
-
-.mat-optgroup-label {
-  display: none;
 }
