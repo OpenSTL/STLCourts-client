@@ -1,5 +1,6 @@
 html {
   height: 100%;
+  //min-height: 100%;
   margin: 0px;
   box-sizing: border-box;
   font-family: 'Source Sans Pro', sans-serif;
@@ -12,10 +13,16 @@ html {
 }
 
 body{
-  position: relative;
+  // position: relative;
   margin:0px;
   height: 100%;
   font-size:16px;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  height:100%;
 }
 
 .fill-remaining-space {
@@ -25,3 +32,15 @@ body{
 
 
 router-outlet + * { flex: 1 1 auto ; display: flex ; flex-direction: column ; }
+
+.flexContainer {
+  display: flex;
+  min-height:100%;
+  background-color: red;
+}
+
+.hidden-router {
+  flex: 1 1 auto;
+  display: flex;
+  overflow: hidden;
+}

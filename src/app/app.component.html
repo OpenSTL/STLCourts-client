@@ -1,7 +1,15 @@
-<div fxLayout="column" fxFlexFill>
+<!-- <div fxLayout="column" fxFlexFill>
   <app-header></app-header>
   <div fxFlex fxLayout="column">
     <router-outlet hidden-router></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</div>
+-->
+<div class="flexContainer" fxLayout="column">
+  <app-header></app-header>
+  <div fxFlex="1 1 100%">
+    <router-outlet class="hidden-router"></router-outlet>
   </div>
   <app-footer></app-footer>
 </div>
