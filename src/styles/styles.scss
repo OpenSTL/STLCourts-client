@@ -31,7 +31,19 @@ app-root {
 }
 
 
-router-outlet + * { flex: 1 1 auto ; display: flex ; flex-direction: column ; }
+// router-outlet + * { flex: 1 1 auto ; display: flex ; flex-direction: column ; }
+/*
+.wrapper {
+  display:block;
+  min-height:100%;
+} */
+
+app-home{
+  flex: 1 1 auto;
+  background-color: red;
+  flex-direction: column;
+  display: flex;
+}
 
 .flexContainer {
   display: flex;
@@ -39,8 +51,11 @@ router-outlet + * { flex: 1 1 auto ; display: flex ; flex-direction: column ; }
   background-color: red;
 }
 
+/*
 .hidden-router {
-  flex: 1 1 auto;
+  // flex: 1 1 auto;
+  flex: 0 0 auto;
   display: flex;
   overflow: hidden;
 }
+*/
