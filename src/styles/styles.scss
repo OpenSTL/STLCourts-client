@@ -14,19 +14,23 @@ html {
 }
 
 body{
-  position: relative;
   margin:0px;
   height: 100%;
   font-size:16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .fill-remaining-space {
-  /* This fills the remaining sp  ace, by using flexbox. */
+  /* This fills the remaining space, by using flexbox. */
   flex: 1 1 auto;
 }
 
+/*
+ * Make the Component injected by Router Outlet full height:
+ */
+router-outlet + * { flex: 1; display: flex; flex-direction: column }
 
-router-outlet + * { flex: 1 1 auto ; display: flex ; flex-direction: column ; }
 
 // findCourts Page
 .muniAutoCompleteGroups {
