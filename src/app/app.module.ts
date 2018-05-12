@@ -17,6 +17,7 @@ import {MunicipalitiesService} from './services/municipalities.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CourtsComponent } from './courts/courts.component';
+import { CourtTitleHeaderComponent } from './court-title-header/court-title-header.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CourtsComponent } from './courts/courts.component';
     FooterComponent,
     HomeComponent,
     FindCourtsComponent,
-    CourtsComponent
+    CourtsComponent,
+    CourtTitleHeaderComponent
   ],
   imports: [
     BrowserModule,

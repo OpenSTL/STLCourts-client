@@ -1,30 +1,47 @@
-<div  id="findCourtsPageTitle" class="bkcolor-primary" fxLayoutAlign="center">
-  <div id="findCourtsPageBackground"></div>
-  <span>Find Your Court</span>
-</div>
+<app-court-title-header headerText="Find Your Court"></app-court-title-header>
 
-<div  id="findCourtsPage" fxFlex="1" fxLayout="column" class="">
-  <div fxFlex=".1 1 100%"></div>
+<div  id="findCourtsPageContent" fxFlex="1" fxLayout="column">
+  <div fxFlex="1em"></div>
   <form fxFlex=".2 1 100%">
-    <mat-form-field>
-      <input id="selectCourtInput" matInput placeholder="Click here to find municipal court information..." [formControl]="muniGroupCtrl" [matAutocomplete]="auto" color="warn">
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCourtSelected($event)" [displayWith]="getAutoCompleteDisplay">
-        <mat-optgroup *ngFor="let muniGroup of filteredMuniGroups | async" [class.muniAutoCompleteGroups]="true" [label]="getGroupLabel(muniGroup)">
-          <mat-option *ngFor="let court of muniGroup.courts" [value]="court">
-            <span *ngIf="muniGroup.municipalityCourtCount > 1" class="muniAutoCompleteMuniName">{{ court.name }} </span>
-            <div *ngIf="muniGroup.municipalityCourtCount == 1">
-              <span class="muniAutoCompleteMuniName">{{ muniGroup.municipalityName }} </span>
-              <span class="muniAutoCompleteCourtName">({{court.name }})</span>
-            </div>
-          </mat-option>
-        </mat-optgroup>
-      </mat-autocomplete>
-    </mat-form-field>
+    <span id="selectCourtInputDecorator">
+      <mat-form-field>
+        <input id="selectCourtInput" matInput placeholder="Click here to find court information by municipality..." [formControl]="muniGroupCtrl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCourtSelected($event)" [displayWith]="getAutoCompleteDisplay">
+          <mat-optgroup *ngFor="let muniGroup of filteredMuniGroups | async" [class.muniAutoCompleteGroups]="true" [label]="getGroupLabel(muniGroup)">
+            <mat-option *ngFor="let court of muniGroup.courts" [value]="court">
+              <span *ngIf="muniGroup.municipalityCourtCount > 1" class="muniAutoCompleteMuniName">{{ court.name }} </span>
+              <div *ngIf="muniGroup.municipalityCourtCount == 1">
+                <span class="muniAutoCompleteMuniName">{{ muniGroup.municipalityName }} </span>
+                <span class="muniAutoCompleteCourtName">({{court.name }})</span>
+              </div>
+            </mat-option>
+          </mat-optgroup>
+        </mat-autocomplete>
+      </mat-form-field>
+    </span>
   </form>
 
-  <div fxFlex="grow" fxLayout="column" class="bkcolor-accent">
-    <a *ngFor="let muniGroup of muniSearchGroups">
-      {{ muniGroup.municipalityName }}
-    </a>
-  </div>
+  <div fxFlex="5em"></div>
+
+  <!-- desktop -->
+  <mat-grid-list fxShow.gt-md fxHide.lt-lg cols="3" rowHeight="2em">
+    <span *ngFor="let court of courts">
+      <mat-grid-tile><a routerLink="/courts/{{court.id}}" role="link">{{ court.name }}</a></mat-grid-tile>
+    </span>
+  </mat-grid-list>
+
+  <!-- tablet -->
+  <mat-grid-list fxShow.md fxHide cols="2" rowHeight="2em">
+    <span *ngFor="let court of courts">
+      <mat-grid-tile><a routerLink="/courts/{{court.id}}" role="link">{{ court.name }}</a></mat-grid-tile>
+    </span>
+  </mat-grid-list>
+
+  <!-- mobile -->
+  <mat-grid-list fxShow.lt-md fxHide.gt-sm cols="1" rowHeight="2em">
+    <span *ngFor="let court of courts">
+      <mat-grid-tile><a routerLink="/courts/{{court.id}}" role="link">{{ court.name }}</a></mat-grid-tile>
+    </span>
+  </mat-grid-list>
+
 </div>
