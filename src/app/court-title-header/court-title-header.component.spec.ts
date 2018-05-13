@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CourtTitleHeaderComponent } from './court-title-header.component';
+import {By} from '@angular/platform-browser';
 
 describe('CourtTitleHeaderComponent', () => {
   let component: CourtTitleHeaderComponent;
@@ -21,5 +22,12 @@ describe('CourtTitleHeaderComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it( 'should set title correctly', () => {
+    component.headerText = 'myTitle';
+    fixture.detectChanges();
+    const titleText = fixture.debugElement.query(By.css('span')).nativeElement.innerText;
+    expect( titleText ).toEqual('myTitle');
   });
 });

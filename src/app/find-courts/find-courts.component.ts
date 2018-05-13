@@ -7,6 +7,7 @@ import {Court} from '../models/court';
 import {CourtsService} from '../services/courts.service';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
+import {Meta} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-find-courts',
@@ -23,13 +24,21 @@ export class FindCourtsComponent implements OnInit {
 
   constructor( private muniService: MunicipalitiesService,
                private courtService: CourtsService,
-               private router: Router) { }
+               private router: Router,
+               private meta: Meta) {
+
+    this.meta.addTags([
+      {name: 'description', content: 'Your StlCourts Find Courts'},
+      {name: 'author', content: 'CivTechStl'},
+      {name: 'keywords', content: 'st. louis courts, st louis courts, court, municipal court'}
+    ]);
+  }
 
   onCourtSelected(event: MatAutocompleteSelectedEvent) {
     this.router.navigate(['courts/' + event.option.value.id]);
   }
 
-  populateMuniSearchGroups() {
+  private populateMuniSearchGroups() {
     const groups = [];
     const self = this;
     this.municipalities.forEach(function(municipality) {
@@ -59,7 +68,7 @@ export class FindCourtsComponent implements OnInit {
     return court ? court.name : undefined;
   }
 
-  assignFilteredMuniGroups() {
+  private assignFilteredMuniGroups() {
     this.filteredMuniGroups = this.muniGroupCtrl.valueChanges
       .startWith(null)
       .map(muniGroup => muniGroup ? this.filterAutoComplete(muniGroup) : this.muniSearchGroups.slice());
