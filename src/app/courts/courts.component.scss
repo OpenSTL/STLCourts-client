@@ -1,0 +1,13 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+mat-card {
+  width: 80% !important;
+  min-width: 80% !important;
+  margin-bottom: 1em;
+}
+
+#printButtonDiv {
+  margin: 1em 0;
+}
+

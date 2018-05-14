@@ -1,17 +1,39 @@
 /* Font Sizes */
-$fontSizeLarge: 2.5em;
-$fontSizeMedium: 1.5em;
-$fontSizeNormal: 1em;
-$fontSizeSmall: .8em;
+$fontSizeLarge: 2.5rem;
+$fontSizeMedium: 1.5rem;
+$fontSizeNormal: 1rem;
+$fontSizeSmall: .8rem;
 
 .fontSizeLarge{ font-size: $fontSizeLarge };
 .fontSizeMedium{ font-size: $fontSizeMedium };
 .fontSizeNormal{ font-size: $fontSizeNormal };
 .fontSizeSmall{ font-size: $fontSizeSmall };
 
+h1 {
+  font-size: $fontSizeLarge;
+}
+
+h2 {
+  font-size: $fontSizeMedium;
+  margin-bottom: .1em;
+}
+
+h3 {
+  font-size: $fontSizeNormal;
+}
 
 @mixin icon-size-mixin($size){
   font-size: $size;
   height: $size;
   width: $size;
+}
+
+
+button {
+  mat-icon {
+    @include icon-size-mixin(30px);
+  }
+  span {
+    font-size: $fontSizeMedium;
+  }
 }

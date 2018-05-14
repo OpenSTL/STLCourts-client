@@ -1,3 +1,47 @@
-<p>
-  courts works!  {{courtId}}
-</p>
+<app-court-title-header [headerText]="court?.name"></app-court-title-header>
+
+<div fxFlex="1 1 100%" fxLayout="row">
+  <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card fxFlexFill fxLayout="column" fxLayoutGap="1em">
+      <div>
+        <h2>Court Address</h2>
+        <address fxLayout="column">
+          <span>{{court?.address}}</span>
+          <span>{{court?.city}}, {{court?.state}} {{court?.zip}}</span>
+        </address>
+      </div>
+      <div>
+        <h2>Court Phone Number</h2>
+        <span>{{court?.phone}}</span>
+      </div>
+      <div>
+        <h2>Court Website</h2>
+        <a href="{{court?.website}}" target="_blank">{{court?.website}}</a>
+      </div>
+      <div>
+        <h2>Your Legal Rights</h2>
+        <a href="{{getLegalRightsLink()}}" target="_blank">{{court?.name}} Legal Rights</a>
+
+      </div>
+    </mat-card>
+  </div>
+  <div fxFlex="50" fxLayoutAlign="center center">
+    <mat-card fxFlexFill fxLayout="column" fxLayoutGap="1em">
+      <div fxFlex="1 1 100%">
+        <div *ngIf="optionsForMap" style="width:100%; height:100%;"
+           leaflet
+           [leafletOptions]="optionsForMap"
+           [leafletLayers]="layersForMap"
+           (leafletMapReady)="onMapReady($event)">
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <button mat-raised-button (click)="directions()">Get Directions</button>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div id="printButtonDiv" fxLayoutAlign="center">
+  <button mat-raised-button (click)="print()"><mat-icon>print</mat-icon><span> Print Info</span></button>
+</div>
