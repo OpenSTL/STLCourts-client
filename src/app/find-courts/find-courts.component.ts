@@ -28,9 +28,9 @@ export class FindCourtsComponent implements OnInit {
                private meta: Meta) {
 
     this.meta.addTags([
-      {name: 'description', content: 'Your StlCourts Find Courts'},
+      {name: 'description', content: 'Find information for many municipal courts in the St. Louis region.'},
       {name: 'author', content: 'CivTechStl'},
-      {name: 'keywords', content: 'st. louis courts, st louis courts, court, municipal court'}
+      {name: 'keywords', content: 'missouri court, missouri courts, st. louis court, st. louis ticket, st louis court, st louis ticket'}
     ]);
   }
 
