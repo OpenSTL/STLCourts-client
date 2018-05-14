@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Meta} from '@angular/platform-browser';
 import {CourtsService} from '../services/courts.service';
 import {Court} from '../models/court';
@@ -23,6 +23,7 @@ export class CourtsComponent implements OnInit {
   constructor( private route: ActivatedRoute,
                private courtService: CourtsService,
                private legalRightsService: LegalRightsService,
+               private router: Router,
                private meta: Meta) {
     this.meta.addTags([
       {name: 'description', content: 'Your StlCourts Court Information'},
@@ -34,7 +35,7 @@ export class CourtsComponent implements OnInit {
   private loadCourt() {
       this.court = this.courts.find( court => this.courtId === court.id );
       if ( this.court === undefined ) {
-        // route to error page
+        this.router.navigate(['']);
       } else {
         this.optionsForMap = {
           layers: [

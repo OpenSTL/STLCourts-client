@@ -20,7 +20,7 @@
       </div>
       <div>
         <h2>Your Legal Rights</h2>
-        <a href="{{getLegalRightsLink()}}" target="_blank">{{court?.name}} Legal Rights</a>
+        <a id="legalRightsLink" href="{{getLegalRightsLink()}}" target="_blank">{{court?.name}} Legal Rights</a>
 
       </div>
     </mat-card>
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div fxLayout="row" fxLayoutAlign="center">
-        <button mat-raised-button (click)="directions()">Get Directions</button>
+        <button id="directionsButton" mat-raised-button (click)="directions()">Get Directions</button>
       </div>
     </mat-card>
   </div>

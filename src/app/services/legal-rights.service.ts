@@ -6,7 +6,7 @@ export class LegalRightsService {
 
   constructor() { }
 
-  openLegalRightsLink(court: Court){
+  openLegalRightsLink(court: Court) {
     window.open(this.legalRightsLink(court), '_blank');
   }
 
