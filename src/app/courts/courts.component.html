@@ -1,8 +1,8 @@
 <app-court-title-header [headerText]="court?.name"></app-court-title-header>
 
-<div fxFlex="1 1 100%" fxLayout="row">
+<div fxFlex="1 1 100%" fxLayout.gt-xs="row" fxLayout.lt-sm="column">
   <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
-    <mat-card fxFlexFill fxLayout="column" fxLayoutGap="1em">
+    <mat-card ngClass.lt-sm="mobile" fxFlexFill fxLayout="column" fxLayoutGap="1em">
       <div>
         <h2>Court Address</h2>
         <address fxLayout="column">
@@ -26,9 +26,9 @@
     </mat-card>
   </div>
   <div fxFlex="50" fxLayoutAlign="center center">
-    <mat-card fxFlexFill fxLayout="column" fxLayoutGap="1em">
+    <mat-card ngClass.lt-sm="mobile" fxFlexFill fxLayout="column" fxLayoutGap="1em">
       <div fxFlex="1 1 100%">
-        <div *ngIf="optionsForMap" style="width:100%; height:100%;"
+        <div *ngIf="optionsForMap" ngStyle.gt-xs="width:100%; height:100%;" ngStyle.lt-sm="width:100%; height:250px;"
            leaflet
            [leafletOptions]="optionsForMap"
            [leafletLayers]="layersForMap"
@@ -42,6 +42,6 @@
   </div>
 </div>
 
-<div id="printButtonDiv" fxLayoutAlign="center">
+<div id="printButtonDiv" fxLayoutAlign="center" fxHide.lt-sm>
   <button mat-raised-button (click)="print()"><mat-icon>print</mat-icon><span> Print Info</span></button>
 </div>
