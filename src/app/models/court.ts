@@ -10,7 +10,7 @@ export class Court {
   paymentSystem: string;
   city: string;
   state: string;
-  zipCode: string;
+  zip: string;
   latitude: number;
   longitude: number;
   judges: Judge[];
@@ -29,7 +29,7 @@ export class Court {
     this.paymentSystem = '';
     this.city = '';
     this.state = '';
-    this.zipCode = '';
+    this.zip = '';
     this.latitude = null;
     this.longitude = null;
     this.judges = [];

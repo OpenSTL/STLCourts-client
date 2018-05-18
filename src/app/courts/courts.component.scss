@@ -1,0 +1,23 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+mat-card {
+  width: 80% !important;
+  min-width: 80% !important;
+  margin-bottom: 1em;
+  h2:first-child {
+    margin-top: 0;
+  }
+}
+
+mat-card.mobile {
+  width: 100% !important;
+  min-width: 100% !important;
+  box-shadow: none !important;
+  padding-top: 0px;
+}
+
+#printButtonDiv {
+  margin: 1em 0;
+}
+

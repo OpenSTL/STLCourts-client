@@ -19,6 +19,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CourtsComponent } from './courts/courts.component';
 import { CourtTitleHeaderComponent } from './court-title-header/court-title-header.component';
 
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import {LegalRightsService} from './services/legal-rights.service';
+
 
 @NgModule({
   declarations: [
@@ -38,13 +41,15 @@ import { CourtTitleHeaderComponent } from './court-title-header/court-title-head
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LeafletModule.forRoot()
   ],
   providers: [
     Title,
     ContactService,
     CourtsService,
-    MunicipalitiesService
+    MunicipalitiesService,
+    LegalRightsService
   ],
   bootstrap: [AppComponent]
 })
