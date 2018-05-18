@@ -1,13 +1,11 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Citation} from '../models/citation';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {CourtsService} from './courts.service';
 import {Court} from '../models/court';
 import * as moment from 'moment-timezone';
-import {catchError} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
 import {Router} from '@angular/router';
 
 

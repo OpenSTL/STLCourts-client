@@ -68,3 +68,15 @@ router-outlet + * { flex: 1; display: flex; flex-direction: column }
   }
 }
 
+// the following helps mat-error messages to not overlap other fields
+// see: https://github.com/angular/material2/issues/4580
+mat-form-field .mat-form-field {
+  &-underline {
+    position: relative;
+    bottom: auto;
+    // for Angular 6.0 remove lines above and add position: static;
+  }
+  &-subscript-wrapper {
+    position: static;
+  }
+}
