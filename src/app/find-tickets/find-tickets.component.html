@@ -18,7 +18,10 @@
       <a class="closeTicketFinderDetailsBoxButton" (click)="detailsBoxClose()"><mat-icon>close</mat-icon></a>
       <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
         <mat-form-field>
-          <input matInput placeholder="Ticket #" [formControl]="ticketNumCtrl">
+          <input matInput placeholder="Ticket #" [formControl]="ticketNumCtrl" required>
+          <mat-error *ngIf="ticketNumCtrl.hasError('required')">
+            Ticket number is required.
+          </mat-error>
         </mat-form-field>
         <button mat-button mat-raised-button color="primary" class="findTicketButton" (click)="openSecurityDialog()"><mat-icon>search</mat-icon>Find Ticket</button>
       </mat-card>
@@ -40,15 +43,21 @@
       <a class="closeTicketFinderDetailsBoxButton" (click)="detailsBoxClose()"><mat-icon>close</mat-icon></a>
       <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
         <mat-form-field>
-          <input matInput placeholder="Licesnse #" [formControl]="licenseNumCtrl">
+          <input matInput placeholder="Licesnse #" [formControl]="licenseNumCtrl" required>
+          <mat-error *ngIf="licenseNumCtrl.hasError('required')">
+            License number is required.
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="License State" [formControl]="statesCtrl" [matAutocomplete]="auto">
+          <input matInput placeholder="License State" [formControl]="statesCtrl" [matAutocomplete]="auto" required>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let state of filteredStates | async" [value]="state.abbreviation">
               {{state.fullName}}
             </mat-option>
           </mat-autocomplete>
+          <mat-error *ngIf="statesCtrl.hasError('required')">
+            State is required.
+          </mat-error>
         </mat-form-field>
 
         <button mat-button mat-raised-button color="primary" class="findTicketButton" (click)="openSecurityDialog()"><mat-icon>search</mat-icon>Find Ticket</button>
@@ -70,8 +79,11 @@
       <div class="mapBackgroundBox"></div>
       <a class="closeTicketFinderDetailsBoxButton" (click)="detailsBoxClose()"><mat-icon>close</mat-icon></a>
 
-      <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-card class="municipalityFinder" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
         <app-selected-municipalities [municipalities]="selectedMunicipalities" (removedMuni)="muniRemovedFromSelected($event)"></app-selected-municipalities>
+        <mat-error *ngIf="showSelectedMunicipalitesError()">
+          At least one municipality must be selected.
+        </mat-error>
         <mat-form-field>
           <input matInput placeholder="Select a City" [formControl]="muniCtrl" [matAutocomplete]="auto" (change)="onMuniChanged($event.target.value)">
           <mat-autocomplete #auto="matAutocomplete" [displayWith]="muniDisplayFn" (optionSelected)="onMuniChanged($event.option.value.name)">

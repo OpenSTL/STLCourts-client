@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Meta} from '@angular/platform-browser';
 import {MatAutocompleteSelectedEvent, MatDialog} from '@angular/material';
 import {SecurityDialogComponent} from '../security-dialog/security-dialog.component';
-import {FormControl} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
 import {State} from '../models/state';
 import {UsStatesService} from '../services/us-states.service';
 import {Court} from '../models/court';
@@ -32,9 +32,9 @@ export enum Showing {
 export class FindTicketsComponent implements OnInit {
   ShowingEnum = Showing;
   ticketFinderShowing: Showing;
-  ticketNumCtrl: FormControl = new FormControl();
-  licenseNumCtrl: FormControl = new FormControl();
-  statesCtrl: FormControl = new FormControl();
+  ticketNumCtrl: FormControl = new FormControl('', Validators.required);
+  licenseNumCtrl: FormControl = new FormControl('', Validators.required);
+  statesCtrl: FormControl = new FormControl('', Validators.required);
   muniCtrl: FormControl = new FormControl();
   states: State[];
   courts: Court[];
@@ -44,6 +44,7 @@ export class FindTicketsComponent implements OnInit {
   selectedMunicipalities: Municipality[];
   filteredStates: Observable<State[]>;
   filteredMunis: Observable<Municipality[]>;
+  selectedMunicipalitesShowError = false;
 
   constructor(private dialog: MatDialog,
               private usStates: UsStatesService,
@@ -82,7 +83,7 @@ export class FindTicketsComponent implements OnInit {
 
   detailsBoxClose() {
     this.ticketFinderShowing = Showing.All;
-    // TODO: reset data structures
+    this.selectedMunicipalitesShowError = false;
     this.statesCtrl.reset();
     this.muniCtrl.reset();
     this.ticketNumCtrl.reset();
@@ -91,32 +92,54 @@ export class FindTicketsComponent implements OnInit {
     this.selectedMunicipalities = [];
   }
 
-  openSecurityDialog() {
-    const dialogRef = this.dialog.open(SecurityDialogComponent);
+  showSelectedMunicipalitesError() {
+    return this.selectedMunicipalitesShowError && this.selectedMunicipalities.length === 0;
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const citationParams = new CitationParameters(result.dob,
-                                                      result.lastName,
-                                                      this.ticketNumCtrl.value,
-          this.licenseNumCtrl.value,
-          this.statesCtrl.value,
-          this.selectedMunicipalities.map((muni) => {
-            return muni.id;
-          })
+  openSecurityDialog() {
+    let isValid = false;
+    switch (this.ticketFinderShowing) {
+      case Showing.Have_Ticket:
+        isValid = this.ticketNumCtrl.valid;
+        this.ticketNumCtrl.markAsTouched();
+        break;
+      case Showing.Have_DL:
+        isValid = this.licenseNumCtrl.valid && this.statesCtrl.valid;
+        this.licenseNumCtrl.markAsTouched();
+        this.statesCtrl.markAsTouched();
+        break;
+      case Showing.Have_Location:
+        isValid = this.selectedMunicipalities.length > 0;
+        this.selectedMunicipalitesShowError = true;
+        break;
+    }
+
+    if (isValid) {
+      const dialogRef = this.dialog.open(SecurityDialogComponent);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          const citationParams = new CitationParameters(result.dob,
+            result.lastName,
+            this.ticketNumCtrl.value,
+            this.licenseNumCtrl.value,
+            this.statesCtrl.value,
+            this.selectedMunicipalities.map((muni) => {
+              return muni.id;
+            })
           );
 
-
-        this.citationService.find(citationParams.getHttpParams()).subscribe( (citations) => {
+          this.citationService.find(citationParams.getHttpParams()).subscribe((citations) => {
             this.citationService.setCurrentCitations(citations);
             if (citations.length > 0) {
               this.router.navigate(['tickets/info']);
             } else {
               this.router.navigate(['tickets/error/notFound']);
             }
-        });
-      }
-    });
+          });
+        }
+      });
+    }
   }
 
   openMapDialog() {

@@ -51,6 +51,14 @@
         font-size: $fontSizeMedium;
       }
       margin: 30px;
+      &.municipalityFinder {
+        min-width: 80%;
+
+        mat-form-field,
+        app-selected-municipalities {
+          width: 100%;
+        }
+      }
     }
 
     mat-form-field,

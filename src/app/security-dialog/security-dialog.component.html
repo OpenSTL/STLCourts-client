@@ -1,22 +1,22 @@
 <h1 mat-dialog-title>Security Confirmation</h1>
 <mat-dialog-content>
-  <form fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="start center">
+  <form fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="start center" [formGroup]="form">
     <span class="fontSizeMedium">In order to protect privacy, please provide your date of birth and last name.</span>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="MM/DD/YYYY" [formControl]="dobCtrl">
+      <input matInput [matDatepicker]="picker" placeholder="MM/DD/YYYY" id="dob" class="form-control" formControlName="dob">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="dobCtrl.invalid && (dobCtrl.dirty || dobCtrl.touched) && dobCtrl.hasError('required')">
+      <mat-error *ngIf="form.get('dob').hasError('required')">
         DOB is required.
       </mat-error>
-      <mat-error *ngIf="dobCtrl.hasError('validDobDate')">
-        {{dobCtrl.getError('validDobDate')}}
+      <mat-error *ngIf="form.get('dob').hasError('validDobDate')">
+        {{form.get('dob').getError('validDobDate')}}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Last Name" [formControl]="lastNameCtrl">
-      <mat-error *ngIf="lastNameCtrl.hasError('required')">
+      <input matInput placeholder="Last Name" id="lastName" class="form-control" formControlName="lastName">
+      <mat-error *ngIf="form.get('lastName').hasError('required')">
         Last name is required.
       </mat-error>
     </mat-form-field>
