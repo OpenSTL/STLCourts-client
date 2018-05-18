@@ -85,7 +85,9 @@
         z-index: 100;
       }
     }
-    &:hover{  /* Add Focus & Active... but after a click and then canceling the dialog...the box stays with the accent color permanetly */
+    &:hover,
+    &:focus,
+    &:active {
       .finderBoxInitialContent:not(.blackout) {
         cursor: pointer;
         background-color: $accent;
@@ -109,45 +111,3 @@
   }
 }
 
-/*
-
-.ticketFinderDetailsBox {
-  position: relative;
-  background-color: $accent;
-  z-index: 101;
-  mat-card {
-    position: relative;
-    top: -10vw;
-    min-width: 40vw;
-    min-height: 40vh;
-    @include mat-elevation(8);
-    #ticketPhotoBackground {
-      @extend %backgroundImageBox;
-      background-image: url('../../assets/images/mainPage/ticket/ticket_5_4.jpg');
-    }
-    #dlPhotoBackground {
-      @extend %backgroundImageBox;
-      background-image: url('../../assets/images/mainPage/ticket/car-background.jpg');
-    }
-    #locationPhotoBackground {
-      @extend %backgroundImageBox;
-      background-image: url('../../assets/images/mainPage/ticket/map-background-bw.jpg');
-    }
-    mat-form-field,
-    button,
-    .closeTicketFinderDetailsBoxButton {
-      z-index: 103;
-    }
-    .closeTicketFinderDetailsBoxButton {
-      cursor: pointer;
-    }
-  }
-
-  .closeTicketFinderDetailsBoxButton {
-    position:absolute;
-    top: 5px;
-    right: 5px;
-  }
-}
-
-*/

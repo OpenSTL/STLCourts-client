@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Meta} from '@angular/platform-browser';
-import {MatAutocompleteSelectedEvent, MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {SecurityDialogComponent} from '../security-dialog/security-dialog.component';
 import {FormControl, Validators} from '@angular/forms';
 import {State} from '../models/state';
@@ -10,7 +10,6 @@ import {CourtsService} from '../services/courts.service';
 import {MunicipalitiesService} from '../services/municipalities.service';
 import {Municipality} from '../models/municipality';
 import {Observable} from 'rxjs/Observable';
-import {map, startWith} from 'rxjs/operators';
 import {MapSelectDialogComponent} from '../map-select-dialog/map-select-dialog.component';
 import {CitationService} from '../services/citation.service';
 import {CitationParameters} from '../models/citation-parameters';
