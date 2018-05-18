@@ -1,3 +1,4 @@
+$stl-font-family: 'Source Sans Pro', sans-serif;
 /* Font Sizes */
 $fontSizeLarge: 2.5rem;
 $fontSizeMedium: 1.5rem;
@@ -36,4 +37,8 @@ button {
   span {
     font-size: $fontSizeMedium;
   }
+}
+
+mat-error {
+  font-size: $fontSizeSmall;
 }

@@ -1,0 +1,113 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+#border {
+  border-bottom: solid 4px black;
+}
+
+%backgroundImageBox {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat:no-repeat;
+  background-size:cover;
+  opacity: .3;
+  z-index: 1;
+}
+
+#ticketFinderBoxes {
+  .finderBoxInitialContent,
+  .ticketFinderDetailContent {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .ticketBackgroundBox {
+      @extend %backgroundImageBox;
+      background-image: url('../../assets/images/mainPage/ticket/ticket_1_1.jpg');
+    }
+    .carBackgroundBox {
+      @extend %backgroundImageBox;
+      background-image: url('../../assets/images/mainPage/ticket/car-background.jpg');
+    }
+    .mapBackgroundBox {
+      @extend %backgroundImageBox;
+      background-image: url('../../assets/images/mainPage/ticket/map-background-bw.jpg');
+    }
+  }
+  .ticketFinderDetailContent {
+    .closeTicketFinderDetailsBoxButton {
+      position:absolute;
+      top: 5px;
+      right: 5px;
+      z-index: 100;
+      cursor: pointer;
+    }
+    mat-card {
+      z-index: 100;
+      span {
+        font-weight: normal;
+        font-size: $fontSizeMedium;
+      }
+      margin: 30px;
+      &.municipalityFinder {
+        min-width: 80%;
+
+        mat-form-field,
+        app-selected-municipalities {
+          width: 100%;
+        }
+      }
+    }
+
+    mat-form-field,
+    button,
+    .closeTicketFinderDetailsBoxButton {
+      z-index: 100;
+    }
+
+    button.findTicketButton {
+      margin-top: 2.5em;
+    }
+  }
+
+  .ticketFinderBox {
+    .blackout {
+      .dimmingBox {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: .7;
+        z-index: 100;
+      }
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      .finderBoxInitialContent:not(.blackout) {
+        cursor: pointer;
+        background-color: $accent;
+      }
+    }
+  }
+  mat-icon{
+    z-index: 100;
+    @include icon-size-mixin(2rem);
+    &.decorator {
+      @include icon-size-mixin(10rem);
+    }
+  }
+  span {
+    z-index: 100;
+    font-size: $fontSizeLarge;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    text-shadow: 2px 2px 5px white;
+  }
+}
+

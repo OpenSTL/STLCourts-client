@@ -1,0 +1,20 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+span:first-child {
+  font-size: $fontSizeNormal;
+}
+
+mat-card {
+  width: 100%;
+  min-height: 40px;
+
+  span:first-child {
+    font-size: $fontSizeNormal;
+    font-weight: bold;
+  }
+}
+
+#warning {
+  color: $warn;
+}

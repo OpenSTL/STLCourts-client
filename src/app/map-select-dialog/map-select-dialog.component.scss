@@ -1,0 +1,26 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+h2 {
+  margin: 0px !important;
+}
+
+@media screen and (min-width: 300px){
+  #mapContainer {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+@media screen and (min-width: 625px){
+  #mapContainer {
+    width: 500px;
+    height: 400px;
+  }
+
+  app-selected-municipalities {
+    max-width: 500px;
+  }
+}
+
+

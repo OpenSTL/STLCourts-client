@@ -21,6 +21,18 @@ import { CourtTitleHeaderComponent } from './court-title-header/court-title-head
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import {LegalRightsService} from './services/legal-rights.service';
+import { FindTicketsComponent } from './find-tickets/find-tickets.component';
+import { SecurityDialogComponent } from './security-dialog/security-dialog.component';
+import { CitationTitleHeaderComponent } from './citation-title-header/citation-title-header.component';
+import {MomentTimezoneModule} from 'angular-moment-timezone';
+import {MomentModule} from 'ngx-moment';
+import {UsStatesService} from './services/us-states.service';
+import { MapSelectDialogComponent } from './map-select-dialog/map-select-dialog.component';
+import { SelectedMunicipalitiesComponent } from './selected-municipalities/selected-municipalities.component';
+import {SnackBarService} from './services/snack-bar.service';
+import {CitationService} from './services/citation.service';
+import { TicketInfoComponent } from './ticket-info/ticket-info.component';
+import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
 
 
 @NgModule({
@@ -31,7 +43,14 @@ import {LegalRightsService} from './services/legal-rights.service';
     HomeComponent,
     FindCourtsComponent,
     CourtsComponent,
-    CourtTitleHeaderComponent
+    CourtTitleHeaderComponent,
+    FindTicketsComponent,
+    SecurityDialogComponent,
+    CitationTitleHeaderComponent,
+    MapSelectDialogComponent,
+    SelectedMunicipalitiesComponent,
+    TicketInfoComponent,
+    TicketNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -42,14 +61,23 @@ import {LegalRightsService} from './services/legal-rights.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
+    MomentModule,
+    MomentTimezoneModule
   ],
   providers: [
     Title,
     ContactService,
     CourtsService,
     MunicipalitiesService,
-    LegalRightsService
+    LegalRightsService,
+    UsStatesService,
+    SnackBarService,
+    CitationService
+  ],
+  entryComponents: [
+    SecurityDialogComponent,
+    MapSelectDialogComponent
   ],
   bootstrap: [AppComponent]
 })

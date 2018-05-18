@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Security Confirmation</h1>
+<mat-dialog-content>
+  <form fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="start center" [formGroup]="form">
+    <span class="fontSizeMedium">In order to protect privacy, please provide your date of birth and last name.</span>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="MM/DD/YYYY" id="dob" class="form-control" formControlName="dob">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="form.get('dob').hasError('required')">
+        DOB is required.
+      </mat-error>
+      <mat-error *ngIf="form.get('dob').hasError('validDobDate')">
+        {{form.get('dob').getError('validDobDate')}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Last Name" id="lastName" class="form-control" formControlName="lastName">
+      <mat-error *ngIf="form.get('lastName').hasError('required')">
+        Last name is required.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayoutAlign="end">
+  <button mat-button mat-raised-button (click)="closeDialog()" color="primary">Find Ticket</button>
+  <button mat-button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
