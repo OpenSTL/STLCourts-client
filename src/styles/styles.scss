@@ -1,3 +1,5 @@
+@import './_sizes';
+
 html {
   height: 100%;
   margin: 0px;
@@ -28,4 +30,38 @@ body{
  * Make the Component injected by Router Outlet full height:
  */
 router-outlet + * { flex: 1; display: flex; flex-direction: column }
+
+
+// findCourts Page
+.muniAutoCompleteGroups {
+  label {
+    font-weight: bold;
+    color: black;
+    font-size: $fontSizeNormal;
+    line-height: 30px;
+    height: 30px;
+
+    &:empty {
+      display: none;
+    }
+
+    &:empty ~ mat-option {
+      padding-left: 16px !important;
+    }
+  }
+
+  mat-option {
+    line-height: 30px;
+    height: 30px;
+
+    .muniAutoCompleteMuniName {
+      color: black;
+      font-size: $fontSizeNormal;
+    }
+    .muniAutoCompleteCourtName {
+      font-size: $fontSizeSmall;
+      color: grey;
+    }
+  }
+}
 

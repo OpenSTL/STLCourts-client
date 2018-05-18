@@ -1,8 +1,10 @@
 // export for convenience.
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+
 export { ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
 
 import { Component, Directive, Injectable, Input } from '@angular/core';
-import { NavigationExtras } from '@angular/router';
+import {convertToParamMap, NavigationExtras, ParamMap, Params} from '@angular/router';
 
 // #docregion router-link
 @Directive({
@@ -36,22 +38,20 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ActivatedRouteStub {
+  // Use a ReplaySubject to share previous values with subscribers
+  // and pump new values into the `paramMap` observable
+  private subject = new ReplaySubject<ParamMap>();
 
-  // ActivatedRoute.params is Observable
-  private subject = new BehaviorSubject(this.testParams);
-  params = this.subject.asObservable();
-
-  // Test parameters
-  private _testParams: {};
-  get testParams() { return this._testParams; }
-  set testParams(params: {}) {
-    this._testParams = params;
-    this.subject.next(params);
+  constructor(initialParams?: Params) {
+    this.setParamMap(initialParams);
   }
 
-  // ActivatedRoute.snapshot.params
-  get snapshot() {
-    return { params: this.testParams };
+  /** The mock paramMap observable */
+  readonly paramMap = this.subject.asObservable();
+
+  /** Set the paramMap observables's next value */
+  setParamMap(params?: Params) {
+    this.subject.next(convertToParamMap(params));
   }
 }
 // #enddocregion activated-route-stub

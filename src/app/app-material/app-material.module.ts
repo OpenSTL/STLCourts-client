@@ -10,6 +10,7 @@ import { MatButtonModule,
          MatAutocompleteModule
 } from '@angular/material';
 
+import {MatGridListModule} from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
@@ -29,7 +30,8 @@ import {MatCardModule} from '@angular/material/card';
     MatAutocompleteModule,
     MatDialogModule,
     MatChipsModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   exports: [
     MatButtonModule,
@@ -42,7 +44,8 @@ import {MatCardModule} from '@angular/material/card';
     MatAutocompleteModule,
     MatDialogModule,
     MatChipsModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   declarations: []
 })

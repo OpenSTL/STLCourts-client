@@ -11,6 +11,13 @@ import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import {ContactService} from './services/contact.service';
+import { FindCourtsComponent } from './find-courts/find-courts.component';
+import {CourtsService} from './services/courts.service';
+import {MunicipalitiesService} from './services/municipalities.service';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CourtsComponent } from './courts/courts.component';
+import { CourtTitleHeaderComponent } from './court-title-header/court-title-header.component';
 
 
 @NgModule({
@@ -18,18 +25,26 @@ import {ContactService} from './services/contact.service';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    FindCourtsComponent,
+    CourtsComponent,
+    CourtTitleHeaderComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppMaterialModule,
     FlexLayoutModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title,
-    ContactService
+    ContactService,
+    CourtsService,
+    MunicipalitiesService
   ],
   bootstrap: [AppComponent]
 })

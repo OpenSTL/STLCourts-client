@@ -1,0 +1,18 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+form {  //note styling for dropdown autocomplete is located in styles.scss under the class: .muniAutoCompleteGroups
+  text-align: center;
+  z-index: 100;
+  font-size: $fontSizeMedium;
+
+  mat-form-field {
+    width: 90%;
+  }
+}
+
+#selectCourtInputDecorator {
+  background-color: $accent;
+  border-radius: 1em;
+  padding: 1.5em 1em;
+}
