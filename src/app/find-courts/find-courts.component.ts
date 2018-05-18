@@ -8,7 +8,6 @@ import {CourtsService} from '../services/courts.service';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import {Meta} from '@angular/platform-browser';
-import {UsStatesService} from '../services/us-states.service';
 
 @Component({
   selector: 'app-find-courts',
@@ -25,7 +24,6 @@ export class FindCourtsComponent implements OnInit {
 
   constructor( private muniService: MunicipalitiesService,
                private courtService: CourtsService,
-               private states: UsStatesService,
                private router: Router,
                private meta: Meta) {
 

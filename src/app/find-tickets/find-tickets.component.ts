@@ -5,8 +5,6 @@ import {SecurityDialogComponent} from '../security-dialog/security-dialog.compon
 import {FormControl, Validators} from '@angular/forms';
 import {State} from '../models/state';
 import {UsStatesService} from '../services/us-states.service';
-import {Court} from '../models/court';
-import {CourtsService} from '../services/courts.service';
 import {MunicipalitiesService} from '../services/municipalities.service';
 import {Municipality} from '../models/municipality';
 import {Observable} from 'rxjs/Observable';
@@ -36,7 +34,6 @@ export class FindTicketsComponent implements OnInit {
   statesCtrl: FormControl = new FormControl('', Validators.required);
   muniCtrl: FormControl = new FormControl();
   states: State[];
-  courts: Court[];
   municipalities: Municipality[];
   // this is a list of munis that have not been selected by the map finder
   nonSelectedMunicipalities: Municipality[];
@@ -47,7 +44,6 @@ export class FindTicketsComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private usStates: UsStatesService,
-              private courtService: CourtsService,
               private muniService: MunicipalitiesService,
               private citationService: CitationService,
               private router: Router,
@@ -243,15 +239,11 @@ export class FindTicketsComponent implements OnInit {
       .startWith(null)
       .map(typing => typing ? this.filterMunisAutoComplete(typing) : this.nonSelectedMunicipalities.slice());
 
-    const muniObs$ = this.muniService.findAll();
-    const courtObs$ = this.courtService.findAll();
+    this.muniService.findAll().subscribe( (munis) => {
+      this.municipalities = munis;
+      this.initializeNonSelectedMunis();
+    });
 
-    Observable.zip( muniObs$, courtObs$, (munis: Municipality[], courts: Court[]) => ({munis, courts}))
-      .subscribe(result => {
-        this.municipalities = result.munis;
-        this.initializeNonSelectedMunis();
-        this.courts = result.courts;
-      });
   }
 
 }

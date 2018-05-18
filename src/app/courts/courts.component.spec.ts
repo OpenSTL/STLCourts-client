@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CourtsComponent } from './courts.component';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ActivatedRouteStub} from '../../testing/router-stubs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Court} from '../models/court';
