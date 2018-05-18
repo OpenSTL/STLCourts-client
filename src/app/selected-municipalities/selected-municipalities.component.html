@@ -1,0 +1,11 @@
+<span>Selected Municipalities:</span>
+<mat-card fxLayout="column" fxLayoutGap=".5em">
+  <mat-chip-list>
+    <mat-chip *ngFor="let municipality of municipalities"
+              removable="true" (removed)="remove(municipality)">
+      {{municipality.name}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</mat-card>
+<span id="warning" *ngIf="showWarningMessage()">A maximum of {{maxSelectedMunicipalities}} municipalities can be selected at a time.</span>

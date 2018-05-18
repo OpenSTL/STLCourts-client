@@ -14,6 +14,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 
@@ -31,7 +35,10 @@ import {MatCardModule} from '@angular/material/card';
     MatDialogModule,
     MatChipsModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -45,7 +52,10 @@ import {MatCardModule} from '@angular/material/card';
     MatDialogModule,
     MatChipsModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatSnackBarModule
   ],
   declarations: []
 })

@@ -1,0 +1,93 @@
+<app-citation-title-header headerText="Find Your Ticket"
+                           subText="Use the options below to find your ticket information"
+                           subSubText="Note: Parking tickets are not searchable."></app-citation-title-header>
+<div id="border"></div>
+<div id="ticketFinderBoxes" fxLayout.gt-sm="row" fxLayout.lt-md="column" fxFlex="1 1 100%">
+  <div class="ticketFinderBox" fxFlex fxLayout="column" fxLayoutAlign="start center">
+    <a class="finderBoxInitialContent" [ngClass]="{'blackout': blackout(ShowingEnum.Have_Ticket)}" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px"
+       (click)="onTicketFinderBoxClick(ShowingEnum.Have_Ticket)" tabindex="0"
+       *ngIf="ticketFinderShowing == ShowingEnum.All || ticketFinderShowing != ShowingEnum.Have_Ticket">
+      <div fxFlex="20%"></div>
+      <div class="ticketBackgroundBox"></div>
+      <mat-icon class="decorator">receipt</mat-icon>
+      <span>I have my ticket number.</span>
+      <div class="dimmingBox"></div>
+    </a>
+    <div class="ticketFinderDetailContent" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="ticketFinderShowing == ShowingEnum.Have_Ticket">
+      <div class="ticketBackgroundBox"></div>
+      <a class="closeTicketFinderDetailsBoxButton" (click)="detailsBoxClose()"><mat-icon>close</mat-icon></a>
+      <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <mat-form-field>
+          <input matInput placeholder="Ticket #" [formControl]="ticketNumCtrl">
+        </mat-form-field>
+        <button mat-button mat-raised-button color="primary" class="findTicketButton" (click)="openSecurityDialog()"><mat-icon>search</mat-icon>Find Ticket</button>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="ticketFinderBox" fxFlex fxLayout="column" fxLayoutAlign="start center">
+    <a class="finderBoxInitialContent" [ngClass]="{'blackout': blackout(ShowingEnum.Have_DL)}" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px"
+         (click)="onTicketFinderBoxClick(ShowingEnum.Have_DL)" tabindex="0"
+         *ngIf="ticketFinderShowing == ShowingEnum.All || ticketFinderShowing != ShowingEnum.Have_DL">
+      <div fxFlex="20%"></div>
+      <div class="carBackgroundBox"></div>
+      <mat-icon class="decorator">drive_eta</mat-icon>
+      <span>I have my driver's license number.</span>
+      <div class="dimmingBox"></div>
+    </a>
+    <div class="ticketFinderDetailContent" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="ticketFinderShowing == ShowingEnum.Have_DL">
+      <div class="carBackgroundBox"></div>
+      <a class="closeTicketFinderDetailsBoxButton" (click)="detailsBoxClose()"><mat-icon>close</mat-icon></a>
+      <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <mat-form-field>
+          <input matInput placeholder="Licesnse #" [formControl]="licenseNumCtrl">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="License State" [formControl]="statesCtrl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let state of filteredStates | async" [value]="state.abbreviation">
+              {{state.fullName}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <button mat-button mat-raised-button color="primary" class="findTicketButton" (click)="openSecurityDialog()"><mat-icon>search</mat-icon>Find Ticket</button>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="ticketFinderBox" fxFlex fxLayout="column" fxLayoutAlign="start center">
+    <a class="finderBoxInitialContent" [ngClass]="{'blackout': blackout(ShowingEnum.Have_Location)}" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px"
+         (click)="onTicketFinderBoxClick(ShowingEnum.Have_Location)" tabindex="0"
+         *ngIf="ticketFinderShowing == ShowingEnum.All || ticketFinderShowing != ShowingEnum.Have_Location">
+      <div fxFlex="20%"></div>
+      <div class="mapBackgroundBox"></div>
+      <mat-icon class="decorator">not_listed_location</mat-icon>
+      <span>I kind of remember where I got my ticket.</span>
+      <div class="dimmingBox"></div>
+    </a>
+    <div class="ticketFinderDetailContent" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="ticketFinderShowing == ShowingEnum.Have_Location">
+      <div class="mapBackgroundBox"></div>
+      <a class="closeTicketFinderDetailsBoxButton" (click)="detailsBoxClose()"><mat-icon>close</mat-icon></a>
+
+      <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <app-selected-municipalities [municipalities]="selectedMunicipalities" (removedMuni)="muniRemovedFromSelected($event)"></app-selected-municipalities>
+        <mat-form-field>
+          <input matInput placeholder="Select a City" [formControl]="muniCtrl" [matAutocomplete]="auto" (change)="onMuniChanged($event.target.value)">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="muniDisplayFn" (optionSelected)="onMuniChanged($event.option.value.name)">
+            <mat-option *ngFor="let muni of filteredMunis | async" [value]="muni">
+              {{muni.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <span>- or -</span>
+
+        <button mat-button mat-raised-button (click)="openMapDialog()"><mat-icon>map</mat-icon>Select on Map</button>
+
+        <button mat-button mat-raised-button color="primary" class="findTicketButton" (click)="openSecurityDialog()"><mat-icon>search</mat-icon>Find Ticket</button>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

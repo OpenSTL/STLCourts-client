@@ -1,0 +1,15 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+h2 {
+  text-align: center;
+}
+
+mat-form-field {
+  width: 200px;
+  font-size: $fontSizeMedium;
+  margin: 0px !important;
+  &:first-child {
+    padding-bottom: 0px !important;
+  }
+}

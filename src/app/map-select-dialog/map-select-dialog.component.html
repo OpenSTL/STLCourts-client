@@ -1,0 +1,20 @@
+<div style="width: 100%; height: 100%;" fxLayout="column" fxLayoutGap=".5em">
+  <h2>Select Municipalities:</h2>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div id="mapContainer">
+      <div *ngIf="optionsForMap" style="width:100%; height:100%;"
+           leaflet
+           [leafletOptions]="optionsForMap"
+           [leafletLayers]="layersForMap"
+           (leafletMapReady)="onMapReady($event)">
+      </div>
+    </div>
+  </div>
+  <div fxHide.lt-md="true">Current Municipality: {{mousedOverMunicipality?.name}}</div>
+  <app-selected-municipalities [municipalities]="selectedMunicipalities" (removedMuni)="muniRemoved($event)"></app-selected-municipalities>
+
+  <div fxLayout.lt-md="column" fxLayoutGap.lt-md=".5em" fxLayoutAlign.lt-md="end end" fxLayoutGap.gt-sm="1em" fxLayoutAlign.gt-sm="end">
+    <button mat-raised-button color="primary" [mat-dialog-close]="mapSelections.getSelectedUniqueMunicipalities()">Save Selected</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+  </div>
+</div>
