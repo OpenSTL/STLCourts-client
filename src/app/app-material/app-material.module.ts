@@ -18,6 +18,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {CdkTableModule} from '@angular/cdk/table';
 
 
 
@@ -40,7 +41,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDatepickerModule,
     MatMomentDateModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    CdkTableModule
   ],
   exports: [
     MatButtonModule,
@@ -58,7 +60,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDatepickerModule,
     MatMomentDateModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    CdkTableModule
   ],
   declarations: []
 })

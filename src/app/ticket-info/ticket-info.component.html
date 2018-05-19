@@ -3,6 +3,11 @@
   <h2>{{citationGroup[0].first_name}} {{citationGroup[0].last_name}}</h2>
   <mat-table [dataSource]="citationGroup">
 
+    <ng-container cdkColumnDef="view">
+      <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> <button mat-raised-button>View</button> </mat-cell>
+    </ng-container>
+
     <ng-container cdkColumnDef="ticketNum">
       <mat-header-cell *cdkHeaderCellDef> Ticket# </mat-header-cell>
       <mat-cell *cdkCellDef="let row"> {{row.citation_number}} </mat-cell>
@@ -13,7 +18,23 @@
       <mat-cell *cdkCellDef="let row"> {{row.first_name}} {{row.last_name}}</mat-cell>
     </ng-container>
 
-    <mat-header-row *cdkHeaderRowDef="['ticketNum', 'name']"></mat-header-row>
+    <ng-container cdkColumnDef="courtDate">
+      <mat-header-cell *cdkHeaderCellDef> courtDate </mat-header-cell>
+      <!-- <mat-cell *cdkCellDef="let row"> {{formatDate(row.court_dateTime, row.court_id)}}</mat-cell> -->
+      <mat-cell *cdkCellDef="let row"> {{getFormattedCourtDate(row.court_dateTime, row.court_id)}}</mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="courtLocation">
+      <mat-header-cell *cdkHeaderCellDef> Court Location </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{citationCourtLocations[row.court_id]}}</mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="violations">
+      <mat-header-cell *cdkHeaderCellDef> Violations </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> TODO: put violation here </mat-cell>
+    </ng-container>
+
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
