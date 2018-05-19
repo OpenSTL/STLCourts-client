@@ -79,7 +79,7 @@ export class CourtsComponent implements OnInit {
     window.open(directionLink, '_blank');
   }
 
-  private getLegalRightsLink() {
+  getLegalRightsLink() {
     return this.legalRightsService.legalRightsLink(this.court);
   }
 
