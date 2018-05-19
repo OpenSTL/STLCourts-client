@@ -3,8 +3,9 @@ import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 export { ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
 
-import { Component, Directive, Injectable, Input } from '@angular/core';
+import {Component, Directive, Injectable, Input} from '@angular/core';
 import {convertToParamMap, NavigationExtras, ParamMap, Params} from '@angular/router';
+
 
 // #docregion router-link
 @Directive({
@@ -35,6 +36,7 @@ export class RouterStub {
 // Only implements params and part of snapshot.params
 // #docregion activated-route-stub
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {AppModule} from '../app/app.module';
 
 @Injectable()
 export class ActivatedRouteStub {
