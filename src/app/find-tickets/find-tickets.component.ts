@@ -139,7 +139,8 @@ export class FindTicketsComponent implements OnInit {
 
   openMapDialog() {
     const dialogRef = this.dialog.open(MapSelectDialogComponent, {
-      position: { top: '15px' }
+      position: { top: '15px' },
+      data: {selectedMunicipalities: this.selectedMunicipalities}
     });
 
     dialogRef.afterClosed().subscribe(selectedMunis => {

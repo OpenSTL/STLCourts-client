@@ -141,10 +141,7 @@ export class MapSelectDialogComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.selectedMapMunicipalityIds = [];
-    // this.unincorporatedCount = 0;
     this.selectedMunicipalities = this.data.selectedMunicipalities;
-    // this.maxSearchMunicipalities = 5;
     this.mapSelections = new MapSelections();
 
     const muniObs$ = this.muniService.findAll();
@@ -153,7 +150,6 @@ export class MapSelectDialogComponent implements OnInit {
     Observable.zip( httpObs$, muniObs$, (jsonData: any, munis: Municipality[]) => ({jsonData, munis}))
       .subscribe(result => {
         this.geoJsonData = result.jsonData;
-        // this.municipalities = result.munis;
         this.mapMunicipalities = new MapMunicipalities(result.munis, this.geoJsonData);
         this.mapSetup();
       });
