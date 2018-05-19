@@ -9,10 +9,12 @@ export class CitationTitleHeaderComponent implements OnInit {
   @Input() headerText: string;
   @Input() subText: string;
   @Input() subSubText: string;
+  @Input() useBackground?: boolean;
 
   constructor() { }
 
   ngOnInit() {
+    this.useBackground = this.useBackground ? this.useBackground : false;
   }
 
 }

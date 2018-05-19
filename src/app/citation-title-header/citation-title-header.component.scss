@@ -3,7 +3,6 @@
 
 #citationTitleHeaderTitle{
   position: relative;
-//  margin-bottom: .4em;
   font-size: calc(3vw + 3vh);
   padding: 1.2em 0;
   span {
@@ -31,5 +30,5 @@
   background-size:cover;
   opacity: .3;
   z-index: 1;
-  // background-image: url('../../assets/images/mainPage/ticket/ticket-header-image-bw.jpg');
+  background-image: url('../../assets/images/mainPage/ticket/ticket-header-image-bw.jpg');
 }

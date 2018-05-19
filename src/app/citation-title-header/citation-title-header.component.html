@@ -1,5 +1,5 @@
 <div  id="citationTitleHeaderTitle" class="bkcolor-primary" fxLayoutAlign="center">
-  <div id="citationTitleHeaderBackground"></div>
+  <div id="citationTitleHeaderBackground" *ngIf="useBackground"></div>
   <div id="citationTitleHeaderText" fxLayout="column">
     <span class="headerText">{{headerText}}</span>
     <span class="subText">{{subText}}</span>

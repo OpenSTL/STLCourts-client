@@ -1,26 +1,44 @@
-<app-citation-title-header headerText="Ticket Results "></app-citation-title-header>
+<app-citation-title-header headerText="Ticket Results" useBackground="true"></app-citation-title-header>
+<div *ngFor="let citationGroup of groupedCitations" fxLayout="column">
+  <h2>{{citationGroup[0].first_name}} {{citationGroup[0].last_name}}</h2>
+  <mat-table [dataSource]="citationGroup">
 
-<span>{{citation.first_name}} {{citation.last_name}}</span>
+    <ng-container cdkColumnDef="ticketNum">
+      <mat-header-cell *cdkHeaderCellDef> Ticket# </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.citation_number}} </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="name">
+      <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.first_name}} {{row.last_name}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *cdkHeaderRowDef="['ticketNum', 'name']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
+<!--
+
 <mat-table [dataSource]="dataSource">
-  <!-- User name Definition -->
+
   <ng-container cdkColumnDef="ticketNum">
     <mat-header-cell *cdkHeaderCellDef> Ticket# </mat-header-cell>
     <mat-cell *cdkCellDef="let row"> {{row.citation_number}} </mat-cell>
   </ng-container>
 
-  <!-- Age Definition -->
   <ng-container cdkColumnDef="age">
     <mat-header-cell *cdkHeaderCellDef> Age </mat-header-cell>
     <mat-cell *cdkCellDef="let row"> {{row.age}} </mat-cell>
   </ng-container>
 
-  <!-- Title Definition -->
   <ng-container cdkColumnDef="title">
     <mat-header-cell *cdkHeaderCellDef> Title </mat-header-cell>
     <mat-cell *cdkCellDef="let row"> {{row.title}} </mat-cell>
   </ng-container>
 
-  <!-- Header and Row Declarations -->
   <mat-header-row *cdkHeaderRowDef="['viewCitation', 'ticketNum', 'name', 'courtDate', 'courtLocation', 'violations']"></mat-header-row>
   <mat-row *cdkRowDef="let row; columns: ['viewCitation', 'ticketNum', 'name', 'courtDate', 'courtLocation', 'violations']"></mat-row>
 </mat-table>
+
+-->
