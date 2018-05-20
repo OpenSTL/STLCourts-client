@@ -6,6 +6,7 @@ import {MatTableDataSource} from '@angular/material';
 import {CourtsService} from '../services/courts.service';
 import {Court} from '../models/court';
 import * as moment from 'moment-timezone';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-ticket-info',
@@ -21,6 +22,8 @@ export class TicketInfoComponent implements OnInit {
   dataSource;
   courts: Court[];
   citationCourtLocations: any;
+  selectedCitation: Citation;
+  selectedCitationCourt: Court;
 
   constructor(private citationService: CitationService,
               private courtService: CourtsService,
@@ -40,7 +43,7 @@ export class TicketInfoComponent implements OnInit {
         // in the event the defendant does not have a DL Num assign one so the object has a key
         dlNum = this.PLACEHOLDER_DL_NUM;
       }
-      if (!indexArray[dlNum + dlState]) {
+      if (isNullOrUndefined(indexArray[dlNum + dlState])) {
         indexArray[dlNum + dlState] = index++;
         this.groupedCitations.push([]);
       }
@@ -54,28 +57,29 @@ export class TicketInfoComponent implements OnInit {
     return moment.tz(dateToFormat, court.zone_id).format('MM/DD/YYYY');
   }
 /*
-  private initializeSelectedCitation() {
-    if (!citations) {
-      $state.go('home');
-    } else {
-      ctrl.citations = citations;
-      ctrl.groupedCitations = ctrl.groupCitationsByDL();
-      for (var citationCount = 0; citationCount < citations.length; citationCount++) {
-        var courtId = citations[citationCount].court_id;
-        var foundCourt = _.find(courts, {id: courtId});
-        ctrl.citationCourtLocations[courtId] = foundCourt.name;
-      }
-      if (ctrl.citations.length === 1) {
-        ctrl.selectCitation(ctrl.citations[0]);
-      } else {
-        var lastSelectedCitation = Session.getLastSelectedCitation();
-        if(lastSelectedCitation) {
-          ctrl.selectCitation(Session.getLastSelectedCitation());
-        }
+  selectCitation(citation, idToScrollTo) {
+    ctrl.selectedCitation = citation;
+    Session.setSelectedCitation(ctrl.selectedCitation);
+
+    Courts.findById(ctrl.selectedCitation.court_id).then(function (court) {
+      ctrl.selectedCitation.court = court;
+      ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
+    });
+    for (var municipality in municipalities) {
+      if (ctrl.selectedCitation.municipality_id === municipalities[municipality].id) {
+        ctrl.paymentUrl = municipalities[municipality].paymentUrl;
+        break;
       }
     }
-  }
+    if (citations.length > 1) {
+      $anchorScroll(idToScrollTo);
+    }
+  };
 */
+  selectCitation(citation) {
+    this.selectedCitation = citation;
+  }
+
   getCourtById(courtId: string) {
     if (this.courts.length > 0) {
       return this.courts.find(court => {
@@ -101,10 +105,13 @@ export class TicketInfoComponent implements OnInit {
           const foundCourt = this.getCourtById(courtId);
           this.citationCourtLocations[courtId] = foundCourt.name;
         }
+        if (this.citations.length === 1) {
+          this.selectCitation(this.citations[0]);
+          this.selectedCitationCourt = this.getCourtById(this.selectedCitation.court_id);
+        }
       });
 
     }
-    const a = 5;
   }
 
 }

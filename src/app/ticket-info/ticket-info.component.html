@@ -1,65 +1,85 @@
 <app-citation-title-header headerText="Ticket Results" useBackground="true"></app-citation-title-header>
-<div *ngFor="let citationGroup of groupedCitations" fxLayout="column">
+<mat-chip id="greaterThanOnePerson" *ngIf="groupedCitations.length > 1" fxLayoutAlign="center">
+  <mat-error>Ticket results may be shown for multiple people</mat-error>
+</mat-chip>
+<div class="citationTable" *ngFor="let citationGroup of groupedCitations" fxLayout="column">
   <h2>{{citationGroup[0].first_name}} {{citationGroup[0].last_name}}</h2>
-  <mat-table [dataSource]="citationGroup">
-
+  <mat-table fxHide.lt-md [dataSource]="citationGroup">
     <ng-container cdkColumnDef="view">
-      <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
-      <mat-cell *cdkCellDef="let row"> <button mat-raised-button>View</button> </mat-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="125px"></mat-header-cell>
+      <mat-cell *cdkCellDef="let citation" fxFlex="125px" fxLayout="column" fxLayoutAlign="center">
+        <button mat-raised-button color="accent" (click)="selectCitation(citation)">View</button>
+      </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="ticketNum">
-      <mat-header-cell *cdkHeaderCellDef> Ticket# </mat-header-cell>
-      <mat-cell *cdkCellDef="let row"> {{row.citation_number}} </mat-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="100px">Ticket #</mat-header-cell>
+      <mat-cell *cdkCellDef="let citation" fxFlex="100px" fxLayout="column" fxLayoutAlign="center"> {{citation.citation_number}} </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="name">
-      <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *cdkCellDef="let row"> {{row.first_name}} {{row.last_name}}</mat-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="250px">Name</mat-header-cell>
+      <mat-cell *cdkCellDef="let citation" fxFlex="250px" fxLayout="column" fxLayoutAlign="center">{{citation.first_name}} {{citation.last_name}}</mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="courtDate">
-      <mat-header-cell *cdkHeaderCellDef> courtDate </mat-header-cell>
-      <!-- <mat-cell *cdkCellDef="let row"> {{formatDate(row.court_dateTime, row.court_id)}}</mat-cell> -->
-      <mat-cell *cdkCellDef="let row"> {{getFormattedCourtDate(row.court_dateTime, row.court_id)}}</mat-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="150px">Court Date</mat-header-cell>
+      <mat-cell *cdkCellDef="let citation" fxFlex="150px" fxLayout="column" fxLayoutAlign="center"> {{getFormattedCourtDate(citation.court_dateTime, citation.court_id)}}</mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="courtLocation">
-      <mat-header-cell *cdkHeaderCellDef> Court Location </mat-header-cell>
-      <mat-cell *cdkCellDef="let row"> {{citationCourtLocations[row.court_id]}}</mat-cell>
+      <mat-header-cell *cdkHeaderCellDef>Court Location</mat-header-cell>
+      <mat-cell *cdkCellDef="let citation" fxLayout="column" fxLayoutAlign="center"> {{citationCourtLocations[citation.court_id]}}</mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="violations">
-      <mat-header-cell *cdkHeaderCellDef> Violations </mat-header-cell>
-      <mat-cell *cdkCellDef="let row"> TODO: put violation here </mat-cell>
+      <mat-header-cell *cdkHeaderCellDef>Violations</mat-header-cell>
+      <mat-cell *cdkCellDef="let citation" fxLayout="row" fxLayoutAlign="start center">
+        <span *ngIf="citation.violations.length > 0">
+          <span *ngFor="let violation of citation.violations; let i = index;">
+            <span>{{violation.violation_description}}</span>
+            <span *ngIf="i < citation.violations.length - 1">, </span>
+          </span>
+        </span>
+        <span *ngIf="citation.violations.length === 0">
+          Violation data unavailable. Please contact your court.
+        </span>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let citation; columns: displayedColumns;"></mat-row>
   </mat-table>
+  <mat-card fxHide.gt-sm fxLayout="column" fxLayoutGap="1.5em" *ngFor="let citation of citationGroup">
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex="50">
+        <span>Ticket #</span><span>{{citation.citation_number}}</span>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end" fxFlex="50">
+        <button mat-raised-button color="accent" [ngx-scroll-to]="'#citationDisplay'">view this ticket</button>
+      </div>
+    </div>
+
+    <div fxLayout="column">
+      <span>Name</span><span>{{citation.first_name}} {{citation.last_name}}</span>
+    </div>
+
+    <div fxLayout="column">
+      <span>Court Date</span><span>{{getFormattedCourtDate(citation.court_dateTime, citation.court_id)}}</span>
+    </div>
+
+    <div fxLayout="column">
+      <span>Court Location</span><span>{{citationCourtLocations[citation.court_id]}}</span>
+    </div>
+
+    <div fxLayout="column">
+      <span>Violations</span>
+      <span *ngFor="let violation of citation.violations">{{violation.violation_description}}</span>
+    </div>
+  </mat-card>
+
+  <div id="citationDisplay">
+
+  </div>
 </div>
 
-<!--
-
-<mat-table [dataSource]="dataSource">
-
-  <ng-container cdkColumnDef="ticketNum">
-    <mat-header-cell *cdkHeaderCellDef> Ticket# </mat-header-cell>
-    <mat-cell *cdkCellDef="let row"> {{row.citation_number}} </mat-cell>
-  </ng-container>
-
-  <ng-container cdkColumnDef="age">
-    <mat-header-cell *cdkHeaderCellDef> Age </mat-header-cell>
-    <mat-cell *cdkCellDef="let row"> {{row.age}} </mat-cell>
-  </ng-container>
-
-  <ng-container cdkColumnDef="title">
-    <mat-header-cell *cdkHeaderCellDef> Title </mat-header-cell>
-    <mat-cell *cdkCellDef="let row"> {{row.title}} </mat-cell>
-  </ng-container>
-
-  <mat-header-row *cdkHeaderRowDef="['viewCitation', 'ticketNum', 'name', 'courtDate', 'courtLocation', 'violations']"></mat-header-row>
-  <mat-row *cdkRowDef="let row; columns: ['viewCitation', 'ticketNum', 'name', 'courtDate', 'courtLocation', 'violations']"></mat-row>
-</mat-table>
-
--->

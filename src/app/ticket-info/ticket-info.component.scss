@@ -1,0 +1,60 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+#greaterThanOnePerson {
+  margin: 1em 1em 0em 1em;
+}
+
+.citationTable {
+  margin: 0px 1em;
+
+  mat-card {
+    background-color: $citationMobileMatCardColor;
+    margin-bottom: 1em;
+    div span:first-child {
+      color: $primary;
+      font-weight: bold;
+    }
+  }
+}
+
+mat-header-row {
+  background-color: $primary;
+  mat-header-cell {
+    font-size: $fontSizeMedium;
+    font-weight: bold;
+    color: white;
+    border-right: 1px solid $tableHeaderBorderColor;
+    border-bottom: 1px solid $tableHeaderBorderColor;
+    align-self: stretch;
+    padding: 5px;
+    &:first-child {
+      border-left: 1px solid $tableHeaderBorderColor;
+    }
+  }
+}
+
+mat-header-row,
+mat-row {
+  padding: 0px;
+}
+
+mat-row:nth-child(even){
+  background-color:$tableEvenRowColor;
+}
+
+mat-row:nth-child(odd){
+  background-color:$tableOddRowColor;
+}
+
+mat-cell {
+  &:first-child {
+    border-left: 1px solid $tableBorderColor;
+  }
+  border-right: 1px solid $tableBorderColor;
+  border-bottom: 1px solid $tableBorderColor;
+  -webkit-align-self: center; /* Safari 7.0+ */
+  align-self: stretch;
+  padding: 5px;
+}
+
