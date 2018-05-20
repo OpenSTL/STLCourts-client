@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {CitationService} from '../services/citation.service';
-import {Router} from '@angular/router';
+import {ParamMap, Router} from '@angular/router';
 import {Citation} from '../models/citation';
 import {MatTableDataSource} from '@angular/material';
 import {CourtsService} from '../services/courts.service';
 import {Court} from '../models/court';
 import * as moment from 'moment-timezone';
 import {isNullOrUndefined} from 'util';
+import {Observable} from 'rxjs/Observable';
+import {MunicipalitiesService} from '../services/municipalities.service';
+import {Municipality} from '../models/municipality';
 
 @Component({
   selector: 'app-ticket-info',
@@ -16,23 +19,25 @@ import {isNullOrUndefined} from 'util';
 export class TicketInfoComponent implements OnInit {
   PLACEHOLDER_DL_NUM = 'NO_DL_NUM';
   citations: Citation[];
-  groupedCitations: any;
+  groupedCitations = [];
 
   displayedColumns = ['view', 'ticketNum', 'name', 'courtDate', 'courtLocation', 'violations'];
   dataSource;
   courts: Court[];
-  citationCourtLocations: any;
+  municipalities: Municipality[];
+  // citationCourtLocations: any;
   selectedCitation: Citation;
-  selectedCitationCourt: Court;
+  // selectedCitationCourt: Court;
 
   constructor(private citationService: CitationService,
               private courtService: CourtsService,
+              private muniService: MunicipalitiesService,  /* this can go once municipality paymentURL is moved to the courts */
               private router: Router) { }
 
   private groupCitationsByDL() {
     let dlNum = '';
     let dlState = '';
-    this.groupedCitations = [];
+   // this.groupedCitations = [];
     const indexArray = [];
     let index = 0;
 
@@ -52,35 +57,22 @@ export class TicketInfoComponent implements OnInit {
     });
   }
 
-/*
-  getFormattedCourtDate(dateToFormat, courtId: string) {
-    const court = this.getCourtById(courtId);
-    return moment.tz(dateToFormat, court.zone_id).format('MM/DD/YYYY');
+  showPaymentButton() {
+    if (this.selectedCitation) {
+      return !!this.selectedCitation.court.paymentUrl && this.selectedCitation.canPayOnline;
+    } else {
+      return false;
+    }
   }
-  */
 
-/*
-  selectCitation(citation, idToScrollTo) {
-    ctrl.selectedCitation = citation;
-    Session.setSelectedCitation(ctrl.selectedCitation);
-
-    Courts.findById(ctrl.selectedCitation.court_id).then(function (court) {
-      ctrl.selectedCitation.court = court;
-      ctrl.selectedCitation.courtDirectionLink = getCourtDirectionLink(ctrl.selectedCitation);
-    });
-    for (var municipality in municipalities) {
-      if (ctrl.selectedCitation.municipality_id === municipalities[municipality].id) {
-        ctrl.paymentUrl = municipalities[municipality].paymentUrl;
-        break;
-      }
-    }
-    if (citations.length > 1) {
-      $anchorScroll(idToScrollTo);
-    }
-  };
-*/
   selectCitation(citation) {
     this.selectedCitation = citation;
+
+    /* this and next section is only needed until the court on the server get updated with paymentUrl */
+    const citationMuni = this.municipalities.find((municipality) => {
+      return municipality.id === this.selectedCitation.municipality_id;
+    });
+    this.selectedCitation.court.paymentUrl = citationMuni.paymentUrl;
   }
 
   getCourtById(courtId: string) {
@@ -100,21 +92,26 @@ export class TicketInfoComponent implements OnInit {
       this.router.navigate(['findTickets']);
     } else {
       this.groupCitationsByDL();
-      this.dataSource = new MatTableDataSource(this.groupedCitations);
-      this.courtService.findAll().subscribe((courts) => {
-        this.courts = courts;
-        this.citationCourtLocations = {};
-        for (let citationCount = 0; citationCount < this.citations.length; citationCount++) {
-          const courtId = this.citations[citationCount].court_id;
-          const foundCourt = this.getCourtById(courtId);
-          this.citationCourtLocations[courtId] = foundCourt.name;
-        }
-        if (this.citations.length === 1) {
-          this.selectCitation(this.citations[0]);
-          this.selectedCitationCourt = this.getCourtById(this.selectedCitation.court_id);
-        }
-      });
-
+      const courtObs$ = this.courtService.findAll();
+      const muniObs$ = this.muniService.findAll();
+      /* can go back to simple courts.findAll().subscribe once court on server is updated with paymentUrl */
+      Observable.zip( muniObs$, courtObs$, (munis: Municipality[], courts: Court[]) => ({munis, courts}))
+        .subscribe(result => {
+          this.courts = result.courts;
+          this.municipalities = result.munis;
+          this.citations.forEach((citation) => {
+            citation.court = this.getCourtById(citation.court_id);
+            /* this and next section is only needed until the court on the server get updated with paymentUrl */
+            const citationMuni = this.municipalities.find((municipality) => {
+              return municipality.id === citation.municipality_id;
+            });
+            citation.court.paymentUrl = citationMuni.paymentUrl;
+          });
+          if (this.citations.length === 1) {
+            this.selectCitation(this.citations[0]);
+          }
+          this.dataSource = new MatTableDataSource(this.groupedCitations);
+        });
     }
   }
 

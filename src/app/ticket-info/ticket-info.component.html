@@ -29,7 +29,7 @@
 
     <ng-container cdkColumnDef="courtLocation">
       <mat-header-cell *cdkHeaderCellDef>Court Location</mat-header-cell>
-      <mat-cell *cdkCellDef="let citation" fxLayout="column" fxLayoutAlign="center"> {{citationCourtLocations[citation.court_id]}}</mat-cell>
+      <mat-cell *cdkCellDef="let citation" fxLayout="column" fxLayoutAlign="center"> {{citation.court?.name}}</mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="violations">
@@ -69,7 +69,7 @@
     </div>
 
     <div fxLayout="column">
-      <span>Court Location</span><span>{{citationCourtLocations[citation.court_id]}}</span>
+      <span>Court Location</span><span>{{citation.court?.name}}</span>
     </div>
 
     <div fxLayout="column">
@@ -98,7 +98,14 @@
           <mat-card fxLayout="column" fxFlex="1 1 100%">
             <span fxLayout="row"><strong fxFlex="125px">Case Number</strong><span fxFlex>{{selectedCitation.citation_number}}</span></span>
             <span fxLayout="row"><strong fxFlex="125px">Ticket Date</strong><span fxFlex>{{selectedCitation.citation_date | date:"MM/dd/yyyy"}}</span></span>
-            <span fxLayout="row"><strong fxFlex="125px">Total Fine</strong><span fxFlex>${{selectedCitation.getTotal()}}</span></span>
+            <span fxLayout="row">
+              <strong fxFlex="125px">Total Fine</strong>
+              <span fxFlex fxLayout="column">
+                <span *ngIf="!selectedCitation.missingFineInfo">${{selectedCitation.violationsFineTotal}}</span>
+                <em *ngIf="selectedCitation.missingFineInfo">Fine Info Unavailable</em>
+                <mat-error ng-if="!showPaymentButton()">Note: you must appear in court and speak with the judge to clear this citation.</mat-error>
+              </span>
+            </span>
             <span fxLayout="row"><strong fxFlex="125px">Violations</strong>
               <ul>
                 <li *ngFor="let violation of selectedCitation.violations" fxLayout="column">
@@ -110,16 +117,33 @@
         </div>
       </div>
       <div fxLayout.lt-md="column" fxLayoutGap.gt-sm="2em">
-        <div id="courtInfo" fxLayout="column" fxFlex.gt-sm="50">
+        <div id="courtInfo" fxLayout="column" fxFlex.gt-sm="1 1 50">
           <h2>Court Information</h2>
-          <mat-card fxLayout="column" fxFlexFill>
-
+          <mat-card fxLayout="column" fxFlex="1 1 100%">
+            <span fxLayout="row"><strong fxFlex="125px">Court Date</strong><span fxFlex>{{selectedCitation.court_dateTime | date:"MM/dd/yyyy"}}</span></span>
+            <span fxLayout="row"><strong fxFlex="125px">Court Time</strong><span fxFlex>{{selectedCitation.formattedCourtTime(selectedCitation.court.zone_id)}}</span></span>
+            <span fxLayout="row"><strong fxFlex="125px">Court Name</strong><span fxFlex>{{selectedCitation.court.name}}</span></span>
+            <span fxLayout="row"><strong fxFlex="125px">Court Phone Number</strong><span fxFlex><span>{{selectedCitation.court.phone}}</span><span *ngIf="selectedCitation.court.extension"> x{{selectedCitation.court.extension}}</span></span></span>
+            <span fxLayout="row">
+              <strong fxFlex="125px">Court Location</strong>
+              <div fxLayout="column" fxLayoutGap="1em">
+                <address fxLayout="column">
+                  <span>{{selectedCitation.defendant_address}}</span>
+                  <span>{{selectedCitation.defendant_city}}, {{selectedCitation.defendant_state}}</span>
+                </address>
+                <button mat-raised-button color="accent">Get Directions</button>
+                <button mat-raised-button color="accent">Your Legal Rights</button>
+              </div>
+            </span>
           </mat-card>
         </div>
-        <div id="otherInfo" fxLayout="column" fxFlex.gt-sm="50">
+        <div id="otherInfo" fxLayout="column" fxFlex.gt-sm="1 1 50">
           <h2>I Want To...</h2>
-          <mat-card fxLayout="column" fxFlexFill>
-
+          <mat-card fxLayout="column" fxFlex="1 1 100%" fxLayoutGap="1em">
+            <span><button mat-raised-button color="accent">$Pay My Ticket</button></span>
+            <em>Note: paying your ticket is considered an admission of guilt. If you do not wish to plead guilty, you must appear in court to meet with the judge.</em>
+            <span><button mat-raised-button color="accent">Explore Community Service Options</button></span>
+            <span><button mat-raised-button color="accent"><mat-icon>print</mat-icon>Print Info</button></span>
           </mat-card>
         </div>
       </div>
