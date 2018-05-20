@@ -56,7 +56,7 @@
         <span>Ticket #</span><span>{{citation.citation_number}}</span>
       </div>
       <div fxLayout="row" fxLayoutAlign="end" fxFlex="50">
-        <button mat-raised-button color="accent" [ngx-scroll-to]="'#citationDisplay'">view this ticket</button>
+        <button mat-raised-button color="accent" (click)="selectCitation(citation)"> view this ticket</button>
       </div>
     </div>
 
