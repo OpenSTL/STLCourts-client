@@ -24,7 +24,7 @@
 
     <ng-container cdkColumnDef="courtDate">
       <mat-header-cell *cdkHeaderCellDef fxFlex="150px">Court Date</mat-header-cell>
-      <mat-cell *cdkCellDef="let citation" fxFlex="150px" fxLayout="column" fxLayoutAlign="center"> {{getFormattedCourtDate(citation.court_dateTime, citation.court_id)}}</mat-cell>
+      <mat-cell *cdkCellDef="let citation" fxFlex="150px" fxLayout="column" fxLayoutAlign="center"> {{citation.court_dateTime | date:"MM/dd/yyyy"}}</mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="courtLocation">
@@ -65,7 +65,7 @@
     </div>
 
     <div fxLayout="column">
-      <span>Court Date</span><span>{{getFormattedCourtDate(citation.court_dateTime, citation.court_id)}}</span>
+      <span>Court Date</span><span>{{citation.court_dateTime | date:"MM/dd/yyyy"}}</span>
     </div>
 
     <div fxLayout="column">
@@ -79,7 +79,51 @@
   </mat-card>
 
   <div id="citationDisplay">
+    <div *ngIf="selectedCitation" fxLayout="column" fxLayoutGap.gt-sm="2em">
+      <div fxLayout.lt-md="column" fxLayoutGap.gt-sm="2em">
+        <div id="personInfo" fxLayout="column" fxFlex.gt-sm="1 1 50">
+          <h2>Your Information</h2>
+          <mat-card fxLayout="column" fxFlex="1 1 100%">
+            <span>{{selectedCitation.first_name}} {{selectedCitation.last_name}}</span>
+            <address fxLayout="column">
+              <span>{{selectedCitation.defendant_address}}</span>
+              <span>{{selectedCitation.defendant_city}}, {{selectedCitation.defendant_state}}</span>
+            </address>
+            <span>DOB: {{selectedCitation.date_of_birth | date:"MM/dd/yyyy"}}</span>
+            <span>Driver's License #: {{selectedCitation.drivers_license_number}} - {{selectedCitation.drivers_license_state}}</span>
+          </mat-card>
+        </div>
+        <div id="citationInfo" fxLayout="column" fxFlex.gt-sm="1 1 50">
+          <h2>Ticket Information</h2>
+          <mat-card fxLayout="column" fxFlex="1 1 100%">
+            <span fxLayout="row"><strong fxFlex="125px">Case Number</strong><span fxFlex>{{selectedCitation.citation_number}}</span></span>
+            <span fxLayout="row"><strong fxFlex="125px">Ticket Date</strong><span fxFlex>{{selectedCitation.citation_date | date:"MM/dd/yyyy"}}</span></span>
+            <span fxLayout="row"><strong fxFlex="125px">Total Fine</strong><span fxFlex>${{selectedCitation.getTotal()}}</span></span>
+            <span fxLayout="row"><strong fxFlex="125px">Violations</strong>
+              <ul>
+                <li *ngFor="let violation of selectedCitation.violations" fxLayout="column">
+                  {{violation.violation_description}}
+                </li>
+              </ul>
+            </span>
+          </mat-card>
+        </div>
+      </div>
+      <div fxLayout.lt-md="column" fxLayoutGap.gt-sm="2em">
+        <div id="courtInfo" fxLayout="column" fxFlex.gt-sm="50">
+          <h2>Court Information</h2>
+          <mat-card fxLayout="column" fxFlexFill>
 
+          </mat-card>
+        </div>
+        <div id="otherInfo" fxLayout="column" fxFlex.gt-sm="50">
+          <h2>I Want To...</h2>
+          <mat-card fxLayout="column" fxFlexFill>
+
+          </mat-card>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

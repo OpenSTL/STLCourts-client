@@ -52,10 +52,13 @@ export class TicketInfoComponent implements OnInit {
     });
   }
 
+/*
   getFormattedCourtDate(dateToFormat, courtId: string) {
     const court = this.getCourtById(courtId);
     return moment.tz(dateToFormat, court.zone_id).format('MM/DD/YYYY');
   }
+  */
+
 /*
   selectCitation(citation, idToScrollTo) {
     ctrl.selectedCitation = citation;
@@ -81,7 +84,7 @@ export class TicketInfoComponent implements OnInit {
   }
 
   getCourtById(courtId: string) {
-    if (this.courts.length > 0) {
+    if (!isNullOrUndefined(this.courts) && this.courts.length > 0) {
       return this.courts.find(court => {
         return court.id === courtId;
       });
@@ -92,6 +95,7 @@ export class TicketInfoComponent implements OnInit {
 
   ngOnInit() {
     this.citations = this.citationService.getCurrentCitations();
+    this.selectedCitation = null;
     if (this.citations.length === 0) {
       this.router.navigate(['findTickets']);
     } else {
