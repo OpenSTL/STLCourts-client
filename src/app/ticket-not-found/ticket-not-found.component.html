@@ -1,3 +1,48 @@
-<p>
-  ticket-not-found works!
-</p>
+<app-court-title-header headerText="No Tickets Found"></app-court-title-header>
+
+<div id="pageSectionHeader" fxLayout="row" fxLayoutAlign="center">
+  <h2>
+    We could not find any results for the information you provided.
+  </h2>
+</div>
+<div id="content" fxFlex="1 1 100%" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="1em">
+  <div fxLayout="column">
+    <h2>What this means</h2>
+    <p>
+      You may still have pending court cases, or you entered your information incorrectly.
+    </p>
+    <h3>If you just received your ticket</h3>
+    <p>
+      If you just received your ticket, it may not have been entered into the system yet.  Please check back soon.  Tickets have to go through an approval process before being entered into the ticket database.
+    </p>
+    <h3>If you have missed your court date</h3>
+    <p>
+      This website shows only upcoming court dates.  If your court date has passed and you have not resolved your case, there may be a warrant issued for you.  If you have missed the court date for a case involving a warrant and the court date is in the past, it will not show up in our system.  If you know this is your situation, you make look up the court where you missed your date using our <a routerLink="/findCourts">court finder</a>.
+    </p>
+    <h3>The court is not participating on this site</h3>
+    <p>
+      This site is for St. Louis County tickets.  Both the unincorporated areas and the municipalities that are part of the county.
+    </p>
+    <p>
+  </div>
+  <div id="secondColumn" fxLayout="column" fxLayoutAlign.gt-sm="start center" fxLayoutAlign.lt-md="start center">
+    <mat-card fxLayout="column">
+      <p>
+        Currently the following municipalities are supported by this site:
+      </p>
+      <p>
+        <mat-card>
+          <span *ngFor="let municipality of supportedMunicipalities; let i = index">
+            <span *ngIf="i != 0">, </span>{{municipality.name}}
+          </span>
+        </mat-card>
+      </p>
+      <p>
+        If you believe you have a ticket from a non-supported municipality, you may look the associated court up on our site by clicking <a routerLink="/findCourts">here</a>.
+        <br>
+        When you contact your court, please tell them that you'd like them to participate in YourStlCourts.
+      </p>
+    </mat-card>
+  </div>
+</div>
+

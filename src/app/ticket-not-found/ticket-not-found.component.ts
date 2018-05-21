@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MunicipalitiesService} from '../services/municipalities.service';
+import {Municipality} from '../models/municipality';
 
 @Component({
   selector: 'app-ticket-not-found',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketNotFoundComponent implements OnInit {
 
-  constructor() { }
+  supportedMunicipalities: Municipality[] = [];
+
+  constructor(private municipalityService: MunicipalitiesService) { }
 
   ngOnInit() {
+    this.municipalityService.findSupported(true).subscribe((supportedMunis) => {
+      this.supportedMunicipalities = supportedMunis;
+    });
   }
-
 }
