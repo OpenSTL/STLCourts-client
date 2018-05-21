@@ -3,7 +3,7 @@
 
 /* CHANGE THIS to change the theme colors */
 $stlcourt-app-primary: mat-palette($mat-stlcourts-blue);
-$stlcourt-app-accent: mat-palette($mat-stlcourts-green);
+$stlcourt-app-accent: mat-palette($mat-stlcourts-magenta, 100);
 $stlcourt-app-warn: mat-palette($mat-stlcourts-red);
 
 // Create your Sass color vars (will be available in all the project)
