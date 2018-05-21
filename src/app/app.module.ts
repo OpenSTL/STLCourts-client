@@ -35,6 +35,7 @@ import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
 
 import {NgxPageScrollModule} from 'ngx-page-scroll';
+import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {NgxPageScrollModule} from 'ngx-page-scroll';
     MapSelectDialogComponent,
     SelectedMunicipalitiesComponent,
     TicketInfoComponent,
-    TicketNotFoundComponent
+    TicketNotFoundComponent,
+    SmsTicketLookupComponent
   ],
   imports: [
     BrowserModule,
