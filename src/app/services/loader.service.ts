@@ -21,8 +21,6 @@ export class LoaderService {
       // Returns an OverlayRef (which is a PortalHost)
       this.overlayRef = this.overlay.create({
         hasBackdrop: false,
-        backdropClass: 'dark-backdrop',
-        panelClass: 'loading-panel',
         scrollStrategy: this.overlay.scrollStrategies.block(),
         positionStrategy
       });
