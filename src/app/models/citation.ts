@@ -55,7 +55,6 @@ export class Citation {
   private _getViolationsFineTotal(): number {
     return this.violations
       .map((violation) => {
-        console.log('fine amount: ' + violation.fine_amount);
         return parseFloat(violation.fine_amount);
       })
       .reduce((total: number, fine_amount: number): number => {

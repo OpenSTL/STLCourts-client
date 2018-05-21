@@ -10,6 +10,7 @@ import {isNullOrUndefined} from 'util';
 import {Observable} from 'rxjs/Observable';
 import {MunicipalitiesService} from '../services/municipalities.service';
 import {Municipality} from '../models/municipality';
+import {LegalRightsService} from '../services/legal-rights.service';
 
 @Component({
   selector: 'app-ticket-info',
@@ -25,13 +26,12 @@ export class TicketInfoComponent implements OnInit {
   dataSource;
   courts: Court[];
   municipalities: Municipality[];
-  // citationCourtLocations: any;
   selectedCitation: Citation;
-  // selectedCitationCourt: Court;
 
   constructor(private citationService: CitationService,
               private courtService: CourtsService,
               private muniService: MunicipalitiesService,  /* this can go once municipality paymentURL is moved to the courts */
+              private legalRightsService: LegalRightsService,
               private router: Router) { }
 
   private groupCitationsByDL() {
@@ -83,6 +83,18 @@ export class TicketInfoComponent implements OnInit {
     } else {
       return new Court();
     }
+  }
+
+  getLegalRightsLink() {
+    return this.legalRightsService.legalRightsLink(this.selectedCitation.court);
+  }
+
+  directions() {
+    window.open(this.selectedCitation.court.directionLink, '_blank');
+  }
+
+  print() {
+    window.print();
   }
 
   ngOnInit() {

@@ -21,6 +21,8 @@ export class Court {
 
   paymentUrl: string;  /* currently not returned from server */
 
+  private _directionLink: string;
+
   constructor() {
     this.id = null;
     this.name = '';
@@ -65,5 +67,11 @@ export class Court {
     this.rights_type = pojo.rights_type;
     this.rights_value = pojo.rights_value;
     this.zone_id = pojo.zone_id;
+  }
+
+  get directionLink() {
+    const address = this.address.replace(' ', '+');
+    const addressParts = [address, this.city, this.state, this.zip];
+    return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
   }
 }
