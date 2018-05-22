@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Faq} from '../models/faq';
 
 @Component({
   selector: 'app-faq-answer-dialog',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FaqAnswerDialogComponent implements OnInit {
 
-  constructor() { }
+  faqItem: Faq;
+  constructor(public dialogRef: MatDialogRef<FaqAnswerDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Faq) { }
 
   ngOnInit() {
+    if (this.data) {
+      this.faqItem = this.data;
+    }
   }
 
 }

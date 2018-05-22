@@ -81,7 +81,8 @@ import { FaqAnswerDialogComponent } from './faq-answer-dialog/faq-answer-dialog.
   ],
   entryComponents: [
     SecurityDialogComponent,
-    MapSelectDialogComponent
+    MapSelectDialogComponent,
+    FaqAnswerDialogComponent
   ],
   bootstrap: [AppComponent]
 })

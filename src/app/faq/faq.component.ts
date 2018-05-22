@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Faq} from '../models/faq';
+import {MatDialog} from '@angular/material';
+import {FaqAnswerDialogComponent} from '../faq-answer-dialog/faq-answer-dialog.component';
 
 @Component({
   selector: 'app-faq',
@@ -10,10 +12,14 @@ import {Faq} from '../models/faq';
 export class FaqComponent implements OnInit {
 
   faqGroup = [];
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              public dialog: MatDialog) { }
 
   onFaqClick(faqItem: Faq) {
-    console.log(faqItem.a);
+    this.dialog.open(FaqAnswerDialogComponent, {
+     // width: '250px',
+      data: faqItem
+    });
   }
 
   ngOnInit() {
