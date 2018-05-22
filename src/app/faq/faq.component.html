@@ -1,28 +1,25 @@
 <app-court-title-header headerText="FAQ"></app-court-title-header>
 
 <div id="content" fxLayout="column">
-  <h2 fxLayoutAlign="center">Tickets</h2>
-    <mat-grid-list cols="4" rowHeight="100px">
-      <mat-grid-tile *ngFor="let faqItem of faqGroup['ticket-faq']" [colspan]="faqItem.colSpan" [rowspan]="faqItem.rowSpan" [ngClass]="faqItem.colorClass">
-        {{faqItem.q}}
+  <div class="fontSizeLarge" fxLayoutAlign="center">Tickets</div>
+  <div class="faqItemRow" fxLayout="row">
+    <span fxFlex="33" *ngFor="let faqItem of faqGroup['ticket-faq']" fxLayoutAlign="start top">
+      &#8226; {{faqItem.q}}
+    </span>
+  </div>
+
+  <!--
+  <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile *ngFor="let faqItem of faqGroup['ticket-faq']" [colspan]="1" [rowspan]="1">
+        <span fxLayout="row" fxLayoutAlign="start start"fxLayoutGap=".5em">
+          <mat-icon>fiber_manual_record</mat-icon> {{faqItem.q}}
+        </span>
       </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
   <h2 fxLayoutAlign="center">Courts</h2>
-    <mat-grid-list cols="4" rowHeight="100px">
-      <mat-grid-tile *ngFor="let faqItem of faqGroup['courts-faq']" [colspan]="faqItem.colSpan" [rowspan]="faqItem.rowSpan" [ngClass]="faqItem.colorClass">
-        {{faqItem.q}}
-      </mat-grid-tile>
-    </mat-grid-list>
+
   <h2 fxLayoutAlign="center">Legal</h2>
-    <mat-grid-list cols="4" rowHeight="100px">
-      <mat-grid-tile *ngFor="let faqItem of faqGroup['legal-faq']" [colspan]="faqItem.colSpan" [rowspan]="faqItem.rowSpan" [ngClass]="faqItem.colorClass">
-        {{faqItem.q}}
-      </mat-grid-tile>
-    </mat-grid-list>
+
   <h2 fxLayoutAlign="center">Payment</h2>
-    <mat-grid-list cols="4" rowHeight="100px">
-      <mat-grid-tile *ngFor="let faqItem of faqGroup['payment-faq']" [colspan]="faqItem.colSpan" [rowspan]="faqItem.rowSpan" [ngClass]="faqItem.colorClass">
-        {{faqItem.q}}
-      </mat-grid-tile>
-    </mat-grid-list>
+
 </div>

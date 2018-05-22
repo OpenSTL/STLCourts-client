@@ -10,7 +10,7 @@
       margin-top: 0px;
     }
   }
-
+/*
   .mat-grid-tile {
     border: 1px solid $primary-border;
     &.colorClass1 {
@@ -23,10 +23,22 @@
       background-color: $primary-light-background;
     }
   }
-
+*/
   ::ng-deep mat-grid-tile.mat-grid-tile .mat-figure {
-    text-align: center;
-    padding: 10px;
+    // text-align: center;
+    align-items: start;
+    justify-content: start;
+   // padding: 10px;
+    mat-icon {
+      @include icon-size-mixin(15px);
+    }
+  }
+}
+
+.faqItemRow {
+  flex-wrap: wrap;
+  span {
+    padding: 15px;
   }
 }
 
