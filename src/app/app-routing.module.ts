@@ -8,6 +8,7 @@ import {FindTicketsComponent} from './find-tickets/find-tickets.component';
 import {TicketInfoComponent} from './ticket-info/ticket-info.component';
 import {TicketNotFoundComponent} from './ticket-not-found/ticket-not-found.component';
 import {AboutComponent} from './about/about.component';
+import {GoingToCourtComponent} from './going-to-court/going-to-court.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full'},
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'tickets/info', component: TicketInfoComponent, pathMatch: 'full'},
   { path: 'tickets/error/notFound', component: TicketNotFoundComponent, pathMatch: 'full'},
   { path: 'about', component: AboutComponent, pathMatch: 'full'},
+  { path: 'goingToCourt', component: GoingToCourtComponent, pathMatch: 'full'},
   { path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

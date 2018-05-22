@@ -34,6 +34,7 @@ import {CitationService} from './services/citation.service';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
 import { AboutComponent } from './about/about.component';
+import { GoingToCourtComponent } from './going-to-court/going-to-court.component';
 import {SmsinfoService} from './services/smsinfo.service';
 
 import {NgxPageScrollModule} from 'ngx-page-scroll';
@@ -61,6 +62,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     TicketInfoComponent,
     TicketNotFoundComponent,
     LoadingComponent,
+    GoingToCourtComponent,
     AboutComponent
   ],
   imports: [
