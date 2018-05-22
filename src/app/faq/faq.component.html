@@ -3,26 +3,26 @@
 <div id="content" fxLayout="column">
   <div class="faqHeaderRow fontSizeLarge" fxLayoutAlign="center">Tickets</div>
   <div class="faqItemRow" fxLayout="row">
-    <span fxFlex="33" *ngFor="let faqItem of faqGroup['ticket-faq']" fxLayoutAlign="start top">
+    <span fxFlex.gt-md="33" fxFlex.md="50" fxFlex.lt-md="100" *ngFor="let faqItem of faqGroup['ticket-faq']" fxLayoutAlign="start top">
       <a class="faqQuestion" (click)="onFaqClick(faqItem)">&#8226; {{faqItem.q}}</a>
     </span>
   </div>
   <div class="faqHeaderRow fontSizeLarge" fxLayoutAlign="center">Courts</div>
     <div class="faqItemRow" fxLayout="row">
     <span fxFlex="33" *ngFor="let faqItem of faqGroup['courts-faq']" fxLayoutAlign="start top">
-      &#8226; {{faqItem.q}}
+      <a class="faqQuestion" (click)="onFaqClick(faqItem)">&#8226; {{faqItem.q}}</a>
     </span>
     </div>
   <div class="faqHeaderRow fontSizeLarge" fxLayoutAlign="center">Legal</div>
     <div class="faqItemRow" fxLayout="row">
     <span fxFlex="33" *ngFor="let faqItem of faqGroup['legal-faq']" fxLayoutAlign="start top">
-      &#8226; {{faqItem.q}}
+      <a class="faqQuestion" (click)="onFaqClick(faqItem)">&#8226; {{faqItem.q}}</a>
     </span>
     </div>
   <div class="faqHeaderRow fontSizeLarge" fxLayoutAlign="center">Payment</div>
     <div class="faqItemRow" fxLayout="row">
     <span fxFlex="33" *ngFor="let faqItem of faqGroup['payment-faq']" fxLayoutAlign="start top">
-      &#8226; {{faqItem.q}}
+      <a class="faqQuestion" (click)="onFaqClick(faqItem)">&#8226; {{faqItem.q}}</a>
     </span>
     </div>
 </div>

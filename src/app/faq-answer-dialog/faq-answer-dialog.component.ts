@@ -10,6 +10,8 @@ import {Faq} from '../models/faq';
 export class FaqAnswerDialogComponent implements OnInit {
 
   faqItem: Faq;
+ // autolinker = new Autolinker({stripPrefix: false});
+
   constructor(public dialogRef: MatDialogRef<FaqAnswerDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Faq) { }
 

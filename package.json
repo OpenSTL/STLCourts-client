@@ -30,6 +30,7 @@
     "@angular/platform-browser-dynamic": "5.2.0",
     "@angular/router": "5.2.0",
     "@asymmetrik/ngx-leaflet": "3.0.2",
+    "angular-linky": "^1.2.2",
     "angular-moment-timezone": "1.7.1",
     "core-js": "2.4.1",
     "karma-viewport": "1.0.2",

@@ -36,6 +36,8 @@ import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.com
 import { FaqComponent } from './faq/faq.component';
 import { FaqAnswerDialogComponent } from './faq-answer-dialog/faq-answer-dialog.component';
 
+import { LinkyModule } from 'angular-linky';
+
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { FaqAnswerDialogComponent } from './faq-answer-dialog/faq-answer-dialog.
     ReactiveFormsModule,
     LeafletModule.forRoot(),
     MomentModule,
-    MomentTimezoneModule
+    MomentTimezoneModule,
+    LinkyModule
   ],
   providers: [
     Title,

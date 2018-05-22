@@ -1,8 +1,12 @@
-<div class="titleBlock" mat-dialog-title>
-  <strong>{{faqItem.q}}</strong>
-  <button mat-button mat-dialog-close><mat-icon color="warn">cancel</mat-icon></button>
-</div>
+<div fxLayout="column" fxLayoutGap="1.5em">
+  <strong>Q: {{faqItem.q}}</strong>
 
-<p>
-  {{faqItem.a}}
-</p>
+  <strong>
+    A: <span [innerHTML]="faqItem.a | linky:{stripPrefix: false}"></span>
+  </strong>
+
+  <mat-dialog-actions fxLayoutAlign="end">
+    <button mat-button mat-raised-button mat-dialog-close color="primary">OK</button>
+  </mat-dialog-actions>
+
+</div>
