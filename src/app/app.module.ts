@@ -34,6 +34,8 @@ import {CitationService} from './services/citation.service';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
 
+import {NgxPageScrollModule} from 'ngx-page-scroll';
+
 
 @NgModule({
   declarations: [
@@ -63,7 +65,8 @@ import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.com
     ReactiveFormsModule,
     LeafletModule.forRoot(),
     MomentModule,
-    MomentTimezoneModule
+    MomentTimezoneModule,
+    NgxPageScrollModule
   ],
   providers: [
     Title,

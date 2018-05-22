@@ -25,9 +25,13 @@ export class CitationService {
   public find(httpParams: HttpParams): Observable<Citation[]> {
     return this.http.get(environment.baseUrl + '/citations', {params: httpParams})
       .map(response => {
-        const citations = <Citation[]>response;
-        citations.forEach((citation) => {
-           this.convertCitationDateStringsToDates(citation);
+        const citations = [];
+        const citationResponse = <Citation[]>response;
+        citationResponse.forEach((pojoCitation) => {
+           this.convertCitationDateStringsToDates(pojoCitation);
+           const citation = new Citation();
+           citation.fromPOJO(pojoCitation);
+           citations.push(citation);
         });
         return citations;
       })
