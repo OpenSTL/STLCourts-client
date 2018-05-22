@@ -34,6 +34,7 @@ import {CitationService} from './services/citation.service';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
 import { FaqComponent } from './faq/faq.component';
+import { FaqAnswerDialogComponent } from './faq-answer-dialog/faq-answer-dialog.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { FaqComponent } from './faq/faq.component';
     SelectedMunicipalitiesComponent,
     TicketInfoComponent,
     TicketNotFoundComponent,
-    FaqComponent
+    FaqComponent,
+    FaqAnswerDialogComponent
   ],
   imports: [
     BrowserModule,

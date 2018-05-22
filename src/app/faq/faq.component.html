@@ -1,25 +1,28 @@
 <app-court-title-header headerText="FAQ"></app-court-title-header>
 
 <div id="content" fxLayout="column">
-  <div class="fontSizeLarge" fxLayoutAlign="center">Tickets</div>
+  <div class="faqHeaderRow fontSizeLarge" fxLayoutAlign="center">Tickets</div>
   <div class="faqItemRow" fxLayout="row">
     <span fxFlex="33" *ngFor="let faqItem of faqGroup['ticket-faq']" fxLayoutAlign="start top">
-      &#8226; {{faqItem.q}}
+      <a class="faqQuestion" (click)="onFaqClick(faqItem)">&#8226; {{faqItem.q}}</a>
     </span>
   </div>
-
-  <!--
-  <mat-grid-list cols="3" rowHeight="100px">
-      <mat-grid-tile *ngFor="let faqItem of faqGroup['ticket-faq']" [colspan]="1" [rowspan]="1">
-        <span fxLayout="row" fxLayoutAlign="start start"fxLayoutGap=".5em">
-          <mat-icon>fiber_manual_record</mat-icon> {{faqItem.q}}
-        </span>
-      </mat-grid-tile>
-    </mat-grid-list> -->
-  <h2 fxLayoutAlign="center">Courts</h2>
-
-  <h2 fxLayoutAlign="center">Legal</h2>
-
-  <h2 fxLayoutAlign="center">Payment</h2>
-
+  <div class="faqHeaderRow fontSizeLarge" fxLayoutAlign="center">Courts</div>
+    <div class="faqItemRow" fxLayout="row">
+    <span fxFlex="33" *ngFor="let faqItem of faqGroup['courts-faq']" fxLayoutAlign="start top">
+      &#8226; {{faqItem.q}}
+    </span>
+    </div>
+  <div class="faqHeaderRow fontSizeLarge" fxLayoutAlign="center">Legal</div>
+    <div class="faqItemRow" fxLayout="row">
+    <span fxFlex="33" *ngFor="let faqItem of faqGroup['legal-faq']" fxLayoutAlign="start top">
+      &#8226; {{faqItem.q}}
+    </span>
+    </div>
+  <div class="faqHeaderRow fontSizeLarge" fxLayoutAlign="center">Payment</div>
+    <div class="faqItemRow" fxLayout="row">
+    <span fxFlex="33" *ngFor="let faqItem of faqGroup['payment-faq']" fxLayoutAlign="start top">
+      &#8226; {{faqItem.q}}
+    </span>
+    </div>
 </div>
