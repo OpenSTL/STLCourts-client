@@ -13,7 +13,7 @@ export class FaqComponent implements OnInit {
   backgroundColors = ['lightblue', 'lightgreen', 'lightpink', '#DDBDF1'];
   constructor(private http: HttpClient) { }
 
-  randomColSpan(): number{
+  randomColSpan(): number {
    return Math.floor((Math.random() * 4) + 1);
   }
 
@@ -29,34 +29,48 @@ export class FaqComponent implements OnInit {
   ngOnInit() {
     this.http.get('assets/questionAnswers.json').subscribe ((jsonData) => {
 
-      let colSpan = 0;
+      let colorClassCount = 0;
       for (const group of Object.keys(jsonData)) {
         this.faqGroup[group] = [];
-        jsonData[group].forEach((faqItem) => {
-          const faq = new Faq(faqItem.q, faqItem.a, faqItem.keywords, faqItem.fillIn);
-          let randomColSpan = this.randomColSpan();
-          console.log('total colSpan: ' + colSpan + randomColSpan + ', colSpan: ' + colSpan + ', randomCSpan: ' + randomColSpan);
-          if ((colSpan + randomColSpan) > 4) {
-            randomColSpan = 4 - colSpan;
-            console.log('prev Total: ' + colSpan + ', new random: ' + randomColSpan);
-            colSpan = 0;
-          } else {
-            if (colSpan + randomColSpan === 4) {
-              colSpan = 0;
+          let colSpan = 0;
+          jsonData[group].forEach((faqItem) => {
+            const faq = new Faq(faqItem.q, faqItem.a, faqItem.keywords, faqItem.fillIn);
+            let randomColSpan = this.randomColSpan();
+
+            if (faqItem === jsonData[group][jsonData[group].length - 1]) {
+              randomColSpan = 4 - colSpan;
             } else {
-              if (faqItem === jsonData[group.length - 1]) {
-                colSpan = 4 - colSpan;
+              if (randomColSpan + colSpan > 4) {
+                randomColSpan = 4 - colSpan;
+                colSpan = 0;
               } else {
-                colSpan = colSpan + randomColSpan;
+                if (randomColSpan + colSpan === 4) {
+                  colSpan = 0;
+                } else {
+                  colSpan += randomColSpan;
+                }
               }
             }
-          }
-          faq.colSpan = randomColSpan;
-          faq.rowSpan = 1; // this.randomRowSpan();
-          faq.itemColor = this.randomColor();
-          this.faqGroup[group].push(faq);
-        });
-      }
+            faq.colSpan = randomColSpan;
+            faq.rowSpan = 1; // this.randomRowSpan();
+           // faq.itemColor = this.randomColor();
+            let colorClassName = '';
+            switch (colorClassCount % 3) {
+              case 0:
+                colorClassName = 'colorClass1';
+                break;
+              case 1:
+                colorClassName = 'colorClass2';
+                break;
+              case 2:
+                colorClassName = 'colorClass3';
+                break;
+            }
+            faq.colorClass = colorClassName;
+            this.faqGroup[group].push(faq);
+            colorClassCount++;
+          });
+        }
     });
   }
 

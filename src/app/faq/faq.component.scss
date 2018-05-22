@@ -9,15 +9,26 @@
     &:first-child {
       margin-top: 0px;
     }
-    div:first-child {
-   //   flex-flow: row wrap;
+  }
+
+  .mat-grid-tile {
+    border: 1px solid $primary-border;
+    &.colorClass1 {
+      background-color: lightgrey;
+    }
+    &.colorClass2 {
+      background-color: $accent-light-background;
+    }
+    &.colorClass3 {
+      background-color: $primary-light-background;
     }
   }
 
-  .faqItem {
-   // padding: 10px;
-   // border: 1px solid black;
+  ::ng-deep mat-grid-tile.mat-grid-tile .mat-figure {
+    text-align: center;
+    padding: 10px;
   }
 }
+
 
 

@@ -47,3 +47,7 @@ $warn-contrast: mat-contrast($stlcourt-app-warn,500);
   background-color: $warn;
   color: $warn-contrast;
 }
+
+$primary-light-background: mat-color($stlcourt-app-primary, 100);
+$primary-border: mat-color($stlcourt-app-primary, 700);
+$accent-light-background: mat-color($stlcourt-app-accent, 100);

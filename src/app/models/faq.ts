@@ -7,6 +7,7 @@ export class Faq {
   colSpan: number;
   rowSpan: number;
   itemColor: string;
+  colorClass: string;
 
   constructor(q: string, a: string, keywords: string[], fillIn: string) {
     this.q = q;
