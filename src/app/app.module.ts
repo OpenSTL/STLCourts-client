@@ -33,6 +33,8 @@ import {SnackBarService} from './services/snack-bar.service';
 import {CitationService} from './services/citation.service';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
+import { AboutComponent } from './about/about.component';
+import {SmsinfoService} from './services/smsinfo.service';
 
 import {NgxPageScrollModule} from 'ngx-page-scroll';
 import {LoaderInterceptorService} from './interceptors/loader-interceptor.service';
@@ -58,7 +60,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     SelectedMunicipalitiesComponent,
     TicketInfoComponent,
     TicketNotFoundComponent,
-    LoadingComponent
+    LoadingComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     UsStatesService,
     SnackBarService,
     CitationService,
+    SmsinfoService,
     LoaderService,
     {
       provide: HTTP_INTERCEPTORS,
