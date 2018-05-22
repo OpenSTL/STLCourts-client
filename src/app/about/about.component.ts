@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ContactService} from '../services/contact.service';
 import {SmsinfoService} from '../services/smsinfo.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-about',
@@ -8,22 +9,14 @@ import {SmsinfoService} from '../services/smsinfo.service';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-  phoneNumber = '';
+  phoneNumber$: Observable<string>;
+  contactEmail: string;
 
   constructor(private contactService: ContactService,
               private smsInfoService: SmsinfoService) {}
 
-  getContactEmail() {
-    return this.contactService.email;
-  }
-
-  textPhoneNumber() {
-    return this.phoneNumber;
-  }
-
   ngOnInit() {
-    this.smsInfoService.getPhoneNumber().subscribe((phoneNum) => {
-      this.phoneNumber = phoneNum;
-    });
+    this.phoneNumber$ = this.smsInfoService.getPhoneNumber();
+    this.contactEmail = this.contactService.email;
   }
 }
