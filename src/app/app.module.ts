@@ -66,7 +66,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     TicketNotFoundComponent,
     LoadingComponent,
     GoingToCourtComponent,
-    AboutComponent
+    AboutComponent,
     LegalComponent,
     PrivacyComponent,
     CommunityServiceComponent
