@@ -32,7 +32,7 @@
       </p>
       <p>
         <mat-card>
-          <span *ngFor="let municipality of supportedMunicipalities; let i = index">
+          <span *ngFor="let municipality of supportedMunicipalities$ | async; let i = index">
             <span *ngIf="i != 0">, </span>{{municipality.name}}
           </span>
         </mat-card>
