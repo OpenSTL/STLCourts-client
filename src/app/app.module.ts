@@ -36,6 +36,9 @@ import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.com
 import { AboutComponent } from './about/about.component';
 import { GoingToCourtComponent } from './going-to-court/going-to-court.component';
 import {SmsinfoService} from './services/smsinfo.service';
+import { LegalComponent } from './legal/legal.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { CommunityServiceComponent } from './community-service/community-service.component';
 
 import {NgxPageScrollModule} from 'ngx-page-scroll';
 import {LoaderInterceptorService} from './interceptors/loader-interceptor.service';
@@ -64,6 +67,9 @@ import {OverlayModule} from '@angular/cdk/overlay';
     LoadingComponent,
     GoingToCourtComponent,
     AboutComponent
+    LegalComponent,
+    PrivacyComponent,
+    CommunityServiceComponent
   ],
   imports: [
     BrowserModule,
