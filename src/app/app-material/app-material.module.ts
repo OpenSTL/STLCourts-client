@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule,
-         MatMenuModule,
-         MatIconModule,
-         MatToolbarModule,
-         MatInputModule,
-         MatRadioModule,
-         MatTooltipModule,
-         MatAutocompleteModule
+import {
+  MatButtonModule,
+  MatMenuModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatInputModule,
+  MatRadioModule,
+  MatTooltipModule,
+  MatAutocompleteModule, MatTableModule
 } from '@angular/material';
 
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -17,6 +18,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {CdkTableModule} from '@angular/cdk/table';
 
 
 
@@ -38,7 +40,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatGridListModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    CdkTableModule
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +59,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatGridListModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    CdkTableModule
   ],
   declarations: []
 })

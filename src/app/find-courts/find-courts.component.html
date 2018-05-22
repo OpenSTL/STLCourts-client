@@ -5,7 +5,7 @@
   <form fxFlex=".2 1 100%">
     <span id="selectCourtInputDecorator">
       <mat-form-field>
-        <input id="selectCourtInput" matInput placeholder="Click here to find court information by municipality..." [formControl]="muniGroupCtrl" [matAutocomplete]="auto">
+        <input id="selectCourtInput" matInput placeholder="Click here to find court info..." [formControl]="muniGroupCtrl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCourtSelected($event)" [displayWith]="getAutoCompleteDisplay">
           <mat-optgroup *ngFor="let muniGroup of filteredMuniGroups | async" [class.muniAutoCompleteGroups]="true" [label]="getGroupLabel(muniGroup)">
             <mat-option *ngFor="let court of muniGroup.courts" [value]="court">

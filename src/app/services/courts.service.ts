@@ -14,7 +14,14 @@ export class CourtsService {
     return this.http
       .get(environment.baseUrl + '/courts')
       .map(response => {
-        return <Array<Court>>response;
+        const courts = [];
+        const courtResponse = <Court[]>response;
+        courtResponse.forEach((pojoCourt) => {
+          const court = new Court();
+          court.fromPOJO(pojoCourt);
+          courts.push(court);
+        });
+        return courts;
       });
   }
 
@@ -22,7 +29,9 @@ export class CourtsService {
     return this.http
       .get( environment.baseUrl + '/courts/' + id)
     .map(response => {
-        return <Court>response;
+      const court = new Court();
+      court.fromPOJO(<Court>response);
+      return court;
       });
     }
 
