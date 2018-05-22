@@ -3,9 +3,15 @@ export class Judge {
   judge: string;
   courtId: number;
 
-  constructor(judgeName: string) {
-    this.judge = judgeName;
+  constructor() {
+    this.judge = '';
     this.id = null;
     this.courtId = null;
+  }
+
+  fromPOJO(pojo: Judge) {
+    this.id = pojo.id;
+    this.judge = pojo.judge;
+    this.courtId = pojo.courtId;
   }
 }

@@ -23,7 +23,14 @@ export class MunicipalitiesService {
     return this.http
       .get(environment.baseUrl + '/municipalities', options)
       .map(response => {
-        return <Array<Municipality>>response;
+        const munis = [];
+        const muniResponse = <Municipality[]>response;
+        muniResponse.forEach((pojoMuni) => {
+          const muni = new Municipality();
+          muni.fromPOJO(pojoMuni);
+          munis.push(muni);
+        });
+        return munis;
       });
   }
 
@@ -31,7 +38,9 @@ export class MunicipalitiesService {
     return this.http
       .get( environment.baseUrl + '/municipalities/' + id)
       .map(response => {
-        return <Municipality>response;
+        const muni = new Municipality();
+        muni.fromPOJO(<Municipality>response);
+        return muni;
       });
   }
 
@@ -39,7 +48,14 @@ export class MunicipalitiesService {
     return this.http
       .get( environment.baseUrl + '/courts/' + id + '/municipalities')
       .map(response => {
-        return <Array<Municipality>>response;
+        const munis = [];
+        const muniResponse = <Municipality[]>response;
+        muniResponse.forEach((pojoMuni) => {
+          const muni = new Municipality();
+          muni.fromPOJO(pojoMuni);
+          munis.push(muni);
+        });
+        return munis;
       });
   }
 
