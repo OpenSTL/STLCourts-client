@@ -65,18 +65,8 @@ export class CourtsComponent implements OnInit {
     window.print();
   }
 
-  private getDirectionLink() {
-    const address = this.court.address.replace(' ', '+');
-    const city = this.court.city;
-    const state = this.court.state;
-    const zip = this.court.zip;
-    const addressParts = [address, city, state, zip];
-    return 'https://maps.google.com?saddr=Current+Location&daddr=' + addressParts.join('+');
-  }
-
   directions() {
-    const directionLink = this.getDirectionLink();
-    window.open(directionLink, '_blank');
+    window.open(this.court.directionLink, '_blank');
   }
 
   getLegalRightsLink() {

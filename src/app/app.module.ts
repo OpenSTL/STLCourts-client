@@ -14,7 +14,7 @@ import {ContactService} from './services/contact.service';
 import { FindCourtsComponent } from './find-courts/find-courts.component';
 import {CourtsService} from './services/courts.service';
 import {MunicipalitiesService} from './services/municipalities.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CourtsComponent } from './courts/courts.component';
 import { CourtTitleHeaderComponent } from './court-title-header/court-title-header.component';
@@ -33,7 +33,16 @@ import {SnackBarService} from './services/snack-bar.service';
 import {CitationService} from './services/citation.service';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
+import { AboutComponent } from './about/about.component';
 import { GoingToCourtComponent } from './going-to-court/going-to-court.component';
+import {SmsinfoService} from './services/smsinfo.service';
+
+import {NgxPageScrollModule} from 'ngx-page-scroll';
+import {LoaderInterceptorService} from './interceptors/loader-interceptor.service';
+import { LoadingComponent } from './loading/loading.component';
+import {LoaderService} from './services/loader.service';
+
+import {OverlayModule} from '@angular/cdk/overlay';
 
 
 @NgModule({
@@ -52,7 +61,9 @@ import { GoingToCourtComponent } from './going-to-court/going-to-court.component
     SelectedMunicipalitiesComponent,
     TicketInfoComponent,
     TicketNotFoundComponent,
-    GoingToCourtComponent
+    LoadingComponent,
+    GoingToCourtComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +76,9 @@ import { GoingToCourtComponent } from './going-to-court/going-to-court.component
     ReactiveFormsModule,
     LeafletModule.forRoot(),
     MomentModule,
-    MomentTimezoneModule
+    MomentTimezoneModule,
+    NgxPageScrollModule,
+    OverlayModule
   ],
   providers: [
     Title,
@@ -75,11 +88,19 @@ import { GoingToCourtComponent } from './going-to-court/going-to-court.component
     LegalRightsService,
     UsStatesService,
     SnackBarService,
-    CitationService
+    CitationService,
+    SmsinfoService,
+    LoaderService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptorService,
+      multi: true,
+    }
   ],
   entryComponents: [
     SecurityDialogComponent,
-    MapSelectDialogComponent
+    MapSelectDialogComponent,
+    LoadingComponent
   ],
   bootstrap: [AppComponent]
 })

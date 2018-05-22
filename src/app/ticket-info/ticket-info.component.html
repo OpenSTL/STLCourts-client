@@ -1,3 +1,164 @@
-<p>
-  ticket-info works!
-</p>
+<app-citation-title-header headerText="Ticket Results" useBackground="true"></app-citation-title-header>
+
+<mat-chip id="greaterThanOnePerson" *ngIf="groupedCitations.length > 1" fxLayoutAlign="center">
+  <mat-error>Ticket results may be shown for multiple people</mat-error>
+</mat-chip>
+<div *ngIf="citations.length > 1">
+  <div class="citationTable" *ngFor="let citationGroup of groupedCitations" fxLayout="column">
+    <h2>{{citationGroup[0].first_name}} {{citationGroup[0].last_name}}</h2>
+    <mat-table fxHide.lt-md [dataSource]="citationGroup">
+      <ng-container cdkColumnDef="view">
+        <mat-header-cell *cdkHeaderCellDef fxFlex="125px"></mat-header-cell>
+        <mat-cell *cdkCellDef="let citation" fxFlex="125px" fxLayout="column" fxLayoutAlign="center">
+          <a pageScroll href="#citationDisplay"><button mat-raised-button color="accent" (click)="selectCitation(citation)">View</button></a>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="ticketNum">
+        <mat-header-cell *cdkHeaderCellDef fxFlex="100px">Ticket #</mat-header-cell>
+        <mat-cell *cdkCellDef="let citation" fxFlex="100px" fxLayout="column" fxLayoutAlign="center"> {{citation.citation_number}} </mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="name">
+        <mat-header-cell *cdkHeaderCellDef fxFlex="250px">Name</mat-header-cell>
+        <mat-cell *cdkCellDef="let citation" fxFlex="250px" fxLayout="column" fxLayoutAlign="center">{{citation.first_name}} {{citation.last_name}}</mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="courtDate">
+        <mat-header-cell *cdkHeaderCellDef fxFlex="150px">Court Date</mat-header-cell>
+        <mat-cell *cdkCellDef="let citation" fxFlex="150px" fxLayout="column" fxLayoutAlign="center"> {{citation.court_dateTime | date:"MM/dd/yyyy"}}</mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="courtLocation">
+        <mat-header-cell *cdkHeaderCellDef>Court Location</mat-header-cell>
+        <mat-cell *cdkCellDef="let citation" fxLayout="column" fxLayoutAlign="center"> {{citation.court?.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="violations">
+        <mat-header-cell *cdkHeaderCellDef>Violations</mat-header-cell>
+        <mat-cell *cdkCellDef="let citation" fxLayout="row" fxLayoutAlign="start center">
+          <span *ngIf="citation.violations.length > 0">
+            <span *ngFor="let violation of citation.violations; let i = index;">
+              <span>{{violation.violation_description}}</span>
+              <span *ngIf="i < citation.violations.length - 1">, </span>
+            </span>
+          </span>
+          <span *ngIf="citation.violations.length === 0">
+            Violation data unavailable. Please contact your court.
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let citation; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-card fxHide.gt-sm fxLayout="column" fxLayoutGap="1.5em" *ngFor="let citation of citationGroup">
+      <div fxLayout="row">
+        <div fxLayout="column" fxFlex="50">
+          <span>Ticket #</span><span>{{citation.citation_number}}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="50">
+          <button mat-raised-button color="accent" (click)="selectCitation(citation)"> view this ticket</button>
+        </div>
+      </div>
+
+      <div fxLayout="column">
+        <span>Name</span><span>{{citation.first_name}} {{citation.last_name}}</span>
+      </div>
+
+      <div fxLayout="column">
+        <span>Court Date</span><span>{{citation.court_dateTime | date:"MM/dd/yyyy"}}</span>
+      </div>
+
+      <div fxLayout="column">
+        <span>Court Location</span><span>{{citation.court?.name}}</span>
+      </div>
+
+      <div fxLayout="column">
+        <span>Violations</span>
+        <span *ngFor="let violation of citation.violations">{{violation.violation_description}}</span>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<div id="citationDisplay">
+  <div *ngIf="selectedCitation" fxLayout="column" fxLayoutGap.gt-sm="2em" ngClass.lt-md="mobileMargins" ngClass.gt-sm="regularMargins">
+    <div fxLayout.lt-md="column" fxLayoutGap.gt-sm="2em">
+      <div id="personInfo" fxLayout="column" fxFlex.gt-sm="1 1 50">
+        <h2>Your Information</h2>
+        <mat-card fxLayout="column" fxFlex="1 1 100%">
+          <span>{{selectedCitation.first_name}} {{selectedCitation.last_name}}</span>
+          <address fxLayout="column">
+            <span>{{selectedCitation.defendant_address}}</span>
+            <span>{{selectedCitation.defendant_city}}, {{selectedCitation.defendant_state}}</span>
+          </address>
+          <span>DOB: {{selectedCitation.date_of_birth | date:"MM/dd/yyyy"}}</span>
+          <span>Driver's License #: {{selectedCitation.drivers_license_number}} - {{selectedCitation.drivers_license_state}}</span>
+        </mat-card>
+      </div>
+      <div id="citationInfo" fxLayout="column" fxFlex.gt-sm="1 1 50">
+        <h2>Ticket Information</h2>
+        <mat-card fxLayout="column" fxFlex="1 1 100%">
+          <span fxLayout="row"><strong fxFlex="125px">Case Number</strong><span fxFlex>{{selectedCitation.citation_number}}</span></span>
+          <span fxLayout="row"><strong fxFlex="125px">Ticket Date</strong><span fxFlex>{{selectedCitation.citation_date | date:"MM/dd/yyyy"}}</span></span>
+          <span fxLayout="row">
+            <strong fxFlex="125px">Total Fine</strong>
+            <span fxFlex fxLayout="column">
+              <span *ngIf="!selectedCitation.missingFineInfo">${{selectedCitation.violationsFineTotal}}</span>
+              <em *ngIf="selectedCitation.missingFineInfo">Fine Info Unavailable</em>
+              <mat-error ng-if="!showPaymentButton()">Note: you must appear in court and speak with the judge to clear this citation.</mat-error>
+            </span>
+          </span>
+          <span fxLayout="row"><strong fxFlex="125px">Violations</strong>
+              <ul>
+                <li *ngFor="let violation of selectedCitation.violations" fxLayout="column">
+                  <span>
+                    <span>{{violation.violation_description}}</span>
+                    <mat-chip-list *ngIf="violation.warrant_status">
+                      <mat-chip color="warn" selected="true" fxLayout.xs="column"><span>WARRANT ISSUED</span><span *ngIf="violation.warrant_number"> #{{violation.warrant_number}}</span></mat-chip>
+                    </mat-chip-list>
+                  </span>
+                </li>
+              </ul>
+          </span>
+        </mat-card>
+      </div>
+    </div>
+    <div fxLayout.lt-md="column" fxLayoutGap.gt-sm="2em">
+      <div id="courtInfo" fxLayout="column" fxFlex.gt-sm="1 1 50">
+        <h2>Court Information</h2>
+        <mat-card fxLayout="column" fxFlex="1 1 100%">
+          <span fxLayout="row"><strong fxFlex="125px">Court Date</strong><span fxFlex>{{selectedCitation.court_dateTime | date:"MM/dd/yyyy"}}</span></span>
+          <span fxLayout="row"><strong fxFlex="125px">Court Time</strong><span fxFlex>{{selectedCitation.formattedCourtTime(selectedCitation.court.zone_id)}}</span></span>
+          <span fxLayout="row"><strong fxFlex="125px">Court Name</strong><span fxFlex>{{selectedCitation.court.name}}</span></span>
+          <span fxLayout="row"><strong fxFlex="125px">Court Phone</strong><span fxFlex><span>{{selectedCitation.court.phone}}</span><span *ngIf="selectedCitation.court.extension"> x{{selectedCitation.court.extension}}</span></span></span>
+          <span fxLayout="row">
+            <strong fxFlex="125px">Court Location</strong>
+            <div fxLayout="column" fxLayoutGap="1em">
+              <address fxLayout="column">
+                <span>{{selectedCitation.defendant_address}}</span>
+                <span>{{selectedCitation.defendant_city}}, {{selectedCitation.defendant_state}}</span>
+              </address>
+              <button mat-raised-button color="accent" (click)="directions()">Get Directions</button>
+              <a href="{{getLegalRightsLink()}}" target="_blank"><button mat-raised-button color="accent">Your Legal Rights</button></a>
+            </div>
+          </span>
+        </mat-card>
+      </div>
+      <div id="otherInfo" fxLayout="column" fxFlex.gt-sm="1 1 50">
+        <h2>I Want To...</h2>
+        <mat-card fxLayout="column" fxFlex="1 1 100%" fxLayoutGap="1em">
+          <span><a href="{{selectedCitation.court.paymentUrl}}" target="_blank"><button mat-raised-button color="accent"><mat-icon>monetization_on</mat-icon> Pay My Ticket</button></a></span>
+          <em>Note: paying your ticket is considered an admission of guilt. If you do not wish to plead guilty, you must appear in court to meet with the judge.</em>
+          <span><a routerLink="/communityService"><button mat-raised-button color="accent">
+            <span fxHide.xs>Explore Community Service Options</span>
+            <span fxHide.gt-xs>Explore Community Service</span>
+          </button></a></span>
+          <span><button mat-raised-button color="accent" (click)="print()"><mat-icon>print</mat-icon>Print Info</button></span>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+
