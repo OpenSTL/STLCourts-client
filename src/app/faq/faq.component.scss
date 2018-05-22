@@ -1,0 +1,23 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+#content {
+  margin-left: 1em;
+  margin-right: 1em;
+
+  h2 {
+    &:first-child {
+      margin-top: 0px;
+    }
+    div:first-child {
+   //   flex-flow: row wrap;
+    }
+  }
+
+  .faqItem {
+   // padding: 10px;
+   // border: 1px solid black;
+  }
+}
+
+

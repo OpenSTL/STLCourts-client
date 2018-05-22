@@ -33,6 +33,7 @@ import {SnackBarService} from './services/snack-bar.service';
 import {CitationService} from './services/citation.service';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
+import { FaqComponent } from './faq/faq.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.com
     MapSelectDialogComponent,
     SelectedMunicipalitiesComponent,
     TicketInfoComponent,
-    TicketNotFoundComponent
+    TicketNotFoundComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
