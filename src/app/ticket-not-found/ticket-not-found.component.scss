@@ -1,0 +1,23 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+#content {
+  margin: 1em;
+}
+
+#pageSectionHeader {
+  margin-top: 0px;
+  margin-bottom: 2em;
+}
+
+#secondColumn {
+  padding-left:2em;
+  padding-right:2em;
+
+  mat-card {
+    background-color: $tableEvenRowColor;
+    mat-card {
+      background-color: $accent;
+    }
+  }
+}
