@@ -1,7 +1,18 @@
 @import '../../styles/_colors';
 @import '../../styles/_sizes';
 
-h2 {
+h1:first-child {
+  position: relative;
+  #cancelButton {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    padding: 0px;
+    min-width: 31px !important;
+  }
+}
+
+#instructions {
   text-align: center;
 }
 

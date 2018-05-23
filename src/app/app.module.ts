@@ -46,7 +46,7 @@ import { LoadingComponent } from './loading/loading.component';
 import {LoaderService} from './services/loader.service';
 
 import {OverlayModule} from '@angular/cdk/overlay';
-
+import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.component';
 
 
 @NgModule({
@@ -66,6 +66,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     TicketInfoComponent,
     TicketNotFoundComponent,
     LoadingComponent,
+    SmsTicketLookupComponent,
     GoingToCourtComponent,
     AboutComponent,
     LegalComponent,
