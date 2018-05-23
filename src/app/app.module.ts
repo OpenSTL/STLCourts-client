@@ -14,7 +14,7 @@ import {ContactService} from './services/contact.service';
 import { FindCourtsComponent } from './find-courts/find-courts.component';
 import {CourtsService} from './services/courts.service';
 import {MunicipalitiesService} from './services/municipalities.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CourtsComponent } from './courts/courts.component';
 import { CourtTitleHeaderComponent } from './court-title-header/court-title-header.component';
@@ -33,8 +33,19 @@ import {SnackBarService} from './services/snack-bar.service';
 import {CitationService} from './services/citation.service';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import { TicketNotFoundComponent } from './ticket-not-found/ticket-not-found.component';
+import { AboutComponent } from './about/about.component';
+import { GoingToCourtComponent } from './going-to-court/going-to-court.component';
+import {SmsinfoService} from './services/smsinfo.service';
+import { LegalComponent } from './legal/legal.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { CommunityServiceComponent } from './community-service/community-service.component';
 
 import {NgxPageScrollModule} from 'ngx-page-scroll';
+import {LoaderInterceptorService} from './interceptors/loader-interceptor.service';
+import { LoadingComponent } from './loading/loading.component';
+import {LoaderService} from './services/loader.service';
+
+import {OverlayModule} from '@angular/cdk/overlay';
 import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.component';
 
 
@@ -54,7 +65,13 @@ import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.
     SelectedMunicipalitiesComponent,
     TicketInfoComponent,
     TicketNotFoundComponent,
-    SmsTicketLookupComponent
+    LoadingComponent,
+    SmsTicketLookupComponent,
+    GoingToCourtComponent,
+    AboutComponent,
+    LegalComponent,
+    PrivacyComponent,
+    CommunityServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +85,8 @@ import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.
     LeafletModule.forRoot(),
     MomentModule,
     MomentTimezoneModule,
-    NgxPageScrollModule
+    NgxPageScrollModule,
+    OverlayModule
   ],
   providers: [
     Title,
@@ -78,11 +96,19 @@ import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.
     LegalRightsService,
     UsStatesService,
     SnackBarService,
-    CitationService
+    CitationService,
+    SmsinfoService,
+    LoaderService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptorService,
+      multi: true,
+    }
   ],
   entryComponents: [
     SecurityDialogComponent,
-    MapSelectDialogComponent
+    MapSelectDialogComponent,
+    LoadingComponent
   ],
   bootstrap: [AppComponent]
 })

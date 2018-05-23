@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TicketNotFoundComponent } from './ticket-not-found.component';
+import { PrivacyComponent } from './privacy.component';
 
-describe('TicketNotFoundComponent', () => {
-  let component: TicketNotFoundComponent;
-  let fixture: ComponentFixture<TicketNotFoundComponent>;
+describe('PrivacyComponent', () => {
+  let component: PrivacyComponent;
+  let fixture: ComponentFixture<PrivacyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TicketNotFoundComponent ]
+      declarations: [ PrivacyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TicketNotFoundComponent);
+    fixture = TestBed.createComponent(PrivacyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

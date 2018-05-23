@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TicketNotFoundComponent } from './ticket-not-found.component';
+import { CommunityServiceComponent } from './community-service.component';
 
-describe('TicketNotFoundComponent', () => {
-  let component: TicketNotFoundComponent;
-  let fixture: ComponentFixture<TicketNotFoundComponent>;
+describe('CommunityServiceComponent', () => {
+  let component: CommunityServiceComponent;
+  let fixture: ComponentFixture<CommunityServiceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TicketNotFoundComponent ]
+      declarations: [ CommunityServiceComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TicketNotFoundComponent);
+    fixture = TestBed.createComponent(CommunityServiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
