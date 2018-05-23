@@ -43,7 +43,7 @@
       <a class="closeTicketFinderDetailsBoxButton" (click)="detailsBoxClose()"><mat-icon>close</mat-icon></a>
       <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
         <mat-form-field>
-          <input matInput placeholder="Licesnse #" [formControl]="licenseNumCtrl" required>
+          <input matInput placeholder="License #" [formControl]="licenseNumCtrl" required>
           <mat-error *ngIf="licenseNumCtrl.hasError('required')">
             License number is required.
           </mat-error>
