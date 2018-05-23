@@ -117,7 +117,7 @@ export class TicketInfoComponent implements OnInit {
             const citationMuni = this.municipalities.find((municipality) => {
               return municipality.id === citation.municipality_id;
             });
-            citation.court.paymentUrl = citationMuni.paymentUrl;
+            citation.court.paymentUrl = !!citationMuni ? citationMuni.paymentUrl : '';
           });
           if (this.citations.length === 1) {
             this.selectCitation(this.citations[0]);
