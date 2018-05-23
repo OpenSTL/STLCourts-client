@@ -31,6 +31,7 @@
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
+        "testLocal": "environments/environment.testLocal.ts",
         "local": "environments/environment.local.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
