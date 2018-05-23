@@ -8,7 +8,7 @@
     "dev": "ng serve --env=dev",
     "testlocal": "ng serve --env=testLocal",
     "local": "ng serve --env=local",
-    "start": "ng serve --proxy-config proxy.conf.json"
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
