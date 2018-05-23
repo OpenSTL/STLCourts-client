@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "http://yourstlcourts.com/api",
+    "secure": false,
+    "logLevel": "debug",
+    "router": {
+      "test.yourstlcourts.com" : "http://test.yourstlcourts.com/api",
+      "yourstlcourts.com" : "http://yourstlcourts.com/api",
+      "preview.yourstlcourts.com" : "http://test.yourstlcourts.com/api"
+    }
+  }
+}
