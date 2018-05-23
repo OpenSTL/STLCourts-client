@@ -1,0 +1,12 @@
+<div fxLayout="column" fxLayoutGap="1.5em">
+  <strong>Q: {{faqItem.q}}</strong>
+
+  <strong>
+    A: <span [innerHTML]="faqItem.a | linky:{stripPrefix: false}"></span>
+  </strong>
+
+  <mat-dialog-actions fxLayoutAlign="end">
+    <button mat-button mat-raised-button mat-dialog-close color="primary">OK</button>
+  </mat-dialog-actions>
+
+</div>

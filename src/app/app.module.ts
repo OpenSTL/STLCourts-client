@@ -37,6 +37,10 @@ import { AboutComponent } from './about/about.component';
 import { GoingToCourtComponent } from './going-to-court/going-to-court.component';
 import {SmsinfoService} from './services/smsinfo.service';
 import { LegalComponent } from './legal/legal.component';
+import { FaqComponent } from './faq/faq.component';
+import { FaqAnswerDialogComponent } from './faq-answer-dialog/faq-answer-dialog.component';
+
+import { LinkyModule } from 'angular-linky';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { CommunityServiceComponent } from './community-service/community-service.component';
 
@@ -67,6 +71,8 @@ import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.
     TicketNotFoundComponent,
     LoadingComponent,
     SmsTicketLookupComponent,
+    FaqComponent,
+    FaqAnswerDialogComponent,
     GoingToCourtComponent,
     AboutComponent,
     LegalComponent,
@@ -86,6 +92,7 @@ import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.
     MomentModule,
     MomentTimezoneModule,
     NgxPageScrollModule,
+    LinkyModule,
     OverlayModule
   ],
   providers: [
@@ -108,7 +115,8 @@ import { SmsTicketLookupComponent } from './sms-ticket-lookup/sms-ticket-lookup.
   entryComponents: [
     SecurityDialogComponent,
     MapSelectDialogComponent,
-    LoadingComponent
+    LoadingComponent,
+    FaqAnswerDialogComponent
   ],
   bootstrap: [AppComponent]
 })

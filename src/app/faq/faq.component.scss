@@ -1,0 +1,25 @@
+@import '../../styles/_colors';
+@import '../../styles/_sizes';
+
+#content {
+  margin-left: 1em;
+  margin-right: 1em;
+
+  .faqHeaderRow {
+    background-color: $primary;
+    color: $primary-contrast;
+  }
+
+  .faqItemRow {
+    flex-wrap: wrap;
+    span {
+      padding: 15px;
+      .faqQuestion {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+
