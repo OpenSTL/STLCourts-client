@@ -48,6 +48,12 @@ $warn-contrast: mat-contrast($stlcourt-app-warn,500);
   color: $warn-contrast;
 }
 
+$tableHeaderBorderColor: mat-color($stlcourt-app-primary, 900);
+$tableBorderColor: $tableHeaderBorderColor;
+$tableEvenRowColor: mat-color($stlcourt-app-primary, 50);
 $primary-light-background: mat-color($stlcourt-app-primary, 100);
 $primary-border: mat-color($stlcourt-app-primary, 700);
 $accent-light-background: mat-color($stlcourt-app-accent, 100);
+$tableOddRowColor: mat-color($stlcourt-app-primary, 100);
+$citationMobileMatCardColor: $tableEvenRowColor;
+
