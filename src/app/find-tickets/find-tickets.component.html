@@ -49,14 +49,17 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="License State" [formControl]="statesCtrl" [matAutocomplete]="auto" required>
-          <mat-autocomplete #auto="matAutocomplete">
+          <input matInput placeholder="License State" [formControl]="statesCtrl" [matAutocomplete]="auto" required (change)="onStateChanged($event.target.value)">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="stateDisplayFn" (optionSelected)="onStateChanged($event.option.value)">
             <mat-option *ngFor="let state of filteredStates | async" [value]="state.abbreviation">
               {{state.fullName}}
             </mat-option>
           </mat-autocomplete>
           <mat-error *ngIf="statesCtrl.hasError('required')">
             State is required.
+          </mat-error>
+          <mat-error *ngIf="statesCtrl.hasError('validState')">
+            {{statesCtrl.getError('validState')}}
           </mat-error>
         </mat-form-field>
 

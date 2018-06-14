@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {LoaderService} from '../services/loader.service';
 import {finalize} from 'rxjs/operators';
 

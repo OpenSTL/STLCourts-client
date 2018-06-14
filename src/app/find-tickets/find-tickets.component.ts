@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Meta} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material';
 import {SecurityDialogComponent} from '../security-dialog/security-dialog.component';
-import {FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/forms';
 import {State} from '../models/state';
 import {UsStatesService} from '../services/us-states.service';
 import {MunicipalitiesService} from '../services/municipalities.service';
@@ -29,10 +29,10 @@ export enum Showing {
 export class FindTicketsComponent implements OnInit {
   ShowingEnum = Showing;
   ticketFinderShowing: Showing;
-  ticketNumCtrl: FormControl = new FormControl('', Validators.required);
-  licenseNumCtrl: FormControl = new FormControl('', Validators.required);
-  statesCtrl: FormControl = new FormControl('', Validators.required);
-  muniCtrl: FormControl = new FormControl();
+  ticketNumCtrl: FormControl;// = new FormControl('', Validators.required);
+  licenseNumCtrl: FormControl;// = new FormControl('', Validators.required);
+  statesCtrl: FormControl;// = new FormControl('', [Validators.required, this.statesValidator()]);
+  muniCtrl: FormControl;// = new FormControl();
   states: State[];
   municipalities: Municipality[];
   // this is a list of munis that have not been selected by the map finder
@@ -62,6 +62,9 @@ export class FindTicketsComponent implements OnInit {
   onTicketFinderBoxClick(ticketBoxToShow: Showing) {
     // only change which box is showing if all boxes are selectable, otherwise one is blacked out
     if (this.ticketFinderShowing === Showing.All) {
+      if (ticketBoxToShow === Showing.Have_DL) {
+        this.initializeStateToMissouri();
+      }
       this.ticketFinderShowing = ticketBoxToShow;
     }
   }
@@ -118,7 +121,7 @@ export class FindTicketsComponent implements OnInit {
             result.lastName,
             this.ticketNumCtrl.value,
             this.licenseNumCtrl.value,
-            this.statesCtrl.value,
+            this.statesCtrl.value.abbreviation,
             this.selectedMunicipalities.map((muni) => {
               return muni.id;
             })
@@ -161,9 +164,16 @@ export class FindTicketsComponent implements OnInit {
     this.addMuni(municipality);
   }
 
-  filterStatesAutoComplete(typing: string): State[] {
+  filterStatesAutoComplete(typing: string | State): State[] {
+    let typedText = '';
+    if (typeof typing === 'string') {
+      typedText = typing;
+    } else {
+      typedText = typing.fullName;
+    }
+
     return this.states.filter(state =>
-      state.fullName.toLowerCase().includes(typing.toLowerCase()));
+      state.fullName.toLowerCase().includes(typedText.toLowerCase()));
   }
 
   filterMunisAutoComplete(typing: any): Municipality[] {
@@ -182,6 +192,34 @@ export class FindTicketsComponent implements OnInit {
     if (muniIndex > -1) {
       this.validMuniSelected(muniIndex);
     }
+  }
+
+  onStateChanged(stateName) {
+    const stateIndex = this.getStatesIndex(stateName);
+
+    if (stateIndex > -1) {
+      this.statesCtrl.setValue(this.states[stateIndex]);
+    }
+  }
+
+  private getStatesIndex(passedState: string | State): number {
+    let stateName = '';
+    if (typeof passedState === 'object') {  // validator passes an object if the state is clicked is clicked.
+      stateName = passedState.fullName;
+    } else {
+      stateName = passedState;
+    }
+
+    stateName = stateName.toLowerCase();
+    const stateIndex = this.states.findIndex( (state: State) => {
+      return (stateName === state.fullName.toLowerCase() || stateName === state.abbreviation.toLowerCase());
+    });
+
+    return stateIndex;
+  }
+
+  stateDisplayFn(state?: State): string | undefined {
+    return state ? state.fullName : undefined;
   }
 
   validMuniSelected(muniIndex: number) {
@@ -227,10 +265,32 @@ export class FindTicketsComponent implements OnInit {
     });
   }
 
+  private statesValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      if (this.getStatesIndex(control.value) !== -1) {
+        return null;
+      } else {
+        return {'validState': 'Please enter a valid state'};
+      }
+    };
+  }
+
+  private initializeStateToMissouri() {
+    const missouriIndex = this.getStatesIndex('Missouri');
+    if (missouriIndex !== -1) {
+      this.statesCtrl.setValue(this.states[missouriIndex]);
+    }
+  }
+
   ngOnInit() {
     this.ticketFinderShowing = Showing.All;
     this.states = this.usStates.getStates();
     this.selectedMunicipalities = [];
+
+    this.ticketNumCtrl = new FormControl('', Validators.required);
+    this.licenseNumCtrl = new FormControl('', Validators.required);
+    this.statesCtrl = new FormControl('', [Validators.required, this.statesValidator()]);
+    this.muniCtrl = new FormControl();
 
     this.filteredStates = this.statesCtrl.valueChanges
       .startWith(null)
@@ -244,7 +304,5 @@ export class FindTicketsComponent implements OnInit {
       this.municipalities = munis;
       this.initializeNonSelectedMunis();
     });
-
   }
-
 }
