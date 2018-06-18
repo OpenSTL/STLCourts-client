@@ -37,7 +37,6 @@ export class TicketInfoComponent implements OnInit {
   private groupCitationsByDL() {
     let dlNum = '';
     let dlState = '';
-   // this.groupedCitations = [];
     const indexArray = [];
     let index = 0;
 
@@ -48,7 +47,7 @@ export class TicketInfoComponent implements OnInit {
         // in the event the defendant does not have a DL Num assign one so the object has a key
         dlNum = this.PLACEHOLDER_DL_NUM;
       }
-      if (isNullOrUndefined(indexArray[dlNum + dlState])) {
+      if (indexArray[dlNum + dlState] === undefined || indexArray[dlNum + dlState] === null) {
         indexArray[dlNum + dlState] = index++;
         this.groupedCitations.push([]);
       }
@@ -73,6 +72,13 @@ export class TicketInfoComponent implements OnInit {
       return municipality.id === this.selectedCitation.municipality_id;
     });
     this.selectedCitation.court.paymentUrl = citationMuni.paymentUrl;
+    this.scrollToCitation();
+  }
+
+  scrollToCitation(): void {
+    const elementList = document.querySelectorAll('#citationDisplay');
+    const element = elementList[0] as HTMLElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
   getCourtById(courtId: string) {
