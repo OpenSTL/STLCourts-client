@@ -1,8 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialogRef} from '@angular/material';
-import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import * as moment from 'moment-timezone';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'L',
+  },
+  display: {
+    dateInput: 'L',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'L',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-security-dialog',
@@ -11,9 +23,10 @@ import * as moment from 'moment-timezone';
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-us'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
 })
+
 export class SecurityDialogComponent implements OnInit {
   form: FormGroup;
 
@@ -42,8 +55,11 @@ export class SecurityDialogComponent implements OnInit {
       const dobRegex: RegExp = /((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})/;
 
       if (moment.isMoment(control.value)) {
-        const input = control.value.creationData().input;
-        if (typeof input === 'string' && (dobRegex).test(input)) {
+        let input = control.value.creationData().input;
+        if (typeof input !== 'string') {
+          input = control.value.format('MM/DD/YYYY');
+        }
+        if (dobRegex.test(input)) {
           const years = moment().diff( moment(control.value), 'years', false);
           if (years < 21) {
             return {'validDobDate': 'You must be at least 21 years old to use this site.'};
