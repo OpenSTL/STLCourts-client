@@ -72,13 +72,6 @@ export class TicketInfoComponent implements OnInit {
       return municipality.id === this.selectedCitation.municipality_id;
     });
     this.selectedCitation.court.paymentUrl = citationMuni.paymentUrl;
-    this.scrollToCitation();
-  }
-
-  scrollToCitation(): void {
-    const elementList = document.querySelectorAll('#citationDisplay');
-    const element = elementList[0] as HTMLElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
   getCourtById(courtId: string) {
