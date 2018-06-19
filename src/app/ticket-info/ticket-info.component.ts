@@ -11,6 +11,8 @@ import {Observable} from 'rxjs/Observable';
 import {MunicipalitiesService} from '../services/municipalities.service';
 import {Municipality} from '../models/municipality';
 import {LegalRightsService} from '../services/legal-rights.service';
+import {HttpClient} from '@angular/common/http';
+import {Faq} from '../models/faq';
 
 @Component({
   selector: 'app-ticket-info',
@@ -21,6 +23,8 @@ export class TicketInfoComponent implements OnInit {
   PLACEHOLDER_DL_NUM = 'NO_DL_NUM';
   citations: Citation[];
   groupedCitations = [];
+  warrantFaqItems = [];
+  hasWarrant = false;
 
   displayedColumns = ['view', 'ticketNum', 'name', 'courtDate', 'courtLocation', 'violations'];
   dataSource;
@@ -32,6 +36,7 @@ export class TicketInfoComponent implements OnInit {
               private courtService: CourtsService,
               private muniService: MunicipalitiesService,  /* this can go once municipality paymentURL is moved to the courts */
               private legalRightsService: LegalRightsService,
+              private http: HttpClient,
               private router: Router) { }
 
   private groupCitationsByDL() {
@@ -73,6 +78,12 @@ export class TicketInfoComponent implements OnInit {
       return municipality.id === this.selectedCitation.municipality_id;
     });
     this.selectedCitation.court.paymentUrl = citationMuni.paymentUrl;
+
+    this.selectedCitation.violations.forEach(violation => {
+      if (violation.warrant_status) {
+        this.hasWarrant = true;
+      }
+    });
   }
 
   getCourtById(courtId: string) {
@@ -106,8 +117,9 @@ export class TicketInfoComponent implements OnInit {
       this.groupCitationsByDL();
       const courtObs$ = this.courtService.findAll();
       const muniObs$ = this.muniService.findAll();
+      const faqData$ = this.http.get('assets/questionAnswers.json');
       /* can go back to simple courts.findAll().subscribe once court on server is updated with paymentUrl */
-      Observable.zip( muniObs$, courtObs$, (munis: Municipality[], courts: Court[]) => ({munis, courts}))
+      Observable.zip( faqData$, muniObs$, courtObs$, (faqData: any, munis: Municipality[], courts: Court[]) => ({faqData, munis, courts}))
         .subscribe(result => {
           this.courts = result.courts;
           this.municipalities = result.munis;
@@ -123,6 +135,16 @@ export class TicketInfoComponent implements OnInit {
             this.selectCitation(this.citations[0]);
           }
           this.dataSource = new MatTableDataSource(this.groupedCitations);
+
+          const jsonData = result.faqData;
+          for (const group of Object.keys(jsonData)) {
+            jsonData[group].forEach((faqItem) => {
+              if (faqItem.keywords.includes('warrant')) {
+                const faq = new Faq(faqItem.q, faqItem.a, faqItem.keywords, faqItem.fillIn);
+                this.warrantFaqItems.push(faq);
+              }
+            });
+          }
         });
     }
   }
