@@ -4,7 +4,9 @@ import { SecurityDialogComponent } from './security-dialog.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material';
+import {MatDialogModule, MatDialogRef} from '@angular/material';
+import {ObservableMedia} from '@angular/flex-layout';
+import {Observable} from 'rxjs/Observable';
 
 describe('SecurityDialogComponent', () => {
   let component: SecurityDialogComponent;
@@ -14,10 +16,15 @@ describe('SecurityDialogComponent', () => {
     close: function() {}
   };
 
+  const observableMediaStub = new Observable( mediaSize => {
+    mediaSize.next('md');
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ ReactiveFormsModule, MatDatepickerModule, MatDialogModule ],
-      providers: [{provide: MatDialogRef, useValue: matDialogStub}],
+      providers: [{provide: MatDialogRef, useValue: matDialogStub},
+                  { provide: ObservableMedia, useValue: observableMediaStub }],
       declarations: [ SecurityDialogComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

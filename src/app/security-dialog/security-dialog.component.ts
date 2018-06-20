@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialogRef} from '@angular/material';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import * as moment from 'moment-timezone';
+import {MediaChange, ObservableMedia} from '@angular/flex-layout';
 
 @Component({
   selector: 'app-security-dialog',
@@ -14,11 +15,18 @@ import * as moment from 'moment-timezone';
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
 })
-export class SecurityDialogComponent implements OnInit {
+export class SecurityDialogComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  private _subscription;
+  isMobile = false;
 
   constructor(private dialogRef: MatDialogRef<SecurityDialogComponent>,
-              private formBuilder: FormBuilder) { }
+              public media$: ObservableMedia,
+              private formBuilder: FormBuilder) {
+    this._subscription = media$.subscribe((change: MediaChange) => {
+      this.isMobile = change.mqAlias === 'xs' || change.mqAlias === 'sm';
+    });
+}
 
   results() {
     return { dob: this.form.get('dob').value ? this.form.get('dob').value.format('YYYY-MM-DD') : null,
@@ -63,5 +71,9 @@ export class SecurityDialogComponent implements OnInit {
       dob: ['', [Validators.required, this.validDobDate()]],
       lastName: ['', Validators.required]
     });
+  }
+
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
   }
 }
