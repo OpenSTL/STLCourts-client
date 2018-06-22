@@ -29,10 +29,10 @@ export enum Showing {
 export class FindTicketsComponent implements OnInit {
   ShowingEnum = Showing;
   ticketFinderShowing: Showing;
-  ticketNumCtrl: FormControl;// = new FormControl('', Validators.required);
-  licenseNumCtrl: FormControl;// = new FormControl('', Validators.required);
-  statesCtrl: FormControl;// = new FormControl('', [Validators.required, this.statesValidator()]);
-  muniCtrl: FormControl;// = new FormControl();
+  ticketNumCtrl: FormControl;
+  licenseNumCtrl: FormControl;
+  statesCtrl: FormControl;
+  muniCtrl: FormControl;
   states: State[];
   municipalities: Municipality[];
   // this is a list of munis that have not been selected by the map finder
