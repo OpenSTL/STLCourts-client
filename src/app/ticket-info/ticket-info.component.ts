@@ -47,7 +47,7 @@ export class TicketInfoComponent implements OnInit {
         // in the event the defendant does not have a DL Num assign one so the object has a key
         dlNum = this.PLACEHOLDER_DL_NUM;
       }
-      if (indexArray[dlNum + dlState] === undefined || indexArray[dlNum + dlState] === null) {
+      if (!indexArray[dlNum + dlState]) {
         indexArray[dlNum + dlState] = index++;
         this.groupedCitations.push([]);
       }
