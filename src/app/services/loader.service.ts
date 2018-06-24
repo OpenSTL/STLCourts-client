@@ -13,7 +13,6 @@ export class LoaderService {
   start() {
     this.requests.push('req');
     if (this.overlayRef === null) {
-      console.log('loader started');
       const positionStrategy = this.overlay.position()
         .global()
         .centerHorizontally()
@@ -36,7 +35,6 @@ export class LoaderService {
   complete() {
     this.requests.pop();
     if (this.requests.length === 0) {
-      console.log('loader closed');
       this.overlayRef.dispose();
       this.overlayRef = null;
     }
