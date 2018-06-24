@@ -114,12 +114,30 @@
                 <li *ngFor="let violation of selectedCitation.violations" fxLayout="column">
                   <span>
                     <span>{{violation.violation_description}}</span>
-                    <mat-chip-list *ngIf="violation.warrant_status">
-                      <mat-chip color="warn" selected="true" fxLayout.xs="column"><span>WARRANT ISSUED</span><span *ngIf="violation.warrant_number"> #{{violation.warrant_number}}</span></mat-chip>
-                    </mat-chip-list>
+                  </span>
+                </li>
+                <li *ngIf="hasWarrant">
+                  <span>
+                    <mat-chip-list>
+                      <mat-chip color="warn" selected="true"><span>WARRANT ISSUED</span></mat-chip>
+                  </mat-chip-list>
                   </span>
                 </li>
               </ul>
+          </span>
+
+          <span class="warrantFaqs" *ngIf="hasWarrant">
+            You have a warrant, the following may help to answer your questions:
+            <mat-expansion-panel *ngFor="let warrantFaqItem of warrantFaqItems">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{warrantFaqItem.q}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <span [innerHTML]="warrantFaqItem.a"></span>
+
+            </mat-expansion-panel>
           </span>
         </mat-card>
       </div>

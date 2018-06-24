@@ -9,6 +9,10 @@
   margin: 0px 1em;
 }
 
+.warrantFaqs {
+  margin-top: 1em;
+}
+
 #citationDisplay {
   .regularMargins {
     margin-left: 1em;
@@ -17,6 +21,9 @@
   .mobileMargins {
     margin-left: .5em;
     margin-right: .5em;
+  }
+  #citationInfo ul {
+    list-style-type: none;
   }
 }
 

@@ -19,6 +19,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {CdkTableModule} from '@angular/cdk/table';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -42,7 +43,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatMomentDateModule,
     MatSnackBarModule,
     MatTableModule,
-    CdkTableModule
+    CdkTableModule,
+    MatExpansionModule
   ],
   exports: [
     MatButtonModule,
@@ -61,7 +63,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatMomentDateModule,
     MatSnackBarModule,
     MatTableModule,
-    CdkTableModule
+    CdkTableModule,
+    MatExpansionModule
   ],
   declarations: []
 })
