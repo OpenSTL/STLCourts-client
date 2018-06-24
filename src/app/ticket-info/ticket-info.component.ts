@@ -37,7 +37,6 @@ export class TicketInfoComponent implements OnInit {
   private groupCitationsByDL() {
     let dlNum = '';
     let dlState = '';
-   // this.groupedCitations = [];
     const indexArray = [];
     let index = 0;
 
@@ -48,7 +47,7 @@ export class TicketInfoComponent implements OnInit {
         // in the event the defendant does not have a DL Num assign one so the object has a key
         dlNum = this.PLACEHOLDER_DL_NUM;
       }
-      if (isNullOrUndefined(indexArray[dlNum + dlState])) {
+      if (!indexArray[dlNum + dlState]) {
         indexArray[dlNum + dlState] = index++;
         this.groupedCitations.push([]);
       }
