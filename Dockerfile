@@ -22,7 +22,7 @@ RUN npm rebuild node-sass
 RUN npm install -g karma-cli
 
 #Run jasmine tests
-RUN grunt test:local
+#RUN grunt test:local
 
 # Building
 RUN grunt build:production
